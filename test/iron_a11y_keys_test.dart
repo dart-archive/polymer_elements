@@ -1,0 +1,103 @@
+@TestOn('browser')
+library polymer_elements.test.iron_a11y_keys_test;
+
+import 'dart:async';
+import 'dart:html';
+import 'dart:js';
+import 'package:polymer_elements/iron_a11y_keys.dart';
+import 'package:test/test.dart';
+import 'package:web_components/web_components.dart';
+import 'common.dart';
+
+main() async {
+  await initWebComponents();
+
+  group('<iron-a11y-keys>', () {
+    IronA11yKeys keys;
+
+    setUp(() {
+      keys = new IronA11yKeys();
+      document.body.innerHtml = '';
+      document.body.append(keys);
+    });
+
+    test('target is parentNode by default', () {
+      expect(keys.target, keys.parentNode);
+    });
+
+    group('keys attribute', () {
+      test('causes an event listener to be added', () async {
+        var done = new Completer();
+        keys.keys = 'space';
+
+        keys.addEventListener('keys-pressed', (_) {
+          done.complete();
+        });
+
+        await new Future(() {});
+        pressSpace(keys.parentNode);
+
+        return done.future;
+      });
+
+      test('will not trigger events for non-specified keys', () {
+        var keysPressedCount = 0;
+
+        keys.keys = 'space';
+
+        keys.addEventListener('keys-pressed', (_) {
+          keysPressedCount++;
+        });
+
+        pressSpace(keys.parentNode);
+        pressEnter(keys.parentNode);
+
+        expect(keysPressedCount, 1);
+      });
+
+      test('triggers events for space separated keys', () {
+        var keysPressed = '';
+
+        keys.keys = 'a b c';
+
+        keys.addEventListener('keys-pressed', (event) {
+          keysPressed += new JsObject.fromBrowserObject(event)['detail']['key'];
+        });
+
+        pressAndReleaseKeyOn(keys.parentNode, 65);
+        pressAndReleaseKeyOn(keys.parentNode, 66);
+        pressAndReleaseKeyOn(keys.parentNode, 67);
+
+        expect(keysPressed, 'abc');
+      });
+    });
+
+    group('event listeners', () {
+      test('listeners are only active when element is in document', () {
+        var keysPressedCount = 0;
+        var parent = keys.parentNode;
+
+        keys.keys = 'space';
+
+        keys.addEventListener('keys-pressed', (_) {
+          keysPressedCount++;
+        });
+
+        pressSpace(parent);
+        expect(keysPressedCount, 1);
+
+        (keys.parentNode as Element).children.remove(keys);
+        flushAsynchronousOperations();
+
+        pressSpace(parent);
+        expect(keysPressedCount, 1);
+
+        parent.append(keys);
+        flushAsynchronousOperations();
+
+        pressSpace(parent);
+        expect(keysPressedCount, 2);
+      });
+    });
+  });
+}

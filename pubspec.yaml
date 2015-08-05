@@ -15,18 +15,16 @@ dev_dependencies:
   test: ^0.12.0
 dependency_overrides:
   polymer_interop:
-    path: ../polymer-interop
-#    git:
-#      ref: 0.2.0-dev
-#      url: https://github.com/dart-lang/polymer_interop.git
+    git:
+      ref: 0.2.0-dev
+      url: https://github.com/dart-lang/polymer_interop.git
   custom_element_apigen:
-    path: ../custom-element-apigen
-#    git:
-#      ref: 0.2.0-dev
-#      url: https://github.com/dart-lang/custom-element-apigen.git
+    git:
+      ref: 0.2.0-dev
+      url: https://github.com/dart-lang/custom-element-apigen.git
 environment:
   sdk: '>=1.6.0 <2.0.0'
 transformers:
 - web_components
-#- test/pub_serve:
-#    $include: test/**_test{.*,}.dart
+- test/pub_serve:
+    $include: test/**_test{.*,}.dart
