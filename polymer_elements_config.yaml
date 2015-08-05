@@ -290,6 +290,7 @@ deletion_patterns:
   - bower\.json$
   - demo\.html$
   - demos$
+  - demo$
   - README\.md$
   - ^polymer$
   - ^webcomponentsjs$
