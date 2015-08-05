@@ -1,0 +1,296 @@
+# Configuration for running tool/generate_dart_api.dart
+files_to_generate:
+  # Misc
+  - font-roboto/roboto.html
+  - hydrolysis/hydrolysis-analyzer.html:
+      omit_imports:
+        - hydrolysis.html
+  - prism-element/prism-highlighter.html:
+      omit_imports:
+        - prism-import.html
+
+#   Google Web Components https://elements.polymer-project.org/browse?package=google-web-components
+  - firebase-element/firebase-auth.html:
+      omit_imports:
+        - firebase.html
+  - firebase-element/firebase-collection.html:
+      omit_imports:
+        - firebase.html
+      name_substitutions:
+        query: queryObject
+        remove: removeItem
+  - firebase-element/firebase-document.html:
+      omit_imports:
+        - firebase.html
+      name_substitutions:
+        query: queryObject
+  - firebase-element/firebase-query-behavior.html:
+      omit_imports:
+        - firebase.html
+      name_substitutions:
+        query: queryObject
+  - google-analytics/google-analytics.html
+  - google-analytics/google-analytics-chart.html:
+      omit_imports:
+        - promise-polyfill-lite.html
+  - google-analytics/google-analytics-dashboard.html:
+      name_substitutions:
+        query: queryObject
+  - google-analytics/google-analytics-date-selector.html
+  - google-analytics/google-analytics-loader.html:
+      omit_imports:
+        - promise-polyfill-lite.html
+  - google-analytics/google-analytics-query.html
+  - google-analytics/google-analytics-view-selector.html:
+      omit_imports:
+        - account-summaries-import.html
+  - google-apis/google-apis.html
+  - google-apis/google-client-loader.html
+  - google-apis/google-js-api.html
+  - google-apis/google-legacy-loader.html
+  - google-apis/google-maps-api.html
+  - google-apis/google-plusone-api.html
+  - google-apis/google-realtime-api.html
+  - google-apis/google-youtube-api.html
+  - google-calendar/google-calendar.html
+  - google-castable-video/google-castable-video.html:
+      omit_imports:
+        - google-cast-sender-api.html
+  - google-chart/google-chart.html
+  - google-feeds/google-feeds.html:
+      name_substitutions:
+        query: queryObject
+  - google-hangout-button/google-hangout-button.html
+  - google-map/google-map.html
+  - google-map/google-map-directions.html
+  - google-map/google-map-marker.html
+  - google-map/google-map-search.html:
+      name_substitutions:
+        query: queryObject
+  - google-sheets/google-sheets.html
+  - google-signin/google-signin.html:
+      omit_imports:
+        - google-icons.html
+  - google-signin/google-signin-aware.html
+  - google-streetview-pano/google-streetview-pano.html
+  - google-url-shortener/google-url-shortener.html
+  - google-youtube/google-youtube.html
+  - google-youtube-upload/google-youtube-upload.html
+
+  # Gold Elements https://elements.polymer-project.org/browse?package=gold-elements
+  - gold-cc-cvc-input/gold-cc-cvc-input.html
+  - gold-cc-expiration-input/date-input.html
+  - gold-cc-expiration-input/date-validator.html
+  - gold-cc-expiration-input/gold-cc-expiration-input.html
+  - gold-cc-input/gold-cc-input.html
+  - gold-email-input/gold-email-input.html
+  - gold-phone-input/gold-phone-input.html
+  - gold-zip-input/gold-zip-input.html
+  - gold-zip-input/zip-validator.html
+
+  # Iron Elements https://elements.polymer-project.org/browse?package=iron-elements
+  - iron-a11y-announcer/iron-a11y-announcer.html:
+      name_substitutions:
+          created: create
+  - iron-a11y-keys/iron-a11y-keys.html
+  - iron-a11y-keys-behavior/iron-a11y-keys-behavior.html
+  - iron-ajax/iron-ajax.html
+  - iron-ajax/iron-request.html:
+      omit_imports:
+        - promise-polyfill-lite.html
+  - iron-autogrow-textarea/iron-autogrow-textarea.html
+  - iron-behaviors/iron-button-state.html
+  - iron-behaviors/iron-control-state.html
+  - iron-collapse/iron-collapse.html
+  - iron-component-page/iron-component-page.html
+  - iron-doc-viewer/iron-doc-viewer.html
+  - iron-doc-viewer/iron-doc-property.html
+  - iron-dropdown/iron-dropdown.html:
+      omit_imports:
+        - iron-dropdown-scroll-manager.html
+  - iron-fit-behavior/iron-fit-behavior.html
+  - iron-flex-layout/iron-flex-layout.html
+  - iron-flex-layout/classes/iron-flex-layout.html
+  - iron-flex-layout/classes/iron-shadow-flex-layout.html
+  - iron-form/iron-form.html
+  - iron-form-element-behavior/iron-form-element-behavior.html
+  - iron-icon/iron-icon.html
+  - iron-icons/iron-icons.html
+  - iron-iconset/iron-iconset.html
+  - iron-iconset-svg/iron-iconset-svg.html
+  - iron-image/iron-image.html
+  - iron-input/iron-input.html
+  - iron-jsonp-library/iron-jsonp-library.html
+  - iron-list/iron-list.html:
+      omit_imports:
+        - templatizer.html # Part of `polymer_interop.dart`
+  - iron-localstorage/iron-localstorage.html
+  - iron-media-query/iron-media-query.html:
+      name_substitutions:
+        query: mediaQuery
+  - iron-menu-behavior/iron-menu-behavior.html
+  - iron-menu-behavior/iron-menubar-behavior.html
+  - iron-meta/iron-meta.html
+  - iron-overlay-behavior/iron-overlay-behavior.html:
+      omit_imports:
+        - iron-overlay-manager.html
+  - iron-overlay-behavior/iron-overlay-backdrop.html:
+      omit_imports:
+        - iron-overlay-manager.html
+  - iron-pages/iron-pages.html
+  - iron-range-behavior/iron-range-behavior.html
+  - iron-resizable-behavior/iron-resizable-behavior.html
+  - iron-selector/iron-multi-selectable.html
+  - iron-selector/iron-selectable.html
+  - iron-selector/iron-selection.html
+  - iron-selector/iron-selector.html
+  - iron-signals/iron-signals.html
+  - iron-test-helpers/iron-test-helpers.html
+  - iron-validatable-behavior/iron-validatable-behavior.html
+  - iron-validator-behavior/iron-validator-behavior.html
+
+  # Molecules https://elements.polymer-project.org/browse?package=molecules
+  - marked-element/marked-element.html:
+      omit_imports:
+        - marked-import.html
+
+  # Neon Elements https://elements.polymer-project.org/browse?package=neon-elements
+  - neon-animation/animations/cascaded-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/fade-in-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/fade-out-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/hero-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/opaque-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/reverse-ripple-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/ripple-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/scale-down-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/scale-up-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/slide-down-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/slide-from-left-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/slide-from-right-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/slide-left-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/slide-right-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/slide-up-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/transform-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/neon-animatable.html
+  - neon-animation/neon-animatable-behavior.html
+  - neon-animation/neon-animated-pages.html
+  - neon-animation/neon-animation.html:
+      omit_imports:
+        - neon-animations.html
+  - neon-animation/neon-animation-behavior.html
+  - neon-animation/neon-animation-runner-behavior.html
+  - neon-animation/neon-shared-element-animatable-behavior.html
+  - neon-animation/neon-shared-element-animation-behavior.html
+
+  # Paper Elements https://elements.polymer-project.org/browse?package=paper-elements
+  - paper-badge/paper-badge.html:
+      name_substitutions:
+        for: forId
+  - paper-behaviors/paper-button-behavior.html
+  - paper-behaviors/paper-inky-focus-behavior.html
+  - paper-button/paper-button.html
+  - paper-card/paper-card.html
+  - paper-checkbox/paper-checkbox.html
+  - paper-dialog/paper-dialog.html
+  - paper-dialog-behavior/paper-dialog-behavior.html
+  - paper-dialog-scrollable/paper-dialog-scrollable.html
+  - paper-drawer-panel/paper-drawer-panel.html
+  - paper-fab/paper-fab.html
+  - paper-header-panel/paper-header-panel.html
+  - paper-icon-button/paper-icon-button.html
+  - paper-input/paper-input.html
+  - paper-input/paper-input-addon-behavior.html
+  - paper-input/paper-input-behavior.html
+  - paper-input/paper-input-char-counter.html
+  - paper-input/paper-input-container.html
+  - paper-input/paper-input-error.html
+  - paper-input/paper-textarea.html
+  - paper-item/paper-icon-item.html
+  - paper-item/paper-item.html
+  - paper-item/paper-item-body.html
+  - paper-material/paper-material.html
+  - paper-menu/paper-menu.html
+  - paper-menu-button/paper-menu-button.html
+  - paper-menu-button/paper-menu-button-animations.html:
+      omit_imports:
+        - web-animations.html
+  - paper-progress/paper-progress.html
+  - paper-radio-button/paper-radio-button.html
+  - paper-radio-group/paper-radio-group.html
+  - paper-ripple/paper-ripple.html
+  - paper-scroll-header-panel/paper-scroll-header-panel.html
+  - paper-slider/paper-slider.html
+  - paper-spinner/paper-spinner.html
+  - paper-styles/color.html
+  - paper-styles/default-theme.html
+  - paper-styles/demo-pages.html
+  - paper-styles/paper-styles.html
+  - paper-styles/paper-styles-classes.html
+  - paper-styles/shadow.html
+  - paper-styles/typography.html
+  - paper-styles/classes/global.html
+  - paper-styles/classes/shadow.html
+  - paper-styles/classes/shadow-layout.html
+  - paper-styles/classes/typography.html
+  - paper-tabs/paper-tab.html
+  - paper-tabs/paper-tabs.html
+  - paper-tabs/paper-tabs-icons.html
+  - paper-toast/paper-toast.html
+  - paper-toggle-button/paper-toggle-button.html
+  - paper-toolbar/paper-toolbar.html
+  - paper-tooltip/paper-tooltip.html:
+      name_substitutions:
+        for: forId
+
+  # Platinum Elements https://elements.polymer-project.org/browse?package=platinum-elements
+  - platinum-push-messaging/platinum-push-messaging.html:
+      omit_imports:
+        - promise-polyfill.html
+  - platinum-sw/platinum-sw-cache.html
+  - platinum-sw/platinum-sw-fetch.html
+  - platinum-sw/platinum-sw-import-script.html
+  - platinum-sw/platinum-sw-register.html
+files_to_load:
+  - package:polymer_interop/src/js/src/lib/template/templatizer.html
+deletion_patterns:
+  - metadata\.html$
+  - index\.html$
+  - bower\.json$
+  - demo\.html$
+  - demos$
+  - README\.md$
+  - ^polymer$
+  - ^webcomponentsjs$
+  - .gitignore$
