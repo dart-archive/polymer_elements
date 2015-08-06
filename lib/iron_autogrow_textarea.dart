@@ -19,9 +19,7 @@ import 'iron_flex_layout/classes/iron_flex_layout.dart';
 ///
 /// Example:
 ///
-///     <iron-autogrow-textarea id="a1">
-///       <textarea id="t1"></textarea>
-///     </iron-autogrow-textarea>
+///     <iron-autogrow-textarea></iron-autogrow-textarea>
 ///
 /// Because the `textarea`'s `value` property is not observable, you should use
 /// this element's `bind-value` instead for imperative updates.
@@ -35,8 +33,8 @@ class IronAutogrowTextarea extends HtmlElement with CustomElementProxyMixin, Pol
   set autocomplete(String value) { jsElement[r'autocomplete'] = value; }
 
   /// Bound to the textarea's `autofocus` attribute.
-  String get autofocus => jsElement[r'autofocus'];
-  set autofocus(String value) { jsElement[r'autofocus'] = value; }
+  bool get autofocus => jsElement[r'autofocus'];
+  set autofocus(bool value) { jsElement[r'autofocus'] = value; }
 
   /// Use this property instead of `value` for two-way data binding.
   String get bindValue => jsElement[r'bindValue'];

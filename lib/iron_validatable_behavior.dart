@@ -12,7 +12,7 @@ import 'iron_meta.dart';
 
 /// Use `Polymer.IronValidatableBehavior` to implement an element that validates user input.
 ///
-/// ### Accessiblity
+/// ### Accessibility
 ///
 /// Changing the `invalid` property, either manually or by calling `validate()` will update the
 /// `aria-invalid` attribute.
@@ -33,7 +33,11 @@ abstract class IronValidatableBehavior implements CustomElementProxyMixin {
   bool hasValidator() =>
       jsElement.callMethod('hasValidator', []);
 
-  /// [values]: Passed to the validator's `validate()` function.
-  bool validate(values) =>
-      jsElement.callMethod('validate', [values]);
+  /// Returns true if the `value` is valid, and updates `invalid`. If you want
+  /// your element to have custom validation logic, do not override this method;
+  /// override `_getValidity(value)` instead.
+  /// [value]: The value to be validated. By default, it is passed
+  ///     to the validator's `validate()` function, if a validator is set.
+  bool validate(value) =>
+      jsElement.callMethod('validate', [value]);
 }

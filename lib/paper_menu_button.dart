@@ -65,6 +65,12 @@ class PaperMenuButton extends HtmlElement with CustomElementProxyMixin, PolymerP
   String get horizontalAlign => jsElement[r'horizontalAlign'];
   set horizontalAlign(String value) { jsElement[r'horizontalAlign'] = value; }
 
+  /// A pixel value that will be added to the position calculated for the
+  /// given `horizontalAlign`. Use a negative value to offset to the
+  /// left, or a positive value to offset to the right.
+  num get horizontalOffset => jsElement[r'horizontalOffset'];
+  set horizontalOffset(num value) { jsElement[r'horizontalOffset'] = value; }
+
   /// Set to true to disable animations when opening and closing the
   /// dropdown.
   bool get noAnimations => jsElement[r'noAnimations'];
@@ -83,6 +89,12 @@ class PaperMenuButton extends HtmlElement with CustomElementProxyMixin, PolymerP
   /// vertically relative to the dropdown trigger.
   String get verticalAlign => jsElement[r'verticalAlign'];
   set verticalAlign(String value) { jsElement[r'verticalAlign'] = value; }
+
+  /// A pixel value that will be added to the position calculated for the
+  /// given `verticalAlign`. Use a negative value to offset towards the
+  /// top, or a positive value to offset towards the bottom.
+  num get verticalOffset => jsElement[r'verticalOffset'];
+  set verticalOffset(num value) { jsElement[r'verticalOffset'] = value; }
 
   /// Hide the dropdown content.
   void close() =>

@@ -11,7 +11,6 @@
     "paper-elements": "polymerelements/paper-elements#1.0.3",
     "gold-elements": "polymerelements/gold-elements#1.0.1",
     "neon-elements": "polymerelements/iron-elements#1.0.0",
-    "platinum-elements": "polymerelements/platinum-elements#1.0.1",
     "molecules": "polymerelements/molecules#1.0.0",
     "google-web-components": "GoogleWebComponents/google-web-components#1.0.1"
   }

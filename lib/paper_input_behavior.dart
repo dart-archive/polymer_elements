@@ -85,10 +85,21 @@ abstract class PaperInputBehavior implements CustomElementProxyMixin {
   String get list => jsElement[r'list'];
   set list(String value) { jsElement[r'list'] = value; }
 
+  /// The maximum (numeric or date-time) input value.
+  /// Can be a String (e.g. `"2000-1-1"`) or a Number (e.g. `2`).
+  /// Bind this to the `<input is="iron-input">`'s `max` property.
+  String get max => jsElement[r'max'];
+  set max(String value) { jsElement[r'max'] = value; }
+
   /// The maximum length of the input value. Bind this to the `<input is="iron-input">`'s
   /// `maxlength` property.
   num get maxlength => jsElement[r'maxlength'];
   set maxlength(num value) { jsElement[r'maxlength'] = value; }
+
+  /// The minimum (numeric or date-time) input value.
+  /// Bind this to the `<input is="iron-input">`'s `min` property.
+  String get min => jsElement[r'min'];
+  set min(String value) { jsElement[r'min'] = value; }
 
   /// Bind this to the `<input is="iron-input">`'s `minlength` property.
   num get minlength => jsElement[r'minlength'];
@@ -129,6 +140,11 @@ abstract class PaperInputBehavior implements CustomElementProxyMixin {
   /// Bind this to the `<input is="iron-input">`'s `size` property.
   num get size => jsElement[r'size'];
   set size(num value) { jsElement[r'size'] = value; }
+
+  /// Limits the numeric or date-time increments.
+  /// Bind this to the `<input is="iron-input">`'s `step` property.
+  String get step => jsElement[r'step'];
+  set step(String value) { jsElement[r'step'] = value; }
 
   /// The type of the input. The supported types are `text`, `number` and `password`. Bind this
   /// to the `<input is="iron-input">`'s `type` property.
