@@ -1,5 +1,6 @@
 library iron_elements.test.mock_interactions;
 
+import 'dart:async';
 import 'dart:html';
 import 'dart:js';
 // For the html import (which contains the js libraries)
@@ -74,7 +75,6 @@ void keyDownOn(Node target, int keyCode) {
   _MockInteractionsJs.callMethod('keyDownOn', [target, keyCode]);
 }
 
-
 void keyUpOn(Node target, int keyCode) {
   _MockInteractionsJs.callMethod('keyUpOn', [target, keyCode]);
 }
@@ -103,4 +103,24 @@ void forceXIfStamp() {
 
 void fireEvent() {
   _TestHelpersJs.callMethod('fireEvent');
+}
+
+fixture(String id) {
+  return (document.importNode(
+      (querySelector('#$id') as TemplateElement).content,
+      true) as DocumentFragment).children[0];
+}
+
+// TODO(jakemac): Remove once
+// https://github.com/dart-lang/custom-element-apigen/issues/31 is resolved.
+Future jsPromiseToFuture(JsObject promise) {
+  var completer = new Completer();
+  var done = new JsFunction.withThis((_, __) {
+    completer.complete();
+  });
+  var error = new JsFunction.withThis((error, _) {
+    completer.completeError(error);
+  });
+  promise.callMethod('then', [done, error]);
+  return completer.future;
 }
