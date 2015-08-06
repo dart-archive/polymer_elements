@@ -56,8 +56,8 @@ void blur(Node target) {
 }
 
 void downAndUp(Node target, [Function callback]) {
-  _MockInteractionsJs.callMethod(
-      'downAndUp', [target, new JsFunction.withThis(callback)]);
+  var cb = Zone.current.bindCallback(callback);
+  _MockInteractionsJs.callMethod('downAndUp', [target, cb]);
 }
 
 void track(Node target, int dx, int dy, int steps) {
@@ -132,4 +132,8 @@ Future jsPromiseToFuture(JsObject promise) {
   });
   promise.callMethod('then', [done, error]);
   return completer.future;
+}
+
+Future wait(int milliseconds) {
+  return new Future.delayed(new Duration(milliseconds: milliseconds), () {});
 }
