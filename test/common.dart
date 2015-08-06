@@ -1,5 +1,6 @@
 library iron_elements.test.mock_interactions;
 
+import 'dart:async';
 import 'dart:html';
 import 'dart:js';
 // For the html import (which contains the js libraries)
@@ -103,4 +104,18 @@ void forceXIfStamp() {
 
 void fireEvent() {
   _TestHelpersJs.callMethod('fireEvent');
+}
+
+// TODO(jakemac): Remove once
+// https://github.com/dart-lang/custom-element-apigen/issues/31 is resolved.
+Future jsPromiseToFuture(JsObject promise) {
+  var completer = new Completer();
+  var done = new JsFunction.withThis((_, __) {
+    completer.complete();
+  });
+  var error = new JsFunction.withThis((error, _) {
+    completer.completeError(error);
+  });
+  promise.callMethod('then', [done, error]);
+  return completer.future;
 }
