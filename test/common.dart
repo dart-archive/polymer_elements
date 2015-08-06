@@ -106,9 +106,18 @@ void fireEvent() {
 }
 
 fixture(String id) {
-  return (document.importNode(
+  var container = document.querySelector('#testContainer');
+  if (container == null) {
+    container = new Element.html('<div id="testContainer"></div>');
+    document.body.append(container);
+  }
+  container.children.clear();
+
+  var element = (document.importNode(
       (querySelector('#$id') as TemplateElement).content,
       true) as DocumentFragment).children[0];
+  container.append(element);
+  return element;
 }
 
 // TODO(jakemac): Remove once
