@@ -28,6 +28,8 @@ main() async {
       var setSize = 100;
       var phrase = 'It works!';
       list.items = buildDataSet(setSize);
+      // TODO(jakemac): Update once we resolve
+      // https://github.com/dart-lang/polymer_interop/issues/6
       list.jsElement.callMethod('set', ['items.0.index', phrase]);
       return new Future(() {}).then((_) {
         expect(getFirstItemFromList(list).text, phrase);
@@ -61,6 +63,8 @@ main() async {
           'contribution': 100,
           'target': setSize*rowHeight
         }, ([_]) {
+          // TODO(jakemac): Update once we resolve
+          // https://github.com/dart-lang/polymer_interop/issues/6
           list.jsElement.callMethod('set', ['items.0.index', phrase]);
           new Future(() {}).then(scrollBackUp);
         });
@@ -74,6 +78,8 @@ main() async {
       var setSize = 100;
       list.items = buildDataSet(setSize);
       setSize = list.items.length;
+      // TODO(jakemac): Update once we resolve
+      // https://github.com/dart-lang/polymer_interop/issues/6
       list.jsElement.callMethod('push', ['items', buildItem(setSize)]);
       expect(list.items.length, setSize + 1);
       new Future(() {}).then((_) {
@@ -107,6 +113,8 @@ main() async {
         }, ([_]) {
           var viewportHeight = list.offsetHeight;
           var itemsPerViewport = (viewportHeight / rowHeight).floor();
+          // TODO(jakemac): Update once we resolve
+          // https://github.com/dart-lang/polymer_interop/issues/6
           list.jsElement.callMethod('pop', ['items']);
           new Future(() {}).then((_) {
             expect(list.items.length, setSize-1);
@@ -122,6 +130,8 @@ main() async {
       var setSize = 45;
       var phrase = 'It works!';
       list.items = buildDataSet(setSize);
+      // TODO(jakemac): Update once we resolve
+      // https://github.com/dart-lang/polymer_interop/issues/6
       list.jsElement.callMethod(
           'splice', ['items', 0, setSize, buildItem(phrase)]);
       return new Future(() {}).then((_) {
