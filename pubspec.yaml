@@ -25,6 +25,7 @@ dependency_overrides:
 environment:
   sdk: '>=1.6.0 <2.0.0'
 transformers:
-- web_components
+- web_components:
+    $include: test/*_test.html
 - test/pub_serve:
     $include: test/**_test{.*,}.dart
