@@ -1,5 +1,5 @@
 @TestOn('browser')
-library polymer_elements.test.iron_list_test;
+library polymer_elements.test.iron_list_basic_test;
 
 import 'dart:async';
 import 'dart:convert';
