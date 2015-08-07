@@ -1,0 +1,41 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>iron-iconset-svg</title>
+
+  <script src="packages/web_components/webcomponents-lite.js"></script>
+  <link rel="x-dart-test" href="iron_iconset_svg_test.dart">
+  <!--<script type="application/dart" src="iron_iconset_svg_test.dart"></script>-->
+  <!--<script src="packages/browser/dart.js"></script>-->
+  <script src="packages/test/dart.js"></script>
+</head>
+<body>
+  <template id="TrivialIconsetSvg">
+    <iron-iconset-svg name="foo"></iron-iconset-svg>
+    <iron-meta type="iconset"></iron-meta>
+  </template>
+
+  <template id="StandardIconsetSvg">
+    <iron-iconset-svg name="my-icons" size="20">
+      <svg>
+        <defs>
+          <circle id="circle" cx="20" cy="20" r="10"></circle>
+          <rect id="square" x="0" y="0" width="20" height="20"></rect>
+        </defs>
+      </svg>
+    </iron-iconset-svg>
+    <div></div>
+  </template>
+</body>
+</html>
