@@ -6,7 +6,6 @@ import 'dart:convert';
 import 'dart:html';
 import 'dart:js';
 import 'package:polymer_elements/iron_iconset_svg.dart';
-import 'package:polymer_interop/polymer_interop.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
