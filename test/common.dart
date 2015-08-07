@@ -137,3 +137,5 @@ Future jsPromiseToFuture(JsObject promise) {
 Future wait(int milliseconds) {
   return new Future.delayed(new Duration(milliseconds: milliseconds), () {});
 }
+
+List keysOf(JsObject object) => context['Object'].callMethod('keys', [object]);

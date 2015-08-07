@@ -61,7 +61,7 @@ class IronForm extends FormElement with CustomElementProxyMixin, PolymerProxyMix
   /// custom components and native elements of the form. If there are elements
   /// with duplicate names, then their values will get aggregated into an
   /// array of values.
-  void serialize() =>
+  serialize() =>
       jsElement.callMethod('serialize', []);
 
   /// Called to submit the form.

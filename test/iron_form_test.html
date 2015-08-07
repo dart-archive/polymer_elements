@@ -1,0 +1,78 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>iron-form</title>
+
+  <script src="packages/web_components/webcomponents-lite.js"></script>
+  <link rel="x-dart-test" href="iron_form_test.dart">
+  <!--<script type="application/dart" src="iron_form_test.dart"></script>-->
+  <!--<script src="packages/browser/dart.js"></script>-->
+  <script src="packages/test/dart.js"></script>
+  <link rel="import" href="fixtures/simple_element.html">
+</head>
+<body>
+  <template id="Basic">
+    <form is="iron-form">
+      <simple-element name="zig" value="zag"></simple-element>
+      <input name="foo" value="bar">
+    </form>
+  </template>
+
+  <template id="Dupes">
+    <form is="iron-form">
+      <input name="foo" value="bar">
+      <input name="foo" value="barbar">
+      <simple-element name="zig" value="zig"></simple-element>
+      <simple-element name="zig" value="zag"></simple-element>
+      <simple-element name="zig" value="zug"></simple-element>
+    </form>
+  </template>
+
+  <template id="CheckedStates">
+    <form is="iron-form">
+      <input type="checkbox" name="foo" value="bar1" checked>
+      <input type="checkbox" name="foo" value="bar2">
+      <input type="checkbox" name="foo" value="bar3" checked>
+      <input type="checkbox" name="foo" value="bar4">
+    </form>
+  </template>
+
+  <template id="Disabled">
+    <form is="iron-form">
+      <input name="foo" value="bar1">
+      <input name="foo" value="bar2" disabled>
+      <input type="checkbox" name="zig" value="zag" disabled checked>
+    </form>
+  </template>
+
+  <template id="FormGet">
+    <form is="iron-form" action="fixtures/responds_to_get_with_json.json" method="get">
+      <simple-element name="zig" value="zag"></simple-element>
+    </form>
+  </template>
+
+  <template id="FormPost">
+    <form is="iron-form" action="fixtures/responds_to_post_with_json.json" method="post">
+      <simple-element name="zig" value="zag"></simple-element>
+    </form>
+  </template>
+
+  <template id="InvalidForm">
+    <form is="iron-form" action="fixtures/responds_to_post_with_json.json" method="post">
+      <simple-element name="zig"></simple-element>
+      <input name="foo" required>
+    </form>
+  </template>
+</body>
+</html>
