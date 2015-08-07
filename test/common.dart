@@ -113,11 +113,13 @@ fixture(String id) {
   }
   container.children.clear();
 
-  var element = (document.importNode(
+  var elements = new List.from((document.importNode(
       (querySelector('#$id') as TemplateElement).content,
-      true) as DocumentFragment).children[0];
-  container.append(element);
-  return element;
+      true) as DocumentFragment).children);
+  for (var element in elements) {
+    container.append(element);
+  }
+  return elements.length == 1 ? elements[0] : elements;
 }
 
 // TODO(jakemac): Remove once
