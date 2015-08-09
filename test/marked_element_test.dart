@@ -1,10 +1,7 @@
 @TestOn('browser')
-library polymer_elements.test.marked_element_camel_case_html_test;
+library polymer_elements.test.marked_element_test;
 
-import 'dart:async';
-import 'dart:convert';
 import 'dart:html';
-import 'dart:js';
 import 'package:polymer_elements/marked_element.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
