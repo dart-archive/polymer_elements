@@ -1,5 +1,5 @@
 @TestOn('browser')
-library polymer_elements.test._test;
+library polymer_elements.test.google_calendar_list_basic_test;
 
 import 'dart:async';
 import 'dart:convert';

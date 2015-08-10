@@ -1,5 +1,5 @@
 @TestOn('browser')
-library polymer_elements.test._test;
+library polymer_elements.test.google_chart_test;
 
 import 'dart:async';
 import 'dart:convert';
