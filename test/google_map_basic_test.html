@@ -1,0 +1,31 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>google-map basic test</title>
+
+  <script src="packages/web_components/webcomponents-lite.js"></script>
+  <link rel="x-dart-test" href="google_map_basic_test.dart">
+  <!--<script type="application/dart" src="google_map_basic_test.dart"></script>-->
+  <!--<script src="packages/browser/dart.js"></script>-->
+  <script src="packages/test/dart.js"></script>
+</head>
+<body>
+  <google-map id="map1"></google-map>
+  <google-map id="map2" latitude="37.555" longitude="-122.555"></google-map>
+  <google-map id="map3" disable-zoom zoom="11" min-zoom="10" max-zoom="11" no-auto-tilt fit-to-markers></google-map>
+
+  <div id='newmap'>
+</div>
+</body>
+</html>
