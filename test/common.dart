@@ -97,8 +97,8 @@ void flushAsynchronousOperations() {
   _TestHelpersJs.callMethod('flushAsynchronousOperations');
 }
 
-void forceXIfStamp() {
-  _TestHelpersJs.callMethod('forceXIfStamp');
+void forceXIfStamp(Node target) {
+  _TestHelpersJs.callMethod('forceXIfStamp', [target]);
 }
 
 void fireEvent() {
