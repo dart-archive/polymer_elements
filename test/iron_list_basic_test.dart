@@ -95,7 +95,7 @@ main() async {
       var done = new Completer();
       list.items = buildDataSet(100);
 
-      return new Future(() {}).then((_) {
+      new Future(() {}).then((_) {
         list.scrollToIndex(30);
         expect(list.firstVisibleIndex, 30);
         list.scrollToIndex(0);
@@ -116,6 +116,6 @@ main() async {
         });
       });
       return done.future;
-    });
+    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/19');
   });
 }

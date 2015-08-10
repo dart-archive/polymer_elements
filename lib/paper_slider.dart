@@ -77,8 +77,8 @@ class PaperSlider extends HtmlElement with CustomElementProxyMixin, PolymerProxy
   get keyBindings => jsElement[r'keyBindings'];
   set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
-  JsArray get markers => jsElement[r'markers'];
-  set markers(JsArray value) { jsElement[r'markers'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
+  List get markers => jsElement[r'markers'];
+  set markers(List value) { jsElement[r'markers'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// The maximum number of markers
   num get maxMarkers => jsElement[r'maxMarkers'];

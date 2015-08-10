@@ -52,8 +52,8 @@ class IronMeta extends HtmlElement with CustomElementProxyMixin, PolymerProxyMix
   set key(String value) { jsElement[r'key'] = value; }
 
   /// Array of all meta-data values for the given type.
-  JsArray get list => jsElement[r'list'];
-  set list(JsArray value) { jsElement[r'list'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
+  List get list => jsElement[r'list'];
+  set list(List value) { jsElement[r'list'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// If true, `value` is set to the iron-meta instance itself.
   bool get self => jsElement[r'self'];
@@ -125,8 +125,8 @@ class IronMetaQuery extends HtmlElement with CustomElementProxyMixin, PolymerPro
   set key(String value) { jsElement[r'key'] = value; }
 
   /// Array of all meta-data values for the given type.
-  JsArray get list => jsElement[r'list'];
-  set list(JsArray value) { jsElement[r'list'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
+  List get list => jsElement[r'list'];
+  set list(List value) { jsElement[r'list'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// The type of meta-data.  All meta-data of the same type is stored
   /// together.

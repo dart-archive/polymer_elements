@@ -12,17 +12,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <title>iron-selector activate event</title>
+  <title>iron-selector multi</title>
 
   <script src="packages/web_components/webcomponents-lite.js"></script>
-  <link rel="x-dart-test" href="iron_selector_activate_event_test.dart">
-  <!--<script type="application/dart" src="iron_selector_activate_event_test.dart"></script>-->
+  <link rel="x-dart-test" href="iron_selector_multi_test.dart">
+  <!--<script type="application/dart" src="iron_selector_multi_test.dart"></script>-->
   <!--<script src="packages/browser/dart.js"></script>-->
   <script src="packages/test/dart.js"></script>
+  <style>
+    .iron-selected {
+      background: #ccc;
+    }
+  </style>
 </head>
 <body>
   <template id="test">
-    <iron-selector id="selector" selected="0">
+    <iron-selector multi>
       <div>Item 0</div>
       <div>Item 1</div>
       <div>Item 2</div>

@@ -56,8 +56,8 @@ class FirebaseCollection extends HtmlElement with CustomElementProxyMixin, Polym
 
   /// An ordered array of data items produced by the current Firebase Query
   /// instance.
-  JsArray get data => jsElement[r'data'];
-  set data(JsArray value) { jsElement[r'data'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
+  List get data => jsElement[r'data'];
+  set data(List value) { jsElement[r'data'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// Specify an end record for the set of records reflected in the
   /// collection.

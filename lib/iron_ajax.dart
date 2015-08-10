@@ -36,8 +36,8 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerProxyMix
 
   /// An Array of all in-flight requests originating from this iron-ajax
   /// element.
-  JsArray get activeRequests => jsElement[r'activeRequests'];
-  set activeRequests(JsArray value) { jsElement[r'activeRequests'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
+  List get activeRequests => jsElement[r'activeRequests'];
+  set activeRequests(List value) { jsElement[r'activeRequests'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// If true, automatically performs an Ajax request when either `url` or
   /// `params` changes.

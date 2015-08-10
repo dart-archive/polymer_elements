@@ -98,8 +98,8 @@ class IronList extends HtmlElement with CustomElementProxyMixin, PolymerProxyMix
 
   /// An array containing items determining how many instances of the template
   /// to stamp and that that each template instance should bind to.
-  JsArray get items => jsElement[r'items'];
-  set items(JsArray value) { jsElement[r'items'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
+  List get items => jsElement[r'items'];
+  set items(List value) { jsElement[r'items'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// Scroll to a specific item in the virtual list regardless
   /// of the physical items in the DOM tree.

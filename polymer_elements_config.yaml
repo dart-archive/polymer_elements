@@ -274,14 +274,15 @@ files_to_generate:
       name_substitutions:
         for: forId
 
-  # Platinum Elements https://elements.polymer-project.org/browse?package=platinum-elements
-  - platinum-push-messaging/platinum-push-messaging.html:
-      omit_imports:
-        - promise-polyfill.html
-  - platinum-sw/platinum-sw-cache.html
-  - platinum-sw/platinum-sw-fetch.html
-  - platinum-sw/platinum-sw-import-script.html
-  - platinum-sw/platinum-sw-register.html
+# TODO(jakemac): https://github.com/dart-lang/polymer_elements/issues/12
+#  # Platinum Elements https://elements.polymer-project.org/browse?package=platinum-elements
+#  - platinum-push-messaging/platinum-push-messaging.html:
+#      omit_imports:
+#        - promise-polyfill.html
+#  - platinum-sw/platinum-sw-cache.html
+#  - platinum-sw/platinum-sw-fetch.html
+#  - platinum-sw/platinum-sw-import-script.html
+#  - platinum-sw/platinum-sw-register.html
 files_to_load:
   - package:polymer_interop/src/js/src/lib/template/templatizer.html
 deletion_patterns:

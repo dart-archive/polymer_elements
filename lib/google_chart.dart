@@ -59,8 +59,8 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerProxy
   ///  {label: "Value", type: "number"}]</pre>
   /// See <a href="https://google-developers.appspot.com/chart/interactive/docs/reference#DataTable_addColumn">Google Visualization API reference (addColumn)</a>
   /// for column definition format.
-  JsArray get cols => jsElement[r'cols'];
-  set cols(JsArray value) { jsElement[r'cols'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
+  List get cols => jsElement[r'cols'];
+  set cols(List value) { jsElement[r'cols'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// Sets the entire dataset for this object.
   /// Can be used to provide the data directly, or to provide a URL from
@@ -104,8 +104,8 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerProxy
   ///  ["Category 2", 1.1]]</pre>
   /// See <a href="https://google-developers.appspot.com/chart/interactive/docs/reference#addrow">Google Visualization API reference (addRow)</a>
   /// for row format.
-  JsArray get rows => jsElement[r'rows'];
-  set rows(JsArray value) { jsElement[r'rows'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
+  List get rows => jsElement[r'rows'];
+  set rows(List value) { jsElement[r'rows'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// Selected datapoint(s) in the map.
   ///
@@ -120,8 +120,8 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerProxy
   /// <pre>
   ///   [{row:0,column:1}, {row:1, column:null}]
   /// </pre>
-  JsArray get selection => jsElement[r'selection'];
-  set selection(JsArray value) { jsElement[r'selection'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
+  List get selection => jsElement[r'selection'];
+  set selection(List value) { jsElement[r'selection'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// Sets the type of the chart.
   ///

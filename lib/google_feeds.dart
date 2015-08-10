@@ -33,8 +33,8 @@ class GoogleFeeds extends HtmlElement with CustomElementProxyMixin, PolymerProxy
   set feed(String value) { jsElement[r'feed'] = value; }
 
   /// An array of multiple feeds. Feed will load, and report results in `google-feeds-response` event.
-  JsArray get feeds => jsElement[r'feeds'];
-  set feeds(JsArray value) { jsElement[r'feeds'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
+  List get feeds => jsElement[r'feeds'];
+  set feeds(List value) { jsElement[r'feeds'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// True if feeds API is loading an item
   bool get loading => jsElement[r'loading'];

@@ -99,16 +99,16 @@ class GoogleSheets extends HtmlElement with CustomElementProxyMixin, PolymerProx
   set published(bool value) { jsElement[r'published'] = value; }
 
   /// If a spreadsheet `key` is specified, returns a list of cell row data.
-  JsArray get rows => jsElement[r'rows'];
-  set rows(JsArray value) { jsElement[r'rows'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
+  List get rows => jsElement[r'rows'];
+  set rows(List value) { jsElement[r'rows'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// The fetched sheet corresponding to the `key` attribute.
   get sheet => jsElement[r'sheet'];
   set sheet(value) { jsElement[r'sheet'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// List of the user's spreadsheets. Shared across instances.
-  JsArray get spreadsheets => jsElement[r'spreadsheets'];
-  set spreadsheets(JsArray value) { jsElement[r'spreadsheets'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
+  List get spreadsheets => jsElement[r'spreadsheets'];
+  set spreadsheets(List value) { jsElement[r'spreadsheets'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// Meta data about the particular tab that was retrieved for the spreadsheet.
   get tab => jsElement[r'tab'];

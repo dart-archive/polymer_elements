@@ -70,8 +70,8 @@ class GoogleYoutubeUpload extends HtmlElement with CustomElementProxyMixin, Poly
   set privacyStatus(String value) { jsElement[r'privacyStatus'] = value; }
 
   /// The array of tags for the new YouTube video.
-  JsArray get tags => jsElement[r'tags'];
-  set tags(JsArray value) { jsElement[r'tags'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
+  List get tags => jsElement[r'tags'];
+  set tags(List value) { jsElement[r'tags'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// The id of the new video.
   ///

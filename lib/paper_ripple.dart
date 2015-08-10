@@ -94,8 +94,8 @@ class PaperRipple extends HtmlElement with CustomElementProxyMixin, PolymerProxy
   set recenters(bool value) { jsElement[r'recenters'] = value; }
 
   /// A list of the visual ripples.
-  JsArray get ripples => jsElement[r'ripples'];
-  set ripples(JsArray value) { jsElement[r'ripples'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
+  List get ripples => jsElement[r'ripples'];
+  set ripples(List value) { jsElement[r'ripples'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   get shouldKeepAnimating => jsElement[r'shouldKeepAnimating'];
 

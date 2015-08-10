@@ -36,16 +36,16 @@ class IronComponentPage extends HtmlElement with CustomElementProxyMixin, Polyme
   set base(String value) { jsElement[r'base'] = value; }
 
   /// The Hydrolysis behavior descriptors that have been loaded.
-  JsArray get docBehaviors => jsElement[r'docBehaviors'];
-  set docBehaviors(JsArray value) { jsElement[r'docBehaviors'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
+  List get docBehaviors => jsElement[r'docBehaviors'];
+  set docBehaviors(List value) { jsElement[r'docBehaviors'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// Demos for the currently selected element.
-  JsArray get docDemos => jsElement[r'docDemos'];
-  set docDemos(JsArray value) { jsElement[r'docDemos'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
+  List get docDemos => jsElement[r'docDemos'];
+  set docDemos(List value) { jsElement[r'docDemos'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// The Hydrolysis element descriptors that have been loaded.
-  JsArray get docElements => jsElement[r'docElements'];
-  set docElements(JsArray value) { jsElement[r'docElements'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
+  List get docElements => jsElement[r'docElements'];
+  set docElements(List value) { jsElement[r'docElements'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// The URL to a precompiled JSON descriptor. If you have precompiled
   /// and stored a documentation set using Hydrolysis, you can load the

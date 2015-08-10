@@ -98,7 +98,7 @@ main() async {
         });
       });
       return done.future;
-    });
+    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/19');
 
     test('pop', () {
       var done = new Completer();
@@ -124,7 +124,7 @@ main() async {
         });
       });
       return done.future;
-    });
+    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/19');
     
     test('splice', () {
       var setSize = 45;

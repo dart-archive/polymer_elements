@@ -56,8 +56,8 @@ class IronIconset extends HtmlElement with CustomElementProxyMixin, PolymerProxy
   factory IronIconset() => new Element.tag('iron-iconset');
 
   /// Array of fully-qualified names of icons in this set.
-  JsArray get iconNames => jsElement[r'iconNames'];
-  set iconNames(JsArray value) { jsElement[r'iconNames'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
+  List get iconNames => jsElement[r'iconNames'];
+  set iconNames(List value) { jsElement[r'iconNames'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// A space separated list of names corresponding to icons in the iconset
   /// image file. This list must be ordered the same as the icon images
