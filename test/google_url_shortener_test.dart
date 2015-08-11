@@ -13,9 +13,13 @@ import 'common.dart';
 
 main() async {
   await initWebComponents();
-  GoogleUrlShortener shortener = document.querySelector('#shortener');
+  GoogleUrlShortener shortener;
   
   group('<google-url-shortener>', () {
+    setUp(() {
+      shortener = fixture('shortener');
+    });
+
     test('fires google-url-shortener-ready event', () {
       var done = new Completer();
       shortener.on['google-url-shortener-ready'].take(1).listen((event) {
