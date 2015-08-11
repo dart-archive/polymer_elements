@@ -14,12 +14,16 @@ import 'common.dart';
 main() async {
   await initWebComponents();
 
-  GoogleMap map = document.querySelector('#map1');
+  GoogleMap map;
 
   group('markers', () {
+    setUp(() {
+      map = fixture('map1');
+    });
+
     test('markers are defined, added, removed', () {
       var done = new Completer();
-      map.on['google-map-ready'].take(1).listen((e) {
+      onReady(map, (e) {
         // Check if marker children were setup and can be added/removed.
         // TODO(jakemac): https://github.com/dart-lang/polymer_elements/issues/20
         expect(map.jsElement['markers'].length, 2);
@@ -46,4 +50,12 @@ main() async {
       return done.future;
     });
   });
+}
+
+onReady(GoogleMap map, Function fn) {
+  if (map.map != null) {
+    fn();
+  } else {
+    map.on['google-map-ready'].take(1).listen(fn);
+  }
 }

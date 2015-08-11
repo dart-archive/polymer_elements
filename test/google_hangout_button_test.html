@@ -21,12 +21,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script src="packages/test/dart.js"></script>
 </head>
 <body>
-  <google-hangout-button
-      type="party"
-      apps='[{"app_id": "184219133185", "start_data": "dQw4w9WgXcQ", "app_type": "ROOM_APP" }]'
-      topic="test topic"
-      invites='[{ "id": "foo@example.com", "invite_type": "EMAIL" }]'
-      width="72">
-  </google-hangout-button>
+  <template id="basic">
+    <google-hangout-button
+        type="party"
+        apps='[{"app_id": "184219133185", "start_data": "dQw4w9WgXcQ", "app_type": "ROOM_APP" }]'
+        topic="test topic"
+        invites='[{ "id": "foo@example.com", "invite_type": "EMAIL" }]'
+        width="72">
+    </google-hangout-button>
+  </template>
 </body>
 </html>

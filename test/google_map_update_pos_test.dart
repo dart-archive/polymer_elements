@@ -14,12 +14,16 @@ import 'common.dart';
 main() async {
   await initWebComponents();
 
-  GoogleMap map = document.querySelector('#map');
+  GoogleMap map;
 
   group('markers', () {
+    setUp(() {
+      map = fixture('map');
+    });
+
     test('update lat/lng', () {
       var done = new Completer();
-      map.on['google-map-ready'].take(1).listen((e) {
+      onReady(map, (e) {
         expect(map.latitude, 37.555);
         expect(map.longitude, -122.555);
 
@@ -37,4 +41,12 @@ main() async {
       return done.future;
     });
   });
+}
+
+onReady(GoogleMap map, Function fn) {
+  if (map.map != null) {
+    fn();
+  } else {
+    map.on['google-map-ready'].take(1).listen(fn);
+  }
 }

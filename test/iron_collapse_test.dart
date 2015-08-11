@@ -14,7 +14,7 @@ main() async {
 
   group('basic', () {
     IronCollapse collapse;
-    var delay = new Duration(milliseconds: 500);
+    var delay = new Duration(milliseconds: 750);
     var collapseHeight;
     
     setUp( () {

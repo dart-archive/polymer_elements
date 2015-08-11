@@ -15,7 +15,11 @@ main() async {
   await initWebComponents();
 
   group('<google-chart>', () {
-    GoogleChart chart = document.querySelector('#test-chart');
+    GoogleChart chart;
+
+    setUp(() {
+      chart = fixture('test-chart');
+    });
 
     test('fires google-chart-render event for initial load', () {
       var done = new Completer();

@@ -21,11 +21,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script src="packages/test/dart.js"></script>
 </head>
 <body>
-  <google-map id="map1"></google-map>
-  <google-map id="map2" latitude="37.555" longitude="-122.555"></google-map>
-  <google-map id="map3" disable-zoom zoom="11" min-zoom="10" max-zoom="11" no-auto-tilt fit-to-markers></google-map>
+  <template id="map">
+    <google-map></google-map>
+  </template>
+
+  <template id="map2">
+    <google-map latitude="37.555" longitude="-122.555"></google-map>
+  </template>
+
+  <template id="map3">
+    <google-map disable-zoom zoom="11" min-zoom="10" max-zoom="11" no-auto-tilt fit-to-markers></google-map>
+  </template>
 
   <div id='newmap'>
-</div>
+  </div>
 </body>
 </html>

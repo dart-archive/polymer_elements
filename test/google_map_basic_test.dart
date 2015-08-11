@@ -15,57 +15,77 @@ main() async {
   await initWebComponents();
 
   group('google-map', () {
-
-    GoogleMap map = document.querySelector('#map1');
-    GoogleMap map2 = document.querySelector('#map2');
-    GoogleMap map3 = document.querySelector('#map3');
   
-    test('noAutoTilt', () async {
-      var done1 = new Completer();
-      var done2 = new Completer();
-      map.on['google-map-ready'].take(1).listen((e) {
+    test('autoTilt', () {
+      var done = new Completer();
+      GoogleMap map = fixture('map');
+      onReady(map, ([e]) {
         // When noAutoTilt is set, tilt is left at default (45).
         expect(map.map.callMethod('getTilt'), 45);
-        done1.complete();
+        done.complete();
       });
-      map3.on['google-map-ready'].take(1).listen((e) {
+      return done.future;
+    });
+
+    test('noAutoTilt', () {
+      var done = new Completer();
+      GoogleMap map = fixture('map3');
+      onReady(map, ([e]) {
         // When noAutoTilt is set, tilt is set to 0.
-        expect(map3.map.callMethod('getTilt'), 0);
-        done2.complete();
+        expect(map.map.callMethod('getTilt'), 0);
+        done.complete();
       });
-      await done1.future;
-      await done2.future;
+      return done.future;
     });
   
     test('defaults', () {
-      // TODO(jakemac): https://github.com/dart-lang/polymer_elements/issues/20
-      expect(map.jsElement['markers'].length, 0);
-      expect(map.fitToMarkers, isFalse);
-      expect(map.disableDefaultUi, isFalse);
-      expect(map.zoom, 10);
-      expect(map.noAutoTilt, false);
-      expect(map.maxZoom, isNull);
-      expect(map.minZoom, isNull);
-      expect(map.disableZoom, isFalse);
-      expect(map.latitude, 37.77493);
-      expect(map.longitude, -122.41942);
-      expect(map.mapType, 'roadmap');
+      var done = new Completer();
+      GoogleMap map = fixture('map');
+      onReady(map, ([e]) {
+        // TODO(jakemac): https://github.com/dart-lang/polymer_elements/issues/20
+        expect(map.jsElement['markers'].length, 0);
+        expect(map.fitToMarkers, isFalse);
+        expect(map.disableDefaultUi, isFalse);
+        expect(map.zoom, 10);
+        expect(map.noAutoTilt, false);
+        expect(map.maxZoom, isNull);
+        expect(map.minZoom, isNull);
+        expect(map.disableZoom, isFalse);
+        expect(map.latitude, 37.77493);
+        expect(map.longitude, -122.41942);
+        expect(map.mapType, 'roadmap');
+        done.complete();
+      });
+      return done.future;
     });
   
     test('change properties', () {
       var done = new Completer();
-      expect(map3.fitToMarkers, isTrue);
-      // TODO(jakemac): https://github.com/dart-lang/polymer_elements/issues/20
-      expect(map3.jsElement['markers'].length, 0);
-      expect(map3.zoom, map3.map.callMethod('getZoom'));
-      expect(map3.maxZoom, map3.map['maxZoom']);
-      expect(map3.minZoom, map3.map['minZoom']);
-      expect(map3.disableZoom, isTrue);
+      GoogleMap map = fixture('map3');
+      onReady(map, ([_]) {
+        expect(map.fitToMarkers, isTrue);
+        // TODO(jakemac): https://github.com/dart-lang/polymer_elements/issues/20
+        expect(map.jsElement['markers'].length, 0);
+        expect(map.zoom, map.map.callMethod('getZoom'));
+        expect(map.maxZoom, map.map['maxZoom']);
+        expect(map.minZoom, map.map['minZoom']);
+        expect(map.disableZoom, isTrue);
+        done.complete();
+      });
+      return done.future;
     });
   
     test('declarative map creation', () {
-      var map = document.createElement('google-map');
+      GoogleMap map = new GoogleMap();
       document.querySelector('#newmap').append(map);
     });
   });
+}
+
+onReady(GoogleMap map, Function fn) {
+  if (map.map != null) {
+    fn();
+  } else {
+    map.on['google-map-ready'].take(1).listen(fn);
+  }
 }

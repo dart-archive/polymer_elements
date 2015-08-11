@@ -13,9 +13,13 @@ import 'common.dart';
 
 main() async {
   await initWebComponents();
-  GoogleSheets sheet = document.querySelector('#sheet');
+  GoogleSheets sheet;
 
   group('<google-sheets>', () {
+    setUp(() {
+      sheet = fixture('sheet');
+    });
+
     test('published', () {
       var done = new Completer();
       expect(sheet.published, isTrue);

@@ -11,12 +11,16 @@ import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
 
-GoogleYoutube googleYouTube = document.querySelector('google-youtube');
+GoogleYoutube googleYouTube;
 
 main() async {
   await initWebComponents();
 
   group('<google-youtube>', () {
+    setUp(() {
+      googleYouTube = fixture('basic');
+    });
+
     test('ToHHMMSS', () {
       // Durations in seconds and the formatted string that's expected for each.
       var durationsToFormattedStrings = {
@@ -42,7 +46,7 @@ main() async {
       var done = new Completer();
 
       // Playback can't be initiated until after the google-youtube-ready event is fired.
-      googleYouTube.on['google-youtube-ready'].take(1).listen((_) {
+      onReady(googleYouTube, ([_]) {
         // Expected state transitions: -1 (unstarted) -> 3 (buffering) -> 1 (playing)
         var stateTransitions = new JsArray.from([-1, 3, 1]);
 
@@ -65,4 +69,12 @@ main() async {
       return done.future;
     });
   });
+}
+
+void onReady(GoogleYoutube proxy, Function fn) {
+  if (proxy.jsElement['_player'] == true) {
+    fn();
+  } else {
+    proxy.on['google-youtube-ready'].take(1).listen(fn);
+  }
 }

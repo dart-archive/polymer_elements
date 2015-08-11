@@ -15,9 +15,13 @@ import 'common.dart';
 main() async {
   await initWebComponents();
 
-  GoogleMap map = document.querySelector('#map1');
+  GoogleMap map;
 
   group('markers', () {
+    setUp(() {
+      map = fixture('map1');
+    });
+
     test('defaults', () {
       var markerEl = Polymer.dom(map).querySelector('google-map-marker');
       expect(markerEl.marker, isNull);
@@ -33,7 +37,7 @@ main() async {
 
     test('update properties', () {
       var done = new Completer();
-      map.on['google-map-ready'].take(1).listen((e) {
+      map.on['google-map-ready'].take(1).listen((_) {
         var markerEl = Polymer.dom(map).querySelector('google-map-marker');
         markerEl.latitude = 37.77493;
         markerEl.longitude = -122.41942;
@@ -56,6 +60,9 @@ main() async {
           });
         });
       });
+      if (map.map != null) {
+        map.dispatchEvent(new Event('google-map-ready'));
+      }
 
       return done.future;
     });

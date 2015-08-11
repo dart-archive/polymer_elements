@@ -16,8 +16,12 @@ main() async {
   await initWebComponents();
 
   group('<google-hangout-button>', () {
-    GoogleHangoutButton hg = document.querySelector('google-hangout-button');
+    GoogleHangoutButton hg;
     var apiSpy;
+
+    setUp(() {
+      hg = fixture('basic');
+    });
 
     test('basic', () {
       var done = new Completer();

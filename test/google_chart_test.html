@@ -27,12 +27,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </style>
 </head>
 <body>
-  <!-- Basic chart to test with. -->
-  <google-chart
-      id="test-chart"
-      cols='[{"label": "Data", "type": "string"},{"label": "Value", "type": "number"}]'
-      rows='[["Something", 1]]'>
-  </google-chart>
-  <p></p>
+  <template id="test-chart">
+    <!-- Basic chart to test with. -->
+    <google-chart
+        cols='[{"label": "Data", "type": "string"},{"label": "Value", "type": "number"}]'
+        rows='[["Something", 1]]'>
+    </google-chart>
+  </template>
 </body>
 </html>
