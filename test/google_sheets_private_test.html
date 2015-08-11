@@ -1,0 +1,37 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>google-sheets private</title>
+
+  <script src="packages/web_components/webcomponents-lite.js"></script>
+  <link rel="x-dart-test" href="google_sheets_private_test.dart">
+  <!--<script type="application/dart" src="google_sheets_private_test.dart"></script>-->
+  <!--<script src="packages/browser/dart.js"></script>-->
+  <script src="packages/test/dart.js"></script>
+</head>
+<body>
+  <div>
+    <p>Tests live private spreadsheet data.</p>
+    <p>This test needs to be run manually, standalone in order to fetch an OAuth token.</p>
+
+    <b>NOTES:</b><br>
+    <li>run manually off of localhost:3000/google-sheets/tests/private.html. Can also run from port 8080.</li>
+    <li>use the account: webcomponents.test@gmail.com</li>
+  </div>
+
+  <google-sheets id="sheet" gid="1"
+                 client-id="750497606405-1hq66meqmr4dp09dn54j9ggv85vbv0gp.apps.googleusercontent.com"
+                 key="0AjqzxJ5RoRrWdGh2S0RRYURXTlNHdm9pQlFuM1ZwZWc"></google-sheets>
+</body>
+</html>
