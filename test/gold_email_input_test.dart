@@ -135,8 +135,8 @@ main() async {
       testEmail('email@domain@domain.com', false);
     });
     test('unicode in address', () {
-      testEmail('?????@domain.com', false);
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/3');
+      testEmail('൰ඎළ@domain.com', false);
+    });
     test('text after address', () {
       testEmail('email@domain.com (Joe Smith)', false);
     });
