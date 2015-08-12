@@ -29,7 +29,7 @@ main() async {
       expect(storage.value, isNotNull);
       expect(storage.value['foo'], 'bar');
     });
-    
+
     test('save', () {
       var newValue = {'foo': 'zot'};
       storage.value = newValue;
@@ -38,14 +38,14 @@ main() async {
       v = JSON.decode(v);
       expect(v['foo'], newValue['foo']);
     });
-    
+
     test('delete', () {
       storage.value = null;
       storage.jsElement.callMethod('flushDebouncer', ['save']);
       var v = window.localStorage[storage.name];
       expect(v, isNull);
     });
-    
+
     test('event iron-localstorage-load', () {
       var done = new Completer();
       var ls = document.createElement('iron-localstorage');
@@ -55,7 +55,7 @@ main() async {
       ls.name = 'iron-localstorage-test';
       return done.future;
     });
-    
+
     test('event iron-localstorage-load-empty', () {
       var done = new Completer();
       window.localStorage.remove('iron-localstorage-test');
@@ -76,7 +76,7 @@ main() async {
       var t = new JsObject.fromBrowserObject(
           document.querySelector('#boundTemplate'));
       var ls = document.querySelector('#boundLocal') as IronLocalstorage;
-      var value = { 'foo': 'FOO', 'bar': 'BAR' };
+      var value = new JsObject.jsify({ 'foo': 'FOO', 'bar': 'BAR' });
       t['value']= value;
       expect('FOO', ls.value['foo']); // value has propagated from template to storage
       ls.jsElement.callMethod('flushDebouncer', ['save']);

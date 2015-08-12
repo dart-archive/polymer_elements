@@ -31,21 +31,20 @@ main() async {
 
       // Run tests.
       cal.on['google-api-load'].take(1).listen((_) {
-        var testCalendar = new JsObject.jsify({
-          'kind': 'calendar#calendarListEntry',
-          'id': 'test_id',
-          'summary': 'test summary',
-          'description': 'test description',
-          'timeZone': 'Asia/Calcutta',
-          'backgroundColor': '#000'
+        var response = new JsObject.jsify({
+          'items': [{
+            'kind': 'calendar#calendarListEntry',
+            'id': 'test_id',
+            'summary': 'test summary',
+            'description': 'test description',
+            'timeZone': 'Asia/Calcutta',
+            'backgroundColor': '#000'
+          }],
         });
 
         var request = new JsObject.jsify({
           'execute': new JsFunction.withThis((_, callback) {
-            var resp = new JsObject.jsify({
-              'items': new JsObject.jsify([testCalendar])
-            });
-            callback(resp);
+            callback.apply([response]);
           })
         });
         // Stub out calendar request call.
@@ -60,7 +59,7 @@ main() async {
         PolymerDom.flush();
         wait(1).then((_) {
           // Check if calendars get updated.
-          expect(cal.calendars, new JsObject.jsify([testCalendar]));
+          expect(cal.calendars, response['items']);
           done.complete();
         });
       });
