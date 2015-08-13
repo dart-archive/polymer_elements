@@ -15,7 +15,7 @@ dev_dependencies:
   test: ^0.12.0
   polymer:
     git:
-      ref: 0.17-0-dev-interop-reverse
+      ref: behaviors
       url: https://github.com/dart-lang/polymer-dart.git
 
 dependency_overrides:
@@ -27,6 +27,8 @@ dependency_overrides:
     git:
       ref: 0.2.0-dev
       url: https://github.com/dart-lang/custom-element-apigen.git
+  reflectable:
+    path: ../reflectable/reflectable
 environment:
   sdk: '>=1.6.0 <2.0.0'
 transformers:
