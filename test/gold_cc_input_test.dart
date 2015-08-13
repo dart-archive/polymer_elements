@@ -62,7 +62,7 @@ main() async {
       input.validate();
       expect(error.getComputedStyle().display, isNot('none'),
           reason: 'error should not be display:none');
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/3');
+    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/26');
 
     test('caret position is preserved', () {
       GoldCcInput input = fixture('required');

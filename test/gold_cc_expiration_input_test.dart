@@ -86,9 +86,9 @@ main() async {
       expect(year.getAttribute('aria-labelledby'), isNotNull);
 
       expect(
-          month.getAttribute('aria-labelledby'), equals(label + ' monthLabel'));
+          month.getAttribute('aria-labelledby'), equals('$label monthLabel'));
       expect(
-          year.getAttribute('aria-labelledby'), equals(label + ' yearLabel'));
+          year.getAttribute('aria-labelledby'), equals('$label yearLabel'));
     });
   });
 }
