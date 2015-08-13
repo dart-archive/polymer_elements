@@ -1,4 +1,6 @@
 @HtmlImport('neon_test_resizable_pages.html')
+//TODO(jakemac): Add NeonSharedElementAnimatableBehavior and IronResizableBehavior to all of these once
+// https://github.com/dart-lang/polymer-dart/issues/551 is resolved.
 import 'dart:html';
 
 import 'package:polymer/polymer.dart';

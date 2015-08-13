@@ -140,10 +140,6 @@ Future wait(int milliseconds) {
   return new Future.delayed(new Duration(milliseconds: milliseconds), () {});
 }
 
-wait_async(int milliseconds) async{
-  return wait(milliseconds);
-}
-
 List keysOf(JsObject object) => context['Object'].callMethod('keys', [object]);
 
 JsObject eventDetail(CustomEvent event) {
