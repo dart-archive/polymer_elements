@@ -1,0 +1,24 @@
+<link rel="import" href="packages/polymer_interop/polymer.html">
+
+<dom-module id="test-button">
+    <style>
+        :host {
+            display: inline-block;
+        }
+        #button {
+            width: 100px;
+            height: 20px;
+            background-color: red;
+        }
+    </style>
+    <template>
+        <div id="button"></div>
+        <paper-badge id="badge" for="button" label="1"></paper-badge>
+    </template>
+
+</dom-module>
+<script>
+    Polymer({
+        is: 'test-button'
+    });
+</script>
