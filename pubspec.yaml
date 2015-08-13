@@ -13,6 +13,11 @@ dev_dependencies:
   path: ^1.0.0
   yaml: ">=1.0.0 <3.0.0"
   test: ^0.12.0
+  polymer:
+    git:
+      ref: 0.17-0-dev-interop-reverse
+      url: https://github.com/dart-lang/polymer-dart.git
+
 dependency_overrides:
   polymer_interop:
     git:
