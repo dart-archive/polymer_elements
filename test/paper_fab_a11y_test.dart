@@ -1,12 +1,7 @@
 @TestOn('browser')
 library polymer_elements.test.paper_fab_a11y_test;
 
-import 'dart:html';
-import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/paper_fab.dart';
-import 'package:polymer_elements/iron_icon.dart';
-import 'package:polymer_elements/iron_icons.dart';
-import 'dart:math';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
