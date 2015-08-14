@@ -70,12 +70,13 @@ import 'paper_styles.dart';
 /// ----------------|-------------|----------
 /// `--paper-input-container-color` | Label and underline color when the input is not focused | `--secondary-text-color`
 /// `--paper-input-container-focus-color` | Label and underline color when the input is focused | `--default-primary-color`
-/// `--paper-input-container-invalid-color` | Label and underline color when the input is focused | `--google-red-500`
+/// `--paper-input-container-invalid-color` | Label and underline color when the input is is invalid | `--google-red-500`
 /// `--paper-input-container-input-color` | Input foreground color | `--primary-text-color`
 /// `--paper-input-container` | Mixin applied to the container | `{}`
 /// `--paper-input-container-label` | Mixin applied to the label | `{}`
 /// `--paper-input-container-label-focus` | Mixin applied to the label when the input is focused | `{}`
 /// `--paper-input-container-input` | Mixin applied to the input | `{}`
+/// `--paper-input-container-input-disabled` | Mixin applied to the input when it's disabled | `{}`
 /// `--paper-input-container-prefix` | Mixin applied to the input prefix | `{}`
 /// `--paper-input-container-suffix` | Mixin applied to the input suffix | `{}`
 /// `--paper-input-container-underline` | Mixin applied to the underline | `{}`

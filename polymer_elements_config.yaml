@@ -227,6 +227,7 @@ files_to_generate:
   - paper-dialog-behavior/paper-dialog-behavior.html
   - paper-dialog-scrollable/paper-dialog-scrollable.html
   - paper-drawer-panel/paper-drawer-panel.html
+  - paper-dropdown-menu/paper-dropdown-menu.html
   - paper-fab/paper-fab.html
   - paper-header-panel/paper-header-panel.html
   - paper-icon-button/paper-icon-button.html
@@ -242,6 +243,7 @@ files_to_generate:
   - paper-item/paper-item-body.html
   - paper-material/paper-material.html
   - paper-menu/paper-menu.html
+  - paper-menu/paper-submenu.html
   - paper-menu-button/paper-menu-button.html
   - paper-menu-button/paper-menu-button-animations.html:
       omit_imports:

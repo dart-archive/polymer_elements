@@ -309,13 +309,6 @@ element.
       return this.url;
     },
 
-    /**
-     * An object that maps header names to header values, first applying the
-     * the value of `Content-Type` and then overlaying the headers specified
-     * in the `headers` property.
-     *
-     * @return {Object}
-     */
     get requestHeaders() {
       var headers = {
         'content-type': this.contentType
@@ -369,9 +362,11 @@ element.
     },
 
     /**
-     * Performs an AJAX request to the specified URL.
+     * An object that maps header names to header values, first applying the
+     * the value of `Content-Type` and then overlaying the headers specified
+     * in the `headers` property.
      *
-     * @return {!IronRequestElement}
+     * @return {Object}
      */
     generateRequest: function() {
       var request = document.createElement('iron-request');

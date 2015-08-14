@@ -8,7 +8,7 @@
   "private": true,
   "dependencies": {
     "iron-elements": "polymerelements/iron-elements#1.0.3",
-    "paper-elements": "polymerelements/paper-elements#1.0.3",
+    "paper-elements": "polymerelements/paper-elements#1.0.4",
     "gold-elements": "polymerelements/gold-elements#1.0.1",
     "neon-elements": "polymerelements/iron-elements#1.0.0",
     "molecules": "polymerelements/molecules#1.0.0",

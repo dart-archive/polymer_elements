@@ -18,6 +18,11 @@ abstract class IronButtonState implements CustomElementProxyMixin {
   bool get active => jsElement[r'active'];
   set active(bool value) { jsElement[r'active'] = value; }
 
+  /// The aria attribute to be set if the button is a toggle and in the
+  /// active state.
+  String get ariaActiveAttribute => jsElement[r'ariaActiveAttribute'];
+  set ariaActiveAttribute(String value) { jsElement[r'ariaActiveAttribute'] = value; }
+
   get keyBindings => jsElement[r'keyBindings'];
   set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 

@@ -143,8 +143,24 @@ class PaperScrollHeaderPanel extends HtmlElement with CustomElementProxyMixin, P
   /// Returns the scrollable element.
   get scroller => jsElement[r'scroller'];
 
+  /// Condense the header.
+  /// [smooth]: true if the scroll position should be smoothly adjusted.
+  void condense(bool smooth) =>
+      jsElement.callMethod('condense', [smooth]);
+
   /// Invoke this to tell `paper-scroll-header-panel` to re-measure the header's
   /// height.
   void measureHeaderHeight() =>
       jsElement.callMethod('measureHeaderHeight', []);
+
+  /// Scroll to a specific y coordinate.
+  /// [top]: The coordinate to scroll to, along the y-axis.
+  /// [smooth]: true if the scroll position should be smoothly adjusted.
+  void scroll(num top, bool smooth) =>
+      jsElement.callMethod('scroll', [top, smooth]);
+
+  /// Scroll to the top of the content.
+  /// [smooth]: true if the scroll position should be smoothly adjusted.
+  void scrollToTop(bool smooth) =>
+      jsElement.callMethod('scrollToTop', [smooth]);
 }

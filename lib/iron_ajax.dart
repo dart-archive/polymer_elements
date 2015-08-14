@@ -131,9 +131,6 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerProxyMix
   /// the current value of `params`.
   String get queryString => jsElement[r'queryString'];
 
-  /// An object that maps header names to header values, first applying the
-  /// the value of `Content-Type` and then overlaying the headers specified
-  /// in the `headers` property.
   get requestHeaders => jsElement[r'requestHeaders'];
 
   /// The `url` with query string (if `params` are specified), suitable for
@@ -160,7 +157,9 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerProxyMix
   void discardRequest(request) =>
       jsElement.callMethod('discardRequest', [request]);
 
-  /// Performs an AJAX request to the specified URL.
+  /// An object that maps header names to header values, first applying the
+  /// the value of `Content-Type` and then overlaying the headers specified
+  /// in the `headers` property.
   generateRequest() =>
       jsElement.callMethod('generateRequest', []);
 

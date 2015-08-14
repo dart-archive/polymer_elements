@@ -14,7 +14,7 @@ import 'iron_jsonp_library.dart';
 ///
 /// #### Example
 ///
-///     <google-maps-api apiKey="abc123" version="3.exp"></google-maps-api>
+///     <google-maps-api api-key="abc123" version="3.exp"></google-maps-api>
 ///     <script>
 ///       var mapsAPI = document.querySelector('google-maps-api');
 ///       mapsAPI.addEventListener('api-load', function(e) {

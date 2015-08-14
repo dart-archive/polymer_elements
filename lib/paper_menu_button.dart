@@ -71,6 +71,11 @@ class PaperMenuButton extends HtmlElement with CustomElementProxyMixin, PolymerP
   num get horizontalOffset => jsElement[r'horizontalOffset'];
   set horizontalOffset(num value) { jsElement[r'horizontalOffset'] = value; }
 
+  /// Set to true to disable automatically closing the dropdown after
+  /// a selection has been made.
+  bool get ignoreActivate => jsElement[r'ignoreActivate'];
+  set ignoreActivate(bool value) { jsElement[r'ignoreActivate'] = value; }
+
   /// Set to true to disable animations when opening and closing the
   /// dropdown.
   bool get noAnimations => jsElement[r'noAnimations'];

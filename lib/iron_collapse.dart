@@ -12,7 +12,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 /// `iron-collapse` creates a collapsible block of content.  By default, the content
 /// will be collapsed.  Use `opened` or `toggle()` to show/hide the content.
 ///
-///     <button on-click="{{toggle}}">toggle collapse</button>
+///     <button on-click="toggle">toggle collapse</button>
 ///
 ///     <iron-collapse id="collapse">
 ///       <div>Content goes here...</div>
