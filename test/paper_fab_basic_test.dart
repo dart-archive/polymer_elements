@@ -32,7 +32,7 @@ main() async {
     PaperFab f2;
 
     setUp(() {
-      fixture('A11yFabs').querySelector('#fab1');
+      fixture('TrivialFab').querySelector('#fab1');
       f2 = fixture('SrcFab');
     });
 
