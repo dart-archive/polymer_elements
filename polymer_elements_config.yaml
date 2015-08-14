@@ -115,7 +115,16 @@ files_to_generate:
   - iron-form/iron-form.html
   - iron-form-element-behavior/iron-form-element-behavior.html
   - iron-icon/iron-icon.html
+  - iron-icons/av-icons.html
+  - iron-icons/communication-icons.html
+  - iron-icons/device-icons.html
+  - iron-icons/editor-icons.html
+  - iron-icons/hardware-icons.html
+  - iron-icons/image-icons.html
   - iron-icons/iron-icons.html
+  - iron-icons/maps-icons.html
+  - iron-icons/notification-icons.html
+  - iron-icons/social-icons.html
   - iron-iconset/iron-iconset.html
   - iron-iconset-svg/iron-iconset-svg.html
   - iron-image/iron-image.html
