@@ -6,7 +6,6 @@ import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/paper_fab.dart';
 import 'package:polymer_elements/iron_icon.dart';
 import 'package:polymer_elements/iron_icons.dart';
-import 'dart:math';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
@@ -41,8 +40,6 @@ main() async {
       expect(Polymer.dom(f1.$['icon'].jsElement['root']).querySelector('svg'),
           isNotNull);
     });
-
-    JsObject e;
 
     test('applies an icon specified by the `src` attribute', () {
       expect(f2.$['icon'].jsElement.callMethod('_usesIconset'), false);
