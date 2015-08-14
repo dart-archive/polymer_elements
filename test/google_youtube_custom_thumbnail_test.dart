@@ -27,6 +27,8 @@ main() async {
     test('tap handler loads embed', () {
       var done = new Completer();
       googleYouTube.on['google-youtube-ready'].take(1).listen((e) {
+        // For sanity when running tests :P
+        googleYouTube.mute();
         expect(googleYouTube.querySelector('img').getComputedStyle().display, 'none',
             reason: 'thumbnail <img> is no longer present.');
 
