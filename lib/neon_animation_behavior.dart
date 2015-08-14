@@ -11,6 +11,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_meta.dart';
 
 /// Use `Polymer.NeonAnimationBehavior` to implement an animation.
+@BehaviorProxy(const ['Polymer', 'NeonAnimationBehavior'])
 abstract class NeonAnimationBehavior implements CustomElementProxyMixin {
 
   /// Defines the animation timing.

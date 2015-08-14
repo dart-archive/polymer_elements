@@ -10,6 +10,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 
 
+@BehaviorProxy(const ['Polymer', 'IronControlState'])
 abstract class IronControlState implements CustomElementProxyMixin {
 
   /// If true, the user cannot interact with this element.

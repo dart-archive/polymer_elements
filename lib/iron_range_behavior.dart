@@ -10,6 +10,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 
 /// `iron-range-behavior` provides the behavior for something with a minimum to maximum range.
+@BehaviorProxy(const ['Polymer', 'IronRangeBehavior'])
 abstract class IronRangeBehavior implements CustomElementProxyMixin {
 
   /// The number that indicates the maximum value of the range.

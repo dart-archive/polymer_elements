@@ -16,6 +16,7 @@ import 'iron_meta.dart';
 ///
 /// Changing the `invalid` property, either manually or by calling `validate()` will update the
 /// `aria-invalid` attribute.
+@BehaviorProxy(const ['Polymer', 'IronValidatableBehavior'])
 abstract class IronValidatableBehavior implements CustomElementProxyMixin {
 
   /// True if the last call to `validate` is invalid.

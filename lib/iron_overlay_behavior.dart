@@ -41,6 +41,7 @@ import 'iron_overlay_backdrop.dart';
 /// The element is styled to appear on top of other content by setting its `z-index` property. You
 /// must ensure no element has a stacking context with a higher `z-index` than its parent stacking
 /// context. You should place this element as a child of `<body>` whenever possible.
+@BehaviorProxy(const ['Polymer', 'IronOverlayBehavior'])
 abstract class IronOverlayBehavior implements CustomElementProxyMixin {
 
   /// The backdrop element.

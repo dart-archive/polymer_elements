@@ -13,6 +13,7 @@ import 'iron_meta.dart';
 /// Use `Polymer.IronValidatorBehavior` to implement a custom input/form validator. Element
 /// instances implementing this behavior will be registered for use in elements that implement
 /// `Polymer.IronValidatableBehavior`.
+@BehaviorProxy(const ['Polymer', 'IronValidatorBehavior'])
 abstract class IronValidatorBehavior implements CustomElementProxyMixin {
 
   /// Name for this validator, used by `Polymer.IronValidatableBehavior` to lookup this element.

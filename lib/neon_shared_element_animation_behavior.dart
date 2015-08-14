@@ -11,6 +11,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'neon_animation_behavior.dart';
 
 /// Use `Polymer.NeonSharedElementAnimationBehavior` to implement shared element animations.
+@BehaviorProxy(const ['Polymer', 'NeonSharedElementAnimationBehavior'])
 abstract class NeonSharedElementAnimationBehavior implements CustomElementProxyMixin {
 
   /// Cached copy of shared elements.

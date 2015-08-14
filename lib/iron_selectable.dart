@@ -11,6 +11,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_selection.dart';
 
 
+@BehaviorProxy(const ['Polymer', 'IronSelectableBehavior'])
 abstract class IronSelectableBehavior implements CustomElementProxyMixin {
 
   /// The event that fires from items when they are selected. Selectable

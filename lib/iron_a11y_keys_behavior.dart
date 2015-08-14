@@ -21,6 +21,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 /// node.
 /// The `keys-pressed` event will fire when one of the key combinations set with the
 /// `keys` property is pressed.
+@BehaviorProxy(const ['Polymer', 'IronA11yKeysBehavior'])
 abstract class IronA11yKeysBehavior implements CustomElementProxyMixin {
 
   get keyBindings => jsElement[r'keyBindings'];

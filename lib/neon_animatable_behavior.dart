@@ -12,6 +12,7 @@ import 'neon_animation/animations/opaque_animation.dart';
 
 /// `Polymer.NeonAnimatableBehavior` is implemented by elements containing animations for use with
 /// elements implementing `Polymer.NeonAnimationRunnerBehavior`.
+@BehaviorProxy(const ['Polymer', 'NeonAnimatableBehavior'])
 abstract class NeonAnimatableBehavior implements CustomElementProxyMixin {
 
   /// Animation configuration. See README for more info.

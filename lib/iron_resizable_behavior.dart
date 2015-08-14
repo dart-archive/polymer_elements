@@ -20,6 +20,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 /// when they are resized explicitly by another resizable, or when the window has been
 /// resized.
 /// Note, the `iron-resize` event is non-bubbling.
+@BehaviorProxy(const ['Polymer', 'IronResizableBehavior'])
 abstract class IronResizableBehavior implements CustomElementProxyMixin {
 
   /// Used to assign the closest resizable ancestor to this resizable

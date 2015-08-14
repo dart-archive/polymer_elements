@@ -11,6 +11,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_selectable.dart';
 
 
+@BehaviorProxy(const ['Polymer', 'IronMultiSelectableBehavior'])
 abstract class IronMultiSelectableBehavior implements CustomElementProxyMixin {
 
   /// If true, multiple selections are allowed.

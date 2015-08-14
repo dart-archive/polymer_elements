@@ -22,6 +22,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 /// `left` or `right` set        | Element is not horizontally centered
 /// `max-height` or `height` set | Element respects `max-height` or `height`
 /// `max-width` or `width` set   | Element respects `max-width` or `width`
+@BehaviorProxy(const ['Polymer', 'IronFitBehavior'])
 abstract class IronFitBehavior implements CustomElementProxyMixin {
 
   /// Set to true to auto-fit on attach.

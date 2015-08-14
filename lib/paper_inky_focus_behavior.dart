@@ -12,5 +12,6 @@ import 'iron_button_state.dart';
 import 'iron_control_state.dart';
 
 /// `Polymer.PaperInkyFocusBehavior` implements a ripple when the element has keyboard focus.
+@BehaviorProxy(const ['Polymer', 'PaperInkyFocusBehavior'])
 abstract class PaperInkyFocusBehavior implements CustomElementProxyMixin {
 }

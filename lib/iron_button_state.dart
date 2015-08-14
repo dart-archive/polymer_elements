@@ -12,6 +12,7 @@ import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
 
 
+@BehaviorProxy(const ['Polymer', 'IronButtonState'])
 abstract class IronButtonState implements CustomElementProxyMixin {
 
   /// If true, the button is a toggle and is currently in the active state.

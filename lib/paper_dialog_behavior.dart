@@ -54,6 +54,7 @@ import 'paper_styles.dart';
 /// It will also ensure that focus remains in the dialog.
 ///
 /// The `aria-labelledby` attribute will be set to the header element, if one exists.
+@BehaviorProxy(const ['Polymer', 'PaperDialogBehavior'])
 abstract class PaperDialogBehavior implements CustomElementProxyMixin {
 
   /// If `modal` is true, this implies `no-cancel-on-outside-click` and `with-backdrop`.

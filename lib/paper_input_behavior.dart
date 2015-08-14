@@ -17,6 +17,7 @@ import 'iron_control_state.dart';
 ///
 /// The input element can be accessed by the `inputElement` property if you need to access
 /// properties or methods that are not exposed.
+@BehaviorProxy(const ['Polymer', 'PaperInputBehavior'])
 abstract class PaperInputBehavior implements CustomElementProxyMixin {
 
   /// Set this to specify the pattern allowed by `preventInvalidInput`. Bind this to the

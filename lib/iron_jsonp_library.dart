@@ -57,6 +57,7 @@ class IronJsonpLibrary extends HtmlElement with CustomElementProxyMixin, Polymer
 ///
 ///     You should use an HTML Import to load library dependencies
 ///     when possible instead of using this element.
+@BehaviorProxy(const ['Polymer', 'IronJsonpLibraryBehavior'])
 abstract class IronJsonpLibraryBehavior implements CustomElementProxyMixin {
 
   /// Not null if library has failed to load
