@@ -13,45 +13,44 @@ import 'common.dart';
 
 Map centerOf(Element element) {
   var rect = element.getBoundingClientRect();
-  return {'left': rect.left + rect.width / 2, 'top': rect.top + rect.height / 2};
+  return {
+    'left': rect.left + rect.width / 2,
+    'top': rect.top + rect.height / 2
+  };
 }
 
-
 bool approxEqual(p1, p2) {
-  return p1['left'].round() == p2['left'].round() && p1['top'].round() == p2['top'].round();
+  return p1['left'].round() == p2['left'].round() &&
+      p1['top'].round() == p2['top'].round();
 }
 
 main() async {
   await initWebComponents();
 
   group('<paper-fab>', () {
+    PaperFab f1;
+    PaperFab f2;
 
-      PaperFab f1;
-      PaperFab f2;
-
-      setUp(() {
-        f1 = fixture('TrivialFab').querySelector('#fab1');
-        f2 = fixture('SrcFab');
-      });
-
-      test('applies an icon specified by the `icon` attribute', (){
-        expect(f1.$['icon'].src, isEmpty);
-        expect(Polymer.dom(f1.$['icon'].jsElement['root']).querySelector('svg'), isNotNull);
-      });
-
-      JsObject e;
-
-
-      test('applies an icon specified by the `src` attribute', () {
-      expect(f2.$['icon'].jsElement.callMethod('_usesIconset'), false);
-      expect(f2.$['icon'].jsElement['_img'], isNotNull);
-      });
-
-      test('renders correctly independent of line height', () {
-        expect( approxEqual(centerOf(f1.$['icon']),centerOf(f1)), isTrue);
-      });
-
+    setUp(() {
+      fixture('A11yFabs').querySelector('#fab1');
+      f2 = fixture('SrcFab');
     });
 
+    test('applies an icon specified by the `icon` attribute', () {
+      expect(f1.$['icon'].src, isEmpty);
+      expect(Polymer.dom(f1.$['icon'].jsElement['root']).querySelector('svg'),
+          isNotNull);
+    });
 
+    JsObject e;
+
+    test('applies an icon specified by the `src` attribute', () {
+      expect(f2.$['icon'].jsElement.callMethod('_usesIconset'), false);
+      expect(f2.$['icon'].jsElement['_img'], isNotNull);
+    });
+
+    test('renders correctly independent of line height', () {
+      expect(approxEqual(centerOf(f1.$['icon']), centerOf(f1)), isTrue);
+    });
+  });
 }
