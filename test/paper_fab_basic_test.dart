@@ -36,7 +36,7 @@ main() async {
     });
 
     test('applies an icon specified by the `icon` attribute', () {
-      expect(f1.$['icon'].src, isEmpty);
+      expect(f1.src, isEmpty);
       expect(Polymer.dom(f1.$['icon'].jsElement['root']).querySelector('svg'),
           isNotNull);
     });
