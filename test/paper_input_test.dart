@@ -1,6 +1,7 @@
 @TestOn('browser')
 library polymer_elements.test.paper_input_test;
 
+import 'dart:async';
 import 'dart:html';
 import 'package:polymer/polymer.dart';
 import 'package:test/test.dart';
@@ -118,8 +119,8 @@ main() async {
       });
     });
 
-    group('focused styling (integration test)', () {
-      test('underline is colored when input is focused', () {
+    group('focused styling (integration test)', ()  {
+      test('underline is colored when input is focused', () async {
         var input = fixture('basic');
         var container = Polymer
             .dom(input.jsElement['root'])
@@ -129,9 +130,12 @@ main() async {
             .querySelector('.underline');
         expect(line.classes.contains('is-highlighted'), isFalse);
         focus(input.inputElement);
+        var completer = new Completer();
         window.requestAnimationFrame((done) {
-          expect(line.classes.contains('is-highlighted'), isTrue);
+          completer.complete();
         });
+        await completer.future;
+        expect(line.classes.contains('is-highlighted'), isTrue);
       });
     });
 
@@ -176,7 +180,6 @@ main() async {
       });
       test('has aria-describedby for character counter and error', () {
         PaperInput input = fixture('required-char-counter');
-        print(input.attributes.keys);
         forceXIfStamp(input);
         expect(input.attributes.containsKey('aria-describedby'), isTrue);
         expect(input.attributes['aria-describedby'], equals(
