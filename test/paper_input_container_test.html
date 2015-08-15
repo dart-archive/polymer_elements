@@ -1,0 +1,84 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>paper-input-container tests</title>
+
+    <script src="packages/web_components/webcomponents-lite.js"></script>
+    <link rel="x-dart-test" href="paper_input_container_test.dart">
+    <link rel="import" href="fixtures/letters_only.html">
+    <script src="packages/test/dart.js"></script>
+
+</head>
+<body>
+
+<template id="basic">
+    <paper-input-container>
+        <label id="l">label</label>
+        <input id="i">
+    </paper-input-container>
+</template>
+
+<template id="has-value">
+    <paper-input-container>
+        <label id="l">label</label>
+        <input id="i" value="value">
+    </paper-input-container>
+</template>
+
+<template id="no-float-has-value">
+    <paper-input-container no-label-float>
+        <label id="l">label</label>
+        <input id="i" value="value">
+    </paper-input-container>
+</template>
+
+<template id="always-float">
+    <paper-input-container always-float-label>
+        <label id="l">label</label>
+        <input id="i" value="value">
+    </paper-input-container>
+</template>
+
+<template id="auto-validate-numbers">
+    <paper-input-container auto-validate>
+        <label id="l">label</label>
+        <input is="iron-input" id="i" pattern="[0-9]*">
+    </paper-input-container>
+</template>
+
+<template id="manual-validate-numbers">
+    <paper-input-container>
+        <label id="l">label</label>
+        <input is="iron-input" id="i" pattern="[0-9]*">
+    </paper-input-container>
+</template>
+
+<letters-only></letters-only>
+
+<template id="auto-validate-validator">
+    <paper-input-container auto-validate>
+        <label id="l">label</label>
+        <input is="iron-input" id="i" pattern="[0-9]*" validator="letters-only">
+    </paper-input-container>
+</template>
+
+<template id="auto-validate-validator-has-invalid-value">
+    <paper-input-container auto-validate>
+        <label id="l">label</label>
+        <input is="iron-input" id="i" validator="letters-only" value="123123">
+    </paper-input-container>
+</template>
+
+</body>
+</html>
