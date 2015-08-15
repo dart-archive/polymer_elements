@@ -36,8 +36,6 @@ main() async {
 
     test('applies an icon specified by the `icon` attribute', () {
       expect(b1.src, isNull);
-      IronIcon i = b1.$['icon'];
-      print(i.children);
       expect(Polymer.dom(b1.$['icon'].jsElement['root']).querySelector('svg'),
           isNotNull);
     });
