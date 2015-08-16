@@ -19,11 +19,11 @@ main() async {
       expect(error.getComputedStyle().visibility, equals('hidden'));
       input.bindValue = 'foobar';
       expect(error.getComputedStyle().visibility, isNot(equals('hidden')));
-    });
+    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/32');
     test('error message add on is registered', () {
       PaperInputContainer container = document.getElementById('container');
       expect(container.jsElement['_addons'], isNotNull);
       expect(container.jsElement['_addons'].length, equals(1));
-    });
+    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/33');
   });
 }
