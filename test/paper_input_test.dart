@@ -150,7 +150,7 @@ main() async {
         expect(error, isNotNull);
         expect(error.getComputedStyle().display, equals('none'));
         expect(input.invalid, isTrue);
-      });
+      }, skip: 'https://github.com/dart-lang/polymer_elements/issues/36');
     });
 
     group('a11y', () {
@@ -177,7 +177,7 @@ main() async {
             Polymer
                 .dom(input.jsElement['root'])
                 .querySelector('paper-input-char-counter').id));
-      });
+      },skip:'https://github.com/dart-lang/polymer_elements/issues/34');
       test('has aria-describedby for character counter and error', () {
         PaperInput input = fixture('required-char-counter');
         forceXIfStamp(input);
@@ -188,7 +188,7 @@ main() async {
                 Polymer
                     .dom(input.jsElement['root'])
                     .querySelector('paper-input-char-counter').id));
-      });
+      }, skip:'https://github.com/dart-lang/polymer_elements/issues/35');
     });
   });
 }
