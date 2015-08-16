@@ -38,7 +38,7 @@ main() async {
       expect(b1.src, isNull);
       expect(Polymer.dom(b1.$['icon'].jsElement['root']).querySelector('svg'),
           isNotNull);
-    });
+    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/31');
 
     test('applies an icon specified by the `src` attribute', () {
       expect(b2.src, isNotNull);
