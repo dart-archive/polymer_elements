@@ -41,7 +41,7 @@ main() async {
       input.updateValueAndPreserveCaret('nanananabatman');
       expect(ironTextarea.textarea.selectionStart, equals(2));
       expect(ironTextarea.textarea.selectionEnd, equals(2));
-    });
+    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/37');
 
     test('input attributes are bound to textarea', () {
       PaperTextarea input = fixture('basic');
@@ -67,7 +67,7 @@ main() async {
           expect(inputAttr, equals(attrsAttr));
         }
       }
-    });
+    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/38');
 
     test('always-float-label attribute works', () {
       var input = fixture('always-float-label');
