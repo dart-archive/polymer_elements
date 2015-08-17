@@ -62,7 +62,7 @@ main() async {
             expect(collapse1.opened, isTrue);
             expect(collapse2.opened, isFalse);
             expect(collapse3.opened, isFalse);
-            
+
             tap(trigger2);
 
             expect(collapse1.opened, isFalse);
@@ -91,22 +91,22 @@ main() async {
             normalDiv.style.fontWeight = 'normal';
             document.body.append(normalDiv);
             
-            expect(trigger1.getComputedStyle().fontWeight, equals(normalDiv.getComputedStyle().fontWeight));
-            expect(trigger2.getComputedStyle().fontWeight, equals(normalDiv.getComputedStyle().fontWeight));
-            expect(trigger3.getComputedStyle().fontWeight, equals(normalDiv.getComputedStyle().fontWeight));
+            expect(trigger1.getComputedStyle().fontWeight, equals(normalDiv.getComputedStyle().fontWeight), reason: 'default font weight should be "normal"');
+            expect(trigger2.getComputedStyle().fontWeight, equals(normalDiv.getComputedStyle().fontWeight), reason: 'default font weight should be "normal"');
+            expect(trigger3.getComputedStyle().fontWeight, equals(normalDiv.getComputedStyle().fontWeight), reason: 'default font weight should be "normal"');
             
-            var item1 = sub1.querySelector('.menu-content').querySelector('paper-item');
+            PaperItem item1 = sub1.querySelector('.menu-content').querySelector('paper-item');
             
             tap(trigger1);
             
-            expect(item1.getComputedStyle().fontWeight, equals(normalDiv.getComputedStyle().fontWeight));
-            
+            expect(item1.getComputedStyle().fontWeight, equals(normalDiv.getComputedStyle().fontWeight), reason: 'if not selected, submenu item font weight should be "normal"');
+
             tap(item1);
             
-            expect(item1.getComputedStyle().fontWeight, boldDiv.getComputedStyle().fontWeight);
-            expect(trigger1.getComputedStyle().fontWeight, boldDiv.getComputedStyle().fontWeight);
-            expect(trigger2.getComputedStyle().fontWeight, normalDiv.getComputedStyle().fontWeight);
-            expect(trigger3.getComputedStyle().fontWeight, normalDiv.getComputedStyle().fontWeight);
+            expect(item1.getComputedStyle().fontWeight, boldDiv.getComputedStyle().fontWeight, reason: 'selected item should have fontweight: "bold"');
+            expect(trigger1.getComputedStyle().fontWeight, boldDiv.getComputedStyle().fontWeight, reason: 'selected item should have fontweight: "bold"');
+            expect(trigger2.getComputedStyle().fontWeight, normalDiv.getComputedStyle().fontWeight, reason: 'not selected item should have fontweight: "normal"');
+            expect(trigger3.getComputedStyle().fontWeight, normalDiv.getComputedStyle().fontWeight, reason: 'not selected item should have fontweight: "normal"');
         }, skip: 'https://github.com/dart-lang/polymer_elements/issues/30');
 
         test('selecting a new item de-styles the previous one', () {
@@ -133,6 +133,7 @@ main() async {
             // Both children are still selected even though the first one is hidden.
             expect(item1.getComputedStyle().fontWeight, boldDiv.getComputedStyle().fontWeight);
             expect(item2.getComputedStyle().fontWeight, boldDiv.getComputedStyle().fontWeight);
+
             expect(trigger1.getComputedStyle().fontWeight, normalDiv.getComputedStyle().fontWeight);
             expect(trigger2.getComputedStyle().fontWeight, boldDiv.getComputedStyle().fontWeight);
             expect(trigger3.getComputedStyle().fontWeight, normalDiv.getComputedStyle().fontWeight);
