@@ -28,7 +28,7 @@ main() async {
 
     test('aria-disabled is set', () {
       expect(b2.getAttribute('aria-disabled'), equals('true'));
-      b2.jsElement.callMethod('removeAttribute',['disabled']);
+      b2.attributes.remove('disabled');
       expect(b2.getAttribute('aria-disabled'), 'false');
     });
 

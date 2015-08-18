@@ -1,7 +1,6 @@
 @TestOn('browser')
 library polymer_elements.test.paper_fab_basic_test;
 
-import 'dart:html';
 import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/paper_fab.dart';
 import 'package:polymer_elements/iron_icon.dart';
@@ -9,19 +8,6 @@ import 'package:polymer_elements/iron_icons.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
-
-Map centerOf(Element element) {
-  var rect = element.getBoundingClientRect();
-  return {
-    'left': rect.left + rect.width / 2,
-    'top': rect.top + rect.height / 2
-  };
-}
-
-bool approxEqual(p1, p2) {
-  return p1['left'].round() == p2['left'].round() &&
-      p1['top'].round() == p2['top'].round();
-}
 
 main() async {
   await initWebComponents();
@@ -46,8 +32,9 @@ main() async {
       expect(f2.$['icon'].jsElement['_img'], isNotNull);
     });
 
+
     test('renders correctly independent of line height', () {
-      expect(approxEqual(centerOf(f1.$['icon']), centerOf(f1)), isTrue);
+      expect(middleOfNode(f1.$['icon']).isApproximatelyEqualTo(middleOfNode(f1)), isTrue);
     });
   });
 }

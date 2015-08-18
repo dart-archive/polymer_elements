@@ -1,8 +1,6 @@
 @TestOn('browser')
 library polymer_elements.test.paper_input_container_test;
 
-import 'dart:async';
-import 'dart:html';
 import 'package:polymer/polymer.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
@@ -56,11 +54,7 @@ main() async {
       var inputContent =
           Polymer.dom(container.jsElement['root']).querySelector('.input-content');
       focus(input);
-      var completer = new Completer();
-      window.requestAnimationFrame((done) {
-        completer.complete();
-      });
-      await completer.future;
+      await requestAnimationFrame();
       expect(container.focused, isTrue);
       expect(inputContent.classes.contains('label-is-highlighted'), isTrue);
     });
@@ -71,11 +65,7 @@ main() async {
       var inputContent =
           Polymer.dom(container.jsElement['root']).querySelector('.input-content');
       focus(input);
-      var completer = new Completer();
-      window.requestAnimationFrame((done) {
-        completer.complete();
-      });
-      await completer.future;
+      await requestAnimationFrame();
       expect(inputContent.classes.contains('label-is-highlighted'), isFalse);
     });
 
@@ -85,11 +75,7 @@ main() async {
       var line = Polymer.dom(container.jsElement['root']).querySelector('.underline');
       expect(line.classes.contains('is-highlighted'),isFalse);
       focus(input);
-      var completer = new Completer();
-      window.requestAnimationFrame((done) {
-        completer.complete();
-      });
-      await completer.future;
+      await requestAnimationFrame();
       expect(line.classes.contains('is-highlighted'),isTrue);
     });
 

@@ -18,6 +18,12 @@ class Point {
 
   Map toMap() => {'x': x, 'y': y};
   JsObject toJsObject() => new JsObject.jsify(toMap());
+
+   bool isApproximatelyEqualTo(other) {
+    return this.x.round() == other.x.round() &&
+    this.y.round() == other.y.round();
+  }
+
 }
 
 Point middleOfNode(Node node) => new Point.fromJsObject(
@@ -138,6 +144,14 @@ Future jsPromiseToFuture(JsObject promise) {
 
 Future wait(int milliseconds) {
   return new Future.delayed(new Duration(milliseconds: milliseconds), () {});
+}
+
+Future requestAnimationFrame(){
+  var completer = new Completer();
+  window.requestAnimationFrame((done) {
+    completer.complete();
+  });
+  return completer.future;
 }
 
 List keysOf(JsObject object) => context['Object'].callMethod('keys', [object]);

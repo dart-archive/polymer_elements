@@ -1,8 +1,6 @@
 @TestOn('browser')
 library polymer_elements.test.paper_input_test;
 
-import 'dart:async';
-import 'dart:html';
 import 'package:polymer/polymer.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
@@ -102,13 +100,13 @@ main() async {
       test('focus/blur events fired on host element', () {
         var nFocusEvents = 0;
         var nBlurEvents = 0;
-        input.on['focus'].listen((event) {
+        input.on['focus'].take(1).listen((event) {
           nFocusEvents += 1;
           expect(input.focused, isTrue);
           blur(input.inputElement);
         });
 
-        input.on['blur'].listen((event) {
+        input.on['blur'].take(1).listen((event) {
           nBlurEvents += 1;
           expect(input.focused, isFalse);
         });
@@ -130,11 +128,7 @@ main() async {
             .querySelector('.underline');
         expect(line.classes.contains('is-highlighted'), isFalse);
         focus(input.inputElement);
-        var completer = new Completer();
-        window.requestAnimationFrame((done) {
-          completer.complete();
-        });
-        await completer.future;
+        await requestAnimationFrame();
         expect(line.classes.contains('is-highlighted'), isTrue);
       });
     });
@@ -183,7 +177,7 @@ main() async {
         forceXIfStamp(input);
         expect(input.attributes.containsKey('aria-describedby'), isTrue);
         expect(input.attributes['aria-describedby'], equals(
-            Polymer.dom(input.root).querySelector('paper-input-error').id +
+            Polymer.dom(input.jsElement['root']).querySelector('paper-input-error').id +
                 ' ' +
                 Polymer
                     .dom(input.jsElement['root'])
