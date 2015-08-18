@@ -146,9 +146,10 @@ Future wait(int milliseconds) {
   return new Future.delayed(new Duration(milliseconds: milliseconds), () {});
 }
 
-Future requestAnimationFrame(){
+Future requestAnimationFrame([function (double)]){
   var completer = new Completer();
-  window.requestAnimationFrame((done) {
+  window.requestAnimationFrame((double) {
+    if(function !=  null) function(double);
     completer.complete();
   });
   return completer.future;
