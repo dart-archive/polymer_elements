@@ -44,7 +44,7 @@ import 'default_theme.dart';
 /// `--paper-badge-margin-bottom` | TOptional spacing added to the bottom of the badge. | `0px`
 /// `--paper-badge` | Mixin applied to the badge | `{}`
 @CustomElementProxy('paper-badge')
-class PaperBadge extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronResizableBehavior {
+class PaperBadge extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronResizableBehavior {
   PaperBadge.created() : super.created();
   factory PaperBadge() => new Element.tag('paper-badge');
 

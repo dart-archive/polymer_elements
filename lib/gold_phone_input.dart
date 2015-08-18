@@ -50,7 +50,7 @@ import 'iron_flex_layout/classes/iron_flex_layout.dart';
 /// See `Polymer.PaperInputContainer` for a list of custom properties used to
 /// style this element.
 @CustomElementProxy('gold-phone-input')
-class GoldPhoneInput extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, PaperInputBehavior, IronControlState, IronFormElementBehavior {
+class GoldPhoneInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInputBehavior, IronControlState, IronFormElementBehavior {
   GoldPhoneInput.created() : super.created();
   factory GoldPhoneInput() => new Element.tag('gold-phone-input');
 

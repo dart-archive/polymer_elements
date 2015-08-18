@@ -11,7 +11,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 
 
 @CustomElementProxy('iron-request')
-class IronRequest extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class IronRequest extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronRequest.created() : super.created();
   factory IronRequest() => new Element.tag('iron-request');
 

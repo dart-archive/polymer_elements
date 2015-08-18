@@ -46,7 +46,7 @@ import 'paper_styles.dart';
 /// (such as `multi` and `selected`), and styling options are available for the
 /// `menu-content` menu.
 @CustomElementProxy('paper-submenu')
-class PaperSubmenu extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronControlState {
+class PaperSubmenu extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState {
   PaperSubmenu.created() : super.created();
   factory PaperSubmenu() => new Element.tag('paper-submenu');
 

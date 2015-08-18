@@ -26,7 +26,7 @@ import 'google_youtube_api.dart';
 ///
 /// The standard set of [YouTube player events](https://developers.google.com/youtube/iframe_api_reference#Events) are exposed, as well as methods for playing, pausing, seeking to a specific time, and loading a new video.
 @CustomElementProxy('google-youtube')
-class GoogleYoutube extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleYoutube extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleYoutube.created() : super.created();
   factory GoogleYoutube() => new Element.tag('google-youtube');
 

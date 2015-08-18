@@ -24,7 +24,7 @@ import '../../neon_animation_behavior.dart';
 /// }
 /// ```
 @CustomElementProxy('scale-up-animation')
-class ScaleUpAnimation extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, NeonAnimationBehavior {
+class ScaleUpAnimation extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimationBehavior {
   ScaleUpAnimation.created() : super.created();
   factory ScaleUpAnimation() => new Element.tag('scale-up-animation');
 

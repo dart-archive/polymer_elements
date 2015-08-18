@@ -29,7 +29,7 @@ import 'iron_selectable.dart';
 ///       });
 ///     </script>
 @CustomElementProxy('iron-pages')
-class IronPages extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronResizableBehavior, IronSelectableBehavior {
+class IronPages extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronResizableBehavior, IronSelectableBehavior {
   IronPages.created() : super.created();
   factory IronPages() => new Element.tag('iron-pages');
 

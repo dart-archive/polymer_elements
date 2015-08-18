@@ -12,7 +12,7 @@ import 'neon_animation_behavior.dart';
 
 
 @CustomElementProxy('paper-menu-grow-height-animation')
-class PaperMenuGrowHeightAnimation extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, NeonAnimationBehavior {
+class PaperMenuGrowHeightAnimation extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimationBehavior {
   PaperMenuGrowHeightAnimation.created() : super.created();
   factory PaperMenuGrowHeightAnimation() => new Element.tag('paper-menu-grow-height-animation');
 
@@ -24,7 +24,7 @@ class PaperMenuGrowHeightAnimation extends HtmlElement with CustomElementProxyMi
 
 
 @CustomElementProxy('paper-menu-grow-width-animation')
-class PaperMenuGrowWidthAnimation extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, NeonAnimationBehavior {
+class PaperMenuGrowWidthAnimation extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimationBehavior {
   PaperMenuGrowWidthAnimation.created() : super.created();
   factory PaperMenuGrowWidthAnimation() => new Element.tag('paper-menu-grow-width-animation');
 
@@ -36,7 +36,7 @@ class PaperMenuGrowWidthAnimation extends HtmlElement with CustomElementProxyMix
 
 
 @CustomElementProxy('paper-menu-shrink-width-animation')
-class PaperMenuShrinkWidthAnimation extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, NeonAnimationBehavior {
+class PaperMenuShrinkWidthAnimation extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimationBehavior {
   PaperMenuShrinkWidthAnimation.created() : super.created();
   factory PaperMenuShrinkWidthAnimation() => new Element.tag('paper-menu-shrink-width-animation');
 
@@ -48,7 +48,7 @@ class PaperMenuShrinkWidthAnimation extends HtmlElement with CustomElementProxyM
 
 
 @CustomElementProxy('paper-menu-shrink-height-animation')
-class PaperMenuShrinkHeightAnimation extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, NeonAnimationBehavior {
+class PaperMenuShrinkHeightAnimation extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimationBehavior {
   PaperMenuShrinkHeightAnimation.created() : super.created();
   factory PaperMenuShrinkHeightAnimation() => new Element.tag('paper-menu-shrink-height-animation');
 

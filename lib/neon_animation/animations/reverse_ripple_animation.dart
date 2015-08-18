@@ -31,7 +31,7 @@ import '../../neon_animation_behavior.dart';
 /// }
 /// ```
 @CustomElementProxy('reverse-ripple-animation')
-class ReverseRippleAnimation extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, NeonSharedElementAnimationBehavior, NeonAnimationBehavior {
+class ReverseRippleAnimation extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonSharedElementAnimationBehavior, NeonAnimationBehavior {
   ReverseRippleAnimation.created() : super.created();
   factory ReverseRippleAnimation() => new Element.tag('reverse-ripple-animation');
 

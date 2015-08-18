@@ -19,7 +19,7 @@ import 'shadow.dart';
 ///       ... content ...
 ///     </paper-material>
 @CustomElementProxy('paper-material')
-class PaperMaterial extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class PaperMaterial extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   PaperMaterial.created() : super.created();
   factory PaperMaterial() => new Element.tag('paper-material');
 

@@ -51,7 +51,7 @@ import 'paper_menu_button_animations.dart';
 /// `--paper-menu-button-disabled` | Mixin applied to the paper-menu-button when disabled | `{}`
 /// `--paper-menu-button-dropdown` | Mixin applied to the paper-menu-button dropdown | `{}`
 @CustomElementProxy('paper-menu-button')
-class PaperMenuButton extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronA11yKeysBehavior, IronControlState {
+class PaperMenuButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronControlState {
   PaperMenuButton.created() : super.created();
   factory PaperMenuButton() => new Element.tag('paper-menu-button');
 

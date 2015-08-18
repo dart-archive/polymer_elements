@@ -41,7 +41,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 ///       </div>
 ///     </iron-collapse>
 @CustomElementProxy('iron-collapse')
-class IronCollapse extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class IronCollapse extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronCollapse.created() : super.created();
   factory IronCollapse() => new Element.tag('iron-collapse');
 

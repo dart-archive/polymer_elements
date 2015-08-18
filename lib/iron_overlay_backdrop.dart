@@ -23,7 +23,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 /// `--iron-overlay-backdrop`                  | Mixin applied to `iron-overlay-backdrop`.                      | {}
 /// `--iron-overlay-backdrop-opened`           | Mixin applied to `iron-overlay-backdrop` when it is displayed | {}
 @CustomElementProxy('iron-overlay-backdrop')
-class IronOverlayBackdrop extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class IronOverlayBackdrop extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronOverlayBackdrop.created() : super.created();
   factory IronOverlayBackdrop() => new Element.tag('iron-overlay-backdrop');
 

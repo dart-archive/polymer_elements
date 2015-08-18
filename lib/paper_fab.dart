@@ -50,7 +50,7 @@ import 'paper_ripple.dart';
 /// `--paper-fab-mini` | Mixin applied to a mini button | `{}`
 /// `--paper-fab-disabled` | Mixin applied to a disabled button | `{}`
 @CustomElementProxy('paper-fab')
-class PaperFab extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, PaperButtonBehavior, IronButtonState, IronControlState, PaperButtonBehaviorImpl {
+class PaperFab extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperButtonBehavior, IronButtonState, IronControlState, PaperButtonBehaviorImpl {
   PaperFab.created() : super.created();
   factory PaperFab() => new Element.tag('paper-fab');
 

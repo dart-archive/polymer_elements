@@ -34,7 +34,7 @@ import 'google_signin_aware.dart';
 ///
 ///     </google-analytics-dashboard>
 @CustomElementProxy('google-analytics-dashboard')
-class GoogleAnalyticsDashboard extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleAnalyticsDashboard extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleAnalyticsDashboard.created() : super.created();
   factory GoogleAnalyticsDashboard() => new Element.tag('google-analytics-dashboard');
 

@@ -26,7 +26,7 @@ import 'google_js_api.dart';
 ///
 ///     <google-signin-aware scopes="https://www.googleapis.com/auth/drive"></google-signin-aware>
 @CustomElementProxy('google-signin-aware')
-class GoogleSigninAware extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleSigninAware extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleSigninAware.created() : super.created();
   factory GoogleSigninAware() => new Element.tag('google-signin-aware');
 

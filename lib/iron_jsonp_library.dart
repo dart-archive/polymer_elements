@@ -24,7 +24,7 @@ import 'iron_jsonp_library.dart';
 /// Implemented by  Polymer.IronJsonpLibraryBehavior. Use it
 /// to create specific library loader elements.
 @CustomElementProxy('iron-jsonp-library')
-class IronJsonpLibrary extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronJsonpLibraryBehavior {
+class IronJsonpLibrary extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronJsonpLibraryBehavior {
   IronJsonpLibrary.created() : super.created();
   factory IronJsonpLibrary() => new Element.tag('iron-jsonp-library');
 

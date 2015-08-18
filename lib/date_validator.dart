@@ -12,7 +12,7 @@ import 'iron_validator_behavior.dart';
 
 
 @CustomElementProxy('date-validator')
-class DateValidator extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronValidatorBehavior {
+class DateValidator extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronValidatorBehavior {
   DateValidator.created() : super.created();
   factory DateValidator() => new Element.tag('date-validator');
 

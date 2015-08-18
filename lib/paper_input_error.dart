@@ -28,7 +28,7 @@ import 'paper_styles.dart';
 /// `--paper-input-container-invalid-color` | The foreground color of the error | `--google-red-500`
 /// `--paper-input-error`                   | Mixin applied to the error        | `{}`
 @CustomElementProxy('paper-input-error')
-class PaperInputError extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, PaperInputAddonBehavior {
+class PaperInputError extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInputAddonBehavior {
   PaperInputError.created() : super.created();
   factory PaperInputError() => new Element.tag('paper-input-error');
 

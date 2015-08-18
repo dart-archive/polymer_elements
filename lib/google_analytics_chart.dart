@@ -26,7 +26,7 @@ import 'google_analytics_loader.dart';
 ///       maxResults="5">
 ///     </google-analytics-chart>
 @CustomElementProxy('google-analytics-chart')
-class GoogleAnalyticsChart extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleAnalyticsChart extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleAnalyticsChart.created() : super.created();
   factory GoogleAnalyticsChart() => new Element.tag('google-analytics-chart');
 

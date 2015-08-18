@@ -30,7 +30,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 ///       document.querySelector('google-map-search').search();
 ///     < /script>
 @CustomElementProxy('google-map-search')
-class GoogleMapSearch extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleMapSearch extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleMapSearch.created() : super.created();
   factory GoogleMapSearch() => new Element.tag('google-map-search');
 

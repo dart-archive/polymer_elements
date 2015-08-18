@@ -59,7 +59,7 @@ import 'iron_a11y_keys_behavior.dart';
 ///
 ///     <paper-ripple class="circle"></paper-ripple>
 @CustomElementProxy('paper-ripple')
-class PaperRipple extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronA11yKeysBehavior {
+class PaperRipple extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior {
   PaperRipple.created() : super.created();
   factory PaperRipple() => new Element.tag('paper-ripple');
 

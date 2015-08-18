@@ -16,7 +16,7 @@ import 'iron_jsonp_library.dart';
 ///
 /// https://developers.google.com/youtube/iframe_api_reference
 @CustomElementProxy('google-youtube-api')
-class GoogleYoutubeApi extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronJsonpLibraryBehavior {
+class GoogleYoutubeApi extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronJsonpLibraryBehavior {
   GoogleYoutubeApi.created() : super.created();
   factory GoogleYoutubeApi() => new Element.tag('google-youtube-api');
 

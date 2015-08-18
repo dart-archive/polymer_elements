@@ -38,7 +38,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 ///
 /// Note: announcements are only audible if you have a screen reader enabled.
 @CustomElementProxy('iron-a11y-announcer')
-class IronA11yAnnouncer extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class IronA11yAnnouncer extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronA11yAnnouncer.created() : super.created();
   factory IronA11yAnnouncer() => new Element.tag('iron-a11y-announcer');
 

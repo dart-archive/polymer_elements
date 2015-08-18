@@ -64,7 +64,7 @@ import 'paper_ripple.dart';
 /// `--paper-icon-button` | Mixin for a button | `{}`
 /// `--paper-icon-button-disabled` | Mixin for a disabled button | `{}`
 @CustomElementProxy('paper-icon-button')
-class PaperIconButton extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, PaperInkyFocusBehavior, IronButtonState, IronControlState {
+class PaperIconButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInkyFocusBehavior, IronButtonState, IronControlState {
   PaperIconButton.created() : super.created();
   factory PaperIconButton() => new Element.tag('paper-icon-button');
 

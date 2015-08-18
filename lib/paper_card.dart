@@ -39,7 +39,7 @@ import 'paper_material.dart';
 /// `--paper-card-actions` | Mixin applied to the card action section | `{}`
 /// `--paper-card` | Mixin applied to the card | `{}`
 @CustomElementProxy('paper-card')
-class PaperCard extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class PaperCard extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   PaperCard.created() : super.created();
   factory PaperCard() => new Element.tag('paper-card');
 

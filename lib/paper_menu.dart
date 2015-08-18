@@ -57,7 +57,7 @@ import 'paper_styles.dart';
 /// down arrow keys, esc to exit the menu, and enter to activate a menu item. Typing the first letter
 /// of a menu item will also focus it.
 @CustomElementProxy('paper-menu')
-class PaperMenu extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronMenuBehavior, IronMultiSelectableBehavior, IronA11yKeysBehavior {
+class PaperMenu extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronMenuBehavior, IronMultiSelectableBehavior, IronA11yKeysBehavior {
   PaperMenu.created() : super.created();
   factory PaperMenu() => new Element.tag('paper-menu');
 }

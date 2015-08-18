@@ -24,7 +24,7 @@ import '../../neon_animation_behavior.dart';
 /// }
 /// ```
 @CustomElementProxy('cascaded-animation')
-class CascadedAnimation extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, NeonAnimationBehavior {
+class CascadedAnimation extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimationBehavior {
   CascadedAnimation.created() : super.created();
   factory CascadedAnimation() => new Element.tag('cascaded-animation');
 

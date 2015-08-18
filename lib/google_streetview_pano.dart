@@ -30,7 +30,7 @@ import 'google_maps_api.dart';
 ///
 /// The hash in bold is the `pano-id`. You'll often need to dial in the `heading`, `pitch` and `zoom` manually.
 @CustomElementProxy('google-streetview-pano')
-class GoogleStreetviewPano extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleStreetviewPano extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleStreetviewPano.created() : super.created();
   factory GoogleStreetviewPano() => new Element.tag('google-streetview-pano');
 

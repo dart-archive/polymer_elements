@@ -28,7 +28,7 @@ import 'paper_radio_button.dart';
 /// See <a href="paper-radio-button.html">paper-radio-button</a> for more
 /// information about `paper-radio-button`.
 @CustomElementProxy('paper-radio-group')
-class PaperRadioGroup extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronA11yKeysBehavior, IronSelectableBehavior {
+class PaperRadioGroup extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronSelectableBehavior {
   PaperRadioGroup.created() : super.created();
   factory PaperRadioGroup() => new Element.tag('paper-radio-group');
 

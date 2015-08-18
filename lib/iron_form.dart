@@ -37,7 +37,7 @@ import 'iron_ajax.dart';
 ///       document.getElementById('form').submit();
 ///     }
 @CustomElementProxy('iron-form', extendsTag: 'form')
-class IronForm extends FormElement with CustomElementProxyMixin, PolymerProxyMixin {
+class IronForm extends FormElement with CustomElementProxyMixin, PolymerBase {
   IronForm.created() : super.created();
   factory IronForm() => new Element.tag('form', 'iron-form');
 

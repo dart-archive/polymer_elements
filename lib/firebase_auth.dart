@@ -11,7 +11,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 
 /// Element wrapper for the Firebase authentication API (https://www.firebase.com/docs/web/guide/user-auth.html).
 @CustomElementProxy('firebase-auth')
-class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   FirebaseAuth.created() : super.created();
   factory FirebaseAuth() => new Element.tag('firebase-auth');
 

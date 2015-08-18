@@ -47,7 +47,7 @@ import 'paper_styles.dart';
 ///       <paper-checkbox></paper-checkbox>
 ///     </paper-item>
 @CustomElementProxy('paper-item')
-class PaperItem extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class PaperItem extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   PaperItem.created() : super.created();
   factory PaperItem() => new Element.tag('paper-item');
 }

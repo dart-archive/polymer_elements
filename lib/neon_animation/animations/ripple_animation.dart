@@ -33,7 +33,7 @@ import '../../neon_animation_behavior.dart';
 /// }
 /// ```
 @CustomElementProxy('ripple-animation')
-class RippleAnimation extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, NeonSharedElementAnimationBehavior, NeonAnimationBehavior {
+class RippleAnimation extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonSharedElementAnimationBehavior, NeonAnimationBehavior {
   RippleAnimation.created() : super.created();
   factory RippleAnimation() => new Element.tag('ripple-animation');
 

@@ -45,7 +45,7 @@ import 'google_legacy_loader.dart';
 ///
 ///       data='http://example.com/chart-data.json'
 @CustomElementProxy('google-chart')
-class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleChart.created() : super.created();
   factory GoogleChart() => new Element.tag('google-chart');
 

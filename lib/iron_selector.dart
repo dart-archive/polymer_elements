@@ -53,7 +53,7 @@ import 'iron_selectable.dart';
 ///         <div>Item 3</div>
 ///       </iron-selector>
 @CustomElementProxy('iron-selector')
-class IronSelector extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronMultiSelectableBehavior, IronSelectableBehavior {
+class IronSelector extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronMultiSelectableBehavior, IronSelectableBehavior {
   IronSelector.created() : super.created();
   factory IronSelector() => new Element.tag('iron-selector');
 }

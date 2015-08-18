@@ -51,7 +51,7 @@ import 'iron_meta.dart';
 ///
 ///     iconset.applyIcon(iconNode, 'car', 'special');
 @CustomElementProxy('iron-iconset')
-class IronIconset extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class IronIconset extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronIconset.created() : super.created();
   factory IronIconset() => new Element.tag('iron-iconset');
 

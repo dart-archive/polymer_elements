@@ -39,7 +39,7 @@ import 'iron_flex_layout.dart';
 /// `--paper-spinner-layer-3-color` | Color of the third spinner rotation | `--google-yellow-500`
 /// `--paper-spinner-layer-4-color` | Color of the fourth spinner rotation | `--google-green-500`
 @CustomElementProxy('paper-spinner')
-class PaperSpinner extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class PaperSpinner extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   PaperSpinner.created() : super.created();
   factory PaperSpinner() => new Element.tag('paper-spinner');
 

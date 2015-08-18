@@ -15,7 +15,7 @@ import 'date_validator.dart';
 
 
 @CustomElementProxy('date-input')
-class DateInput extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronValidatableBehavior {
+class DateInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronValidatableBehavior {
   DateInput.created() : super.created();
   factory DateInput() => new Element.tag('date-input');
 

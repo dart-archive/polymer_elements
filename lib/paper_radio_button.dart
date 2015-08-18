@@ -39,7 +39,7 @@ import 'default_theme.dart';
 /// `--paper-radio-button-checked-ink-color` | Selected/focus ripple color when the input is checked | `--default-primary-color`
 /// `--paper-radio-button-label-color` | Label color | `--primary-text-color`
 @CustomElementProxy('paper-radio-button')
-class PaperRadioButton extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, PaperInkyFocusBehavior, IronButtonState, IronControlState {
+class PaperRadioButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInkyFocusBehavior, IronButtonState, IronControlState {
   PaperRadioButton.created() : super.created();
   factory PaperRadioButton() => new Element.tag('paper-radio-button');
 

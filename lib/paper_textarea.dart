@@ -30,7 +30,7 @@ import 'paper_input_char_counter.dart';
 /// See `Polymer.PaperInputContainer` for a list of custom properties used to
 /// style this element.
 @CustomElementProxy('paper-textarea')
-class PaperTextarea extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, PaperInputBehavior, IronControlState {
+class PaperTextarea extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInputBehavior, IronControlState {
   PaperTextarea.created() : super.created();
   factory PaperTextarea() => new Element.tag('paper-textarea');
 

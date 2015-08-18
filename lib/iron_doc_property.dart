@@ -15,7 +15,7 @@ import 'typography.dart';
 ///
 /// Give it a hydrolysis `PropertyDescriptor` (via `descriptor`), and watch it go!
 @CustomElementProxy('iron-doc-property')
-class IronDocProperty extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class IronDocProperty extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronDocProperty.created() : super.created();
   factory IronDocProperty() => new Element.tag('iron-doc-property');
 

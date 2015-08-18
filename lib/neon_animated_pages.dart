@@ -18,7 +18,7 @@ import 'neon_animation/animations/opaque_animation.dart';
 /// children pages should implement `Polymer.NeonAnimatableBehavior` and define `entry` and `exit`
 /// animations to be run when switching to or switching out of the page.
 @CustomElementProxy('neon-animated-pages')
-class NeonAnimatedPages extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronResizableBehavior, IronSelectableBehavior, NeonAnimationRunnerBehavior, NeonAnimatableBehavior {
+class NeonAnimatedPages extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronResizableBehavior, IronSelectableBehavior, NeonAnimationRunnerBehavior, NeonAnimatableBehavior {
   NeonAnimatedPages.created() : super.created();
   factory NeonAnimatedPages() => new Element.tag('neon-animated-pages');
 

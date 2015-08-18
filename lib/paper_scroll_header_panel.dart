@@ -64,7 +64,7 @@ import 'iron_resizable_behavior.dart';
 ///       };
 ///     }
 @CustomElementProxy('paper-scroll-header-panel')
-class PaperScrollHeaderPanel extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronResizableBehavior {
+class PaperScrollHeaderPanel extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronResizableBehavior {
   PaperScrollHeaderPanel.created() : super.created();
   factory PaperScrollHeaderPanel() => new Element.tag('paper-scroll-header-panel');
 

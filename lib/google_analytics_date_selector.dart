@@ -29,7 +29,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 ///
 ///     </google-analytics-dashboard>
 @CustomElementProxy('google-analytics-date-selector')
-class GoogleAnalyticsDateSelector extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleAnalyticsDateSelector extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleAnalyticsDateSelector.created() : super.created();
   factory GoogleAnalyticsDateSelector() => new Element.tag('google-analytics-date-selector');
 

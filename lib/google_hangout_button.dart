@@ -16,7 +16,7 @@ import 'google_plusone_api.dart';
 ///
 ///     <google-hangout-button></google-hangout-button>
 @CustomElementProxy('google-hangout-button')
-class GoogleHangoutButton extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleHangoutButton extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleHangoutButton.created() : super.created();
   factory GoogleHangoutButton() => new Element.tag('google-hangout-button');
 

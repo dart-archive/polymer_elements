@@ -27,7 +27,7 @@ import 'google_maps_api.dart';
 ///                   longitude="-122.3892"></google-map>
 ///     </template>
 @CustomElementProxy('google-map-directions')
-class GoogleMapDirections extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleMapDirections extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleMapDirections.created() : super.created();
   factory GoogleMapDirections() => new Element.tag('google-map-directions');
 

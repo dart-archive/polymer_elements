@@ -27,7 +27,7 @@ import 'firebase_query_behavior.dart';
 /// reflected in the remote document and any other clients referencing that
 /// document.
 @CustomElementProxy('firebase-document')
-class FirebaseDocument extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, FirebaseQueryBehavior {
+class FirebaseDocument extends HtmlElement with CustomElementProxyMixin, PolymerBase, FirebaseQueryBehavior {
   FirebaseDocument.created() : super.created();
   factory FirebaseDocument() => new Element.tag('firebase-document');
 

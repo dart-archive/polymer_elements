@@ -21,7 +21,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 ///
 /// This flow is supported by [`<marked-element>`](https://github.com/PolymerElements/marked-element).
 @CustomElementProxy('prism-highlighter')
-class PrismHighlighter extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class PrismHighlighter extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   PrismHighlighter.created() : super.created();
   factory PrismHighlighter() => new Element.tag('prism-highlighter');
 }

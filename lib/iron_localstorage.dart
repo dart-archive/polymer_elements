@@ -67,7 +67,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 /// is resolved. Local storage will be blown away.
 /// `<iron-localstorage value="{{foo.bar}}"` will cause **data loss**.
 @CustomElementProxy('iron-localstorage')
-class IronLocalstorage extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class IronLocalstorage extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronLocalstorage.created() : super.created();
   factory IronLocalstorage() => new Element.tag('iron-localstorage');
 

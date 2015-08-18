@@ -34,7 +34,7 @@ import 'paper_ripple.dart';
 /// `--paper-tab` | Mixin applied to the tab | `{}`
 /// `--paper-tab-content` | Mixin applied to the tab content | `{}`
 @CustomElementProxy('paper-tab')
-class PaperTab extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronControlState {
+class PaperTab extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState {
   PaperTab.created() : super.created();
   factory PaperTab() => new Element.tag('paper-tab');
 

@@ -65,7 +65,7 @@ import 'iron_flex_layout.dart';
 /// `--iron-icon-width` | Width of the icon | `24px`
 /// `--iron-icon-height` | Height of the icon | `24px`
 @CustomElementProxy('iron-icon')
-class IronIcon extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class IronIcon extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronIcon.created() : super.created();
   factory IronIcon() => new Element.tag('iron-icon');
 

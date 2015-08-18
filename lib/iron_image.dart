@@ -56,7 +56,7 @@ import 'iron_flex_layout/classes/iron_flex_layout.dart';
 ///     <iron-image style="width:400px; height:400px; background-color: lightgray;"
 ///       sizing="cover" preload fade src="http://lorempixel.com/600/400"></iron-image>
 @CustomElementProxy('iron-image')
-class IronImage extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class IronImage extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronImage.created() : super.created();
   factory IronImage() => new Element.tag('iron-image');
 

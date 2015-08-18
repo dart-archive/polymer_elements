@@ -24,7 +24,7 @@ import 'iron_jsonp_library.dart';
 ///
 /// Any number of components can use `<google-maps-api>` elements, and the library will only be loaded once.
 @CustomElementProxy('google-maps-api')
-class GoogleMapsApi extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronJsonpLibraryBehavior {
+class GoogleMapsApi extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronJsonpLibraryBehavior {
   GoogleMapsApi.created() : super.created();
   factory GoogleMapsApi() => new Element.tag('google-maps-api');
 

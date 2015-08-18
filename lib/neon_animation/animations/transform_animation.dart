@@ -25,7 +25,7 @@ import '../../neon_animation_behavior.dart';
 /// }
 /// ```
 @CustomElementProxy('transform-animation')
-class TransformAnimation extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, NeonAnimationBehavior {
+class TransformAnimation extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimationBehavior {
   TransformAnimation.created() : super.created();
   factory TransformAnimation() => new Element.tag('transform-animation');
 

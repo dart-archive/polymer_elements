@@ -24,7 +24,7 @@ import '../../neon_animation_behavior.dart';
 /// }
 /// ```
 @CustomElementProxy('scale-down-animation')
-class ScaleDownAnimation extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, NeonAnimationBehavior {
+class ScaleDownAnimation extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimationBehavior {
   ScaleDownAnimation.created() : super.created();
   factory ScaleDownAnimation() => new Element.tag('scale-down-animation');
 

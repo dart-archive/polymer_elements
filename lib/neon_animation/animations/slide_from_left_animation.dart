@@ -24,7 +24,7 @@ import '../../neon_animation_behavior.dart';
 /// }
 /// ```
 @CustomElementProxy('slide-from-left-animation')
-class SlideFromLeftAnimation extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, NeonAnimationBehavior {
+class SlideFromLeftAnimation extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimationBehavior {
   SlideFromLeftAnimation.created() : super.created();
   factory SlideFromLeftAnimation() => new Element.tag('slide-from-left-animation');
 

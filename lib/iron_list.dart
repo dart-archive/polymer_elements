@@ -78,7 +78,7 @@ import 'iron_resizable_behavior.dart';
 ///
 ///     document.querySelector('iron-list').fire('resize');
 @CustomElementProxy('iron-list')
-class IronList extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, Templatizer, IronResizableBehavior {
+class IronList extends HtmlElement with CustomElementProxyMixin, PolymerBase, Templatizer, IronResizableBehavior {
   IronList.created() : super.created();
   factory IronList() => new Element.tag('iron-list');
 

@@ -21,7 +21,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 ///       <source src="video.mp4" type="video/mp4">
 ///     </video>
 @CustomElementProxy('google-castable-video', extendsTag: 'video')
-class GoogleCastableVideo extends VideoElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleCastableVideo extends VideoElement with CustomElementProxyMixin, PolymerBase {
   GoogleCastableVideo.created() : super.created();
   factory GoogleCastableVideo() => new Element.tag('video', 'google-castable-video');
 

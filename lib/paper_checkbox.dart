@@ -40,7 +40,7 @@ import 'default_theme.dart';
 /// `--paper-checkbox-checkmark-color` | Checkmark color | `white`
 /// `--paper-checkbox-label-color` | Label color | `--primary-text-color`
 @CustomElementProxy('paper-checkbox')
-class PaperCheckbox extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, PaperInkyFocusBehavior, IronButtonState, IronControlState {
+class PaperCheckbox extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInkyFocusBehavior, IronButtonState, IronControlState {
   PaperCheckbox.created() : super.created();
   factory PaperCheckbox() => new Element.tag('paper-checkbox');
 

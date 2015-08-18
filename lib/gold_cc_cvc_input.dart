@@ -51,7 +51,7 @@ import 'iron_flex_layout/classes/iron_flex_layout.dart';
 /// See `Polymer.PaperInputContainer` for a list of custom properties used to
 /// style this element.
 @CustomElementProxy('gold-cc-cvc-input')
-class GoldCcCvcInput extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, PaperInputBehavior, IronControlState, IronFormElementBehavior {
+class GoldCcCvcInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInputBehavior, IronControlState, IronFormElementBehavior {
   GoldCcCvcInput.created() : super.created();
   factory GoldCcCvcInput() => new Element.tag('gold-cc-cvc-input');
 

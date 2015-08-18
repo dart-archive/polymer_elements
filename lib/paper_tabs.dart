@@ -77,7 +77,7 @@ import 'paper_tab.dart';
 /// `--paper-tabs-selection-bar-color` | Color for the selection bar | `--paper-yellow-a100`
 /// `--paper-tabs` | Mixin applied to the tabs | `{}`
 @CustomElementProxy('paper-tabs')
-class PaperTabs extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronResizableBehavior, IronMenubarBehavior, IronMenuBehavior {
+class PaperTabs extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronResizableBehavior, IronMenubarBehavior, IronMenuBehavior {
   PaperTabs.created() : super.created();
   factory PaperTabs() => new Element.tag('paper-tabs');
 

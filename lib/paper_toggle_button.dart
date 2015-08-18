@@ -39,7 +39,7 @@ import 'paper_ripple.dart';
 /// `--paper-toggle-button-checked-bar` | Mixin applied to the slider when the input is checked | `{}`
 /// `--paper-toggle-button-checked-button` | Mixin applied to the slider button when the input is checked | `{}`
 @CustomElementProxy('paper-toggle-button')
-class PaperToggleButton extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, PaperInkyFocusBehavior, IronButtonState, IronControlState {
+class PaperToggleButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInkyFocusBehavior, IronButtonState, IronControlState {
   PaperToggleButton.created() : super.created();
   factory PaperToggleButton() => new Element.tag('paper-toggle-button');
 

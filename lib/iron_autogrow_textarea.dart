@@ -24,7 +24,7 @@ import 'iron_flex_layout/classes/iron_flex_layout.dart';
 /// Because the `textarea`'s `value` property is not observable, you should use
 /// this element's `bind-value` instead for imperative updates.
 @CustomElementProxy('iron-autogrow-textarea')
-class IronAutogrowTextarea extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronFormElementBehavior, IronValidatableBehavior, IronControlState {
+class IronAutogrowTextarea extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronFormElementBehavior, IronValidatableBehavior, IronControlState {
   IronAutogrowTextarea.created() : super.created();
   factory IronAutogrowTextarea() => new Element.tag('iron-autogrow-textarea');
 

@@ -70,7 +70,7 @@ import 'iron_flex_layout/classes/iron_flex_layout.dart';
 /// any apps you're building. See the Google Developers Console
 /// (https://console.developers.google.com) for more info.
 @CustomElementProxy('google-signin')
-class GoogleSignin extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleSignin extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleSignin.created() : super.created();
   factory GoogleSignin() => new Element.tag('google-signin');
 

@@ -39,7 +39,7 @@ import 'iron_doc_property.dart';
 /// If you wish to update the documented element, please set it via the `descriptor`
 /// property.
 @CustomElementProxy('iron-doc-viewer')
-class IronDocViewer extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class IronDocViewer extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronDocViewer.created() : super.created();
   factory IronDocViewer() => new Element.tag('iron-doc-viewer');
 

@@ -15,7 +15,7 @@ import 'google_client_loader.dart';
 ///
 /// Loads gapi.client.analytics, and watches user signed-in state.
 @CustomElementProxy('google-analytics-loader')
-class GoogleAnalyticsLoader extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleAnalyticsLoader extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleAnalyticsLoader.created() : super.created();
   factory GoogleAnalyticsLoader() => new Element.tag('google-analytics-loader');
 

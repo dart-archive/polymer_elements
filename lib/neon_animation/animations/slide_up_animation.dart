@@ -23,7 +23,7 @@ import '../../neon_animation_behavior.dart';
 /// }
 /// ```
 @CustomElementProxy('slide-up-animation')
-class SlideUpAnimation extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, NeonAnimationBehavior {
+class SlideUpAnimation extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimationBehavior {
   SlideUpAnimation.created() : super.created();
   factory SlideUpAnimation() => new Element.tag('slide-up-animation');
 

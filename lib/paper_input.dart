@@ -42,7 +42,7 @@ import 'paper_input_char_counter.dart';
 /// See `Polymer.PaperInputContainer` for a list of custom properties used to
 /// style this element.
 @CustomElementProxy('paper-input')
-class PaperInput extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronFormElementBehavior, PaperInputBehavior, IronControlState, IronControlState {
+class PaperInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronFormElementBehavior, PaperInputBehavior, IronControlState, IronControlState {
   PaperInput.created() : super.created();
   factory PaperInput() => new Element.tag('paper-input');
 }

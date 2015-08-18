@@ -74,7 +74,7 @@ import 'google_signin_aware.dart';
 ///       </template>
 ///     </template>
 @CustomElementProxy('google-sheets')
-class GoogleSheets extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleSheets extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleSheets.created() : super.created();
   factory GoogleSheets() => new Element.tag('google-sheets');
 

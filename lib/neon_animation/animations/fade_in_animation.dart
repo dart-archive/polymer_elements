@@ -21,7 +21,7 @@ import '../../neon_animation_behavior.dart';
 /// }
 /// ```
 @CustomElementProxy('fade-in-animation')
-class FadeInAnimation extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, NeonAnimationBehavior {
+class FadeInAnimation extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimationBehavior {
   FadeInAnimation.created() : super.created();
   factory FadeInAnimation() => new Element.tag('fade-in-animation');
 

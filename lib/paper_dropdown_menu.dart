@@ -58,7 +58,7 @@ import 'iron_selectable.dart';
 /// style mixins and custom properties to style the internal input and menu button
 /// respectively.
 @CustomElementProxy('paper-dropdown-menu')
-class PaperDropdownMenu extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronControlState, IronButtonState, IronA11yKeysBehavior {
+class PaperDropdownMenu extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronButtonState, IronA11yKeysBehavior {
   PaperDropdownMenu.created() : super.created();
   factory PaperDropdownMenu() => new Element.tag('paper-dropdown-menu');
 

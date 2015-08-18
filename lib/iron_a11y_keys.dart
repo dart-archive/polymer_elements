@@ -70,7 +70,7 @@ import 'iron_a11y_keys_behavior.dart';
 ///     keycombo = { modifier, "+" }, key ;
 ///     keys = keycombo, { " ", keycombo } ;
 @CustomElementProxy('iron-a11y-keys')
-class IronA11yKeys extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronA11yKeysBehavior {
+class IronA11yKeys extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior {
   IronA11yKeys.created() : super.created();
   factory IronA11yKeys() => new Element.tag('iron-a11y-keys');
 

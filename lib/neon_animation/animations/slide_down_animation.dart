@@ -23,7 +23,7 @@ import '../../neon_animation_behavior.dart';
 /// }
 /// ```
 @CustomElementProxy('slide-down-animation')
-class SlideDownAnimation extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, NeonAnimationBehavior {
+class SlideDownAnimation extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimationBehavior {
   SlideDownAnimation.created() : super.created();
   factory SlideDownAnimation() => new Element.tag('slide-down-animation');
 

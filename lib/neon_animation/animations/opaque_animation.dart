@@ -13,7 +13,7 @@ import '../../neon_animation_behavior.dart';
 /// `<opaque-animation>` makes an element `opacity:1` for the duration of the animation. Used to prevent
 /// webkit/safari from drawing a frame before an animation for elements that animate from display:none.
 @CustomElementProxy('opaque-animation')
-class OpaqueAnimation extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, NeonAnimationBehavior {
+class OpaqueAnimation extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimationBehavior {
   OpaqueAnimation.created() : super.created();
   factory OpaqueAnimation() => new Element.tag('opaque-animation');
 

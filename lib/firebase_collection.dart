@@ -50,7 +50,7 @@ import 'firebase_query_behavior.dart';
 /// Accessor methods such as `add` and `remove` are provided to enable convenient
 /// manipulation of the collection without direct knowledge of Firebase key values.
 @CustomElementProxy('firebase-collection')
-class FirebaseCollection extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, FirebaseQueryBehavior {
+class FirebaseCollection extends HtmlElement with CustomElementProxyMixin, PolymerBase, FirebaseQueryBehavior {
   FirebaseCollection.created() : super.created();
   factory FirebaseCollection() => new Element.tag('firebase-collection');
 

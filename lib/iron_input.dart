@@ -39,7 +39,7 @@ import 'iron_validatable_behavior.dart';
 ///     <!-- only allow characters that match [0-9] -->
 ///     <input is="iron-input" prevent-invalid-input allowed-pattern="[0-9]">
 @CustomElementProxy('iron-input', extendsTag: 'input')
-class IronInput extends InputElement with CustomElementProxyMixin, PolymerProxyMixin, IronValidatableBehavior {
+class IronInput extends InputElement with CustomElementProxyMixin, PolymerBase, IronValidatableBehavior {
   IronInput.created() : super.created();
   factory IronInput() => new Element.tag('input', 'iron-input');
 

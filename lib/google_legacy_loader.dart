@@ -14,7 +14,7 @@ import 'iron_jsonp_library.dart';
 ///
 /// Fires `api-load` event when ready.
 @CustomElementProxy('google-legacy-loader')
-class GoogleLegacyLoader extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronJsonpLibraryBehavior {
+class GoogleLegacyLoader extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronJsonpLibraryBehavior {
   GoogleLegacyLoader.created() : super.created();
   factory GoogleLegacyLoader() => new Element.tag('google-legacy-loader');
 

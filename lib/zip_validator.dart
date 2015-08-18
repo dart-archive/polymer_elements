@@ -12,7 +12,7 @@ import 'iron_validator_behavior.dart';
 
 
 @CustomElementProxy('zip-validator')
-class ZipValidator extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronValidatorBehavior {
+class ZipValidator extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronValidatorBehavior {
   ZipValidator.created() : super.created();
   factory ZipValidator() => new Element.tag('zip-validator');
 

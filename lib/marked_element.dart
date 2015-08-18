@@ -35,7 +35,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 /// Note that the `<script type="text/markdown">` approach is _static_. Changes to
 /// the script content will _not_ update the rendered markdown!
 @CustomElementProxy('marked-element')
-class MarkedElement extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class MarkedElement extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   MarkedElement.created() : super.created();
   factory MarkedElement() => new Element.tag('marked-element');
 

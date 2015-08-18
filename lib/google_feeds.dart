@@ -20,7 +20,7 @@ import 'google_legacy_loader.dart';
 ///       <p>Feed title: <span>{{result.title}}</span></p>
 ///     </template>
 @CustomElementProxy('google-feeds')
-class GoogleFeeds extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleFeeds extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleFeeds.created() : super.created();
   factory GoogleFeeds() => new Element.tag('google-feeds');
 

@@ -14,7 +14,7 @@ import 'iron_jsonp_library.dart';
 ///
 /// Any number of components can use `<google-plusone-api>` elements, and the library will only be loaded once.
 @CustomElementProxy('google-plusone-api')
-class GooglePlusoneApi extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronJsonpLibraryBehavior {
+class GooglePlusoneApi extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronJsonpLibraryBehavior {
   GooglePlusoneApi.created() : super.created();
   factory GooglePlusoneApi() => new Element.tag('google-plusone-api');
 

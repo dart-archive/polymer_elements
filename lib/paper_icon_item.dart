@@ -33,7 +33,7 @@ import 'paper_styles.dart';
 /// `--paper-item-icon-width` | Width of the icon area     | `56px`
 /// `--paper-icon-item`       | Mixin applied to the item  | `{}`
 @CustomElementProxy('paper-icon-item')
-class PaperIconItem extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class PaperIconItem extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   PaperIconItem.created() : super.created();
   factory PaperIconItem() => new Element.tag('paper-icon-item');
 }

@@ -36,7 +36,7 @@ import 'google_maps_api.dart';
 ///     <google-map-marker latitude="37.77493" longitude="-122.41942"
 ///         hidden></google-map-marker>
 @CustomElementProxy('google-map-marker')
-class GoogleMapMarker extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleMapMarker extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleMapMarker.created() : super.created();
   factory GoogleMapMarker() => new Element.tag('google-map-marker');
 

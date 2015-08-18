@@ -17,7 +17,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 ///
 ///     <iron-media-query query="(min-width: 600px)" query-matches="{{queryMatches}}"></iron-media-query>
 @CustomElementProxy('iron-media-query')
-class IronMediaQuery extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class IronMediaQuery extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronMediaQuery.created() : super.created();
   factory IronMediaQuery() => new Element.tag('iron-media-query');
 

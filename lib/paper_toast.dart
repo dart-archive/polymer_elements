@@ -13,7 +13,7 @@ import 'iron_a11y_announcer.dart';
 
 /// `paper-toast` provides a subtle notification toast.
 @CustomElementProxy('paper-toast')
-class PaperToast extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class PaperToast extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   PaperToast.created() : super.created();
   factory PaperToast() => new Element.tag('paper-toast');
 

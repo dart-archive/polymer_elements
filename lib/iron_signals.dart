@@ -29,7 +29,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 /// `iron-signals` elements will receive the event, regardless
 /// of where they are in DOM.
 @CustomElementProxy('iron-signals')
-class IronSignals extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class IronSignals extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronSignals.created() : super.created();
   factory IronSignals() => new Element.tag('iron-signals');
 }

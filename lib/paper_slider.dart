@@ -53,7 +53,7 @@ import 'iron_a11y_keys_behavior.dart';
 /// `--paper-slider-knob-start-border-color` | The border color of the knob at the far left | `#c8c8c8`
 /// `--paper-slider-pin-start-color` | The color of the pin at the far left | `#c8c8c8`
 @CustomElementProxy('paper-slider')
-class PaperSlider extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronFormElementBehavior, PaperInkyFocusBehavior, IronButtonState, IronControlState, IronRangeBehavior {
+class PaperSlider extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronFormElementBehavior, PaperInkyFocusBehavior, IronButtonState, IronControlState, IronRangeBehavior {
   PaperSlider.created() : super.created();
   factory PaperSlider() => new Element.tag('paper-slider');
 

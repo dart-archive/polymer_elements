@@ -11,7 +11,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 
 
 @CustomElementProxy('hydrolysis-analyzer')
-class HydrolysisAnalyzer extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class HydrolysisAnalyzer extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   HydrolysisAnalyzer.created() : super.created();
   factory HydrolysisAnalyzer() => new Element.tag('hydrolysis-analyzer');
 

@@ -19,7 +19,7 @@ import 'google_client_loader.dart';
 ///
 ///     <google-calendar-list title="What I'm up to"></google-calendar-list>
 @CustomElementProxy('google-calendar-list')
-class GoogleCalendarList extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleCalendarList extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleCalendarList.created() : super.created();
   factory GoogleCalendarList() => new Element.tag('google-calendar-list');
 
@@ -49,7 +49,7 @@ class GoogleCalendarList extends HtmlElement with CustomElementProxyMixin, Polym
 ///         freeLabel="I'm free, talk to me!">
 ///     </google-calendar-busy-now>
 @CustomElementProxy('google-calendar-busy-now')
-class GoogleCalendarBusyNow extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleCalendarBusyNow extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleCalendarBusyNow.created() : super.created();
   factory GoogleCalendarBusyNow() => new Element.tag('google-calendar-busy-now');
 

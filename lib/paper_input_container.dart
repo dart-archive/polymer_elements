@@ -86,7 +86,7 @@ import 'paper_styles.dart';
 /// This element is `display:block` by default, but you can set the `inline` attribute to make it
 /// `display:inline-block`.
 @CustomElementProxy('paper-input-container')
-class PaperInputContainer extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class PaperInputContainer extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   PaperInputContainer.created() : super.created();
   factory PaperInputContainer() => new Element.tag('paper-input-container');
 

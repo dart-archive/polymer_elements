@@ -44,7 +44,7 @@ import 'google_client_loader.dart';
 ///       });
 ///     </script>
 @CustomElementProxy('google-url-shortener')
-class GoogleUrlShortener extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleUrlShortener extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleUrlShortener.created() : super.created();
   factory GoogleUrlShortener() => new Element.tag('google-url-shortener');
 

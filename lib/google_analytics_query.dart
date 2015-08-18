@@ -22,7 +22,7 @@ import 'google_analytics_loader.dart';
 ///       maxResults="5">
 ///     </google-analytics-query>
 @CustomElementProxy('google-analytics-query')
-class GoogleAnalyticsQuery extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleAnalyticsQuery extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleAnalyticsQuery.created() : super.created();
   factory GoogleAnalyticsQuery() => new Element.tag('google-analytics-query');
 

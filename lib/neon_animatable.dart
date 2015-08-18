@@ -21,7 +21,7 @@ import 'neon_animatable_behavior.dart';
 /// </neon-animated-pages>
 /// ```
 @CustomElementProxy('neon-animatable')
-class NeonAnimatable extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, NeonAnimatableBehavior {
+class NeonAnimatable extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimatableBehavior {
   NeonAnimatable.created() : super.created();
   factory NeonAnimatable() => new Element.tag('neon-animatable');
 }

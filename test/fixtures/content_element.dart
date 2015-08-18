@@ -7,7 +7,7 @@ import 'package:web_components/web_components.dart';
 
 @CustomElementProxy('test-content-element')
 class TestContentElement extends HtmlElement
-    with CustomElementProxyMixin, PolymerProxyMixin {
+    with CustomElementProxyMixin, PolymerBase {
   TestContentElement.created() : super.created();
 
   String get selected => jsElement['selected'];

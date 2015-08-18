@@ -14,7 +14,7 @@ import 'iron_jsonp_library.dart';
 ///
 /// Any number of components can use `<google-realtime-api>` elements, and the library will only be loaded once.
 @CustomElementProxy('google-realtime-api')
-class GoogleRealtimeApi extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronJsonpLibraryBehavior {
+class GoogleRealtimeApi extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronJsonpLibraryBehavior {
   GoogleRealtimeApi.created() : super.created();
   factory GoogleRealtimeApi() => new Element.tag('google-realtime-api');
 

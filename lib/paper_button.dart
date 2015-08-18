@@ -67,7 +67,7 @@ import 'paper_ripple.dart';
 /// `--paper-button` | Mixin applied to the button | `{}`
 /// `--paper-button-disabled` | Mixin applied to the disabled button | `{}`
 @CustomElementProxy('paper-button')
-class PaperButton extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, PaperButtonBehavior, IronButtonState, IronControlState, PaperButtonBehaviorImpl {
+class PaperButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperButtonBehavior, IronButtonState, IronControlState, PaperButtonBehaviorImpl {
   PaperButton.created() : super.created();
   factory PaperButton() => new Element.tag('paper-button');
 

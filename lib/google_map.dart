@@ -50,7 +50,7 @@ import 'google_map_marker.dart';
 ///         start-address="San Francisco" end-address="Mountain View">
 ///     </google-map-directions>
 @CustomElementProxy('google-map')
-class GoogleMap extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronResizableBehavior {
+class GoogleMap extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronResizableBehavior {
   GoogleMap.created() : super.created();
   factory GoogleMap() => new Element.tag('google-map');
 

@@ -38,7 +38,7 @@ import 'iron_input.dart';
 /// See `Polymer.PaperInputContainer` for a list of custom properties used to
 /// style this element.
 @CustomElementProxy('gold-email-input')
-class GoldEmailInput extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, PaperInputBehavior, IronControlState, IronFormElementBehavior {
+class GoldEmailInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInputBehavior, IronControlState, IronFormElementBehavior {
   GoldEmailInput.created() : super.created();
   factory GoldEmailInput() => new Element.tag('gold-email-input');
 

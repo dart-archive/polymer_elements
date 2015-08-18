@@ -23,7 +23,7 @@ import '../../neon_animation_behavior.dart';
 /// }
 /// ```
 @CustomElementProxy('slide-right-animation')
-class SlideRightAnimation extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, NeonAnimationBehavior {
+class SlideRightAnimation extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimationBehavior {
   SlideRightAnimation.created() : super.created();
   factory SlideRightAnimation() => new Element.tag('slide-right-animation');
 

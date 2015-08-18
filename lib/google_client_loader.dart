@@ -32,7 +32,7 @@ import 'google_js_api.dart';
 ///       });
 ///     </script>
 @CustomElementProxy('google-client-loader')
-class GoogleClientLoader extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleClientLoader extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleClientLoader.created() : super.created();
   factory GoogleClientLoader() => new Element.tag('google-client-loader');
 

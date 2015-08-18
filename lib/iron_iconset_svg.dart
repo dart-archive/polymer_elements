@@ -40,7 +40,7 @@ import 'iron_meta.dart';
 ///
 ///     iconset.applyIcon(iconNode, 'car');
 @CustomElementProxy('iron-iconset-svg')
-class IronIconsetSvg extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class IronIconsetSvg extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronIconsetSvg.created() : super.created();
   factory IronIconsetSvg() => new Element.tag('iron-iconset-svg');
 

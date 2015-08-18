@@ -30,7 +30,7 @@ import 'paper_styles.dart';
 /// the last child in its parent container, indicating there is more content below. The bottom divider
 /// is hidden if it is scrolled to the bottom.
 @CustomElementProxy('paper-dialog-scrollable')
-class PaperDialogScrollable extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class PaperDialogScrollable extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   PaperDialogScrollable.created() : super.created();
   factory PaperDialogScrollable() => new Element.tag('paper-dialog-scrollable');
 

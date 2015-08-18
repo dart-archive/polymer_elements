@@ -39,7 +39,7 @@ import 'neon_animation/animations/opaque_animation.dart';
 /// hidden until the dropdown element has `opened` set to true, or when the `open`
 /// method is called on the element.
 @CustomElementProxy('iron-dropdown')
-class IronDropdown extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronControlState, IronA11yKeysBehavior, IronOverlayBehavior, IronFitBehavior, IronResizableBehavior, NeonAnimationRunnerBehavior, NeonAnimatableBehavior {
+class IronDropdown extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, IronOverlayBehavior, IronFitBehavior, IronResizableBehavior, NeonAnimationRunnerBehavior, NeonAnimatableBehavior {
   IronDropdown.created() : super.created();
   factory IronDropdown() => new Element.tag('iron-dropdown');
 

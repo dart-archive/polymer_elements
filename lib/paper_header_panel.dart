@@ -105,7 +105,7 @@ import 'iron_flex_layout.dart';
 ///       };
 ///     }
 @CustomElementProxy('paper-header-panel')
-class PaperHeaderPanel extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class PaperHeaderPanel extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   PaperHeaderPanel.created() : super.created();
   factory PaperHeaderPanel() => new Element.tag('paper-header-panel');
 

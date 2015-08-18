@@ -27,7 +27,7 @@ import 'paper_styles.dart';
 /// ----------------|-------------|----------
 /// `--paper-input-char-counter` | Mixin applied to the element | `{}`
 @CustomElementProxy('paper-input-char-counter')
-class PaperInputCharCounter extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, PaperInputAddonBehavior {
+class PaperInputCharCounter extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInputAddonBehavior {
   PaperInputCharCounter.created() : super.created();
   factory PaperInputCharCounter() => new Element.tag('paper-input-char-counter');
 

@@ -26,7 +26,7 @@ import 'google_analytics_loader.dart';
 ///
 ///     </google-analytics-dashboard>
 @CustomElementProxy('google-analytics-view-selector')
-class GoogleAnalyticsViewSelector extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleAnalyticsViewSelector extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleAnalyticsViewSelector.created() : super.created();
   factory GoogleAnalyticsViewSelector() => new Element.tag('google-analytics-view-selector');
 

@@ -43,7 +43,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 ///     ...
 ///     this.$.meta.byKey('info').getAttribute('value');
 @CustomElementProxy('iron-meta')
-class IronMeta extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class IronMeta extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronMeta.created() : super.created();
   factory IronMeta() => new Element.tag('iron-meta');
 
@@ -115,7 +115,7 @@ class IronMeta extends HtmlElement with CustomElementProxyMixin, PolymerProxyMix
 ///     ...
 ///     this.$.meta.byKey('info').getAttribute('value');
 @CustomElementProxy('iron-meta-query')
-class IronMetaQuery extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class IronMetaQuery extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronMetaQuery.created() : super.created();
   factory IronMetaQuery() => new Element.tag('iron-meta-query');
 

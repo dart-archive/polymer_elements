@@ -33,7 +33,7 @@ import 'paper_styles.dart';
 /// `--paper-item-body-secondary-color`       | Foreground color for the `secondary` area  | `--secondary-text-color`
 /// `--paper-item-body-secondary`             | Mixin applied to the `secondary` area      | `{}`
 @CustomElementProxy('paper-item-body')
-class PaperItemBody extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class PaperItemBody extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   PaperItemBody.created() : super.created();
   factory PaperItemBody() => new Element.tag('paper-item-body');
 }

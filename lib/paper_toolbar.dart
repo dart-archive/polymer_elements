@@ -73,7 +73,7 @@ import 'paper_styles.dart';
 /// `<paper-toolbar>` has `role="toolbar"` by default. Any elements with the class `title` will
 /// be used as the label of the toolbar via `aria-labelledby`.
 @CustomElementProxy('paper-toolbar')
-class PaperToolbar extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class PaperToolbar extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   PaperToolbar.created() : super.created();
   factory PaperToolbar() => new Element.tag('paper-toolbar');
 

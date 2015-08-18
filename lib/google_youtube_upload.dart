@@ -28,7 +28,7 @@ import 'google_client_loader.dart';
 ///       client-id="...">
 ///     </google-youtube-upload>
 @CustomElementProxy('google-youtube-upload')
-class GoogleYoutubeUpload extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class GoogleYoutubeUpload extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleYoutubeUpload.created() : super.created();
   factory GoogleYoutubeUpload() => new Element.tag('google-youtube-upload');
 

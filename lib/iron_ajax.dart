@@ -30,7 +30,7 @@ import 'iron_request.dart';
 /// You can trigger a request explicitly by calling `generateRequest` on the
 /// element.
 @CustomElementProxy('iron-ajax')
-class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronAjax.created() : super.created();
   factory IronAjax() => new Element.tag('iron-ajax');
 

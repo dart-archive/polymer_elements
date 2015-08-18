@@ -24,7 +24,7 @@ import 'iron_jsonp_library.dart';
 ///       });
 ///     < /script>
 @CustomElementProxy('google-js-api')
-class GoogleJsApi extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronJsonpLibraryBehavior {
+class GoogleJsApi extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronJsonpLibraryBehavior {
   GoogleJsApi.created() : super.created();
   factory GoogleJsApi() => new Element.tag('google-js-api');
 

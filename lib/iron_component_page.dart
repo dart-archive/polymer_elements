@@ -21,7 +21,7 @@ import 'paper_styles.dart';
 /// [Hydrolysis](https://github.com/PolymerLabs/hydrolysis) and renders a complete
 /// documentation page including demos (if available).
 @CustomElementProxy('iron-component-page')
-class IronComponentPage extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
+class IronComponentPage extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronComponentPage.created() : super.created();
   factory IronComponentPage() => new Element.tag('iron-component-page');
 

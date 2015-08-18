@@ -64,7 +64,7 @@ import 'iron_flex_layout/classes/iron_flex_layout.dart';
 /// ----------------|-------------|----------
 /// `--paper-progress-container` | Mixin applied to container | `{}`
 @CustomElementProxy('paper-progress')
-class PaperProgress extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin, IronRangeBehavior {
+class PaperProgress extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronRangeBehavior {
   PaperProgress.created() : super.created();
   factory PaperProgress() => new Element.tag('paper-progress');
 
