@@ -1,0 +1,73 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>paper-input tests</title>
+
+    <script src="packages/web_components/webcomponents-lite.js"></script>
+    <link rel="x-dart-test" href="paper_input_test.dart">
+    <link rel="import" href="fixtures/letters_only.html">
+    <script src="packages/test/dart.js"></script>
+
+</head>
+<body>
+
+<template id="basic">
+    <paper-input></paper-input>
+</template>
+
+<template id="label">
+    <paper-input label="foo"></paper-input>
+</template>
+
+<template id="label-has-value">
+    <paper-input label="foo" value="bar"></paper-input>
+</template>
+
+<template id="error">
+    <paper-input auto-validate pattern="[0-9]*" value="foobar" error-message="error"></paper-input>
+</template>
+
+<template id="required">
+    <paper-input auto-validate required error-message="error"></paper-input>
+</template>
+
+<template id="required-no-auto-validate">
+    <paper-input required error-message="error"></paper-input>
+</template>
+
+
+<template id="required-char-counter">
+    <paper-input auto-validate char-counter required error-message="error"></paper-input>
+</template>
+
+<template id="char-counter">
+    <paper-input char-counter value="foobar"></paper-input>
+</template>
+
+<template id="always-float-label">
+    <paper-input always-float-label label="foo"></paper-input>
+</template>
+
+<template id="placeholder">
+    <paper-input label="foo" placeholder="bar"></paper-input>
+</template>
+
+<letters-only></letters-only>
+
+<template id="validator">
+    <paper-input value="123123" validator="letters-only" auto-validate></paper-input>
+</template>
+
+</body>
+</html>

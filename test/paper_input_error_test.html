@@ -1,0 +1,37 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>paper-input-error tests</title>
+
+    <script src="packages/web_components/webcomponents-lite.js"></script>
+    <link rel="x-dart-test" href="paper_input_error_test.dart">
+    <script src="packages/test/dart.js"></script>
+
+</head>
+<body>
+<paper-input-container id="container">
+    <input is="iron-input">
+    <paper-input-error>error</paper-input-error>
+</paper-input-container>
+
+<template id="auto-validate-numbers">
+    <paper-input-container auto-validate attr-for-value="bind-value">
+        <label id="l">label</label>
+        <input is="iron-input" id="i" pattern="[0-9]*">
+        <paper-input-error id="e">error</paper-input-error>
+    </paper-input-container>
+</template>
+
+</body>
+</html>
