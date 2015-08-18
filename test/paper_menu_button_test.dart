@@ -19,8 +19,8 @@ main() async {
 
     setUp(() {
       menuButton = fixture('TrivialMenuButton');
-      trigger = menuButton.querySelector('.dropdown-trigger');
-      content = menuButton.querySelector('.dropdown-content');
+      trigger = menuButton.querySelector('span.dropdown-trigger');
+      content = menuButton.querySelector('span.dropdown-content');
     });
 
     test('opens when trigger is clicked', () {

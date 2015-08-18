@@ -11,7 +11,7 @@ import 'common.dart';
 main() async {
   await initWebComponents();
 
-  Matcher anyNoneMatch = anyOf('""', '', 'none');
+  Matcher anyNoneMatch = anyOf('""', "''", '', 'none');
 
   void runAfterScroll(HtmlElement node, int scrollTop, callback) {
     node.scrollTop = scrollTop;
