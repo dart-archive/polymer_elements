@@ -42,8 +42,7 @@ main() async {
       var done = new Completer();
       GoogleMap map = fixture('map');
       onReady(map, ([e]) {
-        // TODO(jakemac): https://github.com/dart-lang/polymer_elements/issues/20
-        expect(map.jsElement['markers'].length, 0);
+        expect(map.markers.length, 0);
         expect(map.fitToMarkers, isFalse);
         expect(map.disableDefaultUi, isFalse);
         expect(map.zoom, 10);
@@ -64,8 +63,7 @@ main() async {
       GoogleMap map = fixture('map3');
       onReady(map, ([_]) {
         expect(map.fitToMarkers, isTrue);
-        // TODO(jakemac): https://github.com/dart-lang/polymer_elements/issues/20
-        expect(map.jsElement['markers'].length, 0);
+        expect(map.markers.length, 0);
         expect(map.zoom, map.map.callMethod('getZoom'));
         expect(map.maxZoom, map.map['maxZoom']);
         expect(map.minZoom, map.map['minZoom']);

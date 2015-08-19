@@ -25,17 +25,14 @@ main() async {
       var done = new Completer();
       onReady(map, (e) {
         // Check if marker children were setup and can be added/removed.
-        // TODO(jakemac): https://github.com/dart-lang/polymer_elements/issues/20
-        expect(map.jsElement['markers'].length, 2);
+        expect(map.markers.length, 2);
 
-        // TODO(jakemac): https://github.com/dart-lang/polymer_elements/issues/20
-        var marker = map.jsElement['markers'][0];
+        var marker = map.markers[0];
         Polymer.dom((Polymer.dom(marker).parentNode)).removeChild(marker);
         PolymerDom.flush();
         wait(1).then((_) {
           // needed because map.updateMarkers has mutationObserver
-          // TODO(jakemac): https://github.com/dart-lang/polymer_elements/issues/20
-          expect(map.jsElement['markers'].length, 1);
+          expect(map.markers.length, 1);
           expect(marker.marker['map'], isNull,
               reason: 'removed marker is still visible on map');
           Polymer.dom(map).append(marker);

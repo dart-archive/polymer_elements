@@ -120,6 +120,10 @@ class GoogleMap extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   String get mapType => jsElement[r'mapType'];
   set mapType(String value) { jsElement[r'mapType'] = value; }
 
+  /// The markers on the map.
+  List get markers => jsElement[r'markers'];
+  set markers(List value) { jsElement[r'markers'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+
   /// A maximum zoom level which will be displayed on the map.
   num get maxZoom => jsElement[r'maxZoom'];
   set maxZoom(num value) { jsElement[r'maxZoom'] = value; }
