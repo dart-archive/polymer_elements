@@ -70,7 +70,7 @@ main() async {
       expect(collapse1.opened, isFalse);
       expect(collapse2.opened, isTrue);
       expect(collapse3.opened, isFalse);
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/45');
+    });
 
     test('cannot open a disabled submenu', () {
       expect(collapse1.opened, isFalse);
@@ -126,7 +126,7 @@ main() async {
       expect(trigger3.getComputedStyle().fontWeight,
           normalDiv.getComputedStyle().fontWeight,
           reason: 'not selected item should have fontweight: "normal"');
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/45');
+    });
 
     test('selecting a new item de-styles the previous one', () {
       DivElement boldDiv = document.createElement('div');
@@ -166,6 +166,6 @@ main() async {
           boldDiv.getComputedStyle().fontWeight);
       expect(trigger3.getComputedStyle().fontWeight,
           normalDiv.getComputedStyle().fontWeight);
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/45');
+    });
   });
 }

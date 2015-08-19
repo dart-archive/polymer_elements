@@ -46,7 +46,7 @@ main() async {
         // check selected class
         expect(item.classes.contains('iron-selected'), isTrue);
       });
-    });
+    }, skip: 'https://github.com/PolymerElements/iron-selector/issues/56');
 
     test('update items', () {
       var done = new Completer();
@@ -72,7 +72,7 @@ main() async {
         });
       });
       return done.future;
-    });
+    }, skip: 'https://github.com/PolymerElements/iron-selector/issues/56');
 
     test('set selected to something else', () {
       return wait(1).then((_) {
@@ -84,6 +84,6 @@ main() async {
         // check selected class
         expect(item.classes.contains('iron-selected'), isTrue);
       });
-    });
+    }, skip: 'https://github.com/PolymerElements/iron-selector/issues/56');
   });
 }
