@@ -116,6 +116,6 @@ main() async {
         });
       });
       return done.future;
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/19');
+    });
   });
 }
