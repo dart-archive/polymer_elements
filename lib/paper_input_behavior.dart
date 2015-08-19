@@ -168,6 +168,6 @@ abstract class PaperInputBehavior implements CustomElementProxyMixin {
       jsElement.callMethod('updateValueAndPreserveCaret', [newValue]);
 
   /// Validates the input element and sets an error style if needed.
-  void validate() =>
+  bool validate() =>
       jsElement.callMethod('validate', []);
 }
