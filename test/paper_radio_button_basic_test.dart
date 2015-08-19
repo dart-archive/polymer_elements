@@ -17,60 +17,69 @@ main() async {
     });
     test('check button via click', () async {
       var completer = new Completer();
-      r1.on['click'].listen((event) {
-        expect(r1.attributes['aria-checked'], isTrue);
+      r1.on['click'].take(1).listen((event) {
+        expect(r1.attributes['aria-checked'], 'true');
         expect(r1.checked, isTrue);
         completer.complete();
       });
-      down(r1, null);
+      // **Dart Note**: Using `tap` instead of `down` to get test to pass.
+      tap(r1);
       await completer.future;
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/40');
+    });
 
     test('toggle button via click', () async {
       r1.checked = true;
       var completer = new Completer();
-      r1.on['click'].listen((event) {
-        expect(r1.attributes['aria-checked'], isTrue);
-        expect(r1.checked, isTrue);
+      r1.on['click'].take(1).listen((event) {
+        expect(r1.attributes['aria-checked'], 'false');
+        expect(r1.checked, isFalse);
         completer.complete();
       });
-      down(r1, null);
+      // **Dart Note**: Using `tap` instead of `down` to get test to pass.
+      tap(r1);
       await completer.future;
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/40');
+    });
 
     test('disabled button cannot be clicked', () async {
       r1.disabled = true;
       var completer = new Completer();
-      r1.on['click'].listen((event) {
-        expect(r1.attributes['aria-checked'], isTrue);
-        expect(r1.checked, isTrue);
+      r1.on['click'].take(1).listen((event) {
+        // **Dart Note**: Expect `false`, js test is wrong.
+        expect(r1.attributes['aria-checked'], 'false');
+        expect(r1.checked, isFalse);
         completer.complete();
       });
-      down(r1, null);
+      // **Dart Note**: Using `tap` instead of `down` to get test to pass.
+      tap(r1);
       await completer.future;
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/40');
+    });
   });
 
   group('a11y', () {
     PaperRadioButton r1;
     PaperRadioButton r2;
+
     setUp(() {
       r1 = fixture('NoLabel');
       r2 = fixture('WithLabel');
     });
+
     test('has aria role "radio"', () {
       expect(r1.attributes['role'], equals('radio'));
       expect(r2.attributes['role'], equals('radio'));
     });
+
     test('button with no label has no aria label', () {
       expect(r1.attributes.containsKey('aria-label'), isFalse);
     });
+
     test('button with a label sets an aria label', () {
       expect(r2.attributes['aria-label'], equals("Batman"));
     });
+
     test('button respects the user set aria-label', () {
       var c = fixture('AriaLabel');
       expect(c.attributes['aria-label'], equals("Batman"));
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/42');
+    });
   });
 }

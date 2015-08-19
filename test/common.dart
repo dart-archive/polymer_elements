@@ -19,11 +19,10 @@ class Point {
   Map toMap() => {'x': x, 'y': y};
   JsObject toJsObject() => new JsObject.jsify(toMap());
 
-   bool isApproximatelyEqualTo(other) {
+  bool isApproximatelyEqualTo(other) {
     return this.x.round() == other.x.round() &&
-    this.y.round() == other.y.round();
+        this.y.round() == other.y.round();
   }
-
 }
 
 Point middleOfNode(Node node) => new Point.fromJsObject(
@@ -36,8 +35,9 @@ void makeEvent(String type, Point xy, Node node) {
   _MockInteractionsJs.callMethod('makeEvent', [type, xy.toJsObject(), node]);
 }
 
-void down(Node node, Point xy) {
-  _MockInteractionsJs.callMethod('down', [node, xy.toJsObject()]);
+void down(Node node, [Point xy]) {
+  _MockInteractionsJs.callMethod(
+      'down', [node, xy == null ? null : xy.toJsObject()]);
 }
 
 void move(Node node, Point fromXY, Point toXY, int steps) {
@@ -45,8 +45,9 @@ void move(Node node, Point fromXY, Point toXY, int steps) {
       'move', [fromXY.toJsObject(), toXY.toJsObject(), steps]);
 }
 
-void up(Node node, Point xy) {
-  _MockInteractionsJs.callMethod('up', [node, xy.toJsObject()]);
+void up(Node node, [Point xy]) {
+  _MockInteractionsJs.callMethod(
+      'up', [node, xy == null ? null : xy.toJsObject()]);
 }
 
 void tap(Node node) {
@@ -120,8 +121,8 @@ fixture(String id) {
   container.children.clear();
 
   var elements = new List.from((document.importNode(
-      (querySelector('#$id') as TemplateElement).content,
-      true) as DocumentFragment).children);
+          (querySelector('#$id') as TemplateElement).content, true)
+      as DocumentFragment).children);
   for (var element in elements) {
     container.append(element);
   }
@@ -146,7 +147,7 @@ Future wait(int milliseconds) {
   return new Future.delayed(new Duration(milliseconds: milliseconds), () {});
 }
 
-Future requestAnimationFrame(){
+Future requestAnimationFrame() {
   var completer = new Completer();
   window.requestAnimationFrame((done) {
     completer.complete();
