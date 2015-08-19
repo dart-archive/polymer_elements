@@ -85,6 +85,6 @@ main() async {
     test('checkbox respects the user set aria-label', () {
       PaperCheckbox c = fixture('AriaLabel');
       expect(c.getAttribute('aria-label'), equals("Batman"));
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/25');
+    });
   });
 }
