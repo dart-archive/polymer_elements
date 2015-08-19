@@ -26,7 +26,8 @@ main() async {
         var floatingLabel = Polymer
             .dom(Polymer
                 .dom(input.jsElement['root'])
-                .querySelector('paper-input-container').jsElement['root'])
+                .querySelector('paper-input-container')
+                .jsElement['root'])
             .querySelector('.label-is-floating');
         expect(floatingLabel, isNotNull);
       });
@@ -117,7 +118,7 @@ main() async {
       });
     });
 
-    group('focused styling (integration test)', ()  {
+    group('focused styling (integration test)', () {
       test('underline is colored when input is focused', () async {
         var input = fixture('basic');
         var container = Polymer
@@ -142,47 +143,65 @@ main() async {
             .dom(input.jsElement['root'])
             .querySelector('paper-input-error');
         expect(error, isNotNull);
-        expect(error.getComputedStyle().display, equals('none'));
+        expect(error.getComputedStyle().visibility, equals('visible'));
         expect(input.invalid, isTrue);
-      }, skip: 'https://github.com/dart-lang/polymer_elements/issues/36');
+      });
     });
 
     group('a11y', () {
       test('has aria-labelledby', () {
         PaperInput input = fixture('label');
-        expect(input.inputElement.attributes.containsKey('aria-labelledby'), isTrue);
-        expect(input.inputElement.attributes['aria-labelledby'],
-            equals(Polymer.dom(input.jsElement['root']).querySelector('label').id));
+        expect(input.inputElement.attributes.containsKey('aria-labelledby'),
+            isTrue);
+        expect(
+            input.inputElement.attributes['aria-labelledby'],
+            equals(Polymer
+                .dom(input.jsElement['root'])
+                .querySelector('label')
+                .id));
       });
 
       test('has aria-describedby for error message', () {
         PaperInput input = fixture('required');
         forceXIfStamp(input);
-        expect(input.inputElement.attributes.containsKey('aria-describedby'), isTrue);
-        expect(input.inputElement.attributes['aria-describedby'], equals(
-            Polymer.dom(input.jsElement['root']).querySelector('paper-input-error').id));
+        expect(input.inputElement.attributes.containsKey('aria-describedby'),
+            isTrue);
+        expect(
+            input.inputElement.attributes['aria-describedby'],
+            equals(Polymer
+                .dom(input.jsElement['root'])
+                .querySelector('paper-input-error')
+                .id));
       });
-      
+
       test('has aria-describedby for character counter', () {
         PaperInput input = fixture('char-counter');
         forceXIfStamp(input);
-        expect(input.attributes.containsKey('aria-describedby'), isTrue);
-        expect(input.attributes['aria-describedby'], equals(
-            Polymer
-                .dom(input.jsElement['root'])
-                .querySelector('paper-input-char-counter').id));
-      },skip:'https://github.com/dart-lang/polymer_elements/issues/34');
+        var inputElement = input.$['input'];
+        expect(inputElement.attributes.containsKey('aria-describedby'), isTrue);
+        expect(
+            inputElement.attributes['aria-describedby'],
+            equals(Polymer
+                .dom(input.root)
+                .querySelector('paper-input-char-counter')
+                .id));
+      });
+
       test('has aria-describedby for character counter and error', () {
         PaperInput input = fixture('required-char-counter');
         forceXIfStamp(input);
-        expect(input.attributes.containsKey('aria-describedby'), isTrue);
-        expect(input.attributes['aria-describedby'], equals(
-            Polymer.dom(input.jsElement['root']).querySelector('paper-input-error').id +
-                ' ' +
-                Polymer
-                    .dom(input.jsElement['root'])
-                    .querySelector('paper-input-char-counter').id));
-      }, skip:'https://github.com/dart-lang/polymer_elements/issues/35');
+        var inputElement = input.$['input'];
+        expect(inputElement.attributes.containsKey('aria-describedby'), isTrue);
+        expect(
+            inputElement.attributes['aria-describedby'],
+            equals(
+                Polymer.dom(input.root).querySelector('paper-input-error').id +
+                    ' ' +
+                    Polymer
+                        .dom(input.root)
+                        .querySelector('paper-input-char-counter')
+                        .id));
+      });
     });
   });
 }
