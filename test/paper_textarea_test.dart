@@ -27,13 +27,13 @@ main() async {
           .dom(input.jsElement['root'])
           .querySelector('paper-input-error');
       expect(error, isNotNull);
-      expect(error.getComputedStyle().display, isNot(equals('none')));
+      expect(error.getComputedStyle().visibility, equals('visible'));
     });
 
     test('caret position is preserved', () {
       PaperTextarea input = fixture('basic');
       IronAutogrowTextarea ironTextarea = Polymer
-          .dom(input.jsElement['root'])
+          .dom(input.root)
           .querySelector('iron-autogrow-textarea');
       input.value = 'nananana';
       ironTextarea.textarea.selectionStart = 2;
@@ -62,12 +62,12 @@ main() async {
         var attrsAttr = attrs[attr];
         var inputAttr = input.inputElement.getAttribute(attr);
         if (attrsAttr is bool) {
-          expect(inputAttr, equals("$attrsAttr"));
+          expect(inputAttr != null, attrsAttr);
         } else {
-          expect(inputAttr, equals(attrsAttr));
+          expect(inputAttr, equals('$attrsAttr'));
         }
       }
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/38');
+    });
 
     test('always-float-label attribute works', () {
       var input = fixture('always-float-label');
