@@ -172,6 +172,9 @@ style this element.
       }
     },
 
+    /**
+     * @return {boolean} Whether the input is currently valid or not.
+     */
     validate: function() {
       // Empty, non-required input is valid.
       if (!this.required && this.value == '') {

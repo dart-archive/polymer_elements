@@ -63,6 +63,6 @@ class GoldCcCvcInput extends HtmlElement with CustomElementProxyMixin, PolymerBa
   String get label => jsElement[r'label'];
   set label(String value) { jsElement[r'label'] = value; }
 
-  void validate() =>
+  bool validate() =>
       jsElement.callMethod('validate', []);
 }

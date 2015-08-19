@@ -170,6 +170,9 @@ style this element.
       return cardType.toLowerCase() == 'amex';
     },
 
+    /**
+     * @return {boolean} Whether the input is currently valid or not.
+     */
     validate: function() {
       // Empty, non-required input is valid.
       if (!this.required && this.value == '') {

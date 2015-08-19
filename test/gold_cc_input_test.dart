@@ -45,8 +45,8 @@ main() async {
 
       var error = input.querySelector('paper-input-error');
       expect(error, isNotNull);
-      expect(error.getComputedStyle().display, isNot('none'),
-          reason: 'error should not be display:none');
+      expect(error.getComputedStyle().visibility, equals('visible'),
+          reason: 'error should not be visibility:visible');
     });
 
     test('invalid input shows error message after manual validation', () {
@@ -57,12 +57,12 @@ main() async {
       expect(error, isNotNull);
 
       // The error message is only displayed after manual validation.
-      expect(error.getComputedStyle().display, equals('none'),
-          reason: 'error should be display:none');
+      expect(error.getComputedStyle().visibility, equals('hidden'),
+          reason: 'error should be visibility:hidden');
       input.validate();
-      expect(error.getComputedStyle().display, isNot('none'),
-          reason: 'error should not be display:none');
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/26');
+      expect(error.getComputedStyle().visibility, equals('visible'),
+          reason: 'error should not be visibility:visible');
+    });
 
     test('caret position is preserved', () {
       GoldCcInput input = fixture('required');

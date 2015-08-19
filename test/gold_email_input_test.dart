@@ -22,8 +22,8 @@ main() async {
 
       var error = input.querySelector('paper-input-error');
       expect(error, isNotNull);
-      expect(error.getComputedStyle().display, isNot('none'),
-          reason: 'error is not display:none');
+      expect(error.getComputedStyle().visibility, equals('visible'),
+          reason: 'error is not visibility:visible');
     });
 
     test('valid input does not show error', () {
@@ -38,9 +38,9 @@ main() async {
 
       var error = input.querySelector('paper-input-error');
       expect(error, isNotNull);
-      expect(error.getComputedStyle().display, equals('none'),
-          reason: 'error should be display:none');
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/26');
+      expect(error.getComputedStyle().visibility, equals('hidden'),
+          reason: 'error should be visibility:hidden');
+    });
 
     test('empty required input shows error', () {
       GoldEmailInput input = fixture('basic');
@@ -48,8 +48,8 @@ main() async {
 
       var error = input.querySelector('paper-input-error');
       expect(error, isNotNull);
-      expect(error.getComputedStyle().display, isNot('none'),
-          reason: 'error is not display:none');
+      expect(error.getComputedStyle().visibility, equals('visible'),
+          reason: 'error is visibility:visible');
     });
   });
 
