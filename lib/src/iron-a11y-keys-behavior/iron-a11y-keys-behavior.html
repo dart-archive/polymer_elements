@@ -310,6 +310,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this._resetKeyEventListeners();
       },
 
+      /**
+       * Returns true if `event.key` or `event.keyCode` matches `eventString`.
+       *
+       * @param {event} event
+       * @param {string} eventString
+       * @return {boolean}
+       */
       keyboardEventMatchesKeys: function(event, eventString) {
         var keyCombos = parseEventString(eventString);
         var index;
