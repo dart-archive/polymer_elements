@@ -101,13 +101,11 @@ main() async {
       expect(toolbar.getAttribute('aria-labelledby'), isNotNull,
           reason: 'should have aria-labelledby');
 
-      List ids = [];
       List titles = toolbar.querySelectorAll('.title');
-      titles.forEach((title) {
-        ids.add(title.id);
-      });
 
-      expect(toolbar.getAttribute('aria-labelledby'), equals(ids.join(' ')),
+      String ids = titles.map((title) => title.id).join(' ');
+
+      expect(toolbar.getAttribute('aria-labelledby'), equals(ids),
           reason: 'aria-labelledby should have the id of all .title elements');
     });
   });

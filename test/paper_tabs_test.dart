@@ -108,13 +108,9 @@ main() async {
     });
 
     test('selected tab has selection bar position at the bottom of the tab',
-        () {
-      Completer done = new Completer();
-      wait(1000).then((_) {
-        checkSelectionBar(tabs, tabs.querySelectorAll('paper-tab')[index]);
-        done.complete();
-      });
-      return done.future;
+        () async {
+      await wait(1000);
+      checkSelectionBar(tabs, tabs.querySelectorAll('paper-tab')[index]);
     });
   });
 
@@ -162,6 +158,6 @@ main() async {
       pressEnter(tab);
 
       return done.future;
-    });
+    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/51');
   });
 }

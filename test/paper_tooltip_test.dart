@@ -123,8 +123,6 @@ main() async {
     });
 
     test('tooltip unlistens to target on detach', () {
-      Completer done = new Completer();
-
       HtmlElement f = fixture('basic');
       DivElement target = f.querySelector('#target');
       PaperTooltip tooltip = f.querySelector('paper-tooltip');
@@ -139,14 +137,11 @@ main() async {
 
       tooltip.remove();
 
-      wait(200).then((_) {
+      return wait(200).then((_) {
         // No more listener means no more calling show.
         focus(target);
         expect(tooltip.jsElement['show']['callCount'], equals(2));
-        done.complete();
       });
-
-      return done.future;
     }, skip: 'https://github.com/dart-lang/polymer_elements/issues/49');
   });
   group('tooltip is inside a custom element', () {

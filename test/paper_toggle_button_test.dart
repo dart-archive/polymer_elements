@@ -26,7 +26,7 @@ main() async {
       Completer done = new Completer();
 
       b1.on['click'].take(1).listen((_) {
-        expect(b1.getAttribute('aria-checked'), equals(isTrue));
+        expect(b1.getAttribute('aria-pressed'), 'true');
         expect(b1.checked, isTrue);
         done.complete();
       });
@@ -34,7 +34,7 @@ main() async {
       tap(b1);
 
       return done.future;
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/47');
+    });
 
     test('toggle button via click', () {
       Completer done = new Completer();
@@ -42,7 +42,7 @@ main() async {
       b1.checked = true;
 
       b1.on['click'].take(1).listen((_) {
-        expect(b1.getAttribute('aria-checked'), equals(isFalse));
+        expect(b1.getAttribute('aria-pressed'), 'false');
         expect(b1.checked, isFalse);
         done.complete();
       });
@@ -50,7 +50,7 @@ main() async {
       tap(b1);
 
       return done.future;
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/47');
+    });
 
     test('disabled button cannot be clicked', () {
       Completer done = new Completer();
@@ -58,7 +58,7 @@ main() async {
       b1.disabled = true;
 
       b1.on['click'].take(1).listen((_) {
-        expect(b1.getAttribute('aria-checked'), equals(isTrue));
+        expect(b1.getAttribute('aria-pressed'), 'true');
         expect(b1.checked, isTrue);
         done.complete();
       });
