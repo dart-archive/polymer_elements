@@ -134,13 +134,9 @@ main() async {
     });
 
     test('selected tab has selection bar position at the bottom of the tab',
-        () {
-      Completer done = new Completer();
-      wait(1000).then((_) {
-        checkSelectionBar(tabs, tabs.querySelectorAll('paper-tab')[index]);
-        done.complete();
-      });
-      return done.future;
+        () async {
+      await wait(1000);
+      checkSelectionBar(tabs, tabs.querySelectorAll('paper-tab')[index]);
     });
 
     test('pressing enter on tab causes a click', () {
