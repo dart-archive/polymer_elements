@@ -14,42 +14,41 @@ import 'common.dart';
  */
 
 main() async {
-    await initWebComponents();
+  await initWebComponents();
 
-    group('set the selected attribute', () {
+  group('set the selected attribute', () {
+    PaperTabs tabs;
 
-        PaperTabs tabs;
-    
-        setUp( () {
-            tabs = fixture('basic');
-        });
-    
-        test('selected value', () {
-            expect(tabs.selected, equals('bar'));
-        });
-    
-        test('selected tab has iron-selected class', () {
-            expect(tabs.querySelector('[name=bar]').classes.contains('iron-selected'), isTrue);
-        });
+    setUp(() {
+      tabs = fixture('basic');
     });
 
-    group('select tab via click', () {
-
-        PaperTabs tabs;
-        PaperTab tab;
-    
-        setUp( () {
-            tabs = fixture('basic');
-            tab = tabs.querySelector('[name=zot]');
-            tab.dispatchEvent(new CustomEvent('click', canBubble: true));
-        });
-    
-        test('selected value', () {
-            expect(tabs.selected, equals('zot'));
-        });
-    
-        test('selected tab has iron-selected class', () {
-            expect(tab.classes.contains('iron-selected'), isTrue);
-        });
+    test('selected value', () {
+      expect(tabs.selected, equals('bar'));
     });
+
+    test('selected tab has iron-selected class', () {
+      expect(tabs.querySelector('[name=bar]').classes.contains('iron-selected'),
+          isTrue);
+    });
+  });
+
+  group('select tab via click', () {
+    PaperTabs tabs;
+    PaperTab tab;
+
+    setUp(() {
+      tabs = fixture('basic');
+      tab = tabs.querySelector('[name=zot]');
+      tab.dispatchEvent(new CustomEvent('click', canBubble: true));
+    });
+
+    test('selected value', () {
+      expect(tabs.selected, equals('zot'));
+    });
+
+    test('selected tab has iron-selected class', () {
+      expect(tab.classes.contains('iron-selected'), isTrue);
+    });
+  });
 }

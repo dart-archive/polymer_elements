@@ -13,71 +13,71 @@ import 'common.dart';
  */
 
 main() async {
-    await initWebComponents();
+  await initWebComponents();
 
-    group('defaults', () {
-        PaperToggleButton b1;
+  group('defaults', () {
+    PaperToggleButton b1;
 
-        setUp(() {
-            b1 = fixture('basic');
-        });
-
-        test('check button via click', () {
-            Completer done = new Completer();
-
-            b1.on['click'].take(1).listen((_){
-                expect(b1.getAttribute('aria-checked'), equals(isTrue));
-                expect(b1.checked, isTrue);
-                done.complete();
-            });
-
-            tap(b1);
-
-            return done.future;
-        }, skip: 'https://github.com/dart-lang/polymer_elements/issues/47');
-
-        test('toggle button via click', () {
-            Completer done = new Completer();
-
-            b1.checked = true;
-
-            b1.on['click'].take(1).listen((_){
-                expect(b1.getAttribute('aria-checked'), equals(isFalse));
-                expect(b1.checked, isFalse);
-                done.complete();
-            });
-
-            tap(b1);
-
-            return done.future;
-        }, skip: 'https://github.com/dart-lang/polymer_elements/issues/47');
-
-        test('disabled button cannot be clicked', () {
-            Completer done = new Completer();
-
-            b1.disabled = true;
-
-            b1.on['click'].take(1).listen((_){
-                expect(b1.getAttribute('aria-checked'), equals(isTrue));
-                expect(b1.checked, isTrue);
-                done.complete();
-            });
-
-            tap(b1);
-
-            return done.future;
-        }, skip: 'https://github.com/dart-lang/polymer_elements/issues/47');
+    setUp(() {
+      b1 = fixture('basic');
     });
 
-    group('a11y', () {
-        PaperToggleButton b1;
+    test('check button via click', () {
+      Completer done = new Completer();
 
-        setUp(() {
-            b1 = fixture('basic');
-        });
+      b1.on['click'].take(1).listen((_) {
+        expect(b1.getAttribute('aria-checked'), equals(isTrue));
+        expect(b1.checked, isTrue);
+        done.complete();
+      });
 
-        test('has aria role "button"', () {
-            expect(b1.getAttribute('role'), equals('button'));
-        });
+      tap(b1);
+
+      return done.future;
+    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/47');
+
+    test('toggle button via click', () {
+      Completer done = new Completer();
+
+      b1.checked = true;
+
+      b1.on['click'].take(1).listen((_) {
+        expect(b1.getAttribute('aria-checked'), equals(isFalse));
+        expect(b1.checked, isFalse);
+        done.complete();
+      });
+
+      tap(b1);
+
+      return done.future;
+    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/47');
+
+    test('disabled button cannot be clicked', () {
+      Completer done = new Completer();
+
+      b1.disabled = true;
+
+      b1.on['click'].take(1).listen((_) {
+        expect(b1.getAttribute('aria-checked'), equals(isTrue));
+        expect(b1.checked, isTrue);
+        done.complete();
+      });
+
+      tap(b1);
+
+      return done.future;
+    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/47');
+  });
+
+  group('a11y', () {
+    PaperToggleButton b1;
+
+    setUp(() {
+      b1 = fixture('basic');
     });
+
+    test('has aria role "button"', () {
+      expect(b1.getAttribute('role'), equals('button'));
+    });
+  });
 }
