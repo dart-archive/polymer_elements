@@ -113,14 +113,14 @@ main() async {
       focus(target);
       expect(isHidden(actualTooltip), isFalse);
 
-      tooltip.on['neon-animation-finish'].listen((_) {
+      tooltip.on['neon-animation-finish'].take(1).listen((_) {
         expect(isHidden(actualTooltip), isTrue);
         done.complete();
       });
       blur(target);
 
       return done.future;
-    });
+    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/52');
 
     test('tooltip unlistens to target on detach', () {
       HtmlElement f = fixture('basic');
@@ -142,10 +142,10 @@ main() async {
         focus(target);
         expect(tooltip.jsElement['show']['callCount'], equals(2));
       });
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/49');
+    });
   });
   group('tooltip is inside a custom element', () {
-    TemplateElement f;
+    HtmlElement f;
     PaperTooltip tooltip;
     HtmlElement target;
 
