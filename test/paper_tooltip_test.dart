@@ -147,7 +147,7 @@ main() async {
             });
 
             return done.future;
-        });
+        }, skip: 'https://github.com/dart-lang/polymer_elements/issues/49');
     });
     group('tooltip is inside a custom element', () {
         TemplateElement f;
