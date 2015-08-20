@@ -37,7 +37,8 @@ abstract class IronA11yKeysBehavior implements CustomElementProxyMixin {
   void addOwnKeyBinding(eventString, handlerName) =>
       jsElement.callMethod('addOwnKeyBinding', [eventString, handlerName]);
 
-  void keyboardEventMatchesKeys(event, eventString) =>
+  /// Returns true if `event.key` or `event.keyCode` matches `eventString`.
+  bool keyboardEventMatchesKeys(event, String eventString) =>
       jsElement.callMethod('keyboardEventMatchesKeys', [event, eventString]);
 
   /// When called, will remove all imperatively-added key bindings.
