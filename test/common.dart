@@ -111,8 +111,9 @@ void forceXIfStamp(Node target) {
   _TestHelpersJs.callMethod('forceXIfStamp', [target]);
 }
 
-void fireEvent() {
-  _TestHelpersJs.callMethod('fireEvent');
+void fireEvent(String type, Map props, Node node) {
+  _TestHelpersJs.callMethod('fireEvent',
+      [type, props == null ? props : new JsObject.jsify(props), node]);
 }
 
 fixture(String id) {
