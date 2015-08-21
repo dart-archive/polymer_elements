@@ -1,0 +1,135 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+
+  <script src="packages/web_components/webcomponents-lite.js"></script>
+  <link rel="x-dart-test" href="iron_fit_behavior_test.dart">
+  <!--<script type="application/dart" src="iron_fit_behavior_test.dart"></script>-->
+  <!--<script src="packages/browser/dart.js"></script>-->
+  <script src="packages/test/dart.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .absolute {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .scrolling {
+      overflow: auto;
+    }
+
+    .sized-x {
+      width: 200px;
+    }
+
+    .sized-y {
+      height: 200px;
+    }
+
+    .positioned-left {
+      position: absolute;
+      left: 100px;
+    }
+
+    .positioned-right {
+      position: absolute;
+      right: 100px;
+    }
+
+    .positioned-top {
+      position: absolute;
+      top: 100px;
+    }
+
+    .positioned-bottom {
+      position: absolute;
+      bottom: 100px;
+    }
+
+    .with-max-width {
+      max-width: 500px;
+    }
+
+    .with-max-height {
+      max-height: 500px;
+    }
+
+    .with-margin {
+      margin: 20px;
+    }
+
+  </style>
+</head>
+<body>
+  <template id="absolute">
+    <test-fit auto-fit-on-attach class="absolute">
+      Absolutely positioned
+    </test-fit>
+  </template>
+
+  <template id="sized-xy">
+    <test-fit auto-fit-on-attach class="sized-x sized-y">
+      Sized (x/y), auto center/center
+    </test-fit>
+  </template>
+
+  <template id="sized-x">
+    <test-fit auto-fit-on-attach class="sized-x">
+      Sized (x), auto center/center
+    </test-fit>
+  </template>
+
+  <template id="positioned-xy">
+    <test-fit auto-fit-on-attach class="sized-x positioned-left positioned-top">
+      Sized (x/y), positioned/positioned
+    </test-fit>
+  </template>
+
+  <template id="inline-positioned-xy">
+    <test-fit auto-fit-on-attach class="sized-x sized-y" style="position:absolute;left:100px;top:100px;">
+      Sized (x/y), positioned/positioned
+    </test-fit>
+  </template>
+
+  <template id="sectioned">
+    <test-fit auto-fit-on-attach class="sized-x">
+      <div>
+        Sized (x), auto center/center with scrolling section
+      </div>
+      <div class="internal"></div>
+    </test-fit>
+  </template>
+
+  <template id="constrain-target">
+    <div class="constrain" style="position: fixed; top: 20px; left: 100px; width: 50vw; height: 50vh; border: 1px solid black;">
+      <test-fit auto-fit-on-attach class="el">
+        <div>
+          Auto center/center to parent element
+        </div>
+      </test-fit>
+    </div>
+  </template>
+
+  <template id="ipsum">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </template>
+</body>
+</html>
