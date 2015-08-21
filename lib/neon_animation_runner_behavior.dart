@@ -13,7 +13,7 @@ import 'iron_meta.dart';
 
 /// `Polymer.NeonAnimationRunnerBehavior` adds a method to run animations.
 @BehaviorProxy(const ['Polymer', 'NeonAnimationRunnerBehavior'])
-abstract class NeonAnimationRunnerBehavior implements CustomElementProxyMixin {
+abstract class NeonAnimationRunnerBehavior implements CustomElementProxyMixin, NeonAnimatableBehavior {
 
   /// Cancels the currently running animation.
   void cancelAnimation() =>

@@ -21,5 +21,5 @@ abstract class PaperButtonBehaviorImpl implements CustomElementProxyMixin {
 
 
 @BehaviorProxy(const ['Polymer', 'PaperButtonBehavior'])
-abstract class PaperButtonBehavior implements CustomElementProxyMixin {
+abstract class PaperButtonBehavior implements CustomElementProxyMixin, IronButtonState, IronControlState, PaperButtonBehaviorImpl {
 }

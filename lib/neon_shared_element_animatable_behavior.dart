@@ -13,7 +13,7 @@ import 'neon_animatable_behavior.dart';
 /// Use `Polymer.NeonSharedElementAnimatableBehavior` to implement elements containing shared element
 /// animations.
 @BehaviorProxy(const ['Polymer', 'NeonSharedElementAnimatableBehavior'])
-abstract class NeonSharedElementAnimatableBehavior implements CustomElementProxyMixin {
+abstract class NeonSharedElementAnimatableBehavior implements CustomElementProxyMixin, NeonAnimatableBehavior {
 
   /// A map of shared element id to node.
   get sharedElements => jsElement[r'sharedElements'];

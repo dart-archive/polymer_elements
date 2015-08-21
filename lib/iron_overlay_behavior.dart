@@ -42,7 +42,7 @@ import 'iron_overlay_backdrop.dart';
 /// must ensure no element has a stacking context with a higher `z-index` than its parent stacking
 /// context. You should place this element as a child of `<body>` whenever possible.
 @BehaviorProxy(const ['Polymer', 'IronOverlayBehavior'])
-abstract class IronOverlayBehavior implements CustomElementProxyMixin {
+abstract class IronOverlayBehavior implements CustomElementProxyMixin, IronFitBehavior, IronResizableBehavior {
 
   /// The backdrop element.
   get backdropElement => jsElement[r'backdropElement'];

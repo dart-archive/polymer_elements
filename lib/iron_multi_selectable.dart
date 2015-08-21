@@ -12,7 +12,7 @@ import 'iron_selectable.dart';
 
 
 @BehaviorProxy(const ['Polymer', 'IronMultiSelectableBehavior'])
-abstract class IronMultiSelectableBehavior implements CustomElementProxyMixin {
+abstract class IronMultiSelectableBehavior implements CustomElementProxyMixin, IronSelectableBehavior {
 
   /// If true, multiple selections are allowed.
   bool get multi => jsElement[r'multi'];

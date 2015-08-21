@@ -13,7 +13,7 @@ import 'iron_a11y_keys_behavior.dart';
 
 /// `Polymer.IronMenuBehavior` implements accessible menu behavior.
 @BehaviorProxy(const ['Polymer', 'IronMenuBehavior'])
-abstract class IronMenuBehavior implements CustomElementProxyMixin {
+abstract class IronMenuBehavior implements CustomElementProxyMixin, IronMultiSelectableBehavior, IronA11yKeysBehavior {
 
   /// The attribute to use on menu items to look up the item title. Typing the first
   /// letter of an item when the menu is open focuses that item. If unset, `textContent`
