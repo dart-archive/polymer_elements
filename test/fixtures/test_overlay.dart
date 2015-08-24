@@ -10,6 +10,6 @@ import 'package:web_components/web_components.dart';
 @jsProxyReflectable
 @PolymerRegister('test-overlay')
 class TestOverlay extends PolymerElement
-    with IronOverlayBehavior, IronFitBehavior, IronResizableBehavior {
+    with IronFitBehavior, IronResizableBehavior, IronOverlayBehavior {
   TestOverlay.created() : super.created();
 }

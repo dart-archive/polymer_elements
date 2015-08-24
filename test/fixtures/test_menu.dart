@@ -12,9 +12,9 @@ import 'package:web_components/web_components.dart';
 @PolymerRegister('test-menu')
 class TestMenu extends PolymerElement
     with
-        IronMenuBehavior,
-        IronMultiSelectableBehavior,
         IronSelectableBehavior,
-        IronA11yKeysBehavior {
+        IronMultiSelectableBehavior,
+        IronA11yKeysBehavior,
+        IronMenuBehavior {
   TestMenu.created() : super.created();
 }
