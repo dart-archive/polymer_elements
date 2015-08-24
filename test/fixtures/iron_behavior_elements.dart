@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:html';
 import 'dart:js';
+import 'package:polymer_elements/iron_a11y_keys_behavior.dart';
 import 'package:polymer_elements/iron_button_state.dart';
 import 'package:polymer_elements/iron_control_state.dart';
 import 'package:polymer_interop/polymer_interop.dart';
@@ -20,7 +21,8 @@ class TestControl extends PolymerElement with IronControlState {
 
 @jsProxyReflectable
 @PolymerRegister('test-button')
-class TestButton extends PolymerElement with IronControlState, IronButtonState {
+class TestButton extends PolymerElement
+    with IronControlState, IronA11yKeysBehavior, IronButtonState {
   TestButton.created() : super.created();
 
   void buttonStateChanged() {}
