@@ -9,8 +9,8 @@ import 'package:polymer_elements/iron_test_helpers.dart';
 final JsObject _MockInteractionsJs = context['MockInteractions'];
 
 class Point {
-  final x;
-  final y;
+  num x;
+  num y;
 
   Point.fromJsObject(JsObject object)
       : x = object['x'],
