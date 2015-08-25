@@ -17,7 +17,7 @@ main() async {
   group('activate event', () {
     IronSelector s;
 
-    setUp( () {
+    setUp(() {
       s = fixture('test');
     });
 
@@ -65,7 +65,8 @@ main() async {
       // set activateEvent to mousedown
       s.activateEvent = 'mousedown';
       // select Item 2
-      s.children[2].dispatchEvent(new CustomEvent('mousedown', canBubble: true));
+      s.children[2]
+          .dispatchEvent(new CustomEvent('mousedown', canBubble: true));
       expect(s.selected, 2);
     });
 
@@ -81,7 +82,8 @@ main() async {
       // set activateEvent to mousedown
       s.activateEvent = 'mousedown';
       // select Item 2
-      s.children[2].dispatchEvent(new CustomEvent('mousedown', canBubble: true));
+      s.children[2]
+          .dispatchEvent(new CustomEvent('mousedown', canBubble: true));
       return done.future;
     });
 
@@ -90,7 +92,8 @@ main() async {
       // set activateEvent to null
       s.activateEvent = null;
       // select Item 2
-      s.children[2].dispatchEvent(new CustomEvent('mousedown', canBubble: true));
+      s.children[2]
+          .dispatchEvent(new CustomEvent('mousedown', canBubble: true));
       expect(s.selected, '0');
     });
 
@@ -104,6 +107,5 @@ main() async {
       // shouldn't got selected since we preventDefault in iron-activate
       expect(s.selected, '0');
     });
-
   });
 }

@@ -14,13 +14,11 @@ main() async {
 
   var ELEMENT = {
     "is": "awesome-sauce",
-    "properties": [
-      {"name": "isAwesome", "type": "boolean", "desc": "Is it awesome?"},
-    ]
+    "properties":
+        [{"name": "isAwesome", "type": "boolean", "desc": "Is it awesome?"},]
   };
-  
-  group('<iron-doc-viewer>', ()
-  {
+
+  group('<iron-doc-viewer>', () {
     IronDocViewer page;
 
     tearDown(() {
@@ -54,11 +52,9 @@ main() async {
     group('edge cases', () {
       test('throws when a bound and JSON descriptor are provided', () {
         expect(() {
-          fixture('json-and-bound')
-            ..descriptor = ELEMENT;
+          fixture('json-and-bound')..descriptor = ELEMENT;
         }, throws);
       });
     });
   });
 }
-

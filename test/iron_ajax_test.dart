@@ -66,7 +66,8 @@ main() async {
         var done = new Completer();
 
         ajax.on['request'].take(1).listen((event) {
-          expect(new JsObject.fromBrowserObject(event)['detail']['options']['method'], 'GET');
+          expect(new JsObject.fromBrowserObject(event)['detail']['options'][
+              'method'], 'GET');
 
           ajax.method = 'POST';
           ajax.url = 'fixtures/responds_to_post_with_json.json';
@@ -76,7 +77,8 @@ main() async {
           // working as intended?
           new Future(() {}).then((_) {
             ajax.on['request'].take(1).listen((event) {
-              expect(new JsObject.fromBrowserObject(event)['detail']['options']['method'], 'POST');
+              expect(new JsObject.fromBrowserObject(event)['detail']['options'][
+                  'method'], 'POST');
               done.complete();
             });
 
@@ -118,13 +120,16 @@ main() async {
         var done = new Completer();
 
         ajax.on['request'].take(1).listen((event) {
-          expect(new JsObject.fromBrowserObject(event)['detail']['options']['url'], 'fixtures/responds_to_get_with_json.json?a=a');
+          expect(
+              new JsObject.fromBrowserObject(event)['detail']['options']['url'],
+              'fixtures/responds_to_get_with_json.json?a=a');
 
           // If we don't do this inside a future, then the outer stream isn't
           // cancelled yet and it gets called twice.
           new Future(() {}).then((_) {
             ajax.on['request'].take(1).listen((event) {
-              expect(new JsObject.fromBrowserObject(event)['detail']['options']['url'], 'fixtures/responds_to_get_with_json.json?b=b');
+              expect(new JsObject.fromBrowserObject(event)['detail']['options'][
+                  'url'], 'fixtures/responds_to_get_with_json.json?b=b');
               done.complete();
             });
 
@@ -171,8 +176,8 @@ main() async {
         });
 
         ajax.handleAs = 'text';
-        ajax.params = { 'foo': 'bar' };
-        ajax.headers = { 'X-Foo': 'Bar' };
+        ajax.params = {'foo': 'bar'};
+        ajax.headers = {'X-Foo': 'Bar'};
         return done.future;
       });
     });
@@ -186,7 +191,6 @@ main() async {
         await jsPromiseToFuture(request.completes);
         expect(ajax.lastResponse, request.response);
       });
-
 
       test('updates with each new response', () async {
         await jsPromiseToFuture(request.completes);
@@ -255,7 +259,9 @@ main() async {
 
       setUp(() {
         callCount = 0;
-        responseHandler = (_) { callCount++; };
+        responseHandler = (_) {
+          callCount++;
+        };
         ajax.on['response'].listen(responseHandler);
       });
 
@@ -279,7 +285,7 @@ main() async {
     });
 
     group('when handleAs parameter is `text`', () {
-      test('response type is string',  () {
+      test('response type is string', () {
         ajax.url = 'fixtures/responds_to_get_with_json.json';
         ajax.handleAs = 'text';
 
@@ -314,8 +320,7 @@ main() async {
     }, skip: 'https://github.com/dart-lang/polymer_elements/issues/14');
 
     group('when handleAs parameter is `json`', () {
-
-      test('response type is string',  () {
+      test('response type is string', () {
         var done = new Completer();
         ajax.url = 'fixtures/responds_to_get_with_json.json';
         ajax.handleAs = 'json';
@@ -343,9 +348,6 @@ main() async {
 
         return done.future;
       });
-
     });
-
   });
-
 }

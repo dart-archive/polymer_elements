@@ -13,7 +13,7 @@ import 'common.dart';
 main() async {
   await initWebComponents();
   GoogleUrlShortener shortener;
-  
+
   group('<google-url-shortener>', () {
     setUp(() {
       shortener = fixture('shortener');
@@ -27,12 +27,12 @@ main() async {
       });
       return done.future;
     });
-    
-    test('specified property has the correct values',  () {
+
+    test('specified property has the correct values', () {
       expect(shortener.longUrl, isNotNull);
       expect(shortener.longUrl, 'https://www.google.com');
     });
-    
+
     test('fires google-url-shorten event for shorten call', () {
       var done = new Completer();
       shortener.on['google-url-shorten'].take(1).listen((event) {
@@ -44,7 +44,7 @@ main() async {
       shortener.shorten();
       return done.future;
     }, skip: 'Flaky due to unauthenticated use limits');
-    
+
     test('fires google-url-shorten-error event for bad URL', () {
       var done = new Completer();
       shortener.on['google-url-shorten-error'].take(1).listen((event) {

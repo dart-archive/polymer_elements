@@ -16,7 +16,7 @@ main() async {
   group('defaults', () {
     IronSelector s1;
 
-    setUp( () {
+    setUp(() {
       s1 = fixture('defaults');
     });
 
@@ -48,7 +48,7 @@ main() async {
   group('basic', () {
     IronSelector s2;
 
-    setUp( () {
+    setUp(() {
       s2 = fixture('basic');
     });
 
@@ -89,6 +89,5 @@ main() async {
       s2.selected = 'item2';
       expect(selectedEventCounter, 0);
     });
-
   });
 }

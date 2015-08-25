@@ -23,7 +23,7 @@ main() async {
       container = new JsObject.fromBrowserObject(fixture('trivialList'));
       list = container['list'];
     });
-    
+
     test('update physical item', () {
       var setSize = 100;
       var phrase = 'It works!';
@@ -35,19 +35,15 @@ main() async {
         expect(getFirstItemFromList(list).text, phrase);
       });
     });
-    
+
     test('update virtual item', () {
       var done = new Completer();
       var setSize = 100;
       var phrase = 'It works!';
       list.items = buildDataSet(setSize);
-      
+
       scrollBackUp([_]) {
-        simulateScroll({
-          'list': list,
-          'contribution': 100,
-          'target': 0
-        }, ([_]) {
+        simulateScroll({'list': list, 'contribution': 100, 'target': 0}, ([_]) {
           new Future(() {}).then((_) {
             expect(getFirstItemFromList(list).text, phrase);
             done.complete();
@@ -61,7 +57,7 @@ main() async {
         simulateScroll({
           'list': list,
           'contribution': 100,
-          'target': setSize*rowHeight
+          'target': setSize * rowHeight
         }, ([_]) {
           // TODO(jakemac): Update once we resolve
           // https://github.com/dart-lang/polymer_interop/issues/6
@@ -90,7 +86,7 @@ main() async {
         simulateScroll({
           'list': list,
           'contribution': rowHeight,
-          'target': list.items.length*rowHeight
+          'target': list.items.length * rowHeight
         }, ([_]) {
           expect(getFirstItemFromList(list).text,
               (list.items.length - itemsPerViewport).toString());
@@ -109,7 +105,7 @@ main() async {
         simulateScroll({
           'list': list,
           'contribution': rowHeight,
-          'target': setSize*rowHeight
+          'target': setSize * rowHeight
         }, ([_]) {
           var viewportHeight = list.offsetHeight;
           var itemsPerViewport = (viewportHeight / rowHeight).floor();
@@ -117,7 +113,7 @@ main() async {
           // https://github.com/dart-lang/polymer_interop/issues/6
           list.jsElement.callMethod('pop', ['items']);
           new Future(() {}).then((_) {
-            expect(list.items.length, setSize-1);
+            expect(list.items.length, setSize - 1);
             expect(getFirstItemFromList(list).text, '${setSize - 3 - 1}');
             done.complete();
           });
@@ -125,7 +121,7 @@ main() async {
       });
       return done.future;
     });
-    
+
     test('splice', () {
       var setSize = 45;
       var phrase = 'It works!';

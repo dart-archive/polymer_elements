@@ -23,11 +23,11 @@ main() async {
       storage = fixture('fixture');
       storage.jsElement.callMethod('flushDebouncer', ['reload']);
     });
-    
+
     tearDown(() {
       window.localStorage.remove('iron-localstorage-test');
     });
-    
+
     test('load', () {
       expect(storage.value, isNotNull);
       expect(storage.value['foo'], 'bar');
@@ -68,7 +68,7 @@ main() async {
         ls.value = "Yo";
         ls.jsElement.callMethod('flushDebouncer', ['save']);
         expect(
-            "Yo", JSON.decode( window.localStorage['iron-localstorage-test']));
+            "Yo", JSON.decode(window.localStorage['iron-localstorage-test']));
         done.complete();
       });
       ls.name = 'iron-localstorage-test';
@@ -79,14 +79,16 @@ main() async {
       var t = new JsObject.fromBrowserObject(
           document.querySelector('#boundTemplate'));
       var ls = document.querySelector('#boundLocal') as IronLocalstorage;
-      var value = new JsObject.jsify({ 'foo': 'FOO', 'bar': 'BAR' });
-      t['value']= value;
-      expect('FOO', ls.value['foo']); // value has propagated from template to storage
+      var value = new JsObject.jsify({'foo': 'FOO', 'bar': 'BAR'});
+      t['value'] = value;
+      expect('FOO',
+          ls.value['foo']); // value has propagated from template to storage
       ls.jsElement.callMethod('flushDebouncer', ['save']);
       t['value']['foo'] = "Yo";
       ls.jsElement.callMethod('flushDebouncer', ['save']);
       var item = JSON.decode(window.localStorage['iron-localstorage-test']);
-      expect('Yo', isNot(item['foo'])); // did not propagate because did not use setters
+      expect('Yo',
+          isNot(item['foo'])); // did not propagate because did not use setters
       t.callMethod('set', ['value.foo', 'BAZ!']);
       ls.jsElement.callMethod('flushDebouncer', ['save']);
       item = JSON.decode(window.localStorage['iron-localstorage-test']);

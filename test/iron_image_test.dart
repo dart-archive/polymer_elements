@@ -15,14 +15,14 @@ var rand = new Random();
 
 main() async {
   await initWebComponents();
-  
+
   group('<iron-image>', () {
-    randomImageUrl () {
+    randomImageUrl() {
       return 'fixtures/polymer.svg?' + rand.nextDouble().toString();
     }
 
     IronImage image;
-    
+
     group('basic behavior', () {
       setUp(() {
         image = fixture('TrivialImage');

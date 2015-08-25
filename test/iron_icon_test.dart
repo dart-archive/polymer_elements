@@ -62,11 +62,11 @@ main() async {
 
       test('can change its icon dynamically', () {
         var style = icon.style;
-        expect(style.backgroundPosition,
-            contains(new RegExp(r'0(%|px) 0(%|px)')));
+        expect(
+            style.backgroundPosition, contains(new RegExp(r'0(%|px) 0(%|px)')));
         icon.icon = "example:blank";
-        expect(style.backgroundPosition,
-            contains(new RegExp(r'-24px 0(%|px)')));
+        expect(
+            style.backgroundPosition, contains(new RegExp(r'-24px 0(%|px)')));
       });
     });
     group('when no icon source is provided', () {

@@ -59,6 +59,5 @@ main() async {
       b4.alt = 'alt again';
       expect(b4.getAttribute('aria-label'), equals('alt again'));
     });
-
   });
 }

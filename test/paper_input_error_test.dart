@@ -16,7 +16,6 @@ import 'common.dart';
 main() async {
   await initWebComponents();
   group('basic', () {
-
     test('error message only appears when input is invalid', () {
       var container = fixture('auto-validate-numbers');
       IronInput input = Polymer.dom(container).querySelector('#i');

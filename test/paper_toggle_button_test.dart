@@ -5,8 +5,6 @@
 library polymer_elements.test.paper_toggle_button_test;
 
 import 'dart:async';
-import 'dart:js';
-import 'dart:html';
 import 'package:polymer_elements/paper_toggle_button.dart';
 import 'package:web_components/web_components.dart';
 import 'package:test/test.dart';

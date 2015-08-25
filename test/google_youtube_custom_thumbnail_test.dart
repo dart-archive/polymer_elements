@@ -17,8 +17,7 @@ main() async {
   group('<google-youtube> custom thumbnail', () {
     test('thumbnail image present', () {
       var img = googleYouTube.querySelector('img');
-      expect(img, isNotNull,
-          reason: 'thumbnail <img> is present.');
+      expect(img, isNotNull, reason: 'thumbnail <img> is present.');
       expect(img.getComputedStyle().display, isNot('none'),
           reason: 'thumbnail <img> is visible.');
     });
@@ -28,8 +27,8 @@ main() async {
       googleYouTube.on['google-youtube-ready'].take(1).listen((e) {
         // For sanity when running tests :P
         googleYouTube.mute();
-        expect(googleYouTube.querySelector('img').getComputedStyle().display, 'none',
-            reason: 'thumbnail <img> is no longer present.');
+        expect(googleYouTube.querySelector('img').getComputedStyle().display,
+            'none', reason: 'thumbnail <img> is no longer present.');
 
         expect(googleYouTube.querySelector('iframe'), isNotNull,
             reason: 'YouTube embed <iframe> is present.');

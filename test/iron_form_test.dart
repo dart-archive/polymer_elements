@@ -13,7 +13,7 @@ import 'common.dart';
 
 main() async {
   await initWebComponents();
-  
+
   group('registration', () {
     IronForm f;
     test('elements can be registered', () {
@@ -93,18 +93,17 @@ main() async {
       expect(keysOf(json).length, 1);
       expect(json['foo'], 'bar1');
     });
-
   });
 
-  group('submitting',  () {
+  group('submitting', () {
     var form;
 
     test('does not submit forms with invalid native elements', () {
       var done = new Completer();
       form = fixture('InvalidForm');
       var nativeElement = form.querySelector('input');
-      var customElement = new JsObject.fromBrowserObject(
-          form.querySelector('simple-element'));
+      var customElement =
+          new JsObject.fromBrowserObject(form.querySelector('simple-element'));
       customElement['value'] = "foo";
 
       form.on['iron-form-submit'].take(1).listen((_) {
@@ -185,4 +184,3 @@ main() async {
     });
   });
 }
-

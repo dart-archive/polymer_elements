@@ -28,8 +28,8 @@ class SampleContent extends PolymerElement {
 <div style="font-size: 12px;">${randomString()}</div>
 <div style="font-size: 12px;">${randomString()}</div>
 </div>''');
-      ($['content'] as Element)
-          .setInnerHtml('$html', treeSanitizer: const NullTreeSanitizer());
+      ($['content'] as Element).setInnerHtml('$html',
+          treeSanitizer: const NullTreeSanitizer());
     }
   }
 }

@@ -20,15 +20,15 @@ main() async {
       storage = fixture('fixture');
       storage.jsElement.callMethod('flushDebouncer', ['reload']);
     });
-    
+
     tearDown(() {
       window.localStorage.remove('iron-localstorage-test');
     });
-    
+
     test('load', () {
       expect(storage.value, 'hello world');
     });
-    
+
     test('save', () {
       var m = 'goodbye';
       storage.value = m;
@@ -37,5 +37,4 @@ main() async {
       expect(v, m);
     });
   });
-
 }

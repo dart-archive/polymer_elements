@@ -16,7 +16,7 @@ main() async {
     IronMediaQuery mq;
 
     group('set query with different values', () {
-      setUp( () {
+      setUp(() {
         mq = fixture('basic');
       });
 
@@ -39,8 +39,6 @@ main() async {
         mq.mediaQuery = '(max-width: 10000px)';
         expect(mq.queryMatches, true);
       });
-
     });
-
   });
 }

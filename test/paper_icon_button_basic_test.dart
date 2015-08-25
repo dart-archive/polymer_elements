@@ -35,7 +35,9 @@ main() async {
     });
 
     test('renders correctly independent of line height', () {
-      expect(middleOfNode(b1.$['icon']).isApproximatelyEqualTo(middleOfNode(b1)), isTrue);
+      expect(
+          middleOfNode(b1.$['icon']).isApproximatelyEqualTo(middleOfNode(b1)),
+          isTrue);
     });
   });
 }

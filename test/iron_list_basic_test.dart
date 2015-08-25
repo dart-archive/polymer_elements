@@ -14,29 +14,29 @@ import 'iron_list_test_helpers.dart';
 
 main() async {
   await initWebComponents();
-  
+
   group('basic features', () {
     IronList list;
     JsObject container;
-    
+
     setUp(() {
       container = new JsObject.fromBrowserObject(fixture('trivialList'));
       list = container['list'];
     });
-    
+
     test('defaults', () {
       expect(list.items, null);
       expect(list.as, 'item');
       expect(list.indexAs, 'index');
     });
-    
+
     test('check items length', () {
       container['data'] = buildDataSet(100);
       return new Future(() {}).then((_) {
         expect(list.items.length, container['data'].length);
       });
     });
-    
+
     test('check physical item heights', () {
       container['data'] = buildDataSet(100);
       return new Future(() {}).then((_) {
@@ -46,7 +46,7 @@ main() async {
         });
       });
     });
-    
+
     test('check physical item size', () {
       var setSize = list.jsElement['_physicalCount'] - 1;
       container['data'] = buildDataSet(setSize);
@@ -54,7 +54,7 @@ main() async {
         expect(list.items.length, setSize);
       });
     });
-    
+
     test('first visible index', () {
       var done = new Completer();
       container['data'] = buildDataSet(100);

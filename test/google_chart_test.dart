@@ -43,7 +43,7 @@ main() async {
       expect(chart.type, 'column');
     });
 
-    test('specified properties have the correct values',  () {
+    test('specified properties have the correct values', () {
       expect(chart.cols, isNotNull);
       expect(chart.cols.length, greaterThan(0));
       expect(chart.cols[0]['label'], 'Data');

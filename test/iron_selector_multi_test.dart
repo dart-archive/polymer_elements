@@ -16,7 +16,7 @@ main() async {
   group('multi', () {
     IronSelector s;
 
-    setUp( () {
+    setUp(() {
       s = fixture('test');
     });
 

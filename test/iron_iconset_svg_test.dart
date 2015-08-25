@@ -12,7 +12,7 @@ import 'common.dart';
 /// Used imports: [IronIconsetSvg]
 main() async {
   await initWebComponents();
-  
+
   group('<iron-iconset>', () {
     group('basic behavior', () {
       var iconset;

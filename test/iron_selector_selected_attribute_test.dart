@@ -29,6 +29,5 @@ main() async {
       // now selected attribute should be there
       expect(s.children[4].attributes.containsKey('myattr'), isTrue);
     });
-
   });
 }

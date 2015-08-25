@@ -23,22 +23,22 @@ main() async {
         'url': 'fixtures/responds_to_get_with_json.json'
       };
     });
-  
-    group('basic usage',  () {
-      test('creates network requests, requiring only `url`',  () {
+
+    group('basic usage', () {
+      test('creates network requests, requiring only `url`', () {
         request.send(new JsObject.jsify(successfulRequestOptions));
         return jsPromiseToFuture(request.completes).then((_) {
           expect(request.response, isNotNull);
         });
       });
-      test('sets async to true by default',  () {
+      test('sets async to true by default', () {
         request.send(new JsObject.jsify(successfulRequestOptions));
         expect(request.xhr['status'], 0);
         return jsPromiseToFuture(request.completes).then((_) {
           expect(request.xhr['status'], 200);
         });
       });
-      test('can be aborted',  () {
+      test('can be aborted', () {
         request.send(new JsObject.jsify(successfulRequestOptions));
         request.abort();
         return jsPromiseToFuture(request.completes).then((_) {
@@ -47,7 +47,7 @@ main() async {
           expect(request.response, isNull);
         });
       });
-      test('default responseType is text',  () {
+      test('default responseType is text', () {
         request.send(new JsObject.jsify(successfulRequestOptions));
         return jsPromiseToFuture(request.completes).then((_) {
           expect(request.response is String, isTrue);
@@ -55,7 +55,7 @@ main() async {
           throw 'Response was not a Object';
         });
       });
-      test('responseType can be configured via handleAs option',  () {
+      test('responseType can be configured via handleAs option', () {
         var options = new Map.from(successfulRequestOptions);
         options['handleAs'] = 'json';
         request.send(new JsObject.jsify(options));
@@ -71,5 +71,4 @@ main() async {
     // the server for this though.
     // https://github.com/dart-lang/polymer_elements/issues/15
   });
-
 }

@@ -15,7 +15,6 @@ main() async {
   await initWebComponents();
 
   group('google-map', () {
-  
     test('autoTilt', () {
       var done = new Completer();
       GoogleMap map = fixture('map');
@@ -37,7 +36,7 @@ main() async {
       });
       return done.future;
     });
-  
+
     test('defaults', () {
       var done = new Completer();
       GoogleMap map = fixture('map');
@@ -57,7 +56,7 @@ main() async {
       });
       return done.future;
     });
-  
+
     test('change properties', () {
       var done = new Completer();
       GoogleMap map = fixture('map3');
@@ -72,7 +71,7 @@ main() async {
       });
       return done.future;
     });
-  
+
     test('declarative map creation', () {
       GoogleMap map = new GoogleMap();
       document.querySelector('#newmap').append(map);

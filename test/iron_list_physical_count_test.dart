@@ -14,7 +14,7 @@ import 'iron_list_test_helpers.dart';
 
 main() async {
   await initWebComponents();
-  
+
   group('dynamic physical count', () {
     IronList list;
     JsObject container;

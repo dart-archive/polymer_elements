@@ -23,8 +23,7 @@ main() async {
       var done = new Completer();
       expect(sheet.published, isTrue);
       expect(sheet.querySelector('google-signin-aware'), isNull,
-          reason:
-              'google-signin-aware should not be created for a published sheet');
+          reason: 'google-signin-aware should not be created for a published sheet');
 
       sheet.on['google-sheet-data'].take(1).listen((e) {
         if (eventDetail(e)['type'] == 'tab') {
@@ -36,15 +35,13 @@ main() async {
               reason: '.tab.authors was 0');
         } else if (eventDetail(e)['type'] == 'rows') {
           expect(sheet.spreadsheets.length, 0,
-              reason:
-                  '.spreadsheets length should be 0 since spreadsheet key was given');
+              reason: '.spreadsheets length should be 0 since spreadsheet key was given');
           expect(sheet.rows.length, greaterThan(0),
               reason: '.rows was not populated');
         }
 
         expect(sheet.$['cellrowsajax'].url, '',
-            reason:
-                '#cellrowsajax should not be invoked for a public spreadsheet');
+            reason: '#cellrowsajax should not be invoked for a public spreadsheet');
 
         done.complete();
       });

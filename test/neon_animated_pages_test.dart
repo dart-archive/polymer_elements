@@ -12,21 +12,19 @@ import 'common.dart';
 import 'dart:html';
 
 main() async {
-
   await initWebComponents();
 
   group('<neon-animated-pages>', () {
-
-    group('notify-resize',(){
-
-      test('only a destination page receives a resize event',() async {
+    group('notify-resize', () {
+      test('only a destination page receives a resize event', () async {
         NeonAnimatedPages animatedPages = fixture('notify-resize');
         List<Element> resizables = Polymer.dom(animatedPages).children;
         Map receives = {};
-        resizables.forEach((Element page){
-          page.on['iron-resize'].listen((Event e){
+        resizables.forEach((Element page) {
+          page.on['iron-resize'].listen((Event e) {
             var pageName = e.currentTarget.tagName;
-            receives[pageName] = receives.containsKey(pageName) ? receives[pageName]+1 : 1;
+            receives[pageName] =
+                receives.containsKey(pageName) ? receives[pageName] + 1 : 1;
           });
         });
 
@@ -34,13 +32,8 @@ main() async {
 
         await wait(50);
 
-        expect(receives,equals({'C-RESIZABLE-PAGE':1}));
-
-      }, skip:'https://github.com/dart-lang/polymer-dart/issues/551');
-
-
-
+        expect(receives, equals({'C-RESIZABLE-PAGE': 1}));
+      }, skip: 'https://github.com/dart-lang/polymer-dart/issues/551');
     });
-
   });
 }

@@ -21,8 +21,8 @@ main() async {
     });
 
     test('announces when there is an iron-announce event', () async {
-      var event = new CustomEvent(
-          'iron-announce', canBubble: true, detail: {'text': 'foo'});
+      var event = new CustomEvent('iron-announce',
+          canBubble: true, detail: {'text': 'foo'});
       document.body.dispatchEvent(event);
       // Text isn't set for 100ms
       await new Future.delayed(new Duration(milliseconds: 200), () {});

@@ -34,9 +34,8 @@ main() async {
 
     test('caret position is preserved', () {
       PaperTextarea input = fixture('basic');
-      IronAutogrowTextarea ironTextarea = Polymer
-          .dom(input.root)
-          .querySelector('iron-autogrow-textarea');
+      IronAutogrowTextarea ironTextarea =
+          Polymer.dom(input.root).querySelector('iron-autogrow-textarea');
       input.value = 'nananana';
       ironTextarea.textarea.selectionStart = 2;
       ironTextarea.textarea.selectionEnd = 2;

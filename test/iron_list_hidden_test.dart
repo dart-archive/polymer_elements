@@ -15,7 +15,7 @@ import 'iron_list_test_helpers.dart';
 
 main() async {
   await initWebComponents();
-  
+
   group('hidden list', () {
     IronList list;
     JsObject container;
@@ -49,5 +49,4 @@ main() async {
       });
     });
   });
-
 }

@@ -136,6 +136,5 @@ main() async {
       expect(slider.value, slider.max);
       slider.step = 1;
     });
-
   });
 }

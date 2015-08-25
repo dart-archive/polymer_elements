@@ -14,7 +14,8 @@ import 'common.dart';
 bool elementIsVisible(element) {
   var contentRect = element.getBoundingClientRect();
   var computedStyle = element.getComputedStyle();
-  return computedStyle.display != 'none' && contentRect.width > 0 &&
+  return computedStyle.display != 'none' &&
+      contentRect.width > 0 &&
       contentRect.height > 0;
 }
 
@@ -22,17 +23,17 @@ main() async {
   await initWebComponents();
   group('<iron-dropdown>', () {
     IronDropdown dropdown;
-    
+
     group('basic', () {
       setUp(() {
         dropdown = fixture('TrivialDropdown');
       });
-      
+
       test('effectively hides the dropdown content', () {
         var content = dropdown.querySelector('.dropdown-content');
         expect(elementIsVisible(content), isFalse);
       });
-      
+
       test('shows dropdown content when opened', () {
         var content = dropdown.querySelector('.dropdown-content');
         dropdown.open();
@@ -40,7 +41,7 @@ main() async {
           expect(elementIsVisible(content), isTrue);
         });
       });
-      
+
       test('hides dropdown content when outside is clicked', () {
         var done = new Completer();
         var content = dropdown.querySelector('.dropdown-content');
@@ -57,7 +58,7 @@ main() async {
         return done.future;
       });
     });
-    
+
     group('aligned dropdown', () {
       var parent;
       setUp(() {
@@ -93,7 +94,7 @@ main() async {
           expect(dropdownRect.right, closeTo(parentRect.right, 0.1));
         });
       });
-      
+
       group('with an offset', () {
         test('is offset by the offset value when open', () {
           var dropdownRect;
@@ -116,4 +117,3 @@ main() async {
     });
   });
 }
-

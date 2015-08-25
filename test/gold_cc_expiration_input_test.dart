@@ -90,8 +90,7 @@ main() async {
 
       expect(
           month.getAttribute('aria-labelledby'), equals('$label monthLabel'));
-      expect(
-          year.getAttribute('aria-labelledby'), equals('$label yearLabel'));
+      expect(year.getAttribute('aria-labelledby'), equals('$label yearLabel'));
     });
   });
 }

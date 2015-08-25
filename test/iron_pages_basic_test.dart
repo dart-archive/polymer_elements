@@ -16,7 +16,7 @@ main() async {
     IronPages pages;
 
     group('defaults', () {
-      setUp( () {
+      setUp(() {
         pages = fixture('basic');
       });
 
@@ -46,7 +46,7 @@ main() async {
     });
 
     group('set the selected attribute', () {
-      setUp( () {
+      setUp(() {
         pages = fixture('basic');
         pages.selected = '0';
       });
@@ -59,13 +59,13 @@ main() async {
         expect(pages.selectedItem, pages.items[0]);
       });
 
-      test('selected item is display:block and all others are display:none', () {
+      test('selected item is display:block and all others are display:none',
+          () {
         pages.items.forEach((p) {
           expect(p.getComputedStyle().display,
               p == pages.selectedItem ? 'block' : 'none');
         });
       });
     });
-
   });
 }

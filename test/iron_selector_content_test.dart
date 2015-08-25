@@ -27,17 +27,18 @@ main() async {
   var t = new JsObject.fromBrowserObject(document.querySelector('#t'));
 
   group('content', () {
-
     test('attribute selected', () {
       // check selected class
-      expect(s1.querySelector('#item0').classes.contains('iron-selected'), isTrue);
+      expect(
+          s1.querySelector('#item0').classes.contains('iron-selected'), isTrue);
     });
 
     test('set selected', () {
       // set selected
       s1.selected = 'item1';
       // check selected class
-      expect(s1.querySelector('#item1').classes.contains('iron-selected'), isTrue);
+      expect(
+          s1.querySelector('#item1').classes.contains('iron-selected'), isTrue);
     });
 
     test('get items', () {
@@ -62,23 +63,24 @@ main() async {
       // check items length
       expect(s1.$['selector'].items.length, 5);
       // check selected class
-      expect(s1.querySelector('#item4').classes.contains('iron-selected'), isTrue);
+      expect(
+          s1.querySelector('#item4').classes.contains('iron-selected'), isTrue);
     });
-
   });
 
   group('content with selectable', () {
-
     test('attribute selected', () {
       // check selected class
-      expect(s2.querySelector('#item0').classes.contains('iron-selected'), isTrue);
+      expect(
+          s2.querySelector('#item0').classes.contains('iron-selected'), isTrue);
     });
 
     test('set selected', () {
       // set selected
       s2.selected = 'item1';
       // check selected class
-      expect(s2.querySelector('#item1').classes.contains('iron-selected'), isTrue);
+      expect(
+          s2.querySelector('#item1').classes.contains('iron-selected'), isTrue);
     });
 
     test('get items', () {
@@ -103,30 +105,35 @@ main() async {
       // check items length
       expect(s2.$['selector'].items.length, 5);
       // check selected class
-      expect(s2.querySelector('#item4').classes.contains('iron-selected'), isTrue);
+      expect(
+          s2.querySelector('#item4').classes.contains('iron-selected'), isTrue);
     });
-
   });
 
   group('content with dom-repeat', () {
-
     test('supports repeated children', () {
       var done = new Completer();
-      t['items'] = new JsObject.jsify([{'name':'item0'}, {'name': 'item1'}, {'name': 'item2'}, {'name': 'item3'}]);
+      t['items'] = new JsObject.jsify([
+        {'name': 'item0'},
+        {'name': 'item1'},
+        {'name': 'item2'},
+        {'name': 'item3'}
+      ]);
       wait(1).then((_) {
         // check selected
         expect(s3.selected, 'item0');
         // check selected class
-        expect(s3.querySelector('#item0').classes.contains('iron-selected'), isTrue);
+        expect(s3.querySelector('#item0').classes.contains('iron-selected'),
+            isTrue);
         // set selected
         s3.selected = 'item2';
         // check selected class
-        expect(s3.querySelector('#item2').classes.contains('iron-selected'), isTrue);
+        expect(s3.querySelector('#item2').classes.contains('iron-selected'),
+            isTrue);
         done.complete();
       });
 
       return done.future;
     });
-
   });
 }

@@ -12,7 +12,7 @@ import 'common.dart';
 /// Used imports: [IronIconset]
 main() async {
   await initWebComponents();
-  
+
   group('<iron-iconset>', () {
     group('basic behavior', () {
       var iconset;
@@ -37,7 +37,7 @@ main() async {
         iconset = elements[0];
         div = elements[1];
       });
-  /*
+      /*
       test('appends a child to the target element', () {
         expect(div.firstElementChild).to.not.be.ok;
         iconset.applyIcon(div, 'location');
@@ -79,8 +79,8 @@ main() async {
         var iconStyle;
         iconset.applyIcon(div, 'bus', 'large', null);
         iconStyle = div.getComputedStyle();
-        expect(iconStyle.backgroundPosition,
-            contains(new RegExp(r'-10px -34px')));
+        expect(
+            iconStyle.backgroundPosition, contains(new RegExp(r'-10px -34px')));
       });
     });
   });

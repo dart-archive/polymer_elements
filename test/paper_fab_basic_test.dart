@@ -36,9 +36,10 @@ main() async {
       expect(f2.$['icon'].jsElement['_img'], isNotNull);
     });
 
-
     test('renders correctly independent of line height', () {
-      expect(middleOfNode(f1.$['icon']).isApproximatelyEqualTo(middleOfNode(f1)), isTrue);
+      expect(
+          middleOfNode(f1.$['icon']).isApproximatelyEqualTo(middleOfNode(f1)),
+          isTrue);
     });
   });
 }

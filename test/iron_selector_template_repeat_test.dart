@@ -58,10 +58,7 @@ main() async {
         // check selected
         expect(s.selected, '1');
         // update items
-        t['items'] = new JsObject.jsify([
-          {'name': 'foo'},
-          {'name': 'bar'}
-        ]);
+        t['items'] = new JsObject.jsify([{'name': 'foo'}, {'name': 'bar'}]);
         wait(1).then((_) {
           // check items
           expect(s.items.length, 2);

@@ -41,7 +41,8 @@ main() async {
       expect(scrollHeaderPanel.keepCondensedHeader, false);
       expect(scrollHeaderPanel.keepCondensedHeader, false);
       expect(scrollHeaderPanel.headerHeight, toolbar.offsetHeight);
-      expect(scrollHeaderPanel.condensedHeaderHeight, (toolbar.offsetHeight * 1/3).round());
+      expect(scrollHeaderPanel.condensedHeaderHeight,
+          (toolbar.offsetHeight * 1 / 3).round());
     });
 
     test('condensation', () {
@@ -67,7 +68,8 @@ main() async {
       scrollHeaderPanel.on['paper-header-transform'].take(1).listen((e) {
         expect(eventDetail(e)['y'], new isInstanceOf<num>());
         expect(eventDetail(e)['height'], scrollHeaderPanel.headerHeight);
-        expect(eventDetail(e)['condensedHeight'], scrollHeaderPanel.condensedHeaderHeight);
+        expect(eventDetail(e)['condensedHeight'],
+            scrollHeaderPanel.condensedHeaderHeight);
         done.complete();
       });
 

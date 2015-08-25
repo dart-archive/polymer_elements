@@ -14,7 +14,7 @@ import 'common.dart';
 
 main() async {
   await initWebComponents();
-  
+
   group('basic', () {
     test('setting bindValue sets value', () {
       IronInput input = fixture('basic');

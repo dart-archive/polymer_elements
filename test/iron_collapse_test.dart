@@ -17,19 +17,19 @@ main() async {
     IronCollapse collapse;
     var delay = new Duration(milliseconds: 750);
     var collapseHeight;
-    
-    setUp( () {
+
+    setUp(() {
       collapse = fixture('basic');
     });
-    
+
     test('opened attribute', () {
       expect(collapse.opened, true);
     });
-    
+
     test('horizontal attribute', () {
       expect(collapse.horizontal, false);
     });
-    
+
     test('default opened height', () {
       return new Future.delayed(delay, () {
         // store height
@@ -38,7 +38,7 @@ main() async {
         expect(collapseHeight, isNot('0px'));
       });
     });
-    
+
     test('set opened to false', () {
       collapse.opened = false;
       return new Future.delayed(delay, () {
@@ -47,7 +47,7 @@ main() async {
         expect(h, '0px');
       });
     });
-    
+
     test('set opened to true', () {
       collapse.opened = true;
       return new Future.delayed(delay, () {
@@ -63,7 +63,7 @@ main() async {
     var delay = new Duration(milliseconds: 500);
     var width;
 
-    setUp( () {
+    setUp(() {
       collapse = fixture('horizontal');
     });
 

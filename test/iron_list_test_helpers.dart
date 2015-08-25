@@ -70,7 +70,6 @@ Element getFirstItemFromList(list) {
 
 Element getLastItemFromList(list) {
   var listRect = list.getBoundingClientRect();
-  return document.elementFromPoint(
-      (listRect.left + 1).floor(),
+  return document.elementFromPoint((listRect.left + 1).floor(),
       (listRect.top + listRect.height - 1).floor());
 }

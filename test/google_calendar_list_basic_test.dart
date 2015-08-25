@@ -35,14 +35,16 @@ main() async {
       // Run tests.
       cal.on['google-api-load'].take(1).listen((_) {
         var response = new JsObject.jsify({
-          'items': [{
-            'kind': 'calendar#calendarListEntry',
-            'id': 'test_id',
-            'summary': 'test summary',
-            'description': 'test description',
-            'timeZone': 'Asia/Calcutta',
-            'backgroundColor': '#000'
-          }],
+          'items': [
+            {
+              'kind': 'calendar#calendarListEntry',
+              'id': 'test_id',
+              'summary': 'test summary',
+              'description': 'test description',
+              'timeZone': 'Asia/Calcutta',
+              'backgroundColor': '#000'
+            }
+          ],
         });
 
         var request = new JsObject.jsify({

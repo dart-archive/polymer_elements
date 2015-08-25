@@ -31,7 +31,8 @@ main() async {
     });
 
     test('selected tab has iron-selected class', () {
-      expect(tabs.querySelector('[name=bar]').classes, contains('iron-selected'));
+      expect(
+          tabs.querySelector('[name=bar]').classes, contains('iron-selected'));
     });
   });
 
