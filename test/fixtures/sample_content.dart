@@ -9,6 +9,7 @@ import 'dart:math';
 import 'package:polymer/polymer.dart';
 import 'package:web_components/web_components.dart';
 
+@jsProxyReflectable
 @PolymerRegister('sample-content')
 class SampleContent extends PolymerElement {
   SampleContent.created() : super.created();
