@@ -1,8 +1,11 @@
+// Copyright (c) 2015, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
 @TestOn('browser')
 library polymer_elements.test.paper_input_char_counter_test;
 
 import 'dart:html';
-import 'package:polymer/polymer.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'package:polymer_elements/paper_input.dart';
@@ -11,6 +14,7 @@ import 'package:polymer_elements/paper_textarea.dart';
 import 'package:polymer_elements/paper_input_container.dart';
 import 'common.dart';
 
+/// Used imports: [PaperInput]
 main() async {
   await initWebComponents();
 

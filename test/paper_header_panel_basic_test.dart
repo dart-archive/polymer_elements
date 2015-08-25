@@ -1,8 +1,9 @@
+// Copyright (c) 2015, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
 @TestOn('browser')
 library polymer_elements.test.paper_header_panel_basic_test;
 
-import 'dart:html';
-import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/paper_header_panel.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';

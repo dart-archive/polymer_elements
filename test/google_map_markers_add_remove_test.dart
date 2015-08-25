@@ -1,10 +1,10 @@
+// Copyright (c) 2015, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
 @TestOn('browser')
 library polymer_elements.test.google_map_markers_add_remove_test;
 
 import 'dart:async';
-import 'dart:convert';
-import 'dart:html';
-import 'dart:js';
 import 'package:polymer_elements/google_map.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'package:test/test.dart';

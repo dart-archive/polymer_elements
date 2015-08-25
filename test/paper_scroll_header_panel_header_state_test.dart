@@ -1,20 +1,21 @@
+// Copyright (c) 2015, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
 @TestOn('browser')
-library polymer_elements.test._test;
+library polymer_elements.test.paper_scroll_header_panel_header_state_test;
 
-import 'dart:async';
-import 'dart:convert';
-import 'dart:html';
-import 'dart:js';
 import 'package:polymer_elements/paper_scroll_header_panel.dart';
 import 'package:polymer_elements/paper_toolbar.dart';
 import 'package:polymer_interop/polymer_interop.dart';
-import 'package:polymer/polymer.dart';
+import 'package:smoke/mirrors.dart' as smoke;
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
 import 'fixtures/sample_content.dart';
 
+/// Used imports: [SampleContent]
 main() async {
+  smoke.useMirrors();
   await initWebComponents();
 
   group('`headerState`', () {

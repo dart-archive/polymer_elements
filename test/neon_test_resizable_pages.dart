@@ -1,3 +1,6 @@
+// Copyright (c) 2015, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
 @HtmlImport('neon_test_resizable_pages.html')
 //TODO(jakemac): Add NeonSharedElementAnimatableBehavior and IronResizableBehavior to all of these once
 // https://github.com/dart-lang/polymer-dart/issues/551 is resolved.

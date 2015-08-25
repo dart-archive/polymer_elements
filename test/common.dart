@@ -1,11 +1,14 @@
+// Copyright (c) 2015, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
 library iron_elements.test.mock_interactions;
 
 import 'dart:async';
 import 'dart:html';
 import 'dart:js';
-// For the html import (which contains the js libraries)
-import 'package:polymer_elements/iron_test_helpers.dart';
+import 'package:polymer_elements/iron_test_helpers.dart' as test_helpers;
 
+/// Used imports: [test_helpers]
 final JsObject _MockInteractionsJs = context['MockInteractions'];
 
 class Point {

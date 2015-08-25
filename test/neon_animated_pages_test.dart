@@ -1,3 +1,6 @@
+// Copyright (c) 2015, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
 @TestOn('browser')
 library polymer_elements.test.neon_animated_pages_test;
 
@@ -22,7 +25,7 @@ main() async {
         Map receives = {};
         resizables.forEach((Element page){
           page.on['iron-resize'].listen((Event e){
-            var pageName = event.currentTarget.tagName;
+            var pageName = e.currentTarget.tagName;
             receives[pageName] = receives.containsKey(pageName) ? receives[pageName]+1 : 1;
           });
         });

@@ -1,14 +1,18 @@
+// Copyright (c) 2015, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
 @TestOn('browser')
 library polymer_elements.test.paper_fab_basic_test;
 
-import 'package:polymer/polymer.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:polymer_elements/paper_fab.dart';
 import 'package:polymer_elements/iron_icon.dart';
-import 'package:polymer_elements/iron_icons.dart';
+import 'package:polymer_elements/iron_icons.dart' as iron_icons;
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
 
+/// Used tests: [IronIcon], [iron_icons]
 main() async {
   await initWebComponents();
 

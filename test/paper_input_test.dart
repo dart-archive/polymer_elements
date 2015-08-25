@@ -1,11 +1,14 @@
+// Copyright (c) 2015, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
 @TestOn('browser')
 library polymer_elements.test.paper_input_test;
 
-import 'package:polymer/polymer.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'package:polymer_elements/paper_input.dart';
 import 'package:polymer_elements/paper_input_char_counter.dart';
+import 'package:polymer_elements/paper_input_container.dart';
 import 'common.dart';
 
 main() async {
@@ -23,67 +26,51 @@ main() async {
         PaperInput input = fixture('placeholder');
         expect(input.inputElement.placeholder, equals(input.placeholder));
         expect(input.noLabelFloat, isFalse);
-        var floatingLabel = Polymer
-            .dom(Polymer
-                .dom(input.jsElement['root'])
-                .querySelector('paper-input-container')
-                .jsElement['root'])
-            .querySelector('.label-is-floating');
+        var floatingLabel = (input.$$('paper-input-container')
+            as PaperInputContainer).$$('.label-is-floating');
         expect(floatingLabel, isNotNull);
       });
 
       test('always-float-label attribute works without placeholder', () {
-        var input = fixture('always-float-label');
-        var container = Polymer
-            .dom(input.jsElement['root'])
-            .querySelector('paper-input-container');
-        var inputContent = Polymer
-            .dom(container.jsElement['root'])
-            .querySelector('.input-content');
+        PaperInput input = fixture('always-float-label');
+        PaperInputContainer container = input.$$('paper-input-container');
+        var inputContent = container.$$('.input-content');
         expect(inputContent.classes.contains('label-is-floating'), isTrue);
       });
 
       test('error message is displayed', () {
-        var input = fixture('error');
+        PaperInput input = fixture('error');
         forceXIfStamp(input);
-        var error = Polymer
-            .dom(input.jsElement['root'])
-            .querySelector('paper-input-error');
+        var error = input.$$('paper-input-error');
         expect(error, isNotNull);
         expect(error.getComputedStyle().display, isNot(equals('none')));
       });
 
       test('empty required input shows error', () {
-        var input = fixture('required');
+        PaperInput input = fixture('required');
         forceXIfStamp(input);
-        var error = Polymer
-            .dom(input.jsElement['root'])
-            .querySelector('paper-input-error');
+        var error = input.$$('paper-input-error');
         expect(error, isNotNull);
         expect(error.getComputedStyle().display, isNot(equals('none')));
       });
 
       test('character counter is displayed', () {
-        var input = fixture('char-counter');
+        PaperInput input = fixture('char-counter');
         forceXIfStamp(input);
-        PaperInputCharCounter counter = Polymer
-            .dom(input.jsElement['root'])
-            .querySelector('paper-input-char-counter');
+        PaperInputCharCounter counter = input.$$('paper-input-char-counter');
         expect(counter, isNotNull);
         expect(
             counter.jsElement['_charCounterStr'], equals(input.value.length));
       });
 
       test('validator is used', () {
-        var input = fixture('validator');
+        PaperInput input = fixture('validator');
         expect(input.inputElement.invalid, isTrue);
       });
 
       test('caret position is preserved', () {
-        var input = fixture('basic');
-        var ironInput = Polymer
-            .dom(input.jsElement['root'])
-            .querySelector('input[is="iron-input"]');
+        PaperInput input = fixture('basic');
+        var ironInput = input.$$('input[is="iron-input"]');
         input.value = 'nananana';
         ironInput.selectionStart = 2;
         ironInput.selectionEnd = 2;
@@ -95,9 +82,11 @@ main() async {
 
     group('focus/blur events', () {
       PaperInput input;
+
       setUp(() {
         input = fixture('basic');
       });
+
       test('focus/blur events fired on host element', () {
         var nFocusEvents = 0;
         var nBlurEvents = 0;
@@ -120,13 +109,9 @@ main() async {
 
     group('focused styling (integration test)', () {
       test('underline is colored when input is focused', () async {
-        var input = fixture('basic');
-        var container = Polymer
-            .dom(input.jsElement['root'])
-            .querySelector('paper-input-container');
-        var line = Polymer
-            .dom(container.jsElement['root'])
-            .querySelector('.underline');
+        PaperInput input = fixture('basic');
+        PaperInputContainer container = input.$$('paper-input-container');
+        var line = container.$$('.underline');
         expect(line.classes.contains('is-highlighted'), isFalse);
         focus(input.inputElement);
         await requestAnimationFrame();
@@ -139,9 +124,7 @@ main() async {
         PaperInput input = fixture('required-no-auto-validate');
         forceXIfStamp(input);
         input.validate();
-        var error = Polymer
-            .dom(input.jsElement['root'])
-            .querySelector('paper-input-error');
+        var error = input.$$('paper-input-error');
         expect(error, isNotNull);
         expect(error.getComputedStyle().visibility, equals('visible'));
         expect(input.invalid, isTrue);
@@ -153,12 +136,8 @@ main() async {
         PaperInput input = fixture('label');
         expect(input.inputElement.attributes.containsKey('aria-labelledby'),
             isTrue);
-        expect(
-            input.inputElement.attributes['aria-labelledby'],
-            equals(Polymer
-                .dom(input.jsElement['root'])
-                .querySelector('label')
-                .id));
+        expect(input.inputElement.attributes['aria-labelledby'],
+            equals(input.$$('label').id));
       });
 
       test('has aria-describedby for error message', () {
@@ -166,12 +145,8 @@ main() async {
         forceXIfStamp(input);
         expect(input.inputElement.attributes.containsKey('aria-describedby'),
             isTrue);
-        expect(
-            input.inputElement.attributes['aria-describedby'],
-            equals(Polymer
-                .dom(input.jsElement['root'])
-                .querySelector('paper-input-error')
-                .id));
+        expect(input.inputElement.attributes['aria-describedby'],
+            equals(input.$$('paper-input-error').id));
       });
 
       test('has aria-describedby for character counter', () {
@@ -179,12 +154,8 @@ main() async {
         forceXIfStamp(input);
         var inputElement = input.$['input'];
         expect(inputElement.attributes.containsKey('aria-describedby'), isTrue);
-        expect(
-            inputElement.attributes['aria-describedby'],
-            equals(Polymer
-                .dom(input.root)
-                .querySelector('paper-input-char-counter')
-                .id));
+        expect(inputElement.attributes['aria-describedby'],
+            equals(input.$$('paper-input-char-counter').id));
       });
 
       test('has aria-describedby for character counter and error', () {
@@ -194,13 +165,9 @@ main() async {
         expect(inputElement.attributes.containsKey('aria-describedby'), isTrue);
         expect(
             inputElement.attributes['aria-describedby'],
-            equals(
-                Polymer.dom(input.root).querySelector('paper-input-error').id +
-                    ' ' +
-                    Polymer
-                        .dom(input.root)
-                        .querySelector('paper-input-char-counter')
-                        .id));
+            equals(input.$$('paper-input-error').id +
+                ' ' +
+                input.$$('paper-input-char-counter').id));
       });
     });
   });

@@ -1,7 +1,10 @@
+// Copyright (c) 2015, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
 @TestOn('browser')
 library polymer_elements.test.paper_input_container_test;
 
-import 'package:polymer/polymer.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'package:polymer_elements/iron_input.dart';
@@ -19,31 +22,28 @@ main() async {
   group('label position', () {
     test('label is visible by default', () {
       PaperInputContainer container = fixture('basic');
-      expect(
-          container.querySelector('#l').getComputedStyle().visibility,
+      expect(container.querySelector('#l').getComputedStyle().visibility,
           equals('visible'));
     });
 
-
     test('label is floated if value is initialized to not null', () {
       PaperInputContainer container = fixture('has-value');
-      expect(getTransform(container.querySelector('#l')), isNot(equals('none')));
+      expect(
+          getTransform(container.querySelector('#l')), isNot(equals('none')));
     });
-
 
     test(
         'label is invisible if no-label-float and value is initialized to not null',
         () {
       PaperInputContainer container = fixture('no-float-has-value');
-      expect(
-          container.querySelector('#l').getComputedStyle().visibility,
+      expect(container.querySelector('#l').getComputedStyle().visibility,
           equals('hidden'));
     });
 
     test('label is floated if always-float-label is true', () {
       PaperInputContainer container = fixture('always-float');
-      expect(getTransform(container.querySelector('#l')),
-          isNot(equals('none')));
+      expect(
+          getTransform(container.querySelector('#l')), isNot(equals('none')));
     });
   });
 
@@ -51,19 +51,18 @@ main() async {
     test('label is colored when input is focused and has value', () async {
       PaperInputContainer container = fixture('has-value');
       var input = Polymer.dom(container).querySelector('#i');
-      var inputContent =
-          Polymer.dom(container.jsElement['root']).querySelector('.input-content');
+      var inputContent = container.$$('.input-content');
       focus(input);
       await requestAnimationFrame();
       expect(container.focused, isTrue);
       expect(inputContent.classes.contains('label-is-highlighted'), isTrue);
     });
 
-    test('label is not colored when input is focused and has null value', () async {
+    test('label is not colored when input is focused and has null value',
+        () async {
       PaperInputContainer container = fixture('basic');
       var input = Polymer.dom(container).querySelector('#i');
-      var inputContent =
-          Polymer.dom(container.jsElement['root']).querySelector('.input-content');
+      var inputContent = container.$$('.input-content');
       focus(input);
       await requestAnimationFrame();
       expect(inputContent.classes.contains('label-is-highlighted'), isFalse);
@@ -72,28 +71,25 @@ main() async {
     test('underline is colored when input is focused', () async {
       PaperInputContainer container = fixture('basic');
       var input = Polymer.dom(container).querySelector('#i');
-      var line = Polymer.dom(container.jsElement['root']).querySelector('.underline');
-      expect(line.classes.contains('is-highlighted'),isFalse);
+      var line = container.$$('.underline');
+      expect(line.classes.contains('is-highlighted'), isFalse);
       focus(input);
       await requestAnimationFrame();
-      expect(line.classes.contains('is-highlighted'),isTrue);
+      expect(line.classes.contains('is-highlighted'), isTrue);
     });
-
   });
-
 
   group('validation', () {
     test('styled when the input is set to an invalid value with auto-validate',
         () {
       PaperInputContainer container = fixture('auto-validate-numbers');
       var input = Polymer.dom(container).querySelector('#i');
-      var inputContent =
-          Polymer.dom(container.jsElement['root']).querySelector('.input-content');
-      var line = Polymer.dom(container.jsElement['root']).querySelector('.underline');
+      var inputContent = container.$$('.input-content');
+      var line = container.$$('.underline');
       input.bindValue = 'foobar';
       expect(container.invalid, isTrue);
-      expect(inputContent.classes.contains('is-invalid'),isTrue);
-      expect(line.classes.contains('is-invalid'),isTrue);
+      expect(inputContent.classes.contains('is-invalid'), isTrue);
+      expect(line.classes.contains('is-invalid'), isTrue);
     });
 
     test(
@@ -101,13 +97,12 @@ main() async {
         () {
       PaperInputContainer container = fixture('auto-validate-validator');
       var input = Polymer.dom(container).querySelector('#i');
-      var inputContent =
-          Polymer.dom(container.jsElement['root']).querySelector('.input-content');
-      var line = Polymer.dom(container.jsElement['root']).querySelector('.underline');
+      var inputContent = container.$$('.input-content');
+      var line = container.$$('.underline');
       input.bindValue = '123123';
       expect(container.invalid, isTrue);
-      expect(inputContent.classes.contains('is-invalid'),isTrue);
-      expect(line.classes.contains('is-invalid'),isTrue);
+      expect(inputContent.classes.contains('is-invalid'), isTrue);
+      expect(line.classes.contains('is-invalid'), isTrue);
     });
 
     test(
@@ -116,27 +111,21 @@ main() async {
       PaperInputContainer container =
           fixture('auto-validate-validator-has-invalid-value');
       expect(container.invalid, isTrue);
-      expect(Polymer.dom(container.jsElement['root']).querySelector('.underline').classes
-          .contains('is-invalid'), isTrue);
+      expect(container.$$('.underline').classes.contains('is-invalid'), isTrue);
     });
-
 
     test(
         'styled when the input is set to an invalid value with manual validation',
         () {
       PaperInputContainer container = fixture('manual-validate-numbers');
       IronInput input = Polymer.dom(container).querySelector('#i');
-      var inputContent =
-          Polymer.dom(container.jsElement['root']).querySelector('.input-content');
-      var line = Polymer.dom(container.jsElement['root']).querySelector('.underline');
+      var inputContent = container.$$('.input-content');
+      var line = container.$$('.underline');
       input.bindValue = 'foobar';
       input.validate();
       expect(container.invalid, isTrue);
-      expect(inputContent.classes.contains('is-invalid'),isTrue);
-      expect(line.classes.contains('is-invalid'),isTrue);
+      expect(inputContent.classes.contains('is-invalid'), isTrue);
+      expect(line.classes.contains('is-invalid'), isTrue);
     });
-
   });
-
-
 }
