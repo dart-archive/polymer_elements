@@ -8,7 +8,6 @@ import 'dart:async';
 import 'package:polymer_elements/paper_scroll_header_panel.dart';
 import 'package:polymer_elements/paper_toolbar.dart';
 import 'package:polymer_interop/polymer_interop.dart';
-import 'package:smoke/mirrors.dart' as smoke;
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
@@ -16,7 +15,6 @@ import 'fixtures/sample_content.dart';
 
 /// Used imports: [SampleContent]
 main() async {
-  smoke.useMirrors();
   await initWebComponents();
 
   group('basic features', () {
