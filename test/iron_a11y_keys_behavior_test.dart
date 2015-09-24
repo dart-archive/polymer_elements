@@ -79,8 +79,8 @@ main() async {
           event = keys.lastEvent as CustomEvent;
 
           expect(event, isNotNull);
-          expect(eventDetail(event)['keyboardEvent'], isNotNull);
-          expect(keys.keyboardEventMatchesKeys(event, 'space'), true);
+          expect(event.detail['keyboardEvent'], isNotNull);
+          expect(keys.keyboardEventMatchesKeys(event.original, 'space'), true);
         });
   
         test('can handle variations in arrow key names', () {
@@ -145,7 +145,7 @@ main() async {
 }
 
 @behavior
-abstract class KeysTestBehavior implements PolymerMixin, HtmlElement, IronA11yKeysBehavior {
+abstract class KeysTestBehavior implements PolymerMixin, PolymerBase, HtmlElement, IronA11yKeysBehavior {
   @property
   int keyCount = 0;
 
@@ -159,7 +159,6 @@ abstract class KeysTestBehavior implements PolymerMixin, HtmlElement, IronA11yKe
   }
 }
 
-@jsProxyReflectable
 @PolymerRegister('x-a11y-basic-keys')
 class XA11yBasicKeys extends PolymerElement with IronA11yKeysBehavior, KeysTestBehavior {
   XA11yBasicKeys.created() : super.created();
@@ -169,7 +168,6 @@ class XA11yBasicKeys extends PolymerElement with IronA11yKeysBehavior, KeysTestB
   }
 }
 
-@jsProxyReflectable
 @PolymerRegister('x-a11y-combo-keys')
 class XA11yComboKeys extends PolymerElement with IronA11yKeysBehavior, KeysTestBehavior {
   XA11yComboKeys.created() : super.created();
@@ -179,7 +177,6 @@ class XA11yComboKeys extends PolymerElement with IronA11yKeysBehavior, KeysTestB
   }
 }
 
-@jsProxyReflectable
 @PolymerRegister('x-a11y-alternate-event-keys')
 class XA11yAlternateEventKeys extends PolymerElement with IronA11yKeysBehavior, KeysTestBehavior {
   XA11yAlternateEventKeys.created() : super.created();
@@ -196,7 +193,6 @@ abstract class XA11yBehavior implements KeysTestBehavior {
   }
 }
 
-@jsProxyReflectable
 @PolymerRegister('x-a11y-behavior-keys')
 class XA11yBehaviorKeys extends PolymerElement
     with IronA11yKeysBehavior, KeysTestBehavior, XA11yBehavior {

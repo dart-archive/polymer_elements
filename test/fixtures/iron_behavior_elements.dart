@@ -13,13 +13,11 @@ import 'package:polymer/polymer.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 
-@jsProxyReflectable
 @PolymerRegister('test-control')
 class TestControl extends PolymerElement with IronControlState {
   TestControl.created() : super.created();
 }
 
-@jsProxyReflectable
 @PolymerRegister('test-button')
 class TestButton extends PolymerElement
     with IronControlState, IronA11yKeysBehavior, IronButtonState {
@@ -28,7 +26,6 @@ class TestButton extends PolymerElement
   void buttonStateChanged() {}
 }
 
-@jsProxyReflectable
 @PolymerRegister('nested-focusable')
 class NestedFocusable extends PolymerElement with IronControlState {
   NestedFocusable.created() : super.created();

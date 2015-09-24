@@ -34,7 +34,6 @@ main() async {
   });
 }
 
-@jsProxyReflectable
 @PolymerRegister('test-validatable')
 class TestValidatable extends PolymerElement with IronValidatableBehavior {
   TestValidatable.created() : super.created();

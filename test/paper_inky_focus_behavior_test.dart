@@ -46,7 +46,6 @@ main() async {
   });
 }
 
-@jsProxyReflectable
 @PolymerRegister('test-radio-button')
 class TestRadioButton extends PolymerElement
     with

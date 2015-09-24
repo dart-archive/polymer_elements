@@ -13,7 +13,6 @@ import 'package:polymer_elements/iron_resizable_behavior.dart';
 import 'package:polymer_elements/paper_styles.dart' as paper_styles;
 
 /// Used imports: [paper_styles]
-@jsProxyReflectable
 @PolymerRegister('a-resizable-page')
 class AResizablePage extends PolymerElement
     with
@@ -24,7 +23,6 @@ class AResizablePage extends PolymerElement
   AResizablePage.created() : super.created();
 }
 
-@jsProxyReflectable
 @PolymerRegister('b-resizable-page')
 class BResizablePage extends PolymerElement
     with
@@ -35,7 +33,6 @@ class BResizablePage extends PolymerElement
   BResizablePage.created() : super.created();
 }
 
-@jsProxyReflectable
 @PolymerRegister('c-resizable-page')
 class CResizablePage extends PolymerElement
     with

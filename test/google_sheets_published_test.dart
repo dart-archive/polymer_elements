@@ -26,14 +26,14 @@ main() async {
           reason: 'google-signin-aware should not be created for a published sheet');
 
       sheet.on['google-sheet-data'].take(1).listen((e) {
-        if (eventDetail(e)['type'] == 'tab') {
+        if (e.detail['type'] == 'tab') {
           expect(sheet.tab['title'], 'Locations',
               reason: 'Published spreadsheet title is not correct.');
           expect(sheet.tab['updated'], isNotNull,
               reason: '.tab.updated was not set');
           expect(sheet.tab['authors'].length > 0, isTrue,
               reason: '.tab.authors was 0');
-        } else if (eventDetail(e)['type'] == 'rows') {
+        } else if (e.detail['type'] == 'rows') {
           expect(sheet.spreadsheets.length, 0,
               reason: '.spreadsheets length should be 0 since spreadsheet key was given');
           expect(sheet.rows.length, greaterThan(0),

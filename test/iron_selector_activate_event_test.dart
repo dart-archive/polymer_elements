@@ -6,6 +6,7 @@ library polymer_elements.test.iron_selector_activate_event_test;
 
 import 'dart:async';
 import 'dart:html';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:polymer_elements/iron_selector.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
@@ -35,8 +36,9 @@ main() async {
 
       // attach iron-activate listener
       s.on['iron-activate'].take(1).listen((event) {
-        expect(eventDetail(event)['selected'], 1);
-        expect(eventDetail(event)['item'], s.children[1]);
+        event = dartValue(event);
+        expect(event.detail['selected'], 1);
+        expect(event.detail['item'], s.children[1]);
         done.complete();
       });
 
@@ -51,8 +53,9 @@ main() async {
 
       // attach iron-activate listener
       s.on['iron-activate'].take(1).listen((event) {
-        expect(eventDetail(event)['selected'], 0);
-        expect(eventDetail(event)['item'], s.children[0]);
+        event = dartValue(event);
+        expect(event.detail['selected'], 0);
+        expect(event.detail['item'], s.children[0]);
         done.complete();
       });
 
@@ -74,8 +77,9 @@ main() async {
       var done = new Completer();
       // attach iron-activate listener
       s.on['iron-activate'].take(1).listen((event) {
-        expect(eventDetail(event)['selected'], 2);
-        expect(eventDetail(event)['item'], s.children[2]);
+        event = dartValue(event);
+        expect(event.detail['selected'], 2);
+        expect(event.detail['item'], s.children[2]);
         done.complete();
       });
 
@@ -100,6 +104,7 @@ main() async {
     test('activates on tap and preventDefault', () {
       // attach iron-activate listener
       s.on['iron-activate'].take(1).listen((event) {
+        event = dartValue(event);
         event.preventDefault();
       });
       // select Item 2

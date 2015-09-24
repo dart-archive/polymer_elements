@@ -64,9 +64,10 @@ main() async {
       }
 
       scrollHeaderPanel.on['paper-header-transform'].take(1).listen((e) {
-        expect(eventDetail(e)['y'], new isInstanceOf<num>());
-        expect(eventDetail(e)['height'], scrollHeaderPanel.headerHeight);
-        expect(eventDetail(e)['condensedHeight'],
+        e = dartValue(e);
+        expect(e.detail['y'], new isInstanceOf<num>());
+        expect(e.detail['height'], scrollHeaderPanel.headerHeight);
+        expect(e.detail['condensedHeight'],
             scrollHeaderPanel.condensedHeaderHeight);
         done.complete();
       });
@@ -82,7 +83,8 @@ main() async {
       scrollHeaderPanel.condenses = false;
 
       scrollHeaderPanel.on['content-scroll'].take(1).listen((e) {
-        expect(eventDetail(e)['target'], scrollHeaderPanel.scroller);
+        e = dartValue(e);
+        expect(e.detail['target'], scrollHeaderPanel.scroller);
         done.complete();
       });
 
