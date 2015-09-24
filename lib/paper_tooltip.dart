@@ -30,6 +30,12 @@ import 'neon_animation/animations/fade_out_animation.dart';
 ///       <paper-tooltip for="btn">Tooltip text</paper-tooltip>
 ///     </div>
 ///
+/// The tooltip can be positioned on the top|bottom|left|right of the anchor using
+/// the `position` attribute. The default position is bottom.
+///
+///     <paper-tooltip for="btn" position="left">Tooltip text</paper-tooltip>
+///     <paper-tooltip for="btn" position="top">Tooltip text</paper-tooltip>
+///
 /// ### Styling
 ///
 /// The following custom properties and mixins are available for styling:
@@ -48,15 +54,29 @@ class PaperTooltip extends HtmlElement with CustomElementProxyMixin, PolymerBase
   get animationConfig => jsElement[r'animationConfig'];
   set animationConfig(value) { jsElement[r'animationConfig'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
+  /// If true, no parts of the tooltip will ever be shown offscreen.
+  bool get fitToVisibleBounds => jsElement[r'fitToVisibleBounds'];
+  set fitToVisibleBounds(bool value) { jsElement[r'fitToVisibleBounds'] = value; }
+
   /// The id of the element that the tooltip is anchored to. This element
   /// must be a sibling of the tooltip.
   String get forId => jsElement[r'for'];
   set forId(String value) { jsElement[r'for'] = value; }
 
-  /// The spacing between the top of the tooltip and the element it is
-  /// anchored to.
+  /// This property is deprecated, but left over so that it doesn't
+  /// break exiting code. Please use `offset` instead. If both `offset` and
+  /// `marginTop` are provided, `marginTop` will be ignored.
   num get marginTop => jsElement[r'marginTop'];
   set marginTop(num value) { jsElement[r'marginTop'] = value; }
+
+  /// The spacing between the top of the tooltip and the element it is
+  /// anchored to.
+  num get offset => jsElement[r'offset'];
+  set offset(num value) { jsElement[r'offset'] = value; }
+
+  /// Positions the tooltip to the top, right, bottom, left of its content.
+  String get position => jsElement[r'position'];
+  set position(String value) { jsElement[r'position'] = value; }
 
   /// Returns the target element that this tooltip is anchored to. It is
   /// either the element given by the `for` attribute, or the immediate parent
@@ -68,4 +88,7 @@ class PaperTooltip extends HtmlElement with CustomElementProxyMixin, PolymerBase
 
   void show() =>
       jsElement.callMethod('show', []);
+
+  void updatePosition() =>
+      jsElement.callMethod('updatePosition', []);
 }

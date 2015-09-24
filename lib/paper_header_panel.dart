@@ -92,7 +92,7 @@ import 'iron_flex_layout.dart';
 ///         border: 1px solid gray;
 ///       };
 ///
-///       --paper-header-panel-cover-container: {
+///       --paper-header-panel-seamed-container: {
 ///         border: 1px solid gray;
 ///       };
 ///
@@ -101,6 +101,14 @@ import 'iron_flex_layout.dart';
 ///       };
 ///
 ///       --paper-header-panel-waterfall-tall-container: {
+///         border: 1px solid gray;
+///       };
+///
+///       --paper-header-panel-scroll-container: {
+///         border: 1px solid gray;
+///       };
+///
+///       --paper-header-panel-cover-container: {
 ///         border: 1px solid gray;
 ///       };
 ///     }

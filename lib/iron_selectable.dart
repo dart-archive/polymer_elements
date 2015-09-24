@@ -25,20 +25,22 @@ abstract class IronSelectableBehavior implements CustomElementProxyMixin {
   String get attrForSelected => jsElement[r'attrForSelected'];
   set attrForSelected(String value) { jsElement[r'attrForSelected'] = value; }
 
+  /// The set of excluded elements where the key is the `localName`
+  /// of the element that will be ignored from the item list.
   get excludedLocalNames => jsElement[r'excludedLocalNames'];
   set excludedLocalNames(value) { jsElement[r'excludedLocalNames'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Returns an array of selectable items.
   get items => jsElement[r'items'];
 
-  /// This is a CSS selector sting.  If this is set, only items that matches the CSS selector
+  /// This is a CSS selector string.  If this is set, only items that match the CSS selector
   /// are selectable.
   String get selectable => jsElement[r'selectable'];
   set selectable(String value) { jsElement[r'selectable'] = value; }
 
   /// Gets or sets the selected element. The default is to use the index of the item.
-  get selected => jsElement[r'selected'];
-  set selected(value) { jsElement[r'selected'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  String get selected => jsElement[r'selected'];
+  set selected(String value) { jsElement[r'selected'] = value; }
 
   /// The attribute to set on elements when selected.
   String get selectedAttribute => jsElement[r'selectedAttribute'];

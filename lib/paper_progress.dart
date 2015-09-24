@@ -10,7 +10,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_range_behavior.dart';
 import 'paper_styles.dart';
-import 'iron_flex_layout/classes/iron_flex_layout.dart';
+import 'paper_styles_classes.dart';
 
 /// The progress bars are for situations where the percentage completed can be
 /// determined. They give users a quick sense of how much longer an operation
@@ -58,15 +58,25 @@ import 'iron_flex_layout/classes/iron_flex_layout.dart';
 ///
 /// The following mixins are available for styling:
 ///
-///
-///
-/// Custom property | Description | Default
-/// ----------------|-------------|----------
-/// `--paper-progress-container` | Mixin applied to container | `{}`
+/// Custom property                             | Description                                 | Default
+/// --------------------------------------------|---------------------------------------------|----------
+/// --paper-progress-container-color            | Mixin applied to container                  | --google-grey-300
+/// --paper-progress-transition-duration        | Duration of the transition                  | 0.008s
+/// --paper-progress-transition-timing-function | The timing function for the transition      | ease
+/// --paper-progress-transition-delay           | delay for the transition                    | 0s
+/// --paper-progress-active-color               | The color of the active bar                 | --google-green-500
+/// --paper-progress-secondary-color            | The color of the secondary bar              | --google-green-100
+/// --paper-progress-disabled-active-color      | The color of the active bar if disabled     | --google-grey-500
+/// --paper-progress-disabled-secondary-color   | The color of the secondary bar if disabled  | --google-grey-300
+/// --paper-progress-height                     | The height of the progress bar              | 4px
 @CustomElementProxy('paper-progress')
 class PaperProgress extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronRangeBehavior {
   PaperProgress.created() : super.created();
   factory PaperProgress() => new Element.tag('paper-progress');
+
+  /// True if the progress is disabled.
+  bool get disabled => jsElement[r'disabled'];
+  set disabled(bool value) { jsElement[r'disabled'] = value; }
 
   /// Use an indeterminate progress indicator.
   bool get indeterminate => jsElement[r'indeterminate'];

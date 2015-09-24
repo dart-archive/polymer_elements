@@ -11,6 +11,9 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_inky_focus_behavior.dart';
 import 'iron_button_state.dart';
 import 'iron_control_state.dart';
+import 'iron_checked_element_behavior.dart';
+import 'iron_form_element_behavior.dart';
+import 'iron_validatable_behavior.dart';
 import 'color.dart';
 import 'default_theme.dart';
 import 'paper_ripple.dart';
@@ -31,24 +34,15 @@ import 'paper_ripple.dart';
 /// `--paper-toggle-button-unchecked-bar-color` | Slider color when the input is not checked | `#000000`
 /// `--paper-toggle-button-unchecked-button-color` | Button color when the input is not checked | `--paper-grey-50`
 /// `--paper-toggle-button-unchecked-ink-color` | Selected/focus ripple color when the input is not checked | `--dark-primary-color`
-/// `--paper-toggle-button-checked-bar-color` | Slider button color when the input is checked | `--google-green-500`
-/// `--paper-toggle-button-checked-button-color` | Button color when the input is checked | `--google-green-500`
-/// `--paper-toggle-button-checked-ink-color` | Selected/focus ripple color when the input is checked | `--google-green-500`
+/// `--paper-toggle-button-checked-bar-color` | Slider button color when the input is checked | `--default-primary-color`
+/// `--paper-toggle-button-checked-button-color` | Button color when the input is checked | `--default-primary-color`
+/// `--paper-toggle-button-checked-ink-color` | Selected/focus ripple color when the input is checked | `--default-primary-color`
 /// `--paper-toggle-button-unchecked-bar` | Mixin applied to the slider when the input is not checked | `{}`
 /// `--paper-toggle-button-unchecked-button` | Mixin applied to the slider button when the input is not checked | `{}`
 /// `--paper-toggle-button-checked-bar` | Mixin applied to the slider when the input is checked | `{}`
 /// `--paper-toggle-button-checked-button` | Mixin applied to the slider button when the input is checked | `{}`
 @CustomElementProxy('paper-toggle-button')
-class PaperToggleButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInkyFocusBehavior, IronButtonState, IronControlState {
+class PaperToggleButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInkyFocusBehavior, IronButtonState, IronControlState, IronCheckedElementBehavior, IronFormElementBehavior, IronValidatableBehavior {
   PaperToggleButton.created() : super.created();
   factory PaperToggleButton() => new Element.tag('paper-toggle-button');
-
-  /// Gets or sets the state, `true` is checked and `false` is unchecked.
-  bool get checked => jsElement[r'checked'];
-  set checked(bool value) { jsElement[r'checked'] = value; }
-
-  /// If true, the button toggles the active state with each tap or press
-  /// of the spacebar.
-  bool get toggles => jsElement[r'toggles'];
-  set toggles(bool value) { jsElement[r'toggles'] = value; }
 }

@@ -268,12 +268,6 @@ element.
         'contentType, body, sync, handleAs, withCredentials, auto)'
     ],
 
-    /**
-     * The query string that should be appended to the `url`, serialized from
-     * the current value of `params`.
-     *
-     * @return {string}
-     */
     get queryString () {
       var queryParts = [];
       var param;
@@ -293,12 +287,6 @@ element.
       return queryParts.join('&');
     },
 
-    /**
-     * The `url` with query string (if `params` are specified), suitable for
-     * providing to an `iron-request` instance.
-     *
-     * @return {string}
-     */
     get requestUrl() {
       var queryString = this.queryString;
 
@@ -324,19 +312,6 @@ element.
       return headers;
     },
 
-    /**
-     * Request options suitable for generating an `iron-request` instance based
-     * on the current state of the `iron-ajax` instance's properties.
-     *
-     * @return {{
-     *   url: string,
-     *   method: (string|undefined),
-     *   async: (boolean|undefined),
-     *   body: (ArrayBuffer|ArrayBufferView|Blob|Document|FormData|null|string|undefined|Object),
-     *   headers: (Object|undefined),
-     *   handleAs: (string|undefined),
-     *   withCredentials: (boolean|undefined)}}
-     */
     toRequestOptions: function() {
       return {
         url: this.requestUrl,
@@ -362,11 +337,9 @@ element.
     },
 
     /**
-     * An object that maps header names to header values, first applying the
-     * the value of `Content-Type` and then overlaying the headers specified
-     * in the `headers` property.
+     * Performs an AJAX request to the specified URL.
      *
-     * @return {Object}
+     * @method generateRequest
      */
     generateRequest: function() {
       var request = document.createElement('iron-request');

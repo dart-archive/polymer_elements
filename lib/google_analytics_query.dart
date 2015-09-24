@@ -19,7 +19,7 @@ import 'google_analytics_loader.dart';
 ///       metrics="ga:sessions"
 ///       dimensions="ga:country"
 ///       sort="-ga:sessions"
-///       maxResults="5">
+///       max-results="5">
 ///     </google-analytics-query>
 @CustomElementProxy('google-analytics-query')
 class GoogleAnalyticsQuery extends HtmlElement with CustomElementProxyMixin, PolymerBase {

@@ -43,6 +43,13 @@ class IronDropdown extends HtmlElement with CustomElementProxyMixin, PolymerBase
   IronDropdown.created() : super.created();
   factory IronDropdown() => new Element.tag('iron-dropdown');
 
+  /// By default, the dropdown will constrain scrolling on the page
+  /// to itself when opened.
+  /// Set to true in order to prevent scroll from being constrained
+  /// to the dropdown when it opens.
+  bool get allowOutsideScroll => jsElement[r'allowOutsideScroll'];
+  set allowOutsideScroll(bool value) { jsElement[r'allowOutsideScroll'] = value; }
+
   /// An animation config. If provided, this will be used to animate the
   /// closing of the dropdown.
   get closeAnimationConfig => jsElement[r'closeAnimationConfig'];
@@ -50,6 +57,11 @@ class IronDropdown extends HtmlElement with CustomElementProxyMixin, PolymerBase
 
   /// The element that is contained by the dropdown, if any.
   get containedElement => jsElement[r'containedElement'];
+
+  /// If provided, this will be the element that will be focused when
+  /// the dropdown opens.
+  get focusTarget => jsElement[r'focusTarget'];
+  set focusTarget(value) { jsElement[r'focusTarget'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// The orientation against which to align the dropdown content
   /// horizontally relative to the dropdown trigger.

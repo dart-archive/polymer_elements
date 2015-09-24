@@ -11,6 +11,9 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_inky_focus_behavior.dart';
 import 'iron_button_state.dart';
 import 'iron_control_state.dart';
+import 'iron_checked_element_behavior.dart';
+import 'iron_form_element_behavior.dart';
+import 'iron_validatable_behavior.dart';
 import 'paper_ripple.dart';
 import 'default_theme.dart';
 
@@ -39,16 +42,20 @@ import 'default_theme.dart';
 /// `--paper-radio-button-checked-ink-color` | Selected/focus ripple color when the input is checked | `--default-primary-color`
 /// `--paper-radio-button-label-color` | Label color | `--primary-text-color`
 @CustomElementProxy('paper-radio-button')
-class PaperRadioButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInkyFocusBehavior, IronButtonState, IronControlState {
+class PaperRadioButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInkyFocusBehavior, IronButtonState, IronControlState, IronCheckedElementBehavior, IronFormElementBehavior, IronValidatableBehavior {
   PaperRadioButton.created() : super.created();
   factory PaperRadioButton() => new Element.tag('paper-radio-button');
 
-  /// Gets or sets the state, `true` is checked and `false` is unchecked.
-  bool get checked => jsElement[r'checked'];
-  set checked(bool value) { jsElement[r'checked'] = value; }
+  /// Fired when the checked state changes.
+  get ariaActiveAttribute => jsElement[r'ariaActiveAttribute'];
+  set ariaActiveAttribute(value) { jsElement[r'ariaActiveAttribute'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
-  /// If true, the button toggles the active state with each tap or press
-  /// of the spacebar.
-  bool get toggles => jsElement[r'toggles'];
-  set toggles(bool value) { jsElement[r'toggles'] = value; }
+  /// Update the checkbox aria-label. This is a temporary workaround not
+  /// being able to observe changes in <content>
+  /// (see: https://github.com/Polymer/polymer/issues/1773)
+  ///
+  /// Call this if you manually change the contents of the checkbox
+  /// and want the aria-label to match the new contents.
+  void updateAriaLabel() =>
+      jsElement.callMethod('updateAriaLabel', []);
 }

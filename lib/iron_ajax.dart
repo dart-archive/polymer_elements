@@ -127,15 +127,11 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   get params => jsElement[r'params'];
   set params(value) { jsElement[r'params'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
-  /// The query string that should be appended to the `url`, serialized from
-  /// the current value of `params`.
-  String get queryString => jsElement[r'queryString'];
+  get queryString => jsElement[r'queryString'];
 
   get requestHeaders => jsElement[r'requestHeaders'];
 
-  /// The `url` with query string (if `params` are specified), suitable for
-  /// providing to an `iron-request` instance.
-  String get requestUrl => jsElement[r'requestUrl'];
+  get requestUrl => jsElement[r'requestUrl'];
 
   /// Toggle whether XHR is synchronous or asynchronous. Don't change this
   /// to true unless You Know What You Are Doing™.
@@ -157,10 +153,8 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   void discardRequest(request) =>
       jsElement.callMethod('discardRequest', [request]);
 
-  /// An object that maps header names to header values, first applying the
-  /// the value of `Content-Type` and then overlaying the headers specified
-  /// in the `headers` property.
-  generateRequest() =>
+  /// Performs an AJAX request to the specified URL.
+  void generateRequest() =>
       jsElement.callMethod('generateRequest', []);
 
   void handleError(request, error) =>
@@ -172,8 +166,6 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   void requestOptionsChanged() =>
       jsElement.callMethod('requestOptionsChanged', []);
 
-  /// Request options suitable for generating an `iron-request` instance based
-  /// on the current state of the `iron-ajax` instance's properties.
-  toRequestOptions() =>
+  void toRequestOptions() =>
       jsElement.callMethod('toRequestOptions', []);
 }

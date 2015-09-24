@@ -8,7 +8,11 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
+import 'iron_control_state.dart';
+import 'iron_button_state.dart';
+import 'iron_a11y_keys_behavior.dart';
 import 'paper_styles.dart';
+import 'paper_item_shared_styles.dart';
 
 /// `<paper-icon-item>` is a convenience element to make an item with icon. It is a non interactive list
 /// item with a fixed-width icon area, according to Material Design. This is useful if the icons are of
@@ -33,7 +37,7 @@ import 'paper_styles.dart';
 /// `--paper-item-icon-width` | Width of the icon area     | `56px`
 /// `--paper-icon-item`       | Mixin applied to the item  | `{}`
 @CustomElementProxy('paper-icon-item')
-class PaperIconItem extends HtmlElement with CustomElementProxyMixin, PolymerBase {
+class PaperIconItem extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronButtonState, IronA11yKeysBehavior {
   PaperIconItem.created() : super.created();
   factory PaperIconItem() => new Element.tag('paper-icon-item');
 }
