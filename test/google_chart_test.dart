@@ -23,7 +23,7 @@ main() async {
     test('fires google-chart-render event for initial load', () {
       var done = new Completer();
       chart.on['google-chart-render'].take(1).listen((event) {
-        expect(eventDetail(event), isNotNull);
+        expect(event.detail, isNotNull);
         done.complete();
       });
       return done.future;
@@ -32,7 +32,7 @@ main() async {
     test('fires google-chart-render event for drawChart call', () {
       var done = new Completer();
       chart.on['google-chart-render'].take(1).listen((event) {
-        expect(eventDetail(event), isNotNull);
+        expect(event.detail, isNotNull);
         done.complete();
       });
       chart.drawChart();

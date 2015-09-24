@@ -190,7 +190,7 @@ main() async {
           expect(pendingNotifications, 0);
           RemoveListeners(listeners);
         });
-      });
+      }, skip: 'https://github.com/dart-lang/polymer_elements/issues/60');
     });
   });
 }

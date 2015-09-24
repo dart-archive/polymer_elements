@@ -76,7 +76,6 @@ main() async {
   });
 }
 
-@jsProxyReflectable
 @PolymerRegister('x-progressbar')
 class XProgressBar extends PolymerElement with IronRangeBehavior {
   XProgressBar.created() : super.created();

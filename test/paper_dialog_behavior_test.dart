@@ -43,8 +43,8 @@ main() async {
       var dialog = fixture('basic');
       runAfterOpen(dialog, () {
         dialog.on['iron-overlay-closed'].take(1).listen((event) {
-          expect(eventDetail(event)['canceled'], isFalse, reason: 'dialog is not canceled');
-          expect(eventDetail(event)['confirmed'], isFalse, reason: 'dialog is not confirmed');
+          expect(event.detail['canceled'], isFalse, reason: 'dialog is not canceled');
+          expect(event.detail['confirmed'], isFalse, reason: 'dialog is not confirmed');
           done.complete();
         });
         Polymer.dom(dialog).querySelector('[dialog-dismiss]').click();
@@ -57,8 +57,8 @@ main() async {
       var dialog = fixture('basic');
       runAfterOpen(dialog, () {
         dialog.on['iron-overlay-closed'].take(1).listen((event) {
-          expect(eventDetail(event)['canceled'], isFalse, reason: 'dialog is not canceled');
-          expect(eventDetail(event)['confirmed'], isTrue, reason: 'dialog is confirmed');
+          expect(event.detail['canceled'], isFalse, reason: 'dialog is not canceled');
+          expect(event.detail['confirmed'], isTrue, reason: 'dialog is confirmed');
           done.complete();
         });
         Polymer.dom(dialog).querySelector('[dialog-confirm]').click();
@@ -167,7 +167,6 @@ runAfterOpen(TestDialog dialog, cb) {
   dialog.open();
 }
 
-@jsProxyReflectable
 @PolymerRegister('test-dialog')
 class TestDialog extends PolymerElement
     with

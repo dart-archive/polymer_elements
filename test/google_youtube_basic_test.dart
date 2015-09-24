@@ -6,6 +6,7 @@ library polymer_elements.test.google_youtube_basic_test;
 
 import 'dart:async';
 import 'dart:js';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:polymer_elements/google_youtube.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
@@ -51,11 +52,12 @@ main() async {
         var stateTransitions = new JsArray.from([-1, 3, 1]);
 
         googleYouTube.on['google-youtube-state-change'].listen((e) {
+          e = dartValue(e);
           // Test that the element's state property always is set to the same property in the event.
-          expect(eventDetail(e)['data'], googleYouTube.state);
+          expect(e.detail['data'], googleYouTube.state);
 
           // Test that the player goes through the expected sequence of state transitions.
-          expect(eventDetail(e)['data'], stateTransitions.removeAt(0));
+          expect(e.detail['data'], stateTransitions.removeAt(0));
 
           // Once the array of expected state transitions have been exhausted, end the test.
           if (stateTransitions.length == 0) {

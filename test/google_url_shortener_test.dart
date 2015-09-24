@@ -22,7 +22,7 @@ main() async {
     test('fires google-url-shortener-ready event', () {
       var done = new Completer();
       shortener.on['google-url-shortener-ready'].take(1).listen((event) {
-        expect(eventDetail(event), isNotNull);
+        expect(event.detail, isNotNull);
         done.complete();
       });
       return done.future;
@@ -36,7 +36,7 @@ main() async {
     test('fires google-url-shorten event for shorten call', () {
       var done = new Completer();
       shortener.on['google-url-shorten'].take(1).listen((event) {
-        var detail = eventDetail(event);
+        var detail = event.detail;
         expect(detail, isNotNull);
         expect(detail['shortUrl'], isNotNull);
         done.complete();
@@ -48,7 +48,7 @@ main() async {
     test('fires google-url-shorten-error event for bad URL', () {
       var done = new Completer();
       shortener.on['google-url-shorten-error'].take(1).listen((event) {
-        var detail = eventDetail(event);
+        var detail = event.detail;
         expect(detail, isNotNull);
         expect(detail['error'], isNotNull);
         done.complete();

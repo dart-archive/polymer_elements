@@ -9,7 +9,6 @@ import 'package:polymer_elements/iron_multi_selectable.dart';
 import 'package:polymer_elements/iron_selectable.dart';
 import 'package:web_components/web_components.dart';
 
-@jsProxyReflectable
 @PolymerRegister('test-menubar')
 class TestMenuBar extends PolymerElement
     with

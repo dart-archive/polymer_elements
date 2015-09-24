@@ -27,7 +27,6 @@ main() async {
   });
 }
 
-@jsProxyReflectable
 @PolymerRegister('simple-validator')
 class SimpleValidator extends PolymerElement with IronValidatorBehavior {
   SimpleValidator.created() : super.created();

@@ -160,7 +160,3 @@ Future requestAnimationFrame() {
 }
 
 List keysOf(JsObject object) => context['Object'].callMethod('keys', [object]);
-
-JsObject eventDetail(CustomEvent event) {
-  return new JsObject.fromBrowserObject(event)['detail'];
-}

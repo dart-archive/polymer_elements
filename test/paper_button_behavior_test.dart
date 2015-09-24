@@ -63,7 +63,6 @@ main() async {
   });
 }
 
-@jsProxyReflectable
 @PolymerRegister('test-button')
 class TestButton extends PolymerElement
     with

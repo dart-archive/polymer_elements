@@ -6,7 +6,6 @@ import 'package:polymer_elements/iron_resizable_behavior.dart';
 import 'package:polymer/polymer.dart';
 import 'package:web_components/web_components.dart';
 
-@jsProxyReflectable
 @PolymerRegister('x-resizer-parent')
 class XResizerParent extends PolymerElement with IronResizableBehavior {
   XResizerParent.created() : super.created();
@@ -15,7 +14,6 @@ class XResizerParent extends PolymerElement with IronResizableBehavior {
   resizeHandler(_, __) {}
 }
 
-@jsProxyReflectable
 @PolymerRegister('x-resizer-parent-filtered')
 class XResizerParentFiltered extends PolymerElement with IronResizableBehavior {
   XResizerParentFiltered.created() : super.created();
@@ -31,7 +29,6 @@ class XResizerParentFiltered extends PolymerElement with IronResizableBehavior {
   }
 }
 
-@jsProxyReflectable
 @PolymerRegister('x-resizable')
 class XResizable extends PolymerElement with IronResizableBehavior {
   XResizable.created() : super.created();
@@ -40,13 +37,11 @@ class XResizable extends PolymerElement with IronResizableBehavior {
   resizeHandler(_) {}
 }
 
-@jsProxyReflectable
 @PolymerRegister('x-resizable-in-shadow')
-class XResizableInShadow extends PolymerElement {
+class XResizableInShadow extends PolymerElement with IronResizableBehavior {
   XResizableInShadow.created() : super.created();
 }
 
-@jsProxyReflectable
 @PolymerRegister('test-element')
 class TestElement extends PolymerElement {
   TestElement.created() : super.created();
@@ -54,7 +49,7 @@ class TestElement extends PolymerElement {
 
 @behavior
 abstract class ObserveIronResizeBehavior
-    implements IronResizableBehavior, PolymerMixin {
+    implements IronResizableBehavior, PolymerBase, PolymerMixin {
   @property
   int ironResizeCount = 0;
 
@@ -64,14 +59,12 @@ abstract class ObserveIronResizeBehavior
   }
 }
 
-@jsProxyReflectable
 @PolymerRegister('x-shadow-resizable')
 class XShadowResizable extends PolymerElement
     with IronResizableBehavior, ObserveIronResizeBehavior {
   XShadowResizable.created() : super.created();
 }
 
-@jsProxyReflectable
 @PolymerRegister('x-light-resizable')
 class XLightResizable extends PolymerElement
     with IronResizableBehavior, ObserveIronResizeBehavior {
