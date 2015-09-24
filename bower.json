@@ -7,6 +7,7 @@
   ],
   "private": true,
   "dependencies": {
+    "iron-ajax": "polymerelements/iron-ajax#1.0.4",
     "iron-elements": "polymerelements/iron-elements#1.0.4",
     "paper-elements": "polymerelements/paper-elements#1.0.5",
     "gold-elements": "polymerelements/gold-elements#1.0.1",
