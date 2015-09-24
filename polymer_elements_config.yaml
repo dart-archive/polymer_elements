@@ -251,6 +251,7 @@ files_to_generate:
   - paper-item/paper-icon-item.html
   - paper-item/paper-item.html
   - paper-item/paper-item-body.html
+  - paper-item/paper-item-shared-styles.html
   - paper-material/paper-material.html
   - paper-menu/paper-menu.html
   - paper-menu/paper-submenu.html
