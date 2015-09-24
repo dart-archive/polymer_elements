@@ -44,19 +44,27 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   bool get auto => jsElement[r'auto'];
   set auto(bool value) { jsElement[r'auto'] = value; }
 
-  /// Optional raw body content to send when method === "POST".
+  /// Body content to send with the request, typically used with "POST"
+  /// requests.
   ///
-  /// Example:
+  /// If body is a string it will be sent unmodified.
   ///
-  ///     <iron-ajax method="POST" auto url="http://somesite.com"
-  ///         body='{"foo":1, "bar":2}'>
-  ///     </iron-ajax>
-  String get body => jsElement[r'body'];
-  set body(String value) { jsElement[r'body'] = value; }
+  /// If Content-Type is set to a value listed below, then
+  /// the body will be encoded accordingly.
+  ///
+  ///    * `content-type="application/json"`
+  ///      * body is encoded like `{"foo":"bar baz","x":1}`
+  ///    * `content-type="application/x-www-form-urlencoded"`
+  ///      * body is encoded like `foo=bar+baz&x=1`
+  ///
+  /// Otherwise the body will be passed to the browser unmodified, and it
+  /// will handle any encoding (e.g. for FormData, Blob, ArrayBuffer).
+  get body => jsElement[r'body'];
+  set body(value) { jsElement[r'body'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
-  /// Content type to use when sending data. If the contenttype is set
-  /// and a `Content-Type` header is specified in the `headers` attribute,
-  /// the `headers` attribute value will take precedence.
+  /// Content type to use when sending data. If the `contentType` property
+  /// is set and a `Content-Type` header is specified in the `headers`
+  /// property, the `headers` property value will take precedence.
   String get contentType => jsElement[r'contentType'];
   set contentType(String value) { jsElement[r'contentType'] = value; }
 
@@ -65,7 +73,7 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   set debounceDuration(num value) { jsElement[r'debounceDuration'] = value; }
 
   /// Specifies what data to store in the `response` property, and
-  /// to deliver as `event.response` in `response` events.
+  /// to deliver as `event.detail.response` in `response` events.
   ///
   /// One of:
   ///
@@ -91,8 +99,10 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   ///         auto
   ///         url="http://somesite.com"
   ///         headers='{"X-Requested-With": "XMLHttpRequest"}'
-  ///         handle-as="json"
-  ///         last-response-changed="{{handleResponse}}"></iron-ajax>
+  ///         handle-as="json"></iron-ajax>
+  ///
+  /// Note: setting a `Content-Type` header here will override the value
+  /// specified by the `contentType` property of this element.
   get headers => jsElement[r'headers'];
   set headers(value) { jsElement[r'headers'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
@@ -107,7 +117,7 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerBase {
 
   /// Will be set to the most recent response received by a request
   /// that originated from this iron-ajax element. The type of the response
-  /// is determined by the value of `handleas` at the time that the request
+  /// is determined by the value of `handleAs` at the time that the request
   /// was generated.
   get lastResponse => jsElement[r'lastResponse'];
   set lastResponse(value) { jsElement[r'lastResponse'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
@@ -123,15 +133,24 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   set method(String value) { jsElement[r'method'] = value; }
 
   /// An object that contains query parameters to be appended to the
-  /// specified `url` when generating a request.
+  /// specified `url` when generating a request. If you wish to set the body
+  /// content when making a POST request, you should use the `body` property
+  /// instead.
   get params => jsElement[r'params'];
   set params(value) { jsElement[r'params'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
-  get queryString => jsElement[r'queryString'];
+  /// The query string that should be appended to the `url`, serialized from
+  /// the current value of `params`.
+  String get queryString => jsElement[r'queryString'];
 
+  /// An object that maps header names to header values, first applying the
+  /// the value of `Content-Type` and then overlaying the headers specified
+  /// in the `headers` property.
   get requestHeaders => jsElement[r'requestHeaders'];
 
-  get requestUrl => jsElement[r'requestUrl'];
+  /// The `url` with query string (if `params` are specified), suitable for
+  /// providing to an `iron-request` instance.
+  String get requestUrl => jsElement[r'requestUrl'];
 
   /// Toggle whether XHR is synchronous or asynchronous. Don't change this
   /// to true unless You Know What You Are Doing™.
@@ -150,22 +169,12 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   bool get withCredentials => jsElement[r'withCredentials'];
   set withCredentials(bool value) { jsElement[r'withCredentials'] = value; }
 
-  void discardRequest(request) =>
-      jsElement.callMethod('discardRequest', [request]);
-
   /// Performs an AJAX request to the specified URL.
-  void generateRequest() =>
+  generateRequest() =>
       jsElement.callMethod('generateRequest', []);
 
-  void handleError(request, error) =>
-      jsElement.callMethod('handleError', [request, error]);
-
-  void handleResponse(request) =>
-      jsElement.callMethod('handleResponse', [request]);
-
-  void requestOptionsChanged() =>
-      jsElement.callMethod('requestOptionsChanged', []);
-
-  void toRequestOptions() =>
+  /// Request options suitable for generating an `iron-request` instance based
+  /// on the current state of the `iron-ajax` instance's properties.
+  toRequestOptions() =>
       jsElement.callMethod('toRequestOptions', []);
 }
