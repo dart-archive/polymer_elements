@@ -45,7 +45,7 @@ import 'google_map_marker.dart';
 ///
 /// <b>Example</b> - with Google directions, using data-binding inside another Polymer element
 ///
-///     <google-map map="{{map}}"></google-map>
+///     <google-map map="{{map}}" libraries="places"></google-map>
 ///     <google-map-directions map="{{map}}"
 ///         start-address="San Francisco" end-address="Mountain View">
 ///     </google-map-directions>
@@ -90,6 +90,10 @@ class GoogleMap extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   bool get fitToMarkers => jsElement[r'fitToMarkers'];
   set fitToMarkers(bool value) { jsElement[r'fitToMarkers'] = value; }
 
+  /// A kml file to load.
+  String get kml => jsElement[r'kml'];
+  set kml(String value) { jsElement[r'kml'] = value; }
+
   /// The localized language to load the Maps API with. For more information
   /// see https://developers.google.com/maps/documentation/javascript/basics#Language
   ///
@@ -103,7 +107,7 @@ class GoogleMap extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   set latitude(num value) { jsElement[r'latitude'] = value; }
 
   /// A comma separated list (e.g. "places,geometry") of libraries to load
-  /// with this map. Defaults to "places". For more information see
+  /// with this map. Defaults to "". For more information see
   /// https://developers.google.com/maps/documentation/javascript/libraries.
   String get libraries => jsElement[r'libraries'];
   set libraries(String value) { jsElement[r'libraries'] = value; }

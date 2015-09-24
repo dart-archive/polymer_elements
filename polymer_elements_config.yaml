@@ -101,6 +101,7 @@ files_to_generate:
   - iron-autogrow-textarea/iron-autogrow-textarea.html
   - iron-behaviors/iron-button-state.html
   - iron-behaviors/iron-control-state.html
+  - iron-checked-element-behavior/iron-checked-element-behavior.html
   - iron-collapse/iron-collapse.html
   - iron-component-page/iron-component-page.html
   - iron-doc-viewer/iron-doc-viewer.html

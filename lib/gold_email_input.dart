@@ -46,12 +46,19 @@ class GoldEmailInput extends HtmlElement with CustomElementProxyMixin, PolymerBa
   String get label => jsElement[r'label'];
   set label(String value) { jsElement[r'label'] = value; }
 
-  /// The regular expression used to validate the email. Defaults to the
-  /// regular expression defined in the spec: http://www.w3.org/TR/html-markup/input.email.html#input.email.attrs.value.single.
-  /// If left blank, then no validation will be applied.
+  /// The regular expression used to validate the email. By default, the
+  /// input is of type=email and uses the native input regex, as defined in
+  /// the spec: http://www.w3.org/TR/html-markup/input.email.html#input.email.attrs.value.single.
+  /// You can override this if you want your email to be validated against
+  /// a custom regex. If the empty string, then no validation will be applied.
   String get regex => jsElement[r'regex'];
   set regex(String value) { jsElement[r'regex'] = value; }
 
-  void validate() =>
+  get value => jsElement[r'value'];
+  set value(value) { jsElement[r'value'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+
+  /// Returns true if the element has a valid value, and sets the visual error
+  /// state.
+  bool validate() =>
       jsElement.callMethod('validate', []);
 }

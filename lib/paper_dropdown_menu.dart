@@ -25,7 +25,7 @@ import 'iron_selectable.dart';
 /// displayed instead.
 ///
 /// The child element with the class `dropdown-content` will be used as the dropdown
-/// menu. It could be a `paper-menu` or element that triggers `iron-activate` when
+/// menu. It could be a `paper-menu` or element that triggers `iron-select` when
 /// selecting its children.
 ///
 /// Example:
@@ -67,6 +67,9 @@ class PaperDropdownMenu extends HtmlElement with CustomElementProxyMixin, Polyme
   bool get alwaysFloatLabel => jsElement[r'alwaysFloatLabel'];
   set alwaysFloatLabel(bool value) { jsElement[r'alwaysFloatLabel'] = value; }
 
+  /// The content element that is contained by the dropdown menu, if any.
+  get contentElement => jsElement[r'contentElement'];
+
   get keyBindings => jsElement[r'keyBindings'];
   set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
@@ -94,7 +97,7 @@ class PaperDropdownMenu extends HtmlElement with CustomElementProxyMixin, Polyme
 
   /// The last selected item. An item is selected if the dropdown menu has
   /// a child with class `dropdown-content`, and that child triggers an
-  /// `iron-activate` event with the selected `item` in the `detail`.
+  /// `iron-select` event with the selected `item` in the `detail`.
   get selectedItem => jsElement[r'selectedItem'];
   set selectedItem(value) { jsElement[r'selectedItem'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 

@@ -11,8 +11,12 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_inky_focus_behavior.dart';
 import 'iron_button_state.dart';
 import 'iron_control_state.dart';
+import 'iron_checked_element_behavior.dart';
+import 'iron_form_element_behavior.dart';
+import 'iron_validatable_behavior.dart';
 import 'paper_ripple.dart';
 import 'default_theme.dart';
+import 'color.dart';
 
 /// `paper-checkbox` is a button that can be either checked or unchecked.  User
 /// can tap the checkbox to check or uncheck it.  Usually you use checkboxes
@@ -39,17 +43,22 @@ import 'default_theme.dart';
 /// `--paper-checkbox-checked-ink-color` | Selected/focus ripple color when the input is checked | `--default-primary-color`
 /// `--paper-checkbox-checkmark-color` | Checkmark color | `white`
 /// `--paper-checkbox-label-color` | Label color | `--primary-text-color`
+/// `--paper-checkbox-error-color` | Checkbox color when invalid | `--google-red-500`
 @CustomElementProxy('paper-checkbox')
-class PaperCheckbox extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInkyFocusBehavior, IronButtonState, IronControlState {
+class PaperCheckbox extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInkyFocusBehavior, IronButtonState, IronControlState, IronCheckedElementBehavior, IronFormElementBehavior, IronValidatableBehavior {
   PaperCheckbox.created() : super.created();
   factory PaperCheckbox() => new Element.tag('paper-checkbox');
 
-  /// Gets or sets the state, `true` is checked and `false` is unchecked.
-  bool get checked => jsElement[r'checked'];
-  set checked(bool value) { jsElement[r'checked'] = value; }
+  /// Fired when the checked state changes.
+  String get ariaActiveAttribute => jsElement[r'ariaActiveAttribute'];
+  set ariaActiveAttribute(String value) { jsElement[r'ariaActiveAttribute'] = value; }
 
-  /// If true, the button toggles the active state with each tap or press
-  /// of the spacebar.
-  bool get toggles => jsElement[r'toggles'];
-  set toggles(bool value) { jsElement[r'toggles'] = value; }
+  /// Update the checkbox aria-label. This is a temporary workaround not
+  /// being able to observe changes in <content>
+  /// (see: https://github.com/Polymer/polymer/issues/1773)
+  ///
+  /// Call this if you manually change the contents of the checkbox
+  /// and want the aria-label to match the new contents.
+  void updateAriaLabel() =>
+      jsElement.callMethod('updateAriaLabel', []);
 }

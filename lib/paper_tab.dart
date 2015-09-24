@@ -9,6 +9,8 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_control_state.dart';
+import 'iron_button_state.dart';
+import 'iron_a11y_keys_behavior.dart';
 import 'iron_flex_layout/classes/iron_flex_layout.dart';
 import 'iron_flex_layout.dart';
 import 'paper_ripple.dart';
@@ -34,7 +36,7 @@ import 'paper_ripple.dart';
 /// `--paper-tab` | Mixin applied to the tab | `{}`
 /// `--paper-tab-content` | Mixin applied to the tab content | `{}`
 @CustomElementProxy('paper-tab')
-class PaperTab extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState {
+class PaperTab extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronButtonState, IronA11yKeysBehavior {
   PaperTab.created() : super.created();
   factory PaperTab() => new Element.tag('paper-tab');
 

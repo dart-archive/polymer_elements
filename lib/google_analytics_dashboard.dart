@@ -10,7 +10,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'google_signin_aware.dart';
 
-/// Element for grouping Google Analytics elements together.
+/// Container element for binding Google Analytics controls to Google Analytics charts.
 ///
 /// `<google-analytics-chart>` elements inside a `<google-analytics-dashboard>`
 /// element will automatically update as control elements (e.g.
@@ -28,8 +28,8 @@ import 'google_signin_aware.dart';
 ///         metrics="ga:sessions"
 ///         dimensions="ga:country"
 ///         sort="-ga:sessions"
-///         maxResults="5"
-///         chartType="column">
+///         max-results="5"
+///         chart-type="column">
 ///       </google-analytics-chart>
 ///
 ///     </google-analytics-dashboard>

@@ -23,7 +23,7 @@ import 'google_analytics_loader.dart';
 ///       metrics="ga:sessions"
 ///       dimensions="ga:country"
 ///       sort="-ga:sessions"
-///       maxResults="5">
+///       max-results="5">
 ///     </google-analytics-chart>
 @CustomElementProxy('google-analytics-chart')
 class GoogleAnalyticsChart extends HtmlElement with CustomElementProxyMixin, PolymerBase {
@@ -41,10 +41,6 @@ class GoogleAnalyticsChart extends HtmlElement with CustomElementProxyMixin, Pol
 
   String get filters => jsElement[r'filters'];
   set filters(String value) { jsElement[r'filters'] = value; }
-
-  /// Sets the height of the chart on the page.
-  num get height => jsElement[r'height'];
-  set height(num value) { jsElement[r'height'] = value; }
 
   String get ids => jsElement[r'ids'];
   set ids(String value) { jsElement[r'ids'] = value; }
@@ -105,10 +101,6 @@ class GoogleAnalyticsChart extends HtmlElement with CustomElementProxyMixin, Pol
   /// - `area`, `bar`, `column`, `line`, `pie`, `geo`.
   String get type => jsElement[r'type'];
   set type(String value) { jsElement[r'type'] = value; }
-
-  /// Sets the width of the chart on the page.
-  num get width => jsElement[r'width'];
-  set width(num value) { jsElement[r'width'] = value; }
 
   void handleResponse(response) =>
       jsElement.callMethod('handleResponse', [response]);

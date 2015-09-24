@@ -134,11 +134,12 @@ iron-request can be used to perform XMLHttpRequests.
     /**
      * Sends an HTTP request to the server and returns the XHR object.
      *
+     * @method request
      * @param {{
      *   url: string,
      *   method: (string|undefined),
      *   async: (boolean|undefined),
-     *   body: (ArrayBuffer|ArrayBufferView|Blob|Document|FormData|null|string|undefined|Object),
+     *   body: (ArrayBuffer|ArrayBufferView|Blob|Document|FormData|null|string|undefined),
      *   headers: (Object|undefined),
      *   handleAs: (string|undefined),
      *   withCredentials: (boolean|undefined)}} options -
@@ -150,7 +151,7 @@ iron-request can be used to perform XMLHttpRequests.
      *     headers HTTP request headers.
      *     handleAs The response type. Default is 'text'.
      *     withCredentials Whether or not to send credentials on the request. Default is false.
-     * @return {Promise}
+     * @return Promise
      */
     send: function (options) {
       var xhr = this.xhr;

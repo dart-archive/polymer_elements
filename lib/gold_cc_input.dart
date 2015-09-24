@@ -58,6 +58,11 @@ class GoldCcInput extends HtmlElement with CustomElementProxyMixin, PolymerBase,
   String get label => jsElement[r'label'];
   set label(String value) { jsElement[r'label'] = value; }
 
+  get value => jsElement[r'value'];
+  set value(value) { jsElement[r'value'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+
+  /// Returns true if the element has a valid value, and sets the visual
+  /// error state.
   bool validate() =>
       jsElement.callMethod('validate', []);
 }

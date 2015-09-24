@@ -52,6 +52,7 @@ import 'iron_a11y_keys_behavior.dart';
 /// `--paper-slider-knob-start-color` | The fill color of the knob at the far left | `transparent`
 /// `--paper-slider-knob-start-border-color` | The border color of the knob at the far left | `#c8c8c8`
 /// `--paper-slider-pin-start-color` | The color of the pin at the far left | `#c8c8c8`
+/// `--paper-slider-height` | Height of the progress bar | `2px`
 @CustomElementProxy('paper-slider')
 class PaperSlider extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronFormElementBehavior, PaperInkyFocusBehavior, IronButtonState, IronControlState, IronRangeBehavior {
   PaperSlider.created() : super.created();

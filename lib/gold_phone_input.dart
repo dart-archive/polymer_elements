@@ -66,4 +66,11 @@ class GoldPhoneInput extends HtmlElement with CustomElementProxyMixin, PolymerBa
   /// the country code. Use 'X' to denote the digits separated by dashes.
   String get phoneNumberPattern => jsElement[r'phoneNumberPattern'];
   set phoneNumberPattern(String value) { jsElement[r'phoneNumberPattern'] = value; }
+
+  get value => jsElement[r'value'];
+  set value(value) { jsElement[r'value'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+
+  /// Overidden from Polymer.PaperInputBehavior.
+  void validate() =>
+      jsElement.callMethod('validate', []);
 }
