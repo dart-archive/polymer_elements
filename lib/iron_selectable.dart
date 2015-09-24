@@ -39,8 +39,8 @@ abstract class IronSelectableBehavior implements CustomElementProxyMixin {
   set selectable(String value) { jsElement[r'selectable'] = value; }
 
   /// Gets or sets the selected element. The default is to use the index of the item.
-  String get selected => jsElement[r'selected'];
-  set selected(String value) { jsElement[r'selected'] = value; }
+  get selected => jsElement[r'selected'];
+  set selected(value) { jsElement[r'selected'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// The attribute to set on elements when selected.
   String get selectedAttribute => jsElement[r'selectedAttribute'];

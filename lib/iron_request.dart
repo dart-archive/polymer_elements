@@ -60,6 +60,6 @@ class IronRequest extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   ///         headers HTTP request headers.
   ///         handleAs The response type. Default is 'text'.
   ///         withCredentials Whether or not to send credentials on the request. Default is false.
-  void send(options) =>
+  send(options) =>
       jsElement.callMethod('send', [options]);
 }
