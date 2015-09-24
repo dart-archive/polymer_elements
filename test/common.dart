@@ -111,8 +111,9 @@ void forceXIfStamp(Node target) {
   _TestHelpersJs.callMethod('forceXIfStamp', [target]);
 }
 
-void fireEvent() {
-  _TestHelpersJs.callMethod('fireEvent');
+void fireEvent(String type, Map props, Node node) {
+  _TestHelpersJs.callMethod('fireEvent',
+      [type, props == null ? props : new JsObject.jsify(props), node]);
 }
 
 fixture(String id) {
@@ -159,7 +160,3 @@ Future requestAnimationFrame() {
 }
 
 List keysOf(JsObject object) => context['Object'].callMethod('keys', [object]);
-
-JsObject eventDetail(CustomEvent event) {
-  return new JsObject.fromBrowserObject(event)['detail'];
-}
