@@ -1,0 +1,43 @@
+{
+  "organizations": [{
+      "organization": "PolymerElements"},
+    {
+      "organization": "GoogleWebComponents",
+      "repositories": [
+        {
+          "repository": "firebase-element",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "28c6c7591adfc02eaf0bb4bb93a02b6de2b1628c",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/x-login.html",
+              "sha": "6b5455b230ff0e98a06552914421a4cd808c3b9d",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/x-pretty-json.html",
+              "sha": "9039f480c80c1e09cb36f2f4a4ce30e905e652ed",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "gold-cc-cvc-input",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "6d4e9bf1294dbe7923b0e3c0d63c6fb8d698aa16",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        }
+      ]
+    }]
+}

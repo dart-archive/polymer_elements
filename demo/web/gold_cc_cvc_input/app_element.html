@@ -1,0 +1,36 @@
+<dom-module id="app-element">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      gold-cc-cvc-input {
+        width: 80px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+
+    <div class="vertical-section-container centered">
+      <h4>Standard</h4>
+      <div class="vertical-section layout horizontal">
+        <gold-cc-cvc-input class="small"></gold-cc-cvc-input>
+        <gold-cc-cvc-input class="small" label="AMEX" card-type="amex"></gold-cc-cvc-input>
+        <gold-cc-cvc-input auto-validate required label="Auto"></gold-cc-cvc-input>
+      </div>
+
+      <h4>Pre-validated</h4>
+      <div class="vertical-section  layout horizontal">
+        <gold-cc-cvc-input required auto-validate value="123"></gold-cc-cvc-input>
+        <gold-cc-cvc-input required auto-validate card-type="amex" value="1234"></gold-cc-cvc-input>
+        <gold-cc-cvc-input required auto-validate value="12"></gold-cc-cvc-input>
+      </div>
+
+      <h4>Custom error message, auto-validates on blur</h4>
+      <div class="vertical-section">
+        <gold-cc-cvc-input required auto-validate error-message="Please enter a valid CVC"></gold-cc-cvc-input>
+      </div>
+    </div>
+
+  </template>
+</dom-module>
