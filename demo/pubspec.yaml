@@ -33,9 +33,11 @@ transformers:
 - web_components:
     entry_points:
     - web/firebase_element/index.html
+    - web/gold_cc_cvc_input/index.html
 - reflectable:
     entry_points:
     - web/firebase_element/index.dart
+    - web/gold_cc_cvc_input/index.dart
 - test/pub_serve:
     $include: test/**_test{.*,}.dart
 - $dart2js:
