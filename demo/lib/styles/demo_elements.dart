@@ -7,23 +7,13 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-@HtmlImport('app_element.html')
-library app_element;
+@HtmlImport('demo_elements.html')
+library polymer_elements_demo.lib.styles.demo_elements;
 
 import 'package:web_components/web_components.dart' show HtmlImport;
 import 'package:polymer/polymer.dart';
-import 'package:polymer_elements_demo/styles/demo_elements.dart';
-import 'package:polymer_elements/firebase_collection.dart';
-import 'package:polymer_elements/firebase_document.dart';
-import 'x_pretty_json.dart';
-import 'x_login.dart';
 
-/// Silence analyzer [FirebaseCollection], [FirebaseDocument], [XPrettyJson],
-/// [XLogin], [DemoElements]
-@PolymerRegister('app-element')
-class AppElement extends PolymerElement {
-  AppElement.created() : super.created();
-
-  @Property(notify: true) Object dinosaursByHeight;
-  @Property(notify: true) Object dinosaursScores;
+@PolymerRegister('demo-elements')
+class DemoElements extends PolymerElement {
+  DemoElements.created() : super.created();
 }

@@ -1,4 +1,4 @@
-name: polymer_elements_examples
+name: polymer_elements_demo
 version: 0.1.0
 author: Polymer.dart Authors <web-ui-dev@dartlang.org>
 description: Polymer polymer-elements for Dart examples.
@@ -34,10 +34,14 @@ transformers:
     entry_points:
     - web/firebase_element/index.html
     - web/gold_cc_cvc_input/index.html
+    - web/gold_cc_expiration_input/index.html
+    - web/gold_cc_input/index.html
 - reflectable:
     entry_points:
     - web/firebase_element/index.dart
     - web/gold_cc_cvc_input/index.dart
+    - web/gold_cc_expiration_input/index.dart
+    - web/gold_cc_input/index.dart
 - test/pub_serve:
     $include: test/**_test{.*,}.dart
 - $dart2js:
