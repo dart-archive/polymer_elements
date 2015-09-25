@@ -24,6 +24,6 @@ import 'x_login.dart';
 class AppElement extends PolymerElement {
   AppElement.created() : super.created();
 
-  @Property(notify: true) Object dinosaursByHeight;
-  @Property(notify: true) Object dinosaursScores;
+  @property var dinosaursByHeight;
+  @property var dinosaursScores;
 }
