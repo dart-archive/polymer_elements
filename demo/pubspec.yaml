@@ -8,10 +8,10 @@ dependencies:
   polymer:
     git:
       url: git@github.com:dart-lang/polymer-dart.git
-      ref: behaviors
+      ref: 1.0.0-rc.1
   polymer_elements:
     path: ..
-  polymer_interop: ^0.2.0
+  polymer_interop: ^0.2.0-rc1
   reflectable: ^0.2.1
   web_components: ^0.12.0
 dev_dependencies:
@@ -25,23 +25,51 @@ dependency_overrides:
   reflectable: 0.2.1
   polymer_interop:
     git:
-      ref: 0.2.0-dev
+      ref: 0.2.0-rc1
       url: https://github.com/dart-lang/polymer_interop.git
 environment:
   sdk: '>=1.6.0 <2.0.0'
 transformers:
 - web_components:
     entry_points:
+    #- web/chartjs_element/index.html element not available
     - web/firebase_element/index.html
-    - web/gold_cc_cvc_input/index.html
+    - web/gold_cc_cvc_input/index.html # issues dart-lang/polymer_elements#64
     - web/gold_cc_expiration_input/index.html
     - web/gold_cc_input/index.html
+    - web/gold_email_input/index.html
+    - web/gold_phone_input/index.html
+    - web/gold_zip_input/index.html
+    - web/google_analytics/index.html # issues ??
+    - web/google_apis/index.html # issues dart-lang/polymer_elements#65
+    - web/google_calendar/index.html # issues
+    - web/google_castable_video/index.html # issues
+    - web/google_chart/index.html # issues dart-lang/polymer_elements#66
+    #- web/google_domain_user_picker/index.html element not available
+    #- web/google_drive/index.html element not available
+    - web/google_feeds/index.html
+    - web/google_hangout_button/index.html
+    - web/google_map/index.html
 - reflectable:
     entry_points:
+    #- web/chartjs_element/index.dart
     - web/firebase_element/index.dart
     - web/gold_cc_cvc_input/index.dart
     - web/gold_cc_expiration_input/index.dart
     - web/gold_cc_input/index.dart
+    - web/gold_email_input/index.dart
+    - web/gold_phone_input/index.dart
+    - web/gold_zip_input/index.dart
+    - web/google_analytics/index.dart
+    - web/google_apis/index.dart
+    - web/google_calendar/index.dart
+    - web/google_castable_video/index.dart
+    - web/google_chart/index.dart
+    #- web/google_domain_user_picker/index.dart
+    #- web/google_drive/index.dart
+    - web/google_feeds/index.dart
+    - web/google_hangout_button/index.dart
+    - web/google_map/index.dart
 - test/pub_serve:
     $include: test/**_test{.*,}.dart
 - $dart2js:

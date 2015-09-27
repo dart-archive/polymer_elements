@@ -8,22 +8,33 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 @HtmlImport('app_element.html')
-library polymer_elements.demo.web.firebase_element.app_element;
+library polymer_elements_demo.web.google_feeds.app_element;
 
 import 'package:web_components/web_components.dart' show HtmlImport;
 import 'package:polymer/polymer.dart';
+import 'package:polymer_elements/google_feeds.dart';
 import 'package:polymer_elements_demo/styles/demo_elements.dart';
-import 'package:polymer_elements/firebase_collection.dart';
-import 'package:polymer_elements/firebase_document.dart';
-import 'x_pretty_json.dart';
-import 'x_login.dart';
 
-/// Silence analyzer [FirebaseCollection], [FirebaseDocument], [XPrettyJson],
-/// [XLogin], [DemoElements]
+/// Silence analyzer [GoogleFeeds], [DemoElements],
 @PolymerRegister('app-element')
 class AppElement extends PolymerElement {
   AppElement.created() : super.created();
 
-  @property var dinosaursByHeight;
-  @property var dinosaursScores;
+  @property String message = '';
+
+  void ready() {
+    on['google-feeds-response'].listen((e) {
+      set('message', '$message${e.target.localName} loaded\n');
+      print(e.detail.feed);
+    });
+
+    on['google-feeds-queryresponse'].listen((e) {
+      print('findFeeds response: ${e.detail.entries}');
+    });
+
+    $['feeder'].feeds = [
+      'https://news.ycombinator.com/rss',
+      'http://feeds.bbci.co.uk/news/rss.xml'
+    ];
+  }
 }
