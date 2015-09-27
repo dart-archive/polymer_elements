@@ -1,0 +1,95 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<dom-module id="app-element">
+  <template>
+    <style>
+      :host {
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        color: #E91E63;
+        font-size: 52px;
+      }
+
+      table {
+        width: 50%;
+        margin:20px 0 20px 0;
+        border-collapse: collapse;
+        border: 1px solid #4285f4;
+      }
+
+      td {
+        border: 1px solid #4285f4;
+        line-height: 40px;
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+
+      th {
+        height: 60px;
+        padding-left: 24px;
+        background: #4285f4 !important;
+        color: #fff !important;
+        text-align: left;
+      }
+    </style>
+    <style include="demo-elements"></style>
+
+    <p>
+      <google-signin
+        client-id="1054047045356-j8pgqgls9vdef3rl09hapoicumbte0bo.apps.googleusercontent.com"
+        scopes="https://www.googleapis.com/auth/drive">
+      </google-signin>
+    </p>
+
+    <p>An `&lt;google-drive&gt;` element looks like this:</p>
+
+    <google-drive
+        on-google-drive-upload-started="uploadStarted"
+        on-google-drive-files-selected="filesSelected"
+        on-google-drive-upload-completed="uploadCompleted"
+        on-google-drive-upload-status="uploadStatus"></google-drive>
+
+    <p><h1>Uploads</h1></p>
+
+    <!--<template id="status" is="dom-bind">-->
+       <strong>Status</strong>:<span>{{statusMessage}}</span>
+    <!--</template>-->
+
+    <table class="google-drive-table">
+      <tr>
+        <th>Upload queue</th>
+      </tr>
+      <!--<template id="queue" is="dom-bind">-->
+        <template is="dom-repeat" items="{{uploadList}}">
+          <tr>
+            <td>{{item.name}}</td>
+          </tr>
+        </template>
+      <!--</template>-->
+    </table>
+
+    <table class="google-drive-table">
+      <tr>
+        <th>Successful uploads</th>
+      </tr>
+      <!--<template id="uploaded" is="dom-bind">-->
+        <template is="dom-repeat" items="{{uploadedList}}">
+          <tr>
+            <td><img src="{{item.iconLink}}"/>&nbsp;<strong>{{item.title}}</strong></td>
+            <td><a href="{{item.webContentLink}}">Web Link</a></td>
+            <td>{{item.mimeType}}</td>
+          </tr>
+        </template>
+      <!--</template>-->
+    </table>
+
+  </template>
+</dom-module>

@@ -6,24 +6,20 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+
 */
+
 @HtmlImport('app_element.html')
-library polymer_elements.demo.web.firebase_element.app_element;
+library app_element;
 
 import 'package:web_components/web_components.dart' show HtmlImport;
 import 'package:polymer/polymer.dart';
+import 'package:polymer_elements/gold_cc_input.dart';
+import 'package:polymer_elements/demo_pages.dart';
 import 'package:polymer_elements_demo/styles/demo_elements.dart';
-import 'package:polymer_elements/firebase_collection.dart';
-import 'package:polymer_elements/firebase_document.dart';
-import 'x_pretty_json.dart';
-import 'x_login.dart';
 
-/// Silence analyzer [FirebaseCollection], [FirebaseDocument], [XPrettyJson],
-/// [XLogin], [DemoElements]
+/// Silence analyzer [GoldCcInput], [DemoPages], [DemoElements],
 @PolymerRegister('app-element')
 class AppElement extends PolymerElement {
   AppElement.created() : super.created();
-
-  @property var dinosaursByHeight;
-  @property var dinosaursScores;
 }

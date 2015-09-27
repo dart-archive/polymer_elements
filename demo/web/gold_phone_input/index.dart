@@ -7,16 +7,12 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-@HtmlImport('app_element.html')
-library polymer_elements.demo.web.gold_cc_cvc_input.app_element;
-
-import 'package:web_components/web_components.dart' show HtmlImport;
 import 'package:polymer/polymer.dart';
-import 'package:polymer_elements/gold_cc_cvc_input.dart';
-import 'package:polymer_elements_demo/styles/demo_elements.dart';
+import 'app_element.dart';
+import 'package:polymer_elements/paper_styles.dart';
+import 'package:polymer_elements/demo_pages.dart';
 
-/// Silence analyzer [GoldCcCvcInput], [DemoElements]
-@PolymerRegister('app-element')
-class AppElement extends PolymerElement {
-  AppElement.created() : super.created();
+/// Silence analyzer [AppElement]
+main() async {
+  await initPolymer();
 }

@@ -1,9 +1,10 @@
 {
-  "organizations": [{
-      "organization": "PolymerElements"},
+  "organizations": [
     {
-      "organization": "GoogleWebComponents",
-      "repositories": [
+      "organization": "PolymerElements"},
+      {
+        "organization": "GoogleWebComponents",
+        "repositories": [
         {
           "repository": "firebase-element",
           "files": [
@@ -37,7 +38,213 @@
           ],
           "skip": false,
           "change": "RepositoryChange.added"
-        }
+        },
+        {
+          "repository": "gold-cc-expiration-input",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "d64e58ba499cfef0e5863844f256b6dee92b4317",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "gold-cc-input",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "3ce8a8c40eb4200140ffb05d8d109c391baccfb2",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "gold-email-input",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "c3dc89781d60e5a40a7be5494def6ba738664dc3",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "gold-phone-input",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "737cc1c40bdc7fcaa84994d080b0c0b431152e5a",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "gold-zip-input",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "cd8a248ed0364fee84d10bc841ec0460ca3e4c62",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-analytics",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "a3ee6b9bb60bb559ed6160e04a02e31310d3d0b5",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-apis",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "a93fc193146c75c2672c98a4cd884e0aaa441e78",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-calendar",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "20a83f92277275bf0701f0c756646c77ee592fe8",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-castable-video",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "b51ea067c543f607020c681db31237b73bf5bcd8",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-chart",
+          "files": [
+            {
+              "file": "demo/chart-data.json",
+              "sha": "7d9a9cb686103a11db3faf45840991296215e5c1",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/country-data.json",
+              "sha": "b6647765faaa8ae208b234048347ccae2f8da728",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/index.html",
+              "sha": "66bf60e3316867b18699e38c2f0ae499633c56e1",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-domain-user-picker",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "cb898d0a46ddd50e398147e630e6b539286c6b09",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/sans-polymer.html",
+              "sha": "62fc2b2fd9d21c5e8f3973b4da78475643794d77",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/with-google-signin.html",
+              "sha": "21d57d1a0680bb16957b71c600aa32e9213063fd",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/with-polymer.html",
+              "sha": "b677a9aa4a87d76d8506d9823162ce45abcd8cd9",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-drive",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "9bbbaff5f73cac4a4e7e452502a74e1cbcebc809",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-feeds",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "a0fb2bbe12fd34c4577e01a915ddc422302d6242",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-hangout-button",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "fd3c0b0dac7e994005c5948126413f215d4e04e1",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-map",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "bbbf01c6efa9b79dd3c03ed164f740c0b948317d",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
       ]
-    }]
+    }
+  ]
 }

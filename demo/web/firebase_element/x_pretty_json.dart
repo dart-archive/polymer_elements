@@ -8,7 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 @HtmlImport('x_pretty_json.html')
-library x_pretty_json;
+library polymer_elements.demo.web.firebase_element.x_pretty_json;
 
 import 'dart:convert' show JsonEncoder;
 import 'package:web_components/web_components.dart' show HtmlImport;
