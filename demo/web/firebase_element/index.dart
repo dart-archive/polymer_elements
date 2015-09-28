@@ -8,11 +8,11 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 import 'package:polymer/polymer.dart';
-import 'app_element.dart';
+import 'firebase_element_demo.dart';
 import 'package:polymer_elements/paper_styles.dart';
 import 'package:polymer_elements/demo_pages.dart';
 
-/// Silence analyzer [AppElement]
+/// Silence analyzer [FirebaseElementDemo]
 main() async {
   await initPolymer();
 }
