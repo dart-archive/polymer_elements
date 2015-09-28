@@ -32,24 +32,26 @@ environment:
 transformers:
 - web_components:
     entry_points:
-    #- web/chartjs_element/index.html element not available
+    #- web/chartjs_element/index.html TODO(zoechi) element not available
     - web/firebase_element/index.html
-    - web/gold_cc_cvc_input/index.html # issues dart-lang/polymer_elements#64
+    - web/gold_cc_cvc_input/index.html # TODO(zoechi) issues #64
     - web/gold_cc_expiration_input/index.html
-    - web/gold_cc_input/index.html
+    - web/gold_cc_input/index.html # TODO(zoechi) issues #64
     - web/gold_email_input/index.html
     - web/gold_phone_input/index.html
     - web/gold_zip_input/index.html
-    - web/google_analytics/index.html # issues ??
-    - web/google_apis/index.html # issues dart-lang/polymer_elements#65
-    - web/google_calendar/index.html # issues
-    - web/google_castable_video/index.html # issues
-    - web/google_chart/index.html # issues dart-lang/polymer_elements#66
-    #- web/google_domain_user_picker/index.html element not available
-    #- web/google_drive/index.html element not available
+    - web/google_analytics/index.html # TODO(zoechi) issues #67
+    - web/google_apis/index.html # TODO(zoechi) issues #65
+    - web/google_calendar/index.html # TODO(zoechi) issues #67
+    - web/google_castable_video/index.html # TODO(zoechi) issues (see code)
+    - web/google_chart/index.html # TODO(zoechi) issues #66
+    #- web/google_domain_user_picker/index.html TODO(zoechi) element not available
+    #- web/google_drive/index.html TODO(zoechi) element not available
     - web/google_feeds/index.html
     - web/google_hangout_button/index.html
     - web/google_map/index.html
+    - web/google_recaptcha/index.html # TODO(zoechi) element not available
+    - web/google_sheets/index.html # TODO(zoechi issues #68
 - reflectable:
     entry_points:
     #- web/chartjs_element/index.dart
@@ -70,6 +72,8 @@ transformers:
     - web/google_feeds/index.dart
     - web/google_hangout_button/index.dart
     - web/google_map/index.dart
+    #- web/google_recaptcha/index.dart
+    - web/google_sheets/index.dart
 - test/pub_serve:
     $include: test/**_test{.*,}.dart
 - $dart2js:
