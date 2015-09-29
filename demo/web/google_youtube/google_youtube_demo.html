@@ -1,0 +1,72 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<dom-module id="google-youtube-demo">
+  <template>
+    <style>
+      div {
+        margin-bottom: 1em;
+      }
+    </style>
+    <style include="demo-elements"></style>
+
+    <h1><code>&lt;google-youtube&gt;</code> Demo</h1>
+    <h3>Full API Demo</h3>
+    <google-youtube id="googleYouTube"
+                    playsupported="{{playSupported}}"
+                    video-id="mN7IAaRdi_k"
+                    state="{{state}}"
+                    currenttime="{{currentTime}}"
+                    currenttimeformatted="{{currentTimeFormatted}}"
+                    duration="{{duration}}"
+                    durationformatted="{{durationFormatted}}"
+                    fractionloaded="{{fractionLoaded}}"
+                    on-google-youtube-state-change="handleStateChange"
+                    on-google-youtube-error="handleYouTubeError">
+    </google-youtube>
+
+    <div>
+      <p>Playback Progress: <span>{{currentTimeFormatted}}</span> / <span>{{durationFormatted}}</span> <progress max="1" value="{{computeProgress(currentTime, duration)}}"></progress></p>
+    </div>
+
+    <div>
+      <button id="play-video"
+        disabled="{{computePlayDisabled(state, playSupported)}}"
+        on-click="handlePlayVideo"
+      >Play</button>
+      <button id="pause-video"
+        disabled="{{computePauseDisabled(state)}}"
+        on-click="handlePauseVideo"
+      >Pause</button>
+    </div>
+
+    <div>
+      <label for="videoId">Video ID:</label>
+      <input id="videoId" value="M7lc1UVf-VE">
+      <button id="cue-video" on-click="handleCueVideo">Cue</button>
+    </div>
+
+    <div>
+      <p>Player Events:</p>
+      <ol>
+        <template is="dom-repeat" items="{{events}}">
+          <li>State change: <span>{{item.data}}</span></li>
+        </template>
+      </ol>
+    </div>
+
+    <h3>Custom Thumbnail Demo</h3>
+    <google-youtube video-id="yRbOSdAe_JU"
+                    width="853px"
+                    height="480px"
+                    thumbnail="//www.polymer-project.org/images/logos/p-logo.svg">
+    </google-youtube>
+
+  </template>
+</dom-module>

@@ -51,7 +51,15 @@ transformers:
     - web/google_hangout_button/index.html
     - web/google_map/index.html
     - web/google_recaptcha/index.html # TODO(zoechi) element not available
-    - web/google_sheets/index.html # TODO(zoechi issues #68
+    - web/google_sheets/index.html # TODO(zoechi) issues #68
+    - web/google_signin/index.html # TODO(zoechi) issues #67
+    - web/google_streetview_pano/index.html
+    - web/google_url_shortener/index.html
+    - web/google_youtube/index.html
+    - web/google_youtube_upload/index.html
+    - web/iron_a11y_announcer/index.html
+    - web/iron_a11y_keys/index.html # TODO(zoechi) issues polymer-dart#596
+    - web/iron_a11y_keys_behavior/index.html # TODO(zoechi) issues #70
 - reflectable:
     entry_points:
     #- web/chartjs_element/index.dart
@@ -74,6 +82,14 @@ transformers:
     - web/google_map/index.dart
     #- web/google_recaptcha/index.dart
     - web/google_sheets/index.dart
+    - web/google_signin/index.dart
+    - web/google_streetview_pano/index.dart
+    - web/google_url_shortener/index.dart
+    - web/google_youtube/index.dart
+    - web/google_youtube_upload/index.dart
+    - web/iron_a11y_announcer/index.dart
+    - web/iron_a11y_keys/index.dart
+    - web/iron_a11y_keys_behavior/index.dart
 - test/pub_serve:
     $include: test/**_test{.*,}.dart
 - $dart2js:

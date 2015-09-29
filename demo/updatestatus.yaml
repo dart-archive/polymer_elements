@@ -244,6 +244,156 @@
           "skip": false,
           "change": "RepositoryChange.added"
         },
+        {
+          "repository": "google-recaptcha",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "b00056cc212a9789a5c5aa0359be1b799d4bb7d8",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-sheets",
+          "files": [
+            {
+              "file": "demo/demo-private.html",
+              "sha": "3ecc6d96d3877e2727b6e649fbcae555041d0acb",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/index.html",
+              "sha": "623ef48f5418535d9046dbf5e0dbae0fa213bce3",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-signin",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "7b0283ffdc59dea05c765fadee7de925473ffb15",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-streetview-pano",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "002ba5aaa4f137706e2299d869fe0977d9391ca6",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-url-shortener",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "46e00afc8e0203c8bb45de40d32d0056689633d1",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-youtube",
+          "files": [
+            {
+              "file": "demo/demo.elements.html",
+              "sha": "de31f4f8772fd4efcbe975c216f0cddc648aed20",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/index.html",
+              "sha": "be47bf347573ae8730ff82328d8d397878f9f7a4",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-youtube-upload",
+          "files": [
+            {
+              "file": "demo/demo.elements.html",
+              "sha": "d6c9188b059e1f11013cc961087278294a96ca3f",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/index.html",
+              "sha": "23534426ee4d71bc6e1d0c0cd60af03b964218c6",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-a11y-announcer",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "d9e939c56beb48a1ef184b33e0e5637707b6a12e",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/x-announces.html",
+              "sha": "404f7c09b55a4597c655fc875defed7afa596fab",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-a11y-keys",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "4fe9af4a409938c81b80877e8a6114266badb2e8",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/x-key-aware.html",
+              "sha": "adfd44e6815dc538b97e3f1cd59b859b46cea8e1",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-a11y-keys-behavior",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "2c3fec7c5984f0612dc865e59cd9c3b8be8aa009",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/x-key-aware.html",
+              "sha": "a7f3205d1589c1d79a7dc186765f5fb325bbbceb",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        }
       ]
     }
   ]
