@@ -1,0 +1,95 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<dom-module id="iron-jsonp-library-demo">
+  <template>
+    <style>
+      .loading {
+        color: var(--google-grey-500);
+      }
+
+      .success {
+        color: var(--paper-green-800);
+      }
+
+      .failure {
+        color: var(--paper-red-800);
+      }
+
+      paper-spinner {
+        --paper-spinner-layer-1-color: var(--google-grey-500);
+        --paper-spinner-layer-2-color: var(--google-grey-500);
+        --paper-spinner-layer-3-color: var(--google-grey-500);
+        --paper-spinner-layer-4-color: var(--google-grey-500);
+      }
+    </style>
+    <style include="demo-elements"></style>
+
+    <div class="vertical-section vertical-section-container centered">
+      <h1>&lt;iron-jsonp-library&gt;</h1>
+      <h3>Good loader</h3>
+      <iron-jsonp-library
+        library-url="https://apis.google.com/js/plusone.js?onload=%%callback%%"
+        notify-event="api-load"
+        library-loaded="{{loaded1}}"
+        library-error-message="{{errorMessage1}}"></iron-jsonp-library>
+      <template is="dom-if" if="{{loaded1}}">
+        <p class="success">The <code>Google+ API</code> has been loaded</p>
+      </template>
+      <template is="dom-if" if="{{!loaded1}}">
+        <template is="dom-if" if="{{errorMessage1}}">
+          <p class="failure">{{errorMessage1}}</p>
+        </template>
+        <template is="dom-if" if="{{!errorMessage1}}">
+          <p class="loading">Loading...</p>
+        </template>
+      </template>
+
+      <hr>
+      <h3>Bad loader</h3>
+      <iron-jsonp-library
+        library-url="https://badapis.google.com/js/plusone.js?onload=%%callback%%"
+        notify-event="api-load"
+        library-loaded="{{loaded2}}"
+        library-error-message="{{errorMessage2}}"></iron-jsonp-library>
+      <template is="dom-if" if="{{loaded2}}">
+        <p><code>badapis</code> has been loaded</p>
+      </template>
+      <template is="dom-if" if="{{!loaded2}}">
+        <template is="dom-if" if="{{errorMessage2}}">
+          <p class="failure">{{errorMessage2}}</p>
+        </template>
+        <template is="dom-if" if="{{!errorMessage2}}">
+          <p class="loading">Loading...</p>
+        </template>
+      </template>
+
+      <hr>
+      <h3>Delayed libraryUrl loader</h3>
+      <iron-jsonp-library
+        library-url="{{libraryUrl3}}"
+        library-loaded="{{loaded3}}"
+        library-error-message="{{errorMessage3}}">
+      </iron-jsonp-library>
+      <template is="dom-if" if="{{loaded3}}">
+        <p><code>{{libraryUrl3}}</code> has been loaded</p>
+      </template>
+      <template is="dom-if" if="{{!loaded3}}">
+        <template is="dom-if" if="{{errorMessage3}}">
+          <p class="failure">{{errorMessage3}}</p>
+        </template>
+         <template is="dom-if" if="{{!errorMessage3}}">
+          <p class="loading">Loading...<code>{{libraryUrl3}}</code></p>
+        </template>
+      </template>
+
+    </div>
+
+  </template>
+</dom-module>

@@ -1,0 +1,49 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<dom-module id="iron-autogrow-textarea-demo">
+  <template>
+    <style>
+      iron-autogrow-textarea {
+        width: 200px;
+      }
+    </style>
+    <style include="demo-elements"></style>
+
+    <div class="vertical-section-container centered">
+      <h4>Updating the value imperatively</h4>
+      <div class="vertical-section">
+        <iron-autogrow-textarea bind-value="{{bindValue}}" id="agta"></iron-autogrow-textarea>
+        <br><br>
+
+        <code>bind-value</code>: <span>[[bindValue]]</span>
+
+        <p>
+          set <code>bind-value</code> to: <br>
+          <textarea value="{{textArea1::input}}"></textarea>
+          <button on-tap="bindValueClick">set</button>
+          <br><br>
+
+          set <code>textarea.value</code> to: <br>
+          <textarea value="{{textArea2::input}}"></textarea>
+          <button on-tap="valueClick">set</button>
+        </p>
+      </div>
+
+      <h4>Custom</h4>
+      <div class="vertical-section">
+        <p>Scrolls after 4 rows:</p>
+        <iron-autogrow-textarea max-rows="4"></iron-autogrow-textarea>
+        <p>Initial height of 4 rows</p>
+        <iron-autogrow-textarea rows="4"></iron-autogrow-textarea>
+      </div>
+    </div>
+
+  </template>
+</dom-module>

@@ -10,7 +10,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 @HtmlImport('x_key_aware.html')
 library polymer_elements_demo.web.web.iron_a11y_keys.x_key_aware;
 
-import 'dart:js' as js;
 import 'dart:html' as dom;
 import 'package:web_components/web_components.dart' show HtmlImport;
 import 'package:polymer/polymer.dart';
