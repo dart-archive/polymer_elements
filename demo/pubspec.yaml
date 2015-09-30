@@ -83,6 +83,9 @@ transformers:
     - web/iron_list/index.html # TODO(zoechi) items height wrong when demo is inside an element
     - web/iron_list/external_content.html # for all 3 examples
     - web/iron_list/selection.html
+    #- web/iron_localstorage/index.html # TODO(zoechi) issues dart-lang/polymer-dart#600
+    - web/iron_media_query/index.html
+    - web/iron_menu_behavior/index.html
 
 - reflectable:
     entry_points:
@@ -138,6 +141,10 @@ transformers:
     - web/iron_list/index.dart
     - web/iron_list/external_content.dart
     - web/iron_list/selection.dart
+    #- web/iron_localstorage/index.dart
+    - web/iron_media_query/index.dart
+    - web/iron_menu_behavior/index.dart
+
 
 - test/pub_serve:
     $include: test/**_test{.*,}.dart
