@@ -7,20 +7,18 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-@HtmlImport('simple_button.html')
-library polymer_elements_demo.web.web.iron_behaviors.simple_button;
+@HtmlImport('iron_menu_behavior_demo.html')
+library polymer_elements_demo.web.iron_menu_behavior.iron_menu_behavior_demo;
 
 import 'package:web_components/web_components.dart' show HtmlImport;
 import 'package:polymer/polymer.dart';
-import 'package:polymer_elements/iron_control_state.dart';
-import 'package:polymer_elements/iron_button_state.dart';
-import 'package:polymer_elements/iron_a11y_keys_behavior.dart';
+import 'package:polymer_elements/paper_styles.dart';
+import 'package:polymer_elements_demo/styles/demo_elements.dart';
+import 'simple_menu.dart';
+import 'simple_menubar.dart';
 
-/// Silence analyzer
-@PolymerRegister('simple-button')
-class SimpleButton extends PolymerElement
-    with IronControlState, IronA11yKeysBehavior, IronButtonState {
-  SimpleButton.created() : super.created();
-
-  static const hostAttributes = const {'role': 'button',};
+/// Silence analyzer [PaperStyles], [DemoElements], [SimpleMenu], [SimpleMenubar],
+@PolymerRegister('iron-menu-behavior-demo')
+class IronMenuBehaviorDemo extends PolymerElement {
+  IronMenuBehaviorDemo.created() : super.created();
 }
