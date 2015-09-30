@@ -50,7 +50,7 @@ transformers:
     - web/google_feeds/index.html
     - web/google_hangout_button/index.html
     - web/google_map/index.html
-    - web/google_recaptcha/index.html # TODO(zoechi) element not available
+    #- web/google_recaptcha/index.html # TODO(zoechi) element not available
     - web/google_sheets/index.html # TODO(zoechi) issues #68
     - web/google_signin/index.html # TODO(zoechi) issues #67
     - web/google_streetview_pano/index.html
@@ -58,8 +58,32 @@ transformers:
     - web/google_youtube/index.html
     - web/google_youtube_upload/index.html
     - web/iron_a11y_announcer/index.html
-    - web/iron_a11y_keys/index.html # TODO(zoechi) issues polymer-dart#596
+    - web/iron_a11y_keys/index.html
     - web/iron_a11y_keys_behavior/index.html # TODO(zoechi) issues #70
+    - web/iron_ajax/index.html
+    - web/iron_autogrow_textarea/index.html
+    - web/iron_behaviors/index.html
+    - web/iron_checked_element_behavior/index.html # TODO(zoechi) element not available #71
+    - web/iron_collapse/index.html
+    - web/iron_component_page/index.html
+    - web/iron_doc_viewer/index.html
+    - web/iron_dropdown/index.html # TODO(zoechi) doesn't work (position is off), I don't know how to port code in `expand_animation.dart`
+    - web/iron_fit_behavior/index.html
+    - web/iron_flex_layout/index.html
+    - web/iron_form/index.html # TODO(zoechi) issues dart-lang/polymer-dart#598 (should be fixed)
+    - web/iron_form_element_behavior/index.html # TODO(zoechi) issues #72
+    - web/iron_icon/index.html
+    - web/iron_icons/index.html
+    - web/iron_iconset/index.html
+    - web/iron_iconset_svg/index.html
+    - web/iron_image/index.html
+    - web/iron_input/index.html
+    - web/iron_jsonp_library/index.html
+    # - web/iron_label/index.html # TODO(zoechi) element not available
+    - web/iron_list/index.html # TODO(zoechi) items height wrong when demo is inside an element
+    - web/iron_list/external_content.html # for all 3 examples
+    - web/iron_list/selection.html
+
 - reflectable:
     entry_points:
     #- web/chartjs_element/index.dart
@@ -90,6 +114,31 @@ transformers:
     - web/iron_a11y_announcer/index.dart
     - web/iron_a11y_keys/index.dart
     - web/iron_a11y_keys_behavior/index.dart
+    - web/iron_ajax/index.dart
+    - web/iron_autogrow_textarea/index.dart
+    - web/iron_behaviors/index.dart
+    - web/iron_checked_element_behavior/index.dart
+    - web/iron_collapse/index.dart
+    - web/iron_component_page/index.dart
+    - web/iron_doc_viewer/index.dart
+    - web/iron_dropdown/index.dart
+    - web/iron_fit_behavior/index.dart
+    - web/iron_flex_layout/index.dart
+    - web/iron_flex_layout/index.dart
+    - web/iron_form/index.dart
+    - web/iron_form_element_behavior/index.dart
+    - web/iron_icon/index.dart
+    - web/iron_icons/index.dart
+    - web/iron_iconset/index.dart
+    - web/iron_iconset_svg/index.dart
+    - web/iron_image/index.dart
+    - web/iron_input/index.dart
+    - web/iron_jsonp_library/index.dart
+    # - web/iron_label/index.dart
+    - web/iron_list/index.dart
+    - web/iron_list/external_content.dart
+    - web/iron_list/selection.dart
+
 - test/pub_serve:
     $include: test/**_test{.*,}.dart
 - $dart2js:
