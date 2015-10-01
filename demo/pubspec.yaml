@@ -94,6 +94,7 @@ transformers:
     - web/iron_selector/index.html
     - web/iron_signals/index.html
     - web/iron_validatable_behavior/index.html
+    - web/iron_validator_behavior/index.html
 
 - reflectable:
     entry_points:
@@ -160,6 +161,7 @@ transformers:
     - web/iron_selector/index.dart
     - web/iron_signals/index.dart
     - web/iron_validatable_behavior/index.dart
+    - web/iron_validator_behavior/index.dart
 
 - test/pub_serve:
     $include: test/**_test{.*,}.dart
