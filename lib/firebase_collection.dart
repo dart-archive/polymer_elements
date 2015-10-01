@@ -128,7 +128,7 @@ class FirebaseCollection extends HtmlElement with CustomElementProxyMixin, Polym
   /// Firebase Query instance returned by this method.
   /// [data]: A value to add to the document.
   add(data) =>
-      jsElement.callMethod('add', [data]);
+      jsElement.callMethod('add', [(data is Map || data is Iterable) ? new JsObject.jsify(data) : data]);
 
   /// Look up an item in the local `data` Array by key.
   /// [key]: The key associated with the item in the parent
