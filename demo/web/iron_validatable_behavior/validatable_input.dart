@@ -14,6 +14,7 @@ import 'dart:html' as dom;
 //import 'package:web_components/web_components.dart' show HtmlImport;
 import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/iron_validatable_behavior.dart';
+import 'package:polymer_elements/iron_meta.dart';
 
 /// Silence analyzer
 @PolymerRegister('validatable-input', extendsTag: 'input')
