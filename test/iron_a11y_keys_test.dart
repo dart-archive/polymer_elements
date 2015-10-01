@@ -7,6 +7,7 @@ library polymer_elements.test.iron_a11y_keys_test;
 import 'dart:async';
 import 'dart:html';
 import 'dart:js';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:polymer_elements/iron_a11y_keys.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';

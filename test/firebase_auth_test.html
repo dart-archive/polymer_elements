@@ -1,4 +1,3 @@
-<!doctype html>
 <!--
 @license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
@@ -8,17 +7,27 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
+<!Doctype html>
+
 <html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <title>iron-a11y-keys</title>
+  <title>firebase auth</title>
 
   <script src="packages/web_components/webcomponents-lite.js"></script>
-  <!--<link rel="x-dart-test" href="iron_a11y_keys_test.dart">-->
-  <script type="application/dart" src="iron_a11y_keys_test.dart"></script>
-  <!--<script src="packages/test/dart.js"></script>-->
+  <link rel="x-dart-test" href="firebase_auth_test.dart">
+  <!--<script type="application/dart" src="firebase_auth_test.dart"></script>-->
+  <script src="packages/test/dart.js"></script>
 </head>
 <body>
+
+  <template id="TrivialAuth">
+    <firebase-auth
+        location="https://fb-element-demo.firebaseio.com"
+        log>
+    </firebase-auth>
+  </template>
+
 </body>
 </html>
