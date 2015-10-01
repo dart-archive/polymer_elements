@@ -1,9 +1,10 @@
 {
-  "organizations": [{
-      "organization": "PolymerElements"},
+  "organizations": [
     {
-      "organization": "GoogleWebComponents",
-      "repositories": [
+      "organization": "PolymerElements"},
+      {
+        "organization": "GoogleWebComponents",
+        "repositories": [
         {
           "repository": "firebase-element",
           "files": [
@@ -37,7 +38,869 @@
           ],
           "skip": false,
           "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "gold-cc-expiration-input",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "d64e58ba499cfef0e5863844f256b6dee92b4317",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "gold-cc-input",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "3ce8a8c40eb4200140ffb05d8d109c391baccfb2",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "gold-email-input",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "c3dc89781d60e5a40a7be5494def6ba738664dc3",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "gold-phone-input",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "737cc1c40bdc7fcaa84994d080b0c0b431152e5a",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "gold-zip-input",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "cd8a248ed0364fee84d10bc841ec0460ca3e4c62",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-analytics",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "a3ee6b9bb60bb559ed6160e04a02e31310d3d0b5",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-apis",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "a93fc193146c75c2672c98a4cd884e0aaa441e78",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-calendar",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "20a83f92277275bf0701f0c756646c77ee592fe8",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-castable-video",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "b51ea067c543f607020c681db31237b73bf5bcd8",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-chart",
+          "files": [
+            {
+              "file": "demo/chart-data.json",
+              "sha": "7d9a9cb686103a11db3faf45840991296215e5c1",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/country-data.json",
+              "sha": "b6647765faaa8ae208b234048347ccae2f8da728",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/index.html",
+              "sha": "66bf60e3316867b18699e38c2f0ae499633c56e1",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-domain-user-picker",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "cb898d0a46ddd50e398147e630e6b539286c6b09",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/sans-polymer.html",
+              "sha": "62fc2b2fd9d21c5e8f3973b4da78475643794d77",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/with-google-signin.html",
+              "sha": "21d57d1a0680bb16957b71c600aa32e9213063fd",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/with-polymer.html",
+              "sha": "b677a9aa4a87d76d8506d9823162ce45abcd8cd9",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-drive",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "9bbbaff5f73cac4a4e7e452502a74e1cbcebc809",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-feeds",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "a0fb2bbe12fd34c4577e01a915ddc422302d6242",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-hangout-button",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "fd3c0b0dac7e994005c5948126413f215d4e04e1",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-map",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "bbbf01c6efa9b79dd3c03ed164f740c0b948317d",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-recaptcha",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "b00056cc212a9789a5c5aa0359be1b799d4bb7d8",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-sheets",
+          "files": [
+            {
+              "file": "demo/demo-private.html",
+              "sha": "3ecc6d96d3877e2727b6e649fbcae555041d0acb",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/index.html",
+              "sha": "623ef48f5418535d9046dbf5e0dbae0fa213bce3",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-signin",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "7b0283ffdc59dea05c765fadee7de925473ffb15",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-streetview-pano",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "002ba5aaa4f137706e2299d869fe0977d9391ca6",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-url-shortener",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "46e00afc8e0203c8bb45de40d32d0056689633d1",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-youtube",
+          "files": [
+            {
+              "file": "demo/demo.elements.html",
+              "sha": "de31f4f8772fd4efcbe975c216f0cddc648aed20",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/index.html",
+              "sha": "be47bf347573ae8730ff82328d8d397878f9f7a4",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "google-youtube-upload",
+          "files": [
+            {
+              "file": "demo/demo.elements.html",
+              "sha": "d6c9188b059e1f11013cc961087278294a96ca3f",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/index.html",
+              "sha": "23534426ee4d71bc6e1d0c0cd60af03b964218c6",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-a11y-announcer",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "d9e939c56beb48a1ef184b33e0e5637707b6a12e",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/x-announces.html",
+              "sha": "404f7c09b55a4597c655fc875defed7afa596fab",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-a11y-keys",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "4fe9af4a409938c81b80877e8a6114266badb2e8",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/x-key-aware.html",
+              "sha": "adfd44e6815dc538b97e3f1cd59b859b46cea8e1",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-a11y-keys-behavior",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "2c3fec7c5984f0612dc865e59cd9c3b8be8aa009",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/x-key-aware.html",
+              "sha": "a7f3205d1589c1d79a7dc186765f5fb325bbbceb",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-ajax",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "f8316af0f0ec76bd99b22bc7a24aff362cb08d1d",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-autogrow-textarea",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "25a1c25a15499707ceff986f27dd5ef72b7653bc",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-behaviors",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "4001664dfa16ceae092c7356675d524c387ef6af",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/simple-button.html",
+              "sha": "ab6432b6c9f936e5c9cbead82e301dfdfba63bb8",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-checked-element-behavior",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "788a64f0016d01b33ff2282263037a9cb9761aca",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/simple-checkbox.html",
+              "sha": "fd99c98a4869175e72913e5dbc0b8d4182f42578",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-collapse",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "a62b036627f470c8f10f08aa1a55954d9f4ba5fd",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-component-page",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "581db5bc84bd4cc5b5b86c430ea852aca3a9075f",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/json-descriptor.json",
+              "sha": "55c6d5c72075ffac9dee274d105ccb13b6e2d6a5",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-doc-viewer",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "688a7b7f34ef2a44707056b40aa78e6f4fb55a60",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-dropdown",
+          "files": [
+            {
+              "file": "demo/grow-height-animation.html",
+              "sha": "e2fdc448a07208ff00ac5af962ac733e4f80e471",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/index.html",
+              "sha": "2b1e449ac43172a149092bf158b364459edc3b77",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/x-select.html",
+              "sha": "2216c6594611f81e1492e987a158e68b267a7b88",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-elements",
+          "files": [],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-fit-behavior",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "b841deff6e63fb0a7dce0b019843ea3652d64843",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/simple-fit.html",
+              "sha": "950ee3feab1cb614055111f09aed6efda67b1ed2",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-flex-layout",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "ea4df383629c5bf375c5acfc8dc8cfe84231387f",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/x-app.html",
+              "sha": "489a5f506665b60876acd013a7d35357c892d312",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-form",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "33b38cbbab221b6601ea10679f646b3016a39b6a",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/simple-element.html",
+              "sha": "9c842b2f213efd0fb2a2a9e1f62325140b64857d",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-form-element-behavior",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "ae3cb09e8dffbc18597d43ad910ad31f857ec06d",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/simple-element.html",
+              "sha": "450276923b397593430aad8935db9d47812c28ef",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/simple-form.html",
+              "sha": "4dc5dc6bb8f636d5f360a74899dd9eb6858c890a",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-icon",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "999ed35b484d805bf11421b3de17b9ab6ceb189a",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/location.png",
+              "sha": "9bb74236b85bc97153028f40cee8ec0f855a83a9",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-icons",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "d5daf8f6850daf3ff5d0de7e3e5e5f9eaffff773",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-iconset",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "bcb1bc095d7c670496ce27f70c3d209e97bfd16b",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/my-icons-big.png",
+              "sha": "f019f3fc7f786879467aed275bfbae0c54f43ec7",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/my-icons.png",
+              "sha": "a7d223b28249b03129167993484fcbcde739d9db",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-iconset-svg",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "5dcbce002e9bd369742f5ae0af27570defc763c2",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/svg-sample-icons.html",
+              "sha": "94c930d5746628fbcc8c8e999035cb4ce28ec2f7",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-image",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "b29f9cb895e361e840645ccb66e766ac98747156",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/polymer.svg",
+              "sha": "70735e7f689790b9ea02a44c0a26135e37166277",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-input",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "8d4d87915c1ba6bafdf9873f73e05c5e8354c192",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-jsonp-library",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "555dc691ec2d141adeb3abfdc3880d868de18156",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-label",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "8a731736ed1f8fa14e7ec4603cf1d25225cf33bf",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-list",
+          "files": [
+            {
+              "file": "demo/external-content.html",
+              "sha": "df665538918843f22c85a8b2aee93f1eb8fbb826",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/index.html",
+              "sha": "e69d646e7f52e1d159b0c1abc245db97181583ec",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/selection.html",
+              "sha": "ca61c65dd06b6148bec0daa98b45caa568a742f9",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-localstorage",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "abf5008eeb4844830170e22567cebe2586ec1f09",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-media-query",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "2f3856fe9e273d3a685f0b3aa38f06ac4a9f1927",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-menu-behavior",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "d7379a139b8a70e3e5724f2fc3523762867cf6b4",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/simple-menu.html",
+              "sha": "307aa07a6188ce45a1236a8e84464e84275fbac1",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/simple-menubar.html",
+              "sha": "0d5da1f647258134b2d520670438c1a574659b0d",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-meta",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "3deee3cbd5afa691206ad310019cf3921d7a4110",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-overlay-behavior",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "4fc6bb0aa1e3207042f25614faa371b7267ee127",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/simple-overlay.html",
+              "sha": "fbf305ed3557db4ca4438fe7a7c7d10d818750e2",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-pages",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "68425e80ea63106ac673555a0f29d8712f06a18d",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-range-behavior",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "ce397365e0dc7f80f1d49ee9bad26aec157cd88b",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-resizable-behavior",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "2896c50d25677a44e573cd2e43b1ebbdbec8d76a",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-selector",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "2fa46b2cd987b6986211218120991932ff172aeb",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-signals",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "f5b44549c2221b3188eb8945ec8b037bde785301",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-test-helpers",
+          "files": [],
+          "skip": false,
+          "change": "RepositoryChange.added"
+        },
+        {
+          "repository": "iron-validatable-behavior",
+          "files": [
+            {
+              "file": "demo/cats-only.html",
+              "sha": "83ef9ba617fc26d9b7ad0429780ce5dc2c7e9d4d",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/index.html",
+              "sha": "84b96a8dc251f7d299d66e221771b997f69001a7",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/validatable-input.html",
+              "sha": "19cf47759891ceaae0ff63dd0e52711d1e8f797c",
+              "change": "FileChange.added"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.added"
         }
       ]
-    }]
+    }
+  ]
 }
