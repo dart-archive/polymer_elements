@@ -71,7 +71,7 @@ transformers:
     - web/iron_fit_behavior/index.html
     - web/iron_flex_layout/index.html
     - web/iron_form/index.html # TODO(zoechi) issues dart-lang/polymer-dart#598 (should be fixed)
-    - web/iron_form_element_behavior/index.html # TODO(zoechi) issues #72
+    - web/iron_form_element_behavior/index.html
     - web/iron_icon/index.html
     - web/iron_icons/index.html
     - web/iron_iconset/index.html
@@ -85,7 +85,15 @@ transformers:
     - web/iron_list/selection.html
     #- web/iron_localstorage/index.html # TODO(zoechi) issues dart-lang/polymer-dart#600
     - web/iron_media_query/index.html
-    - web/iron_menu_behavior/index.html
+    - web/iron_menu_behavior/index.html # TODO(zoechi) Dartium aw snaps when an item of a multi-select menu is clicked
+    - web/iron_meta/index.html
+    - web/iron_overlay_behavior/index.html
+    - web/iron_pages/index.html
+    - web/iron_range_behavior/index.html
+    - web/iron_resizable_behavior/index.html
+    - web/iron_selector/index.html
+    - web/iron_signals/index.html
+    - web/iron_validatable_behavior/index.html
 
 - reflectable:
     entry_points:
@@ -144,7 +152,14 @@ transformers:
     #- web/iron_localstorage/index.dart
     - web/iron_media_query/index.dart
     - web/iron_menu_behavior/index.dart
-
+    - web/iron_meta/index.dart
+    - web/iron_overlay_behavior/index.dart
+    - web/iron_pages/index.dart
+    - web/iron_range_behavior/index.dart
+    - web/iron_resizable_behavior/index.dart
+    - web/iron_selector/index.dart
+    - web/iron_signals/index.dart
+    - web/iron_validatable_behavior/index.dart
 
 - test/pub_serve:
     $include: test/**_test{.*,}.dart

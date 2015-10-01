@@ -13,19 +13,22 @@ library polymer_elements_demo.web.web.iron_form_element_behavior.simple_form;
 import 'dart:html' as dom;
 //import 'package:web_components/web_components.dart' show HtmlImport;
 import 'package:polymer/polymer.dart';
+import 'simple_element.dart';
 
 /// Silence analyzer
 @PolymerRegister('simple-form', extendsTag: 'form')
 class SimpleForm extends dom.FormElement
     with PolymerMixin, PolymerBase, JsProxy {
-  SimpleForm.created() : super.created();
+  SimpleForm.created() : super.created() {
+    polymerCreated();
+  }
 
   @Property(notify: true) List formElements = [];
 
   @Listen('iron-form-element-register')
   void elementRegistered(dom.CustomEvent event, [_]) {
     add('formElements', event.target);
-    event.target['parentForm'] = this;
+    (event.target as SimpleElement).jsElement['_parentForm'] = this;
   }
 
   @Listen('iron-form-element-unregister')

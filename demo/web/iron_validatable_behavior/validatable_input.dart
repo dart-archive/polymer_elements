@@ -7,19 +7,22 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-//@HtmlImport('simple_element.html')
-library polymer_elements_demo.web.web.iron_form_element_behavior.simple_element;
+//@HtmlImport('validatable_input.html')
+library polymer_elements_demo.web.web.iron_validatable_behavior.validatable_input;
 
 import 'dart:html' as dom;
 //import 'package:web_components/web_components.dart' show HtmlImport;
 import 'package:polymer/polymer.dart';
-import 'package:polymer_elements/iron_form_element_behavior.dart';
+import 'package:polymer_elements/iron_validatable_behavior.dart';
 
 /// Silence analyzer
-@PolymerRegister('simple-element', extendsTag: 'input')
-class SimpleElement extends dom.InputElement
-    with PolymerMixin, PolymerBase, JsProxy, IronFormElementBehavior {
-  SimpleElement.created() : super.created() {
+@PolymerRegister('validatable-input', extendsTag: 'input')
+class ValidatableInput extends dom.InputElement
+    with PolymerMixin, PolymerBase, JsProxy, IronValidatableBehavior {
+  ValidatableInput.created() : super.created() {
     polymerCreated();
   }
+
+  @Listen('input')
+  inputHandler([_, __]) => this.invalid = !validate(value);
 }
