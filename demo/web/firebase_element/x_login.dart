@@ -46,7 +46,8 @@ class XLogin extends PolymerElement {
       parameters['password'] = password;
     }
 
-    _firebaseLogin.login(parameters, null);
+    //_firebaseLogin.login(parameters, null);
+    _firebaseLogin.jsElement.callMethod('login', [parameters, null]);
   }
 
   FirebaseAuth get _firebaseLogin => $['firebaseLogin'];

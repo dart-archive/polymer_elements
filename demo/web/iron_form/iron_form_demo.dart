@@ -31,12 +31,11 @@ class IronFormDemo extends PolymerElement {
 
   @eventHandler
   display(dom.CustomEvent event, [_]) =>
-    set('output', JSON.encode(event.detail));
+      set('output', JSON.encode(event.detail));
 
   @eventHandler
-  clickHandler(dom.Event event, [_]) {
-    // TODO(zoechi) dart-lang/polymer-dart#598
-    ((event.target as dom.Element).parent.parent as dom.FormElement).submit();
-    // Polymer.dom(event).localTarget.parentElement.submit();
+  void clickHandler(dom.Event event, [_]) {
+    (((Polymer.dom(event) as PolymerEvent).localTarget as dom.Element).parent
+        as dom.FormElement).submit();
   }
 }

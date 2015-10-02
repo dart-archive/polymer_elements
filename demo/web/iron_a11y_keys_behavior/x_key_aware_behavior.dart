@@ -7,8 +7,8 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-@HtmlImport('x_key_aware.html')
-library polymer_elements_demo.web.web.iron_a11y_keys_behavior.x_key_aware;
+@HtmlImport('x_key_aware_behavior.html')
+library polymer_elements_demo.web.web.iron_a11y_keys_behavior.x_key_aware_behavior;
 
 import 'dart:html' as dom;
 import 'package:web_components/web_components.dart' show HtmlImport;
@@ -16,7 +16,9 @@ import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/iron_a11y_keys_behavior.dart';
 
 /// Silence analyzer
-@PolymerRegister('x-key-aware')
+/// Info: name extension `-behavior` added to disambiguate from
+///   iron_a11y_keys/x_key_aware
+@PolymerRegister('x-key-aware-behavior')
 class XKeyAware extends PolymerElement with IronA11yKeysBehavior {
   XKeyAware.created() : super.created();
 

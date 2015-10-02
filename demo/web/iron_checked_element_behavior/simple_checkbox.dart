@@ -25,7 +25,7 @@ class SimpleCheckbox extends PolymerElement with IronCheckedElementBehavior {
   onCheckTap([_, __]) => set('checked', $['checkbox'].checked);
 
   @eventHandler
-  void onClick([_, __]) {
+  void clickHandler([_, __]) {
     validate();
     set('label', invalid ? 'is invalid' : 'is valid');
   }

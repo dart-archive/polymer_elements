@@ -1,0 +1,129 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<dom-module id="paper-dropdown-menu-demo">
+  <template>
+    <style>
+      paper-menu {
+        display: block;
+      }
+
+      paper-dropdown-menu {
+        text-align: left;
+        margin: auto;
+        width: 180px;
+      }
+
+      paper-dropdown-menu.letters {
+        width: 90px;
+      }
+
+      paper-tabs {
+        width: 400px;
+      }
+
+      .horizontal-section {
+        text-align: center;
+      }
+    </style>
+    <style include="demo-elements"></style>
+
+
+    <div class="horizontal-section-container">
+      <div>
+        <h4>Basic Menu</h4>
+        <div class="horizontal-section">
+          <paper-dropdown-menu label="Dinosaurs">
+            <paper-menu class="dropdown-content">
+              <template is="dom-repeat" items="[[dinosaurs]]" as="dinosaur">
+                <paper-item>[[dinosaur]]</paper-item>
+              </template>
+            </paper-menu>
+          </paper-dropdown-menu>
+        </div>
+      </div>
+    </div>
+
+    <div class="horizontal-section-container">
+      <div>
+        <h4>Pre-selected Value</h4>
+        <div class="horizontal-section">
+          <paper-dropdown-menu label="Dinosaurs">
+            <paper-menu class="dropdown-content" selected="1">
+              <template is="dom-repeat" items="[[dinosaurs]]" as="dinosaur">
+                <paper-item>[[dinosaur]]</paper-item>
+              </template>
+            </paper-menu>
+          </paper-dropdown-menu>
+        </div>
+      </div>
+    </div>
+
+    <div class="horizontal-section-container">
+      <div>
+        <h4>Disabled</h4>
+        <div class="horizontal-section">
+          <paper-dropdown-menu disabled label="Disabled">
+            <paper-menu class="dropdown-content">
+              <template is="dom-repeat" items="[[letters]]" as="letter">
+                <paper-item>[[letter]]</paper-item>
+              </template>
+            </paper-menu>
+          </paper-dropdown-menu>
+        </div>
+      </div>
+    </div>
+
+    <div class="horizontal-section-container">
+      <div>
+        <h4>Alternative Content</h4>
+        <div class="horizontal-section">
+          <paper-dropdown-menu label="Menu tabs!?">
+            <paper-tabs class="dropdown-content">
+              <template is="dom-repeat" items="[[letters]]" as="letter">
+                <paper-tab>[[letter]]</paper-tab>
+              </template>
+            </paper-tabs>
+          </paper-dropdown-menu>
+        </div>
+      </div>
+    </div>
+
+    <div class="horizontal-section-container">
+      <div>
+        <h4>No Label Float</h4>
+        <div class="horizontal-section">
+          <paper-dropdown-menu class="letters" label="Letters" no-label-float>
+            <paper-menu class="dropdown-content">
+              <template is="dom-repeat" items="[[letters]]" as="letter">
+                <paper-item>[[letter]]</paper-item>
+              </template>
+            </paper-menu>
+          </paper-dropdown-menu>
+        </div>
+      </div>
+    </div>
+
+    <div class="horizontal-section-container">
+      <div>
+        <h4>No Ripple, No Animations</h4>
+        <div class="horizontal-section">
+          <paper-dropdown-menu label="Dinosaurs" noink no-animations>
+            <paper-menu class="dropdown-content">
+              <template is="dom-repeat" items="[[dinosaurs]]" as="dinosaur">
+                <paper-item>[[dinosaur]]</paper-item>
+              </template>
+            </paper-menu>
+          </paper-dropdown-menu>
+        </div>
+      </div>
+    </div>
+
+  </template>
+</dom-module>

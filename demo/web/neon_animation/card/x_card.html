@@ -7,36 +7,25 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-<dom-module id="x-key-aware">
+<dom-module id="x-card">
   <template>
     <style>
       :host {
         display: block;
-        position: relative;
+        overflow: hidden;
       }
 
-      pre {
-        color: var(--google-blue-700);
-      }
-
-      .keys {
-        line-height: 25px;
-      }
-
-      .keys span {
-        cursor: default;
-        background-color: var(--google-grey-100);
-        border: 1px solid var(--google-grey-300);
-        padding: 1px 5px;
-        border-radius: 5px;
+      #placeholder {
+        opacity: 0;
+        background-color: grey;
       }
     </style>
-    <h4>Press any of these keys</h4>
-    <p class="keys">
-      <template is="dom-repeat" items="[[boundKeys]]">
-        <span>{{item}}</span>
-      </template>
-    </p>
-    <pre>[[pressed]]</pre>
+
+    <div id="placeholder" class="fit"></div>
+
+    <div id="container">
+      <content select="div"></content>
+    </div>
+
   </template>
 </dom-module>

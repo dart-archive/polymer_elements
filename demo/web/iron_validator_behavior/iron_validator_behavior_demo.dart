@@ -15,11 +15,11 @@ import 'package:web_components/web_components.dart' show HtmlImport;
 import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/iron_meta.dart';
 import 'package:polymer_elements_demo/styles/demo_elements.dart';
-import 'cats_only.dart';
+import 'cats_only_validator.dart';
 import 'package:polymer_elements/iron_validator_behavior.dart';
 import 'package:polymer_elements/iron_form.dart';
 
-/// Silence analyzer [IronMeta], [DemoElements], [CatsOnly], [IronForm]
+/// Silence analyzer [IronMeta], [DemoElements], [CatsOnlyValidator], [IronForm]
 @PolymerRegister('iron-validator-behavior-demo')
 class IronValidatorBehaviorDemo extends PolymerElement {
   IronValidatorBehaviorDemo.created() : super.created();
@@ -52,7 +52,9 @@ class IronValidatorBehaviorDemo extends PolymerElement {
   @eventHandler
   submitHandler(dom.MouseEvent event, [_]) {
     var data = {};
-    for (dom.InputElement el in (event.target as dom.ButtonElement).form.elements) {
+    // TODO(zoechi) replace commented-out line when dart-lang/sdk#24008 is fixed
+    //for (dom.InputElement el in (event.target as dom.ButtonElement).form.elements) {
+    for (dom.InputElement el in (event.target as dom.ButtonElement).form.querySelectorAll('input')) {
       if (el.attributes.containsKey('name') != null &&
           el.attributes['name'].isNotEmpty) {
         data[el.name] = el.value;

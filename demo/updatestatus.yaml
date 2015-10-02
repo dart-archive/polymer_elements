@@ -366,6 +366,11 @@
           "repository": "iron-icon",
           "files": [
             {
+              "file": "demo/async.html",
+              "sha": "eaf40d1ba2c150e76a0097b4a98031a505e19b4f",
+              "change": "FileChange.added"
+            },
+            {
               "file": "demo/index.html",
               "sha": "999ed35b484d805bf11421b3de17b9ab6ceb189a",
               "change": "FileChange.added"
@@ -486,6 +491,11 @@
         {
           "repository": "iron-list",
           "files": [
+            {
+              "file": "demo/data/contacts.json",
+              "sha": "954b3905b148ca21ef8719321cd7b70d6894d6fd",
+              "change": "FileChange.added"
+            },
             {
               "file": "demo/external-content.html",
               "sha": "df665538918843f22c85a8b2aee93f1eb8fbb826",
@@ -611,6 +621,11 @@
               "file": "demo/index.html",
               "sha": "2896c50d25677a44e573cd2e43b1ebbdbec8d76a",
               "change": "FileChange.added"
+            },
+            {
+              "file": "demo/src/x-app.html",
+              "sha": "c334ad3d2faec0f3e7bb2594f2a416b7a92c4ef3",
+              "change": "FileChange.added"
             }
           ],
           "skip": false,
@@ -707,13 +722,148 @@
           "repository": "neon-animation",
           "files": [
             {
+              "file": "demo/card/index.html",
+              "sha": "9cac2f1be7d9ddceac8b2830a7ad5a9cef511597",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/card/x-card.html",
+              "sha": "fdcf18c9ac4481c9d5312eb00e8d0d9135c4e9d0",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/card/x-cards-list.html",
+              "sha": "204cf2c1385f8f5b267772fab8c462aa1217c3cb",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/declarative/index.html",
+              "sha": "9385bccaa34ad7ccc7e1a9bd7cd1d7cc59aab78d",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/doc/basic.html",
+              "sha": "9e79151eea8132816b862b7e354ee010ed16c3c2",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/doc/my-animatable.html",
+              "sha": "ec74536fa88460573d5f277f75991fe6c77f982c",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/doc/my-dialog.html",
+              "sha": "64bb3003fe754f07f7db42e06943aedcfbdebd0c",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/doc/types.html",
+              "sha": "3995b6c93173bcd88667d9558d078fab6d714577",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/dropdown/animated-dropdown.html",
+              "sha": "87678f5c1ea00dcb5f4f54b8ae6beed1bd57d530",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/dropdown/index.html",
+              "sha": "34cf8219d0b3692c906cd2b6d6b7d6b683609231",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/grid/animated-grid.html",
+              "sha": "af976754c15062a7c7d3b10630b4f67881750abf",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/grid/fullsize-page-with-card.html",
+              "sha": "a365394e4dced0ab0efbc870134f2496aab5e58a",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/grid/index.html",
+              "sha": "8b34434de8c8ccf938e4ef14e911e3ab8f7238d1",
+              "change": "FileChange.added"
+            },
+            {
               "file": "demo/index.html",
               "sha": "11261455ae174fdb075de68c1f4e5d9490907cb9",
               "change": "FileChange.added"
             },
             {
+              "file": "demo/list/full-view.html",
+              "sha": "817acfab9f65f76372156bd401d9883ad4250921",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/list/index.html",
+              "sha": "4ee8337180cd8e1f612a256d79b605b87fa28c8c",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/list/list-demo.html",
+              "sha": "6658ebfd012f6db9944c89508f974fed86ea6aba",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/list/list-view.html",
+              "sha": "b23b00d4d08f79aec80176e1e99e6e3510904aaa",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/load/animated-grid.html",
+              "sha": "f43851b45baa3d6e8c27427249094a8ee1360b87",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/load/full-page.html",
+              "sha": "1488de19c2df391fb1797f6b8e3601052c708503",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/load/index.html",
+              "sha": "3c22281f606f42999ff3105fa1682d173baef11c",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/reprojection/animated-grid.html",
+              "sha": "e65ba51e1b946c44d286fffa62abe6535a57a5f3",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/reprojection/fullsize-page-with-card.html",
+              "sha": "a365394e4dced0ab0efbc870134f2496aab5e58a",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/reprojection/index.html",
+              "sha": "acd196eaaf6d52f99faf2b5d990cf19afcd27a24",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/reprojection/reprojected-pages.html",
+              "sha": "647289dc154a6235bb074e39892c8fa224d60cff",
+              "change": "FileChange.added"
+            },
+            {
               "file": "demo/shared.css",
               "sha": "fc1011fe3c23e2bd9b92949322f247a0bed8fcb2",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/tiles/circles-page.html",
+              "sha": "566d69b67f227ec0f5406a5eeec0e3d23f46ee8c",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/tiles/index.html",
+              "sha": "0afec46ce4cfdb34371e9db87498f0867edc2aea",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/tiles/squares-page.html",
+              "sha": "f417e6b9c5c25c8a8a160f119b53f22955b07284",
               "change": "FileChange.added"
             }
           ],
@@ -806,7 +956,7 @@
           "files": [
             {
               "file": "demo/index.html",
-              "sha": "cb4ed102a013affbea39273c084b9ecad5b72221",
+              "sha": "f1ff54ee86da605e0063dd62f1ff737a5544d99e",
               "change": "FileChange.added"
             }
           ],
@@ -1080,6 +1230,31 @@
               "change": "FileChange.added"
             },
             {
+              "file": "demo/images/bg2.jpg",
+              "sha": "9aad0a93ddd71c99c867d79d61edc9a30211835c",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/images/bg3.jpg",
+              "sha": "5079b4e80670e056ac219da93939da38dc1c6ee3",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/images/bg5.jpg",
+              "sha": "979ef17b01900893a1fcbe2ff2979ce98a199bae",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/images/bg6.jpg",
+              "sha": "1dec3f392a3c56c5da0f5da1ebc45c1ffc4d893c",
+              "change": "FileChange.added"
+            },
+            {
+              "file": "demo/images/bg9.jpg",
+              "sha": "c9a2e6581dbe5a062d6808ba6d2ed2381506e6e6",
+              "change": "FileChange.added"
+            },
+            {
               "file": "demo/index.html",
               "sha": "71611c9de9155fd0957e504514fa4379a653a04e",
               "change": "FileChange.added"
@@ -1163,7 +1338,7 @@
           "files": [
             {
               "file": "demo/index.html",
-              "sha": "1d63affb7520134b87a19ea55156f4361ae7355a",
+              "sha": "72168968ff91b7edc5637c92e3f9b367842b990a",
               "change": "FileChange.added"
             }
           ],
@@ -1800,6 +1975,483 @@
           "change": "RepositoryChange.deleted"
         },
         {
+          "repository": "iron-collapse",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "a62b036627f470c8f10f08aa1a55954d9f4ba5fd",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-component-page",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "581db5bc84bd4cc5b5b86c430ea852aca3a9075f",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/json-descriptor.json",
+              "sha": "55c6d5c72075ffac9dee274d105ccb13b6e2d6a5",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-doc-viewer",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "688a7b7f34ef2a44707056b40aa78e6f4fb55a60",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-dropdown",
+          "files": [
+            {
+              "file": "demo/grow-height-animation.html",
+              "sha": "e2fdc448a07208ff00ac5af962ac733e4f80e471",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/index.html",
+              "sha": "2b1e449ac43172a149092bf158b364459edc3b77",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/x-select.html",
+              "sha": "2216c6594611f81e1492e987a158e68b267a7b88",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-elements",
+          "files": [],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-fit-behavior",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "b841deff6e63fb0a7dce0b019843ea3652d64843",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/simple-fit.html",
+              "sha": "950ee3feab1cb614055111f09aed6efda67b1ed2",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-flex-layout",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "ea4df383629c5bf375c5acfc8dc8cfe84231387f",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/x-app.html",
+              "sha": "489a5f506665b60876acd013a7d35357c892d312",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-form",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "33b38cbbab221b6601ea10679f646b3016a39b6a",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/simple-element.html",
+              "sha": "9c842b2f213efd0fb2a2a9e1f62325140b64857d",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-form-element-behavior",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "ae3cb09e8dffbc18597d43ad910ad31f857ec06d",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/simple-element.html",
+              "sha": "450276923b397593430aad8935db9d47812c28ef",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/simple-form.html",
+              "sha": "4dc5dc6bb8f636d5f360a74899dd9eb6858c890a",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-icon",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "999ed35b484d805bf11421b3de17b9ab6ceb189a",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/location.png",
+              "sha": "9bb74236b85bc97153028f40cee8ec0f855a83a9",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-icons",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "d5daf8f6850daf3ff5d0de7e3e5e5f9eaffff773",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-iconset",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "bcb1bc095d7c670496ce27f70c3d209e97bfd16b",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/my-icons-big.png",
+              "sha": "f019f3fc7f786879467aed275bfbae0c54f43ec7",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/my-icons.png",
+              "sha": "a7d223b28249b03129167993484fcbcde739d9db",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-iconset-svg",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "5dcbce002e9bd369742f5ae0af27570defc763c2",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/svg-sample-icons.html",
+              "sha": "94c930d5746628fbcc8c8e999035cb4ce28ec2f7",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-image",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "b29f9cb895e361e840645ccb66e766ac98747156",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/polymer.svg",
+              "sha": "70735e7f689790b9ea02a44c0a26135e37166277",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-input",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "8d4d87915c1ba6bafdf9873f73e05c5e8354c192",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-jsonp-library",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "555dc691ec2d141adeb3abfdc3880d868de18156",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-label",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "8a731736ed1f8fa14e7ec4603cf1d25225cf33bf",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-list",
+          "files": [
+            {
+              "file": "demo/external-content.html",
+              "sha": "df665538918843f22c85a8b2aee93f1eb8fbb826",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/index.html",
+              "sha": "e69d646e7f52e1d159b0c1abc245db97181583ec",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/selection.html",
+              "sha": "ca61c65dd06b6148bec0daa98b45caa568a742f9",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-localstorage",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "abf5008eeb4844830170e22567cebe2586ec1f09",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-media-query",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "2f3856fe9e273d3a685f0b3aa38f06ac4a9f1927",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-menu-behavior",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "d7379a139b8a70e3e5724f2fc3523762867cf6b4",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/simple-menu.html",
+              "sha": "307aa07a6188ce45a1236a8e84464e84275fbac1",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/simple-menubar.html",
+              "sha": "0d5da1f647258134b2d520670438c1a574659b0d",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-meta",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "3deee3cbd5afa691206ad310019cf3921d7a4110",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-overlay-behavior",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "4fc6bb0aa1e3207042f25614faa371b7267ee127",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/simple-overlay.html",
+              "sha": "fbf305ed3557db4ca4438fe7a7c7d10d818750e2",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-pages",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "68425e80ea63106ac673555a0f29d8712f06a18d",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-range-behavior",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "ce397365e0dc7f80f1d49ee9bad26aec157cd88b",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-resizable-behavior",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "2896c50d25677a44e573cd2e43b1ebbdbec8d76a",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-selector",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "2fa46b2cd987b6986211218120991932ff172aeb",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-signals",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "f5b44549c2221b3188eb8945ec8b037bde785301",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-test-helpers",
+          "files": [],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-validatable-behavior",
+          "files": [
+            {
+              "file": "demo/cats-only.html",
+              "sha": "83ef9ba617fc26d9b7ad0429780ce5dc2c7e9d4d",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/index.html",
+              "sha": "84b96a8dc251f7d299d66e221771b997f69001a7",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/validatable-input.html",
+              "sha": "19cf47759891ceaae0ff63dd0e52711d1e8f797c",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "iron-validator-behavior",
+          "files": [
+            {
+              "file": "demo/cats-only.html",
+              "sha": "9221f65a0bb6654e3dd442ce063263b821ff47a9",
+              "change": "FileChange.unknown"
+            },
+            {
+              "file": "demo/index.html",
+              "sha": "7916af9f325c6e3a6d5ffb9817677cd06ebfd3c4",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
+          "repository": "marked-element",
+          "files": [
+            {
+              "file": "demo/index.html",
+              "sha": "c1f788d9263739f39640d3cd0830bbb200a5d740",
+              "change": "FileChange.unknown"
+            }
+          ],
+          "skip": false,
+          "change": "RepositoryChange.deleted"
+        },
+        {
           "repository": "places-app",
           "files": [],
           "skip": false,
@@ -1949,6 +2601,38 @@
       "web/iron_autogrow_textarea/index.html",
       "web/iron_behaviors/index.html",
       "web/iron_checked_element_behavior/index.html",
+      "web/iron_collapse/index.html",
+      "web/iron_component_page/index.html",
+      "web/iron_doc_viewer/index.html",
+      "web/iron_dropdown/index.html",
+      "web/iron_elements/index.html",
+      "web/iron_fit_behavior/index.html",
+      "web/iron_flex_layout/index.html",
+      "web/iron_form/index.html",
+      "web/iron_form_element_behavior/index.html",
+      "web/iron_icon/index.html",
+      "web/iron_icons/index.html",
+      "web/iron_iconset/index.html",
+      "web/iron_iconset_svg/index.html",
+      "web/iron_image/index.html",
+      "web/iron_input/index.html",
+      "web/iron_jsonp_library/index.html",
+      "web/iron_label/index.html",
+      "web/iron_list/index.html",
+      "web/iron_localstorage/index.html",
+      "web/iron_media_query/index.html",
+      "web/iron_menu_behavior/index.html",
+      "web/iron_meta/index.html",
+      "web/iron_overlay_behavior/index.html",
+      "web/iron_pages/index.html",
+      "web/iron_range_behavior/index.html",
+      "web/iron_resizable_behavior/index.html",
+      "web/iron_selector/index.html",
+      "web/iron_signals/index.html",
+      "web/iron_test_helpers/index.html",
+      "web/iron_validatable_behavior/index.html",
+      "web/iron_validator_behavior/index.html",
+      "web/marked_element/index.html",
       "web/places_app/index.html",
       "web/style_guide/index.html"
     ],
@@ -2086,6 +2770,38 @@
       "web/iron_autogrow_textarea/index.dart",
       "web/iron_behaviors/index.dart",
       "web/iron_checked_element_behavior/index.dart",
+      "web/iron_collapse/index.dart",
+      "web/iron_component_page/index.dart",
+      "web/iron_doc_viewer/index.dart",
+      "web/iron_dropdown/index.dart",
+      "web/iron_elements/index.dart",
+      "web/iron_fit_behavior/index.dart",
+      "web/iron_flex_layout/index.dart",
+      "web/iron_form/index.dart",
+      "web/iron_form_element_behavior/index.dart",
+      "web/iron_icon/index.dart",
+      "web/iron_icons/index.dart",
+      "web/iron_iconset/index.dart",
+      "web/iron_iconset_svg/index.dart",
+      "web/iron_image/index.dart",
+      "web/iron_input/index.dart",
+      "web/iron_jsonp_library/index.dart",
+      "web/iron_label/index.dart",
+      "web/iron_list/index.dart",
+      "web/iron_localstorage/index.dart",
+      "web/iron_media_query/index.dart",
+      "web/iron_menu_behavior/index.dart",
+      "web/iron_meta/index.dart",
+      "web/iron_overlay_behavior/index.dart",
+      "web/iron_pages/index.dart",
+      "web/iron_range_behavior/index.dart",
+      "web/iron_resizable_behavior/index.dart",
+      "web/iron_selector/index.dart",
+      "web/iron_signals/index.dart",
+      "web/iron_test_helpers/index.dart",
+      "web/iron_validatable_behavior/index.dart",
+      "web/iron_validator_behavior/index.dart",
+      "web/marked_element/index.dart",
       "web/places_app/index.dart",
       "web/style_guide/index.dart"
     ]
