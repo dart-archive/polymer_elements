@@ -14,9 +14,9 @@ import 'package:web_components/web_components.dart' show HtmlImport;
 import 'package:polymer/polymer.dart';
 import 'package:polymer_elements_demo/styles/demo_elements.dart';
 import 'simple_form.dart';
-import 'simple_element.dart';
+import 'simple_input_element.dart';
 
-/// Silence analyzer [DemoElements], [SimpleForm], [SimpleElement],
+/// Silence analyzer [DemoElements], [SimpleForm], [SimpleInputElement],
 @PolymerRegister('iron-form-element-behavior-demo')
 class IronFormElementBehaviorDemo extends PolymerElement {
   IronFormElementBehaviorDemo.created() : super.created();

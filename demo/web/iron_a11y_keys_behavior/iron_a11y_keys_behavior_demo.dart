@@ -13,7 +13,7 @@ library polymer_elements_demo.web.iron_a11y_keys_behavior.iron_a11y_keys_behavio
 import 'package:web_components/web_components.dart' show HtmlImport;
 import 'package:polymer/polymer.dart';
 import 'package:polymer_elements_demo/styles/demo_elements.dart';
-import 'x_key_aware.dart';
+import 'x_key_aware_behavior.dart';
 
 /// Silence analyzer [XKeyAware], [DemoElements]
 @PolymerRegister('iron-a11y-keys-behavior-demo')

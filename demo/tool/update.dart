@@ -5,17 +5,12 @@ import 'dart:convert' show JsonEncoder;
 import 'dart:io' as io;
 import 'package:crypto/crypto.dart' show CryptoUtils;
 import 'package:github/server.dart'
-    show
-        Authentication,
-        GitHub,
-        RepositoriesService,
-        Repository,
-        RepositoryContents,
-        RepositorySlug,
-        initGitHub;
+    show Authentication, GitHub, GitHubFile, RepositoriesService, Repository, RepositoryContents, RepositorySlug, initGitHub;
 import 'package:path/path.dart' as path;
 import 'package:yaml/yaml.dart';
 import 'package:quiver/core.dart' show hash2;
+
+// TODO(zoechi) unicode characters aren't loaded correctly (see for example paper_badge demo)
 
 main() async {
   final UpdateStatus updateStatus = new UpdateStatus('updatestatus.yaml')
@@ -119,9 +114,23 @@ class GitHubOrganizationComparer {
   }
 
   /// Fetch files information from a GitHub repositories `demo` subdirectory.
-  Future<RepositoryContents> _loadDemoFiles(Repository repository) async {
-    return new RepositoriesService(gitHubClient)
-        .getContents(repository.slug(), 'demo');
+  Future<RepositoryContents> _loadDemoFiles(Repository repository, {String path : 'demo'}) async {
+    final service = new RepositoriesService(gitHubClient);
+    final contents = await service.getContents(repository.slug(), path);
+    final files = <GitHubFile>[];
+    if(contents.tree != null) {
+      for(final file in contents.tree) {
+        if(file.type == 'file') {
+          files.add(file);
+        } else if(file.type == 'dir'){
+          files.addAll((await _loadDemoFiles(repository, path: file.path)).tree);
+        } else {
+          print('Unsupported file GitHub type "${file.type}".');
+        }
+      }
+      contents.tree = files;
+    }
+    return contents;
   }
 
   /// Update [organizationStatus] using information acquired from GitHub and

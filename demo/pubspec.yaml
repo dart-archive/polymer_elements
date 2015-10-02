@@ -32,6 +32,7 @@ environment:
 transformers:
 - web_components:
     entry_points:
+    - web/index.html
     #- web/chartjs_element/index.html TODO(zoechi) element not available
     - web/firebase_element/index.html
     - web/gold_cc_cvc_input/index.html # TODO(zoechi) issues #64
@@ -40,7 +41,7 @@ transformers:
     - web/gold_email_input/index.html
     - web/gold_phone_input/index.html
     - web/gold_zip_input/index.html
-    - web/google_analytics/index.html # TODO(zoechi) issues #67
+    - web/google_analytics/index.html # TODO(zoechi) issues #67 (login)
     - web/google_apis/index.html # TODO(zoechi) issues #65
     - web/google_calendar/index.html # TODO(zoechi) issues #67
     - web/google_castable_video/index.html # TODO(zoechi) issues (see code)
@@ -63,14 +64,14 @@ transformers:
     - web/iron_ajax/index.html
     - web/iron_autogrow_textarea/index.html
     - web/iron_behaviors/index.html
-    - web/iron_checked_element_behavior/index.html # TODO(zoechi) element not available #71
+    #- web/iron_checked_element_behavior/index.html # TODO(zoechi) element not available #71
     - web/iron_collapse/index.html
     - web/iron_component_page/index.html
     - web/iron_doc_viewer/index.html
     - web/iron_dropdown/index.html # TODO(zoechi) doesn't work (position is off), I don't know how to port code in `expand_animation.dart`
     - web/iron_fit_behavior/index.html
     - web/iron_flex_layout/index.html
-    - web/iron_form/index.html # TODO(zoechi) issues dart-lang/polymer-dart#598 (should be fixed)
+    - web/iron_form/index.html
     - web/iron_form_element_behavior/index.html
     - web/iron_icon/index.html
     - web/iron_icons/index.html
@@ -83,7 +84,7 @@ transformers:
     - web/iron_list/index.html # TODO(zoechi) items height wrong when demo is inside an element
     - web/iron_list/external_content.html # for all 3 examples
     - web/iron_list/selection.html
-    #- web/iron_localstorage/index.html # TODO(zoechi) issues dart-lang/polymer-dart#600
+    - web/iron_localstorage/index.html
     - web/iron_media_query/index.html
     - web/iron_menu_behavior/index.html # TODO(zoechi) Dartium aw snaps when an item of a multi-select menu is clicked
     - web/iron_meta/index.html
@@ -95,9 +96,56 @@ transformers:
     - web/iron_signals/index.html
     - web/iron_validatable_behavior/index.html
     - web/iron_validator_behavior/index.html
+    - web/marked_element/index.html
+    #- web/neon_animation/card/index.html
+    #- web/neon_animation/declarative/index.html
+    #- web/neon_animation/doc/index.html
+    #- web/neon_animation/dropdown/index.html
+    #- web/neon_animation/grid/index.html
+    #- web/neon_animation/list/index.html
+    #- web/neon_animation/load/index.html
+    #- web/neon_animation/reprojection/index.html
+    #- web/neon_animation/tiles/index.html
+    - web/paper_badge/index.html
+    - web/paper_behaviors/index.html
+    - web/paper_card/index.html
+    - web/paper_checkbox/index.html
+    - web/paper_dialog/index.html # TODO(zoechi) check button size (too big) after next elements update
+    - web/paper_dialog_behavior/index.html
+    - web/paper_dialog_scrollable/index.html
+    - web/paper_drawer_panel/index.html
+    - web/paper_dropdown_menu/index.html # TODO(zoechi) weird layout on 2nd dropdown open
+    - web/paper_fab/index.html
+    - web/paper_header_panel/index.html
+    - web/paper_input/index.html
+    - web/paper_icon_button/index.html
+    - web/paper_item/index.html
+    - web/paper_material/index.html
+    - web/paper_menu/index.html
+    - web/paper_menu_button/index.html
+    - web/paper_progress/index.html
+    - web/paper_radio_button/index.html
+    - web/paper_radio_group/index.html
+    - web/paper_ripple/index.html
+    - web/paper_scroll_header_panel/index.html # TODO(zoechi) demos 1-10
+    - web/paper_slider/index.html # TODO(zoechi) #74
+    - web/paper_spinner/index.html
+    - web/paper_styles/index.html
+    - web/paper_tabs/index.html
+    - web/paper_toast/index.html
+    - web/paper_toggle_button/index.html # TODO(zoechi) labels are now show. I'll check again after a new versions of the elements is available
+    - web/paper_toolbar/index.html
+    - web/paper_tooltip/index.html # TODO(zoechi) rich text tooltips location wrong
+    #- web/platinum_bluetooth/index.html # TODO(zoechi) element not available
+    #- web/platinum_https_redirect/index.html # TODO(zoechi) element not available
+    #- web/platinum_push_messaging/index.html # TODO(zoechi) element not available
+    #- web/platinum_sw/index.html # TODO(zoechi) element not available
+    #- web/quick_element/index.html # TODO(zoechi) element not available
+    #- web/seed_element/index.html # TODO(zoechi) element not available
 
 - reflectable:
     entry_points:
+    - web/index.dart
     #- web/chartjs_element/index.dart
     - web/firebase_element/index.dart
     - web/gold_cc_cvc_input/index.dart
@@ -129,7 +177,7 @@ transformers:
     - web/iron_ajax/index.dart
     - web/iron_autogrow_textarea/index.dart
     - web/iron_behaviors/index.dart
-    - web/iron_checked_element_behavior/index.dart
+#    - web/iron_checked_element_behavior/index.dart
     - web/iron_collapse/index.dart
     - web/iron_component_page/index.dart
     - web/iron_doc_viewer/index.dart
@@ -150,7 +198,7 @@ transformers:
     - web/iron_list/index.dart
     - web/iron_list/external_content.dart
     - web/iron_list/selection.dart
-    #- web/iron_localstorage/index.dart
+    - web/iron_localstorage/index.dart
     - web/iron_media_query/index.dart
     - web/iron_menu_behavior/index.dart
     - web/iron_meta/index.dart
@@ -162,6 +210,53 @@ transformers:
     - web/iron_signals/index.dart
     - web/iron_validatable_behavior/index.dart
     - web/iron_validator_behavior/index.dart
+    - web/marked_element/index.dart
+    #- web/neon_animation/card/index.dart
+    #- web/neon_animation/declarative/index.dart
+    #- web/neon_animation/doc/index.dart
+    #- web/neon_animation/dropdown/index.dart
+    #- web/neon_animation/grid/index.dart
+    #- web/neon_animation/list/index.dart
+    #- web/neon_animation/load/index.dart
+    #- web/neon_animation/reprojection/index.dart
+    #- web/neon_animation/tiles/index.dart
+    - web/paper_badge/index.dart
+    - web/paper_behaviors/index.dart
+    - web/paper_card/index.dart
+    - web/paper_checkbox/index.dart
+    - web/paper_dialog/index.dart
+    - web/paper_dialog_behavior/index.dart
+    - web/paper_dialog_scrollable/index.dart
+    - web/paper_drawer_panel/index.dart
+    - web/paper_dropdown_menu/index.dart
+    - web/paper_fab/index.dart
+    - web/paper_header_panel/index.dart
+    - web/paper_icon_button/index.dart
+    - web/paper_input/index.dart
+    - web/paper_item/index.dart
+    - web/paper_material/index.dart
+    - web/paper_menu/index.dart
+    - web/paper_menu_button/index.dart
+    - web/paper_progress/index.dart
+    - web/paper_radio_button/index.dart
+    - web/paper_radio_group/index.dart
+    - web/paper_ripple/index.dart
+    - web/paper_scroll_header_panel/index.dart
+    - web/paper_slider/index.dart
+    - web/paper_spinner/index.dart
+    - web/paper_styles/index.dart
+    - web/paper_tabs/index.dart
+    - web/paper_toast/index.dart
+    - web/paper_toggle_button/index.dart
+    - web/paper_toolbar/index.dart
+    - web/paper_tooltip/index.dart
+    #- web/platinum_bluetooth/index.dart
+    #- web/platinum_https_redirect/index.dart
+    #- web/platinum_push_messaging/index.dart
+    #- web/platinum_sw/index.dart
+    #- web/quick_element/index.dart
+    #- web/seed_element/index.dart
+
 
 - test/pub_serve:
     $include: test/**_test{.*,}.dart
