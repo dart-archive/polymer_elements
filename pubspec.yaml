@@ -7,6 +7,7 @@ dependencies:
   browser: any
   polymer_interop: ^0.2.0
   web_components: ^0.12.0
+  reflectable: ^0.2.0
 dev_dependencies:
   custom_element_apigen: ^0.2.0
   html5lib: ">=0.11.0 <0.13.0"
@@ -15,7 +16,7 @@ dev_dependencies:
   test: ^0.12.0
   polymer:
     git:
-      ref: 0.17-0-dev-interop-reverse
+      ref: behaviors
       url: https://github.com/dart-lang/polymer-dart.git
 
 dependency_overrides:
@@ -32,5 +33,27 @@ environment:
 transformers:
 - web_components:
     $include: test/*_test.html
+- reflectable:
+    entry_points:
+    - test/iron_a11y_keys_behavior_test.dart
+    - test/iron_behavior_active_state_test.dart
+    - test/iron_behavior_disabled_state_test.dart
+    - test/iron_behavior_focused_state_test.dart
+    - test/iron_fit_behavior_test.dart
+    - test/iron_menu_behavior_test.dart
+    - test/iron_menubar_behavior_test.dart
+    - test/iron_overlay_behavior_test.dart
+    - test/iron_range_behavior_test.dart
+    - test/iron_resizable_behavior_basic_test.dart
+    - test/iron_resizable_behavior_test.dart
+    - test/iron_validatable_behavior_test.dart
+    - test/iron_validator_behavior_test.dart
+    - test/neon_animated_pages_test.dart
+    - test/paper_button_behavior_test.dart
+    - test/paper_dialog_behavior_test.dart
+    - test/paper_inky_focus_behavior_test.dart
+    - test/paper_scroll_header_panel_basic_test.dart
+    - test/paper_scroll_header_panel_header_state_test.dart
+    - test/paper_scroll_header_panel_scroll_test.dart
 - test/pub_serve:
     $include: test/**_test{.*,}.dart
