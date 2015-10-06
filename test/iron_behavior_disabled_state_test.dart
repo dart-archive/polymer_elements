@@ -6,13 +6,14 @@ import 'dart:convert';
 import 'dart:html';
 import 'dart:js';
 import 'package:polymer_interop/polymer_interop.dart';
+import 'package:polymer/polymer.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'fixtures/iron_behavior_elements.dart';
 import 'common.dart';
 
 main() async {
-  await initWebComponents();
+  await initPolymer();
 
   group('disabled-state', () {
     TestControl disableTarget;

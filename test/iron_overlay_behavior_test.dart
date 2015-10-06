@@ -20,7 +20,7 @@ runAfterOpen(overlay, cb) {
 }
 
 main() async {
-  await initWebComponents();
+  await initPolymer();
 
   group('basic overlay tests', () {
     TestOverlay overlay;

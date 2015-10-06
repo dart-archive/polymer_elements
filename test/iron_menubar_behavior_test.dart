@@ -13,7 +13,7 @@ import 'common.dart';
 import 'fixtures/test_menubar.dart';
 
 main() async {
-  await initWebComponents();
+  await initPolymer();
 
   group('menubar a11y tests', () {
     test('menubar has role="menubar"', () {
