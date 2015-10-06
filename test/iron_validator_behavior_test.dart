@@ -14,7 +14,7 @@ import 'package:web_components/web_components.dart';
 import 'common.dart';
 
 main() async {
-  await initWebComponents();
+  await initPolymer();
 
   group('basic', () {
     test('registered in <iron-meta>', () {

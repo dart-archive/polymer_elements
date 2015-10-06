@@ -13,7 +13,7 @@ import 'common.dart';
 import 'fixtures/test_menu.dart';
 
 main() async {
-  await initWebComponents();
+  await initPolymer();
 
   group('menu a11y tests', () {
     test('menu has role="menu"', () {

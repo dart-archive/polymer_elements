@@ -1,5 +1,5 @@
 name: polymer_elements
-version: 0.1.0
+version: 1.0.0-rc.1
 author: Polymer.dart Authors <web-ui-dev@dartlang.org>
 description: Polymer polymer-elements for Dart
 homepage: https://www.dartlang.org/polymer/
@@ -7,7 +7,7 @@ dependencies:
   browser: any
   polymer_interop: ^0.2.0
   web_components: ^0.12.0
-  reflectable: ^0.2.0
+  reflectable: ^0.3.1
 dev_dependencies:
   custom_element_apigen: ^0.2.0
   html5lib: ">=0.11.0 <0.13.0"
@@ -16,13 +16,13 @@ dev_dependencies:
   test: ^0.12.0
   polymer:
     git:
-      ref: behaviors
+      ref: 1.0.0-rc.2
       url: https://github.com/dart-lang/polymer-dart.git
 
 dependency_overrides:
   polymer_interop:
     git:
-      ref: 0.2.0-dev
+      ref: 0.2.0-rc1
       url: https://github.com/dart-lang/polymer_interop.git
   custom_element_apigen:
     git:

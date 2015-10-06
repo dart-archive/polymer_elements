@@ -13,7 +13,7 @@ import 'common.dart';
 import 'fixtures/iron_resizable_elements.dart';
 
 main() async {
-  await initWebComponents();
+  await initPolymer();
 
   group('iron-resizable-behavior', () {
     XLightResizable resizable;

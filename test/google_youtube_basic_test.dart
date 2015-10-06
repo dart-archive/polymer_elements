@@ -52,7 +52,7 @@ main() async {
         var stateTransitions = new JsArray.from([-1, 3, 1]);
 
         googleYouTube.on['google-youtube-state-change'].listen((e) {
-          e = dartValue(e);
+          e = convertToDart(e);
           // Test that the element's state property always is set to the same property in the event.
           expect(e.detail['data'], googleYouTube.state);
 

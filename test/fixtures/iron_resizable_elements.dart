@@ -23,7 +23,7 @@ class XResizerParentFiltered extends PolymerElement with IronResizableBehavior {
   @Listen('core-resize')
   resizeHandler(_, __) {}
 
-  @eventHandler
+  @reflectable
   bool resizerShouldNotify(el) {
     return (el == active);
   }
