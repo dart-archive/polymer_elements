@@ -13,7 +13,7 @@ import 'package:web_components/web_components.dart';
 import 'common.dart';
 
 main() async {
-  await initWebComponents();
+  await initPolymer();
 
   group('Polymer.IronA11yKeysBehavior', () {
     KeysTestBehavior keys;
@@ -152,7 +152,7 @@ abstract class KeysTestBehavior implements PolymerMixin, PolymerBase, HtmlElemen
   @property
   Event lastEvent;
 
-  @eventHandler
+  @reflectable
   keyHandler(Event e) {
     set('keyCount', keyCount + 1);
     set('lastEvent', e);

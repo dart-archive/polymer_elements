@@ -36,7 +36,7 @@ main() async {
 
       // attach iron-activate listener
       s.on['iron-activate'].take(1).listen((event) {
-        event = dartValue(event);
+        event = convertToDart(event);
         expect(event.detail['selected'], 1);
         expect(event.detail['item'], s.children[1]);
         done.complete();
@@ -53,7 +53,7 @@ main() async {
 
       // attach iron-activate listener
       s.on['iron-activate'].take(1).listen((event) {
-        event = dartValue(event);
+        event = convertToDart(event);
         expect(event.detail['selected'], 0);
         expect(event.detail['item'], s.children[0]);
         done.complete();
@@ -77,7 +77,7 @@ main() async {
       var done = new Completer();
       // attach iron-activate listener
       s.on['iron-activate'].take(1).listen((event) {
-        event = dartValue(event);
+        event = convertToDart(event);
         expect(event.detail['selected'], 2);
         expect(event.detail['item'], s.children[2]);
         done.complete();
@@ -104,7 +104,7 @@ main() async {
     test('activates on tap and preventDefault', () {
       // attach iron-activate listener
       s.on['iron-activate'].take(1).listen((event) {
-        event = dartValue(event);
+        event = convertToDart(event);
         event.preventDefault();
       });
       // select Item 2

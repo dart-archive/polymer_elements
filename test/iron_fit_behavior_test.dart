@@ -21,7 +21,7 @@ makeScrolling(Element el) {
 }
 
 main() async {
-  await initWebComponents();
+  await initPolymer();
 
   group('manual positioning', () {
     test('css positioned element is not re-positioned', () {

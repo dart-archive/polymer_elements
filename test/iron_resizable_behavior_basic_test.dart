@@ -41,7 +41,7 @@ RemoveListeners(listeners) {
 }
 
 main() async {
-  await initWebComponents();
+  await initPolymer();
 
   group('iron-resizable-behavior', () {
     TestElement testEl;

@@ -16,7 +16,7 @@ class SampleContent extends PolymerElement {
   @Property(observer: 'sizeChanged')
   int size = 0;
 
-  @eventHandler
+  @reflectable
   sizeChanged(newVal, oldVal) {
     var html = new StringBuffer();
     for (var i = 0; i < size; i++) {

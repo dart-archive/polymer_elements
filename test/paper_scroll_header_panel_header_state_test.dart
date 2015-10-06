@@ -7,6 +7,7 @@ library polymer_elements.test.paper_scroll_header_panel_header_state_test;
 import 'package:polymer_elements/paper_scroll_header_panel.dart';
 import 'package:polymer_elements/paper_toolbar.dart';
 import 'package:polymer_interop/polymer_interop.dart';
+import 'package:polymer/polymer.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
@@ -14,7 +15,7 @@ import 'fixtures/sample_content.dart';
 
 /// Used imports: [SampleContent]
 main() async {
-  await initWebComponents();
+  await initPolymer();
 
   group('`headerState`', () {
     PaperScrollHeaderPanel scrollHeaderPanel;
