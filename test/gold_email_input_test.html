@@ -25,5 +25,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <gold-email-input auto-validate required error-message="error"></gold-email-input>
   </template>
 
+  <template id="custom-regex">
+    <gold-email-input auto-validate required regex='.*cat'
+                      error-message="error"></gold-email-input>
+  </template>
+
+  <template id="no-regex">
+    <gold-email-input auto-validate required regex='' error-message="error">
+    </gold-email-input>
+  </template>
+
 </body>
 </html>
