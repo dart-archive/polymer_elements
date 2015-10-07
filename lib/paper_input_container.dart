@@ -118,6 +118,6 @@ class PaperInputContainer extends HtmlElement with CustomElementProxyMixin, Poly
 
   /// Call this to update the state of add-ons.
   /// [state]: Add-on state.
-  void updateAddons(state) =>
+  updateAddons(state) =>
       jsElement.callMethod('updateAddons', [state]);
 }

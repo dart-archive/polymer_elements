@@ -28,6 +28,6 @@ class ScaleDownAnimation extends HtmlElement with CustomElementProxyMixin, Polym
   ScaleDownAnimation.created() : super.created();
   factory ScaleDownAnimation() => new Element.tag('scale-down-animation');
 
-  void configure(config) =>
+  configure(config) =>
       jsElement.callMethod('configure', [config]);
 }

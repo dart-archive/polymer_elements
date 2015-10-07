@@ -16,6 +16,6 @@ class DateValidator extends HtmlElement with CustomElementProxyMixin, PolymerBas
   DateValidator.created() : super.created();
   factory DateValidator() => new Element.tag('date-validator');
 
-  void validate(date) =>
+  validate(date) =>
       jsElement.callMethod('validate', [date]);
 }

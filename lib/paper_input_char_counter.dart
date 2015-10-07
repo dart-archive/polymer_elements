@@ -31,6 +31,6 @@ class PaperInputCharCounter extends HtmlElement with CustomElementProxyMixin, Po
   PaperInputCharCounter.created() : super.created();
   factory PaperInputCharCounter() => new Element.tag('paper-input-char-counter');
 
-  void update(state) =>
+  update(state) =>
       jsElement.callMethod('update', [state]);
 }

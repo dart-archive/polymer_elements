@@ -95,11 +95,11 @@ class IronLocalstorage extends HtmlElement with CustomElementProxyMixin, Polymer
   /// Loads the value again. Use if you modify
   /// localStorage using DOM calls, and want to
   /// keep this element in sync.
-  void reload() =>
+  reload() =>
       jsElement.callMethod('reload', []);
 
   /// Saves the value to localStorage. Call to save if autoSaveDisabled is set.
   /// If `value` is null, deletes localStorage.
-  void save() =>
+  save() =>
       jsElement.callMethod('save', []);
 }

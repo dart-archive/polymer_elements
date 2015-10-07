@@ -16,6 +16,6 @@ class ZipValidator extends HtmlElement with CustomElementProxyMixin, PolymerBase
   ZipValidator.created() : super.created();
   factory ZipValidator() => new Element.tag('zip-validator');
 
-  void validate(value) =>
+  validate(value) =>
       jsElement.callMethod('validate', [value]);
 }

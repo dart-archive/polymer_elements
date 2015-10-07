@@ -28,6 +28,6 @@ class SlideFromRightAnimation extends HtmlElement with CustomElementProxyMixin, 
   SlideFromRightAnimation.created() : super.created();
   factory SlideFromRightAnimation() => new Element.tag('slide-from-right-animation');
 
-  void configure(config) =>
+  configure(config) =>
       jsElement.callMethod('configure', [config]);
 }

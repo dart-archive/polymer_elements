@@ -29,6 +29,6 @@ class TransformAnimation extends HtmlElement with CustomElementProxyMixin, Polym
   TransformAnimation.created() : super.created();
   factory TransformAnimation() => new Element.tag('transform-animation');
 
-  void configure(config) =>
+  configure(config) =>
       jsElement.callMethod('configure', [config]);
 }

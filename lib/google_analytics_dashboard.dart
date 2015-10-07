@@ -52,11 +52,11 @@ class GoogleAnalyticsDashboard extends HtmlElement with CustomElementProxyMixin,
   /// `analytics-dashboard-control-change` event is fired. It updates the
   /// query attribute, which is then sent to child charts.
   /// [event]: The event with the query data.
-  void queryUpdated(event) =>
+  queryUpdated(event) =>
       jsElement.callMethod('queryUpdated', [event]);
 
   /// The `updateChildren` method updates each of this dashboards
   /// `<google-analytics-chart>` element with its current query value.
-  void updateChildren() =>
+  updateChildren() =>
       jsElement.callMethod('updateChildren', []);
 }

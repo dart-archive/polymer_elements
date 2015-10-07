@@ -5,6 +5,7 @@
 library polymer_elements.test.firebase_collection_test;
 
 import 'dart:async';
+import 'dart:js';
 import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/firebase_collection.dart';
 import 'package:web_components/web_components.dart';
@@ -120,12 +121,14 @@ main() async {
         test('updates the child key in place with the new value', () {
           var childrenKeys = [];
 
-          var done = firebase.on['firebase-value'].first.then((_) {
+          var done = firebase.on['firebase-value'].first.then((_) async {
+            // Wait for childrenKeys to be populated
+            await new Future(() {});
             var middleValue = firebase.getByKey(childrenKeys[1]);
             var changes;
 
-            expect(middleValue.foo, 1);
-            expect(middleValue.bar, 1);
+            expect(middleValue['foo'], 1);
+            expect(middleValue['bar'], 1);
 
             changes = firebase.on['firebase-child-changed'].first;
 
@@ -135,8 +138,8 @@ main() async {
           }).then((_) {
             var middleValue = firebase.getByKey(childrenKeys[1]);
 
-            expect(middleValue.foo, 1);
-            expect(middleValue.bar, 2);
+            expect(middleValue['foo'], 1);
+            expect(middleValue['bar'], 2);
           }).then((_) {
             childrenKeys.forEach((key) {
               firebase.removeByKey(key);
@@ -146,10 +149,10 @@ main() async {
           var index = -1;
           childrenKeys = [0, 1, 2].map((value) {
             index++;
-            return firebase.add({
+            return firebase.add(new JsObject.jsify({
               'foo': value,
               'bar': index
-            }).callMethod('key');
+            })).callMethod('key');
           }).toList();
 
           return done;
@@ -193,7 +196,7 @@ main() async {
             localFirebase.removeByKey(key);
           });
 
-          key = localFirebase.add(data).callMethod('key');
+          key = localFirebase.add(new JsObject.jsify(data)).callMethod('key');
 
           return done;
         });

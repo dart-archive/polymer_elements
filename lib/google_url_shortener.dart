@@ -66,6 +66,6 @@ class GoogleUrlShortener extends HtmlElement with CustomElementProxyMixin, Polym
   set shortUrl(String value) { jsElement[r'shortUrl'] = value; }
 
   /// Shortens the URL in `longUrl`. Use if `auto` is not set.
-  void shorten() =>
+  shorten() =>
       jsElement.callMethod('shorten', []);
 }

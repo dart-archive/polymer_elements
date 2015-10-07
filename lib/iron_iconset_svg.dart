@@ -68,6 +68,6 @@ class IronIconsetSvg extends HtmlElement with CustomElementProxyMixin, PolymerBa
   /// Remove an icon from the given element by undoing the changes effected
   /// by `applyIcon`.
   /// [element]: The element from which the icon is removed.
-  void removeIcon(Element element) =>
+  removeIcon(Element element) =>
       jsElement.callMethod('removeIcon', [element]);
 }

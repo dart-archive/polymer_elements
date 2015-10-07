@@ -56,6 +56,6 @@ class PaperRadioButton extends HtmlElement with CustomElementProxyMixin, Polymer
   ///
   /// Call this if you manually change the contents of the checkbox
   /// and want the aria-label to match the new contents.
-  void updateAriaLabel() =>
+  updateAriaLabel() =>
       jsElement.callMethod('updateAriaLabel', []);
 }

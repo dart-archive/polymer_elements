@@ -173,14 +173,14 @@ class PaperDrawerPanel extends HtmlElement with CustomElementProxyMixin, Polymer
   set transition(bool value) { jsElement[r'transition'] = value; }
 
   /// Closes the drawer.
-  void closeDrawer() =>
+  closeDrawer() =>
       jsElement.callMethod('closeDrawer', []);
 
   /// Opens the drawer.
-  void openDrawer() =>
+  openDrawer() =>
       jsElement.callMethod('openDrawer', []);
 
   /// Toggles the panel open and closed.
-  void togglePanel() =>
+  togglePanel() =>
       jsElement.callMethod('togglePanel', []);
 }

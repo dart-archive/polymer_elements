@@ -73,6 +73,6 @@ class MarkedElement extends HtmlElement with CustomElementProxyMixin, PolymerBas
   /// The only case where you should be calling this is if you are providing
   /// markdown via `<script type="text/markdown">` after this element has been
   /// constructed (or updating that markdown).
-  void render() =>
+  render() =>
       jsElement.callMethod('render', []);
 }

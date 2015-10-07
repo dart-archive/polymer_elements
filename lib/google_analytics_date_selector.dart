@@ -61,9 +61,9 @@ class GoogleAnalyticsDateSelector extends HtmlElement with CustomElementProxyMix
   String get startDate => jsElement[r'startDate'];
   set startDate(String value) { jsElement[r'startDate'] = value; }
 
-  void endDateChanged(cur, old) =>
+  endDateChanged(cur, old) =>
       jsElement.callMethod('endDateChanged', [cur, old]);
 
-  void startDateChanged(cur, old) =>
+  startDateChanged(cur, old) =>
       jsElement.callMethod('startDateChanged', [cur, old]);
 }

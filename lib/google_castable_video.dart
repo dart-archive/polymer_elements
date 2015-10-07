@@ -48,14 +48,14 @@ class GoogleCastableVideo extends VideoElement with CustomElementProxyMixin, Pol
 
   /// Call this when the user clicks the cast icon.
   /// Opens the cast extension to create a session with the selected receiver.
-  void launchSessionManager() =>
+  launchSessionManager() =>
       jsElement.callMethod('launchSessionManager', []);
 
   /// Call the `pause` method from your controls.
-  void pause(cast) =>
+  pause(cast) =>
       jsElement.callMethod('pause', [cast]);
 
   /// Call the `play` method from your controls.
-  void play(cast) =>
+  play(cast) =>
       jsElement.callMethod('play', [cast]);
 }

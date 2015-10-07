@@ -16,7 +16,7 @@ class PaperMenuGrowHeightAnimation extends HtmlElement with CustomElementProxyMi
   PaperMenuGrowHeightAnimation.created() : super.created();
   factory PaperMenuGrowHeightAnimation() => new Element.tag('paper-menu-grow-height-animation');
 
-  void configure(config) =>
+  configure(config) =>
       jsElement.callMethod('configure', [config]);
 }
 
@@ -28,7 +28,7 @@ class PaperMenuGrowWidthAnimation extends HtmlElement with CustomElementProxyMix
   PaperMenuGrowWidthAnimation.created() : super.created();
   factory PaperMenuGrowWidthAnimation() => new Element.tag('paper-menu-grow-width-animation');
 
-  void configure(config) =>
+  configure(config) =>
       jsElement.callMethod('configure', [config]);
 }
 
@@ -40,7 +40,7 @@ class PaperMenuShrinkWidthAnimation extends HtmlElement with CustomElementProxyM
   PaperMenuShrinkWidthAnimation.created() : super.created();
   factory PaperMenuShrinkWidthAnimation() => new Element.tag('paper-menu-shrink-width-animation');
 
-  void configure(config) =>
+  configure(config) =>
       jsElement.callMethod('configure', [config]);
 }
 
@@ -52,6 +52,6 @@ class PaperMenuShrinkHeightAnimation extends HtmlElement with CustomElementProxy
   PaperMenuShrinkHeightAnimation.created() : super.created();
   factory PaperMenuShrinkHeightAnimation() => new Element.tag('paper-menu-shrink-height-animation');
 
-  void configure(config) =>
+  configure(config) =>
       jsElement.callMethod('configure', [config]);
 }

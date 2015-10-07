@@ -75,7 +75,7 @@ class IronMeta extends HtmlElement with CustomElementProxyMixin, PolymerBase {
 
   /// Only runs if someone invokes the factory/constructor directly
   /// e.g. `new Polymer.IronMeta()`
-  void factoryImpl(config) =>
+  factoryImpl(config) =>
       jsElement.callMethod('factoryImpl', [config]);
 }
 
@@ -144,6 +144,6 @@ class IronMetaQuery extends HtmlElement with CustomElementProxyMixin, PolymerBas
 
   /// Actually a factory method, not a true constructor. Only runs if
   /// someone invokes it directly (via `new Polymer.IronMeta()`);
-  void factoryImpl(config) =>
+  factoryImpl(config) =>
       jsElement.callMethod('factoryImpl', [config]);
 }

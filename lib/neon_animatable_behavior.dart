@@ -33,6 +33,6 @@ abstract class NeonAnimatableBehavior implements CustomElementProxyMixin {
   /// an animation with an optional type. Elements implementing `Polymer.NeonAnimatableBehavior`
   /// should define the property `animationConfig`, which is either a configuration object
   /// or a map of animation type to array of configuration objects.
-  void getAnimationConfig(type) =>
+  getAnimationConfig(type) =>
       jsElement.callMethod('getAnimationConfig', [type]);
 }

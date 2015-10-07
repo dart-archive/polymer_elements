@@ -49,6 +49,6 @@ class HydrolysisAnalyzer extends HtmlElement with CustomElementProxyMixin, Polym
   ///
   /// If you make changes to this element's configuration, you must call this
   /// function to kick off another analysis pass.
-  void analyze() =>
+  analyze() =>
       jsElement.callMethod('analyze', []);
 }

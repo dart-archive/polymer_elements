@@ -55,19 +55,19 @@ abstract class IronSelectableBehavior implements CustomElementProxyMixin {
   set selectedItem(value) { jsElement[r'selectedItem'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Returns the index of the given item.
-  void indexOf(item) =>
+  indexOf(item) =>
       jsElement.callMethod('indexOf', [item]);
 
   /// Selects the given value.
   /// [value]: the value to select.
-  void select(String value) =>
+  select(String value) =>
       jsElement.callMethod('select', [value]);
 
   /// Selects the next item.
-  void selectNext() =>
+  selectNext() =>
       jsElement.callMethod('selectNext', []);
 
   /// Selects the previous item.
-  void selectPrevious() =>
+  selectPrevious() =>
       jsElement.callMethod('selectPrevious', []);
 }

@@ -101,24 +101,24 @@ class PaperRipple extends HtmlElement with CustomElementProxyMixin, PolymerBase,
 
   get target => jsElement[r'target'];
 
-  void addRipple() =>
+  addRipple() =>
       jsElement.callMethod('addRipple', []);
 
-  void animate() =>
+  animate() =>
       jsElement.callMethod('animate', []);
 
-  void downAction(event) =>
+  downAction(event) =>
       jsElement.callMethod('downAction', [event]);
 
-  void onAnimationComplete() =>
+  onAnimationComplete() =>
       jsElement.callMethod('onAnimationComplete', []);
 
-  void removeRipple(ripple) =>
+  removeRipple(ripple) =>
       jsElement.callMethod('removeRipple', [ripple]);
 
-  void simulatedRipple() =>
+  simulatedRipple() =>
       jsElement.callMethod('simulatedRipple', []);
 
-  void upAction(event) =>
+  upAction(event) =>
       jsElement.callMethod('upAction', [event]);
 }

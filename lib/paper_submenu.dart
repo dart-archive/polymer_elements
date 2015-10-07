@@ -55,13 +55,13 @@ class PaperSubmenu extends HtmlElement with CustomElementProxyMixin, PolymerBase
   set opened(bool value) { jsElement[r'opened'] = value; }
 
   /// Collapse the submenu content.
-  void close() =>
+  close() =>
       jsElement.callMethod('close', []);
 
-  void dettached() =>
+  dettached() =>
       jsElement.callMethod('dettached', []);
 
   /// Expand the submenu content.
-  void open() =>
+  open() =>
       jsElement.callMethod('open', []);
 }

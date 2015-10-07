@@ -83,12 +83,12 @@ class PaperTooltip extends HtmlElement with CustomElementProxyMixin, PolymerBase
   /// of the tooltip.
   get target => jsElement[r'target'];
 
-  void hide() =>
+  hide() =>
       jsElement.callMethod('hide', []);
 
-  void show() =>
+  show() =>
       jsElement.callMethod('show', []);
 
-  void updatePosition() =>
+  updatePosition() =>
       jsElement.callMethod('updatePosition', []);
 }

@@ -16,10 +16,10 @@ import 'iron_meta.dart';
 abstract class NeonAnimationRunnerBehavior implements CustomElementProxyMixin, NeonAnimatableBehavior {
 
   /// Cancels the currently running animation.
-  void cancelAnimation() =>
+  cancelAnimation() =>
       jsElement.callMethod('cancelAnimation', []);
 
   /// Plays an animation with an optional `type`.
-  void playAnimation(type, cookie) =>
+  playAnimation(type, cookie) =>
       jsElement.callMethod('playAnimation', [type, cookie]);
 }

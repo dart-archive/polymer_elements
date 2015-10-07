@@ -108,10 +108,10 @@ class PaperDropdownMenu extends HtmlElement with CustomElementProxyMixin, Polyme
   set selectedItemLabel(String value) { jsElement[r'selectedItemLabel'] = value; }
 
   /// Hide the dropdown content.
-  void close() =>
+  close() =>
       jsElement.callMethod('close', []);
 
   /// Show the dropdown content.
-  void open() =>
+  open() =>
       jsElement.callMethod('open', []);
 }

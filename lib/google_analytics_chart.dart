@@ -102,9 +102,9 @@ class GoogleAnalyticsChart extends HtmlElement with CustomElementProxyMixin, Pol
   String get type => jsElement[r'type'];
   set type(String value) { jsElement[r'type'] = value; }
 
-  void handleResponse(response) =>
+  handleResponse(response) =>
       jsElement.callMethod('handleResponse', [response]);
 
-  void setupReadyChanged(newVal, oldVal) =>
+  setupReadyChanged(newVal, oldVal) =>
       jsElement.callMethod('setupReadyChanged', [newVal, oldVal]);
 }

@@ -86,6 +86,6 @@ class GoogleMapSearch extends HtmlElement with CustomElementProxyMixin, PolymerB
   set types(String value) { jsElement[r'types'] = value; }
 
   /// Perform a search using for `query` for the search term.
-  void search() =>
+  search() =>
       jsElement.callMethod('search', []);
 }

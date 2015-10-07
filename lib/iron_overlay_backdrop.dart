@@ -32,18 +32,18 @@ class IronOverlayBackdrop extends HtmlElement with CustomElementProxyMixin, Poly
   set opened(bool value) { jsElement[r'opened'] = value; }
 
   /// Hides the backdrop if needed.
-  void close() =>
+  close() =>
       jsElement.callMethod('close', []);
 
   /// Removes the backdrop from document body if needed.
-  void complete() =>
+  complete() =>
       jsElement.callMethod('complete', []);
 
   /// Shows the backdrop if needed.
-  void open() =>
+  open() =>
       jsElement.callMethod('open', []);
 
   /// Appends the backdrop to document body and sets its `z-index` to be below the latest overlay.
-  void prepare() =>
+  prepare() =>
       jsElement.callMethod('prepare', []);
 }

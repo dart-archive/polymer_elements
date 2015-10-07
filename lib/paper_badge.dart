@@ -71,6 +71,6 @@ class PaperBadge extends HtmlElement with CustomElementProxyMixin, PolymerBase, 
   /// You should call this in all other cases when the achor's position
   /// might have changed (for example, if it's visibility has changed, or
   /// you've manually done a page re-layout).
-  void updatePosition() =>
+  updatePosition() =>
       jsElement.callMethod('updatePosition', []);
 }

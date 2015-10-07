@@ -77,21 +77,21 @@ abstract class IronOverlayBehavior implements CustomElementProxyMixin, IronFitBe
   set withBackdrop(bool value) { jsElement[r'withBackdrop'] = value; }
 
   /// Cancels the overlay.
-  void cancel() =>
+  cancel() =>
       jsElement.callMethod('cancel', []);
 
   /// Close the overlay.
-  void close() =>
+  close() =>
       jsElement.callMethod('close', []);
 
   /// Open the overlay.
-  void open() =>
+  open() =>
       jsElement.callMethod('open', []);
 
   /// Toggle the opened state of the overlay.
-  void toggle() =>
+  toggle() =>
       jsElement.callMethod('toggle', []);
 
-  void registered() =>
+  registered() =>
       jsElement.callMethod('registered', []);
 }
