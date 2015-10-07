@@ -130,33 +130,33 @@ class IronList extends HtmlElement with CustomElementProxyMixin, PolymerBase, Te
   set selectionEnabled(bool value) { jsElement[r'selectionEnabled'] = value; }
 
   /// Clears the current selection state of the list.
-  void clearSelection() =>
+  clearSelection() =>
       jsElement.callMethod('clearSelection', []);
 
   /// Deselects the given item list if it is already selected.
   /// [item]: the item object or its index
-  void deselectItem(item) =>
+  deselectItem(item) =>
       jsElement.callMethod('deselectItem', [item]);
 
   /// Scroll to a specific item in the virtual list regardless
   /// of the physical items in the DOM tree.
   /// [idx]: The index of the item
-  void scrollToIndex(num idx) =>
+  scrollToIndex(num idx) =>
       jsElement.callMethod('scrollToIndex', [idx]);
 
   /// Select the list item at the given index.
   /// [item]: the item object or its index
-  void selectItem(item) =>
+  selectItem(item) =>
       jsElement.callMethod('selectItem', [item]);
 
   /// Select or deselect a given item depending on whether the item
   /// has already been selected.
   /// [item]: the item object or its index
-  void toggleSelectionForItem(item) =>
+  toggleSelectionForItem(item) =>
       jsElement.callMethod('toggleSelectionForItem', [item]);
 
   /// Invoke this method if you dynamically update the viewport's
   /// size or CSS padding.
-  void updateViewportBoundaries() =>
+  updateViewportBoundaries() =>
       jsElement.callMethod('updateViewportBoundaries', []);
 }

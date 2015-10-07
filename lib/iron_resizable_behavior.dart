@@ -25,12 +25,12 @@ abstract class IronResizableBehavior implements CustomElementProxyMixin {
 
   /// Used to assign the closest resizable ancestor to this resizable
   /// if the ancestor detects a request for notifications.
-  void assignParentResizable(parentResizable) =>
+  assignParentResizable(parentResizable) =>
       jsElement.callMethod('assignParentResizable', [parentResizable]);
 
   /// Can be called to manually notify a resizable and its descendant
   /// resizables of a resize change.
-  void notifyResize() =>
+  notifyResize() =>
       jsElement.callMethod('notifyResize', []);
 
   /// This method can be overridden to filter nested elements that should or
@@ -43,6 +43,6 @@ abstract class IronResizableBehavior implements CustomElementProxyMixin {
 
   /// Used to remove a resizable descendant from the list of descendants
   /// that should be notified of a resize change.
-  void stopResizeNotificationsFor(target) =>
+  stopResizeNotificationsFor(target) =>
       jsElement.callMethod('stopResizeNotificationsFor', [target]);
 }

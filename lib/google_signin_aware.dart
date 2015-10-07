@@ -72,10 +72,10 @@ class GoogleSigninAware extends HtmlElement with CustomElementProxyMixin, Polyme
   set signedIn(bool value) { jsElement[r'signedIn'] = value; }
 
   /// pops up the authorization dialog
-  void signIn() =>
+  signIn() =>
       jsElement.callMethod('signIn', []);
 
   /// signs user out
-  void signOut() =>
+  signOut() =>
       jsElement.callMethod('signOut', []);
 }

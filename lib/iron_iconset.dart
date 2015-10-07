@@ -89,12 +89,12 @@ class IronIconset extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   /// [icon]: The name or index of the icon to apply.
   /// [theme]: (optional) The name or index of the icon to apply.
   /// [scale]: (optional, defaults to 1) Icon scaling factor.
-  void applyIcon(Element element, icon, String theme, num scale) =>
+  applyIcon(Element element, icon, String theme, num scale) =>
       jsElement.callMethod('applyIcon', [element, icon, theme, scale]);
 
   /// Remove an icon from the given element by undoing the changes effected
   /// by `applyIcon`.
   /// [element]: The element from which the icon is removed.
-  void removeIcon(Element element) =>
+  removeIcon(Element element) =>
       jsElement.callMethod('removeIcon', [element]);
 }

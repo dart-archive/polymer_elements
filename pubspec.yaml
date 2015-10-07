@@ -46,5 +46,11 @@ transformers:
 - test/pub_serve:
     $include: test/**_test{.*,}.dart
 
+dependency_overrides:
+  custom_element_apigen:
+    git:
+      ref: remove-void
+      url: https://github.com/dart-lang/custom-element-apigen.git
+
 environment:
   sdk: ">=1.8.0 <2.0.0"

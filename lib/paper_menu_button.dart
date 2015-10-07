@@ -105,11 +105,11 @@ class PaperMenuButton extends HtmlElement with CustomElementProxyMixin, PolymerB
   set verticalOffset(num value) { jsElement[r'verticalOffset'] = value; }
 
   /// Hide the dropdown content.
-  void close() =>
+  close() =>
       jsElement.callMethod('close', []);
 
   /// Make the dropdown content appear as an overlay positioned relative
   /// to the dropdown trigger.
-  void open() =>
+  open() =>
       jsElement.callMethod('open', []);
 }

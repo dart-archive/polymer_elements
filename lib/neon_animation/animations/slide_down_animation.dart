@@ -27,6 +27,6 @@ class SlideDownAnimation extends HtmlElement with CustomElementProxyMixin, Polym
   SlideDownAnimation.created() : super.created();
   factory SlideDownAnimation() => new Element.tag('slide-down-animation');
 
-  void configure(config) =>
+  configure(config) =>
       jsElement.callMethod('configure', [config]);
 }

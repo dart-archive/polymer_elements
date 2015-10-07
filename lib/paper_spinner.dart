@@ -53,6 +53,6 @@ class PaperSpinner extends HtmlElement with CustomElementProxyMixin, PolymerBase
   String get alt => jsElement[r'alt'];
   set alt(String value) { jsElement[r'alt'] = value; }
 
-  void reset() =>
+  reset() =>
       jsElement.callMethod('reset', []);
 }

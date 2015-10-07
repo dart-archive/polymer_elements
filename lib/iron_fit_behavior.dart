@@ -41,25 +41,25 @@ abstract class IronFitBehavior implements CustomElementProxyMixin {
 
   /// Centers horizontally and vertically if not already positioned. This also sets
   /// `position:fixed`.
-  void center() =>
+  center() =>
       jsElement.callMethod('center', []);
 
   /// Constrains the size of the element to the window or `fitInfo` by setting `max-height`
   /// and/or `max-width`.
-  void constrain() =>
+  constrain() =>
       jsElement.callMethod('constrain', []);
 
   /// Fits and optionally centers the element into the window, or `fitInfo` if specified.
-  void fit() =>
+  fit() =>
       jsElement.callMethod('fit', []);
 
   /// Equivalent to calling `resetFit()` and `fit()`. Useful to call this after the element,
   /// the window, or the `fitInfo` element has been resized.
-  void refit() =>
+  refit() =>
       jsElement.callMethod('refit', []);
 
   /// Resets the target element's position and size constraints, and clear
   /// the memoized data.
-  void resetFit() =>
+  resetFit() =>
       jsElement.callMethod('resetFit', []);
 }

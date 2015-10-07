@@ -20,6 +20,6 @@ abstract class PaperInputAddonBehavior implements CustomElementProxyMixin {
   ///         inputElement: The input element.
   ///         value: The input value.
   ///         invalid: True if the input value is invalid.
-  void update(state) =>
+  update(state) =>
       jsElement.callMethod('update', [state]);
 }

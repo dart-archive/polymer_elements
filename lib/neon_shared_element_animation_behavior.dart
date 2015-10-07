@@ -19,6 +19,6 @@ abstract class NeonSharedElementAnimationBehavior implements CustomElementProxyM
   set sharedElements(value) { jsElement[r'sharedElements'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Finds shared elements based on `config`.
-  void findSharedElements(config) =>
+  findSharedElements(config) =>
       jsElement.callMethod('findSharedElements', [config]);
 }

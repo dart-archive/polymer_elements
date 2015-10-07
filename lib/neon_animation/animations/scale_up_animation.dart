@@ -28,6 +28,6 @@ class ScaleUpAnimation extends HtmlElement with CustomElementProxyMixin, Polymer
   ScaleUpAnimation.created() : super.created();
   factory ScaleUpAnimation() => new Element.tag('scale-up-animation');
 
-  void configure(config) =>
+  configure(config) =>
       jsElement.callMethod('configure', [config]);
 }

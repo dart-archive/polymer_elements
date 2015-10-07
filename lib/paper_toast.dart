@@ -30,14 +30,14 @@ class PaperToast extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   set visible(bool value) { jsElement[r'visible'] = value; }
 
   /// Hide the toast
-  void hide() =>
+  hide() =>
       jsElement.callMethod('hide', []);
 
   /// Show the toast.
-  void show() =>
+  show() =>
       jsElement.callMethod('show', []);
 
   /// Toggle the opened state of the toast.
-  void toggle() =>
+  toggle() =>
       jsElement.callMethod('toggle', []);
 }

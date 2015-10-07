@@ -27,6 +27,6 @@ class SlideRightAnimation extends HtmlElement with CustomElementProxyMixin, Poly
   SlideRightAnimation.created() : super.created();
   factory SlideRightAnimation() => new Element.tag('slide-right-animation');
 
-  void configure(config) =>
+  configure(config) =>
       jsElement.callMethod('configure', [config]);
 }

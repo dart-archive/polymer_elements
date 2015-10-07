@@ -28,6 +28,6 @@ class SlideFromLeftAnimation extends HtmlElement with CustomElementProxyMixin, P
   SlideFromLeftAnimation.created() : super.created();
   factory SlideFromLeftAnimation() => new Element.tag('slide-from-left-animation');
 
-  void configure(config) =>
+  configure(config) =>
       jsElement.callMethod('configure', [config]);
 }

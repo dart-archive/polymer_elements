@@ -58,7 +58,7 @@ class IronRequest extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   set xhr(value) { jsElement[r'xhr'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Aborts the request.
-  void abort() =>
+  abort() =>
       jsElement.callMethod('abort', []);
 
   /// Attempts to parse the response body of the XHR. If parsing succeeds,

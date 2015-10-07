@@ -142,19 +142,19 @@ class GoogleAnalyticsQuery extends HtmlElement with CustomElementProxyMixin, Pol
   set startIndex(num value) { jsElement[r'startIndex'] = value; }
 
   /// Query the Google Analytics Core Reporting API.
-  void getData() =>
+  getData() =>
       jsElement.callMethod('getData', []);
 
-  void getDataResponseHandler() =>
+  getDataResponseHandler() =>
       jsElement.callMethod('getDataResponseHandler', []);
 
   /// The callback for the query run in `getData`. This is a separate
   /// function so subclasses can alter how the response is handled.
-  void handleResponse(response) =>
+  handleResponse(response) =>
       jsElement.callMethod('handleResponse', [response]);
 
   /// setData sets data fetched by getData.
   /// Use it if you override getData response processing
-  void setData(data) =>
+  setData(data) =>
       jsElement.callMethod('setData', [data]);
 }

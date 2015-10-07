@@ -48,16 +48,16 @@ class PaperRadioGroup extends HtmlElement with CustomElementProxyMixin, PolymerB
   set selectedAttribute(String value) { jsElement[r'selectedAttribute'] = value; }
 
   /// Selects the given value.
-  void select(value) =>
+  select(value) =>
       jsElement.callMethod('select', [value]);
 
   /// Selects the next item. If the next item is disabled, then it is
   /// skipped, and the next item after it is selected.
-  void selectNext() =>
+  selectNext() =>
       jsElement.callMethod('selectNext', []);
 
   /// Selects the previous item. If the previous item is disabled, then it is
   /// skipped, and its previous item is selected
-  void selectPrevious() =>
+  selectPrevious() =>
       jsElement.callMethod('selectPrevious', []);
 }

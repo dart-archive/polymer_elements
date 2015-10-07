@@ -32,7 +32,7 @@ class GoogleCalendarList extends HtmlElement with CustomElementProxyMixin, Polym
   set title(String value) { jsElement[r'title'] = value; }
 
   /// Displays the calendar list if the user is signed in to Google.
-  void displayCalendars() =>
+  displayCalendars() =>
       jsElement.callMethod('displayCalendars', []);
 }
 
@@ -70,6 +70,6 @@ class GoogleCalendarBusyNow extends HtmlElement with CustomElementProxyMixin, Po
   set freeLabel(String value) { jsElement[r'freeLabel'] = value; }
 
   /// Displays the busy/free status. Use it to refresh label state
-  void displayBusy() =>
+  displayBusy() =>
       jsElement.callMethod('displayBusy', []);
 }

@@ -65,7 +65,7 @@ class IronForm extends FormElement with CustomElementProxyMixin, PolymerBase {
       jsElement.callMethod('serialize', []);
 
   /// Called to submit the form.
-  void submit() =>
+  submit() =>
       jsElement.callMethod('submit', []);
 
   /// Validates all the required elements (custom and native) in the form.

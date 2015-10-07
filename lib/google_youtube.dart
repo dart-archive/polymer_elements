@@ -165,11 +165,11 @@ class GoogleYoutube extends HtmlElement with CustomElementProxyMixin, PolymerBas
   /// modifying the volume on mobile browsers.
   /// Note that the YouTube player, in addition, does not display volume controls in a
   /// mobile environment.
-  void mute() =>
+  mute() =>
       jsElement.callMethod('mute', []);
 
   /// Pauses the current video.
-  void pause() =>
+  pause() =>
       jsElement.callMethod('pause', []);
 
   /// Plays the current video.
@@ -178,12 +178,12 @@ class GoogleYoutube extends HtmlElement with CustomElementProxyMixin, PolymerBas
   /// [can't be initiated programmatically](https://developers.google.com/youtube/iframe_api_reference#Mobile_considerations).
   ///
   /// If `this.playsupported` is not `true`, calling `play()` will have no effect.
-  void play() =>
+  play() =>
       jsElement.callMethod('play', []);
 
   /// Skips ahead (or back) to the specified number of seconds.
   /// [seconds]: Number of seconds to seek to.
-  void seekTo(num seconds) =>
+  seekTo(num seconds) =>
       jsElement.callMethod('seekTo', [seconds]);
 
   /// Modifies the volume of the current video.
@@ -193,7 +193,7 @@ class GoogleYoutube extends HtmlElement with CustomElementProxyMixin, PolymerBas
   /// Note that the YouTube player, in addition, does not display volume controls in a
   /// mobile environment.
   /// [volume]: The new volume, an integer between 0 (muted) and 100 (loudest).
-  void setVolume(num volume) =>
+  setVolume(num volume) =>
       jsElement.callMethod('setVolume', [volume]);
 
   /// Unmutes the current video.
@@ -202,6 +202,6 @@ class GoogleYoutube extends HtmlElement with CustomElementProxyMixin, PolymerBas
   /// modifying the volume on mobile browsers.
   /// Note that the YouTube player, in addition, does not display volume controls in a
   /// mobile environment.
-  void unMute() =>
+  unMute() =>
       jsElement.callMethod('unMute', []);
 }

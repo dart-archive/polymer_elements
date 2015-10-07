@@ -104,10 +104,10 @@ class PaperSlider extends HtmlElement with CustomElementProxyMixin, PolymerBase,
   set transiting(bool value) { jsElement[r'transiting'] = value; }
 
   /// Decreases value by `step` but not below `min`.
-  void decrement() =>
+  decrement() =>
       jsElement.callMethod('decrement', []);
 
   /// Increases value by `step` but not above `max`.
-  void increment() =>
+  increment() =>
       jsElement.callMethod('increment', []);
 }
