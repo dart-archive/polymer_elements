@@ -6,6 +6,8 @@ library polymer_elements.test.gold_cc_input;
 
 import 'package:polymer_elements/gold_cc_input.dart';
 import 'package:polymer_elements/iron_input.dart';
+import 'package:polymer_elements/paper_input_error.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:web_components/web_components.dart';
 import 'package:test/test.dart';
 import 'common.dart';
@@ -29,6 +31,12 @@ main() async {
       expect(container, isNotNull);
       expect(container.invalid, isTrue);
       expect(input.cardType, equals(''));
+
+      PaperInputError error =
+          Polymer.dom(input.root).querySelector('paper-input-error');
+      expect(error, isNotNull, reason: 'paper-input-error exists');
+      expect(error.getComputedStyle().visibility, isNot('hidden'),
+          reason: 'error is not visibility:hidden');
     });
 
     test('valid input is ok', () {
@@ -42,29 +50,42 @@ main() async {
       expect(input.cardType, equals('visa'));
     });
 
-    test('empty required input shows error', () {
+    test('empty required input shows error on blur', () {
       GoldCcInput input = fixture('required');
       forceXIfStamp(input);
 
-      var error = input.querySelector('paper-input-error');
+      PaperInputError error = input.querySelector('paper-input-error');
       expect(error, isNotNull);
-      expect(error.getComputedStyle().visibility, equals('visible'),
-          reason: 'error should not be visibility:visible');
+      expect(error.getComputedStyle().visibility, equals('hidden'),
+          reason: 'error should be visibility:hidden');
+
+      expect(error.getComputedStyle().visibility, 'hidden',
+          reason: 'error is visibility:hidden');
+
+      var done = input.on['blur'].first.then((event) {
+        expect(input.focused, isFalse, reason: 'input is blurred');
+        expect(error.getComputedStyle().visibility, isNot('hidden'),
+            reason: 'error is not visibility:hidden');
+      });
+      focus(input);
+      blur(input);
+
+      return done;
     });
 
     test('invalid input shows error message after manual validation', () {
       GoldCcInput input = fixture('ErrorWithoutAutoValidate');
       forceXIfStamp(input);
 
-      var error = input.querySelector('paper-input-error');
+      PaperInputError error = input.querySelector('paper-input-error');
       expect(error, isNotNull);
 
       // The error message is only displayed after manual validation.
       expect(error.getComputedStyle().visibility, equals('hidden'),
-          reason: 'error should be visibility:hidden');
+          reason: 'error is visibility:hidden');
       input.validate();
-      expect(error.getComputedStyle().visibility, equals('visible'),
-          reason: 'error should not be visibility:visible');
+      expect(error.getComputedStyle().visibility, isNot('hidden'),
+          reason: 'error is not visibility:hidden');
     });
 
     test('caret position is preserved', () {
@@ -73,7 +94,8 @@ main() async {
       input.value = '1111 1111';
       ironInput.selectionStart = 2;
       ironInput.selectionEnd = 2;
-      input.jsElement.callMethod('_computeValue', ['1122 1111 11']);
+      input.jsElement
+          .callMethod('_onValueChanged', ['1122 1111 11', '1111 1111']);
 
       expect(ironInput.selectionStart, equals(2),
           reason: 'selectionStart should be preserved');

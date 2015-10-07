@@ -5,6 +5,8 @@
 library polymer_elements.test.gold_cc_ccv_input;
 
 import 'package:polymer_elements/gold_cc_cvc_input.dart';
+import 'package:polymer_elements/paper_input_error.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:web_components/web_components.dart';
 import 'package:test/test.dart';
 import 'common.dart';
@@ -27,33 +29,51 @@ main() async {
     test('valid input is ok', () {
       GoldCcCvcInput input = fixture('required');
       input.value = '123';
-      input.jsElement.callMethod('_onInput');
       forceXIfStamp(input);
 
       var container = input.querySelector('paper-input-container');
       expect(container, isNotNull);
       expect(container.invalid, isFalse);
+
+      PaperInputError error =
+          Polymer.dom(input.root).querySelector('paper-input-error');
+      expect(error, isNotNull, reason: 'paper-input-error exists');
+      expect(error.getComputedStyle().visibility, 'hidden',
+          reason: 'error is visibility:hidden');
     });
 
     test('invalid input is not ok', () {
       GoldCcCvcInput input = fixture('required');
       input.value = '13';
-      input.jsElement.callMethod('_onInput');
       forceXIfStamp(input);
 
       var container = input.querySelector('paper-input-container');
       expect(container, isNotNull);
       expect(container.invalid, isTrue);
+
+      PaperInputError error =
+          Polymer.dom(input.root).querySelector('paper-input-error');
+      expect(error, isNotNull, reason: 'paper-input-error exists');
+      expect(error.getComputedStyle().visibility, isNot('hidden'),
+          reason: 'error is not visibility:hidden');
     });
 
-    test('empty required input shows error', () {
+    test('empty required input shows error on blur', () {
       GoldCcCvcInput input = fixture('required');
       forceXIfStamp(input);
 
-      var error = input.querySelector('paper-input-error');
-      expect(error, isNotNull);
-      expect(error.getComputedStyle().visibility, equals('visible'),
+      var error = Polymer.dom(input.root).querySelector('paper-input-error');
+      expect(error, isNotNull, reason: 'paper-input-error exists');
+      expect(error.getComputedStyle().visibility, equals('hidden'),
           reason: 'should not be visibility:visible');
+
+      expect(error.getComputedStyle().visibility, 'hidden',
+          reason: 'error is visibility:hidden');
+      focus(input);
+      blur(input);
+
+      expect(error.getComputedStyle().visibility, isNot('hidden'),
+          reason: 'error is not visibility:hidden');
     });
 
     test('invalid input shows error message after manual validation', () {
@@ -67,8 +87,8 @@ main() async {
       expect(error.getComputedStyle().visibility, equals('hidden'),
           reason: 'error should be visibility:hidden');
       input.validate();
-      expect(error.getComputedStyle().visibility, equals('visible'),
-          reason: 'error should not be visibility:visible');
+      expect(error.getComputedStyle().visibility, isNot('hidden'),
+          reason: 'error should not be visibility:hidden');
     });
   });
 

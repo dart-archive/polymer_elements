@@ -6,6 +6,7 @@ library polymer_elements.test.gold_phone_input;
 
 import 'package:polymer_elements/gold_phone_input.dart';
 import 'package:polymer_elements/iron_input.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:web_components/web_components.dart';
 import 'package:test/test.dart';
 import 'common.dart';
@@ -28,6 +29,11 @@ main() async {
       var container = input.querySelector('paper-input-container');
       expect(container, isNotNull);
       expect(container.invalid, isTrue);
+
+      var error = Polymer.dom(input.root).querySelector('paper-input-error');
+      expect(error, isNotNull, reason: 'paper-input-error exists');
+      expect(error.getComputedStyle().visibility, isNot('hidden'),
+          reason: 'error is not visibility:hidden');
     });
 
     test('valid input is ok', () {
@@ -38,25 +44,38 @@ main() async {
       var container = input.querySelector('paper-input-container');
       expect(container, isNotNull);
       expect(container.invalid, isFalse);
+
+      var error = Polymer.dom(input.root).querySelector('paper-input-error');
+      expect(error, isNotNull, reason: 'paper-input-error exists');
+      expect(error.getComputedStyle().visibility, 'hidden',
+          reason: 'error is visibility:hidden');
     });
 
-    test('empty required input shows error', () {
+    test('empty required input shows error on blur', () {
       GoldPhoneInput input = fixture('required');
       forceXIfStamp(input);
 
       var error = input.querySelector('paper-input-error');
       expect(error, isNotNull);
-      expect(error.getComputedStyle().display, isNot('none'),
-          reason: 'error should not be display:none');
+      expect(error.getComputedStyle().visibility, 'hidden',
+          reason: 'error should be visibility:hidden');
+
+      var done = input.on['blur'].first.then((event) {
+        expect(input.focused, isFalse, reason: 'input is blurred');
+        expect(error.getComputedStyle().visibility, isNot('hidden'),
+            reason: 'error is not visibility:hidden');
+      });
+      focus(input.inputElement);
+      blur(input.inputElement);
     });
 
     test('caret position is preserved', () {
       GoldPhoneInput input = fixture('required');
       IronInput ironInput = input.querySelector('input[is="iron-input"]');
-      input.value = '111-111-1';
+      input.value = '111-111';
       ironInput.selectionStart = 2;
       ironInput.selectionEnd = 2;
-      input.jsElement.callMethod('_computeValue', ['112-111-11']);
+      input.jsElement.callMethod('_onValueChanged', ['111-111-1', '111-111']);
 
       expect(ironInput.selectionStart, equals(2),
           reason: 'selectionStart should be preserved');
