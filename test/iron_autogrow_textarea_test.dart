@@ -50,6 +50,18 @@ main() async {
       expect(finalHeight < initialHeight, isTrue);
     });
 
+    test('textarea selection works', () {
+      IronAutogrowTextarea autogrow = fixture('basic');
+      var textarea = autogrow.textarea;
+      autogrow.bindValue = 'batman\nand\nrobin';
+
+      autogrow.selectionStart = 3;
+      autogrow.selectionEnd = 5;
+
+      expect(textarea.selectionStart, 3);
+      expect(textarea.selectionEnd, 5);
+    });
+
     group('focus/blur events', () {
       IronAutogrowTextarea input;
 
@@ -90,6 +102,6 @@ main() async {
         input.bindValue = 'batman';
         expect(input.validate(), isTrue);
       });
-    });
+    }); 
   });
 }
