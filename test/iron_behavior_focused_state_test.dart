@@ -76,9 +76,11 @@ main() async {
 
       focusable.on['focus'].take(1).listen((_) {
         nFocusEvents += 1;
+        expect(focusable.focused, true);
         blur(focusable.$['input']);
       });
       focusable.on['blur'].take(1).listen((_) {
+        expect(focusable.focused, false);
         nBlurEvents += 1;
       });
 
