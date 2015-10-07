@@ -9,7 +9,7 @@ dependencies:
   web_components: ^0.12.0
   reflectable: ^0.3.1
 dev_dependencies:
-  custom_element_apigen: ^0.2.0
+  custom_element_apigen: ^0.2.0+1
   html5lib: ">=0.11.0 <0.13.0"
   path: ^1.0.0
   yaml: ">=1.0.0 <3.0.0"
@@ -45,12 +45,6 @@ transformers:
     - test/paper_scroll_header_panel_scroll_test.dart
 - test/pub_serve:
     $include: test/**_test{.*,}.dart
-
-dependency_overrides:
-  custom_element_apigen:
-    git:
-      ref: remove-void
-      url: https://github.com/dart-lang/custom-element-apigen.git
 
 environment:
   sdk: ">=1.8.0 <2.0.0"
