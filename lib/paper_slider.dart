@@ -76,10 +76,10 @@ class PaperSlider extends HtmlElement with CustomElementProxyMixin, PolymerBase,
   set immediateValue(num value) { jsElement[r'immediateValue'] = value; }
 
   get keyBindings => jsElement[r'keyBindings'];
-  set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   List get markers => jsElement[r'markers'];
-  set markers(List value) { jsElement[r'markers'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set markers(List value) { jsElement[r'markers'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// The maximum number of markers
   num get maxMarkers => jsElement[r'maxMarkers'];

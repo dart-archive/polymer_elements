@@ -23,10 +23,10 @@ abstract class IronMenuBehavior implements CustomElementProxyMixin, IronMultiSel
 
   /// Returns the currently focused item.
   get focusedItem => jsElement[r'focusedItem'];
-  set focusedItem(value) { jsElement[r'focusedItem'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set focusedItem(value) { jsElement[r'focusedItem'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   get keyBindings => jsElement[r'keyBindings'];
-  set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Selects the given value. If the `multi` property is true, then the selected state of the
   /// `value` will be toggled; otherwise the `value` will be selected.

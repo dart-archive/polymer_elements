@@ -17,7 +17,7 @@ abstract class NeonAnimatableBehavior implements CustomElementProxyMixin {
 
   /// Animation configuration. See README for more info.
   get animationConfig => jsElement[r'animationConfig'];
-  set animationConfig(value) { jsElement[r'animationConfig'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set animationConfig(value) { jsElement[r'animationConfig'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Convenience property for setting an 'entry' animation. Do not set `animationConfig.entry`
   /// manually if using this. The animated node is set to `this` if using this property.

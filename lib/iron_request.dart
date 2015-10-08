@@ -26,17 +26,17 @@ class IronRequest extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   /// A promise that resolves when the `xhr` response comes back, or rejects
   /// if there is an error before the `xhr` completes.
   get completes => jsElement[r'completes'];
-  set completes(value) { jsElement[r'completes'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set completes(value) { jsElement[r'completes'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// An object that contains progress information emitted by the XHR if
   /// available.
   get progress => jsElement[r'progress'];
-  set progress(value) { jsElement[r'progress'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set progress(value) { jsElement[r'progress'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// A reference to the parsed response body, if the `xhr` has completely
   /// resolved.
   get response => jsElement[r'response'];
-  set response(value) { jsElement[r'response'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set response(value) { jsElement[r'response'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// A reference to the status code, if the `xhr` has completely resolved.
   num get status => jsElement[r'status'];
@@ -55,7 +55,7 @@ class IronRequest extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   /// A reference to the XMLHttpRequest instance used to generate the
   /// network request.
   get xhr => jsElement[r'xhr'];
-  set xhr(value) { jsElement[r'xhr'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set xhr(value) { jsElement[r'xhr'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Aborts the request.
   abort() =>

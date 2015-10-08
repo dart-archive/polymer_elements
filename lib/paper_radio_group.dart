@@ -37,7 +37,7 @@ class PaperRadioGroup extends HtmlElement with CustomElementProxyMixin, PolymerB
   set attrForSelected(String value) { jsElement[r'attrForSelected'] = value; }
 
   get keyBindings => jsElement[r'keyBindings'];
-  set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Overriden from Polymer.IronSelectableBehavior
   String get selectable => jsElement[r'selectable'];

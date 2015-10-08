@@ -12,17 +12,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <title>iron-list mutations</title>
+  <title>iron-selector exclude local names</title>
 
   <script src="packages/web_components/webcomponents-lite.js"></script>
-  <link rel="x-dart-test" href="iron_list_mutations_test.dart">
-  <!--<script type="application/dart" src="iron_list_mutations_test.dart"></script>-->
+  <link rel="x-dart-test" href="iron_selector_exclude_local_names_test.dart">
+  <!--<script type="application/dart" src="iron_selector_exclude_local_names_test.dart"></script>-->
   <!--<script src="packages/browser/dart.js"></script>-->
   <script src="packages/test/dart.js"></script>
 </head>
 <body>
-  <template id="trivialList">
-    <x-list style="min-height: 300px;"></x-list>
+  <template id="test1">
+    <iron-selector>
+      <div>Item 0</div>
+      <div>Item 1</div>
+      <div>Item 2</div>
+    </iron-selector>
+  </template>
+
+  <template id="test2">
+    <iron-selector>
+      <div>Item 0</div>
+      <div>Item 1</div>
+      <div>Item 2</div>
+      <p>Item 3</p>
+    </iron-selector>
   </template>
 </body>
 </html>

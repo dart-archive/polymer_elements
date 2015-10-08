@@ -53,7 +53,7 @@ abstract class IronOverlayBehavior implements CustomElementProxyMixin, IronFitBe
 
   /// Returns the reason this dialog was last closed.
   get closingReason => jsElement[r'closingReason'];
-  set closingReason(value) { jsElement[r'closingReason'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set closingReason(value) { jsElement[r'closingReason'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Set to true to disable auto-focusing the overlay or child nodes with
   /// the `autofocus` attribute` when the overlay is opened.

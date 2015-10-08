@@ -33,5 +33,5 @@ class IronDocProperty extends HtmlElement with CustomElementProxyMixin, PolymerB
   /// Alternatively, the element descriptor can be provided as JSON via the text content
   /// of this element.
   get descriptor => jsElement[r'descriptor'];
-  set descriptor(value) { jsElement[r'descriptor'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set descriptor(value) { jsElement[r'descriptor'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 }

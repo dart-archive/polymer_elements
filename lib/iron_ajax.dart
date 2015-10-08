@@ -37,7 +37,7 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   /// An Array of all in-flight requests originating from this iron-ajax
   /// element.
   List get activeRequests => jsElement[r'activeRequests'];
-  set activeRequests(List value) { jsElement[r'activeRequests'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set activeRequests(List value) { jsElement[r'activeRequests'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// If true, automatically performs an Ajax request when either `url` or
   /// `params` changes.
@@ -60,7 +60,7 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   /// Otherwise the body will be passed to the browser unmodified, and it
   /// will handle any encoding (e.g. for FormData, Blob, ArrayBuffer).
   get body => jsElement[r'body'];
-  set body(value) { jsElement[r'body'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set body(value) { jsElement[r'body'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Content type to use when sending data. If the `contentType` property
   /// is set and a `Content-Type` header is specified in the `headers`
@@ -104,23 +104,23 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   /// Note: setting a `Content-Type` header here will override the value
   /// specified by the `contentType` property of this element.
   get headers => jsElement[r'headers'];
-  set headers(value) { jsElement[r'headers'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set headers(value) { jsElement[r'headers'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Will be set to the most recent error that resulted from a request
   /// that originated from this iron-ajax element.
   get lastError => jsElement[r'lastError'];
-  set lastError(value) { jsElement[r'lastError'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set lastError(value) { jsElement[r'lastError'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Will be set to the most recent request made by this iron-ajax element.
   get lastRequest => jsElement[r'lastRequest'];
-  set lastRequest(value) { jsElement[r'lastRequest'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set lastRequest(value) { jsElement[r'lastRequest'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Will be set to the most recent response received by a request
   /// that originated from this iron-ajax element. The type of the response
   /// is determined by the value of `handleAs` at the time that the request
   /// was generated.
   get lastResponse => jsElement[r'lastResponse'];
-  set lastResponse(value) { jsElement[r'lastResponse'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set lastResponse(value) { jsElement[r'lastResponse'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Will be set to true if there is at least one in-flight request
   /// associated with this iron-ajax element.
@@ -137,7 +137,7 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   /// content when making a POST request, you should use the `body` property
   /// instead.
   get params => jsElement[r'params'];
-  set params(value) { jsElement[r'params'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set params(value) { jsElement[r'params'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The query string that should be appended to the `url`, serialized from
   /// the current value of `params`.

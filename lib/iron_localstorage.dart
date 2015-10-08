@@ -90,7 +90,7 @@ class IronLocalstorage extends HtmlElement with CustomElementProxyMixin, Polymer
   /// The data associated with this storage.
   /// If set to null item will be deleted.
   get value => jsElement[r'value'];
-  set value(value) { jsElement[r'value'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set value(value) { jsElement[r'value'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Loads the value again. Use if you modify
   /// localStorage using DOM calls, and want to

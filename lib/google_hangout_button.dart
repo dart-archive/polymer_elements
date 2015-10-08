@@ -26,7 +26,7 @@ class GoogleHangoutButton extends HtmlElement with CustomElementProxyMixin, Poly
   /// See the [Initial app parameters reference](https://developers.google.com/+/hangouts/button#initial_app_parameters)
   /// for more details.
   List get apps => jsElement[r'apps'];
-  set apps(List value) { jsElement[r'apps'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set apps(List value) { jsElement[r'apps'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// Specifies the list of people to invite when the user clicks the
   /// Hangout button. Invalid objects and parameters are ignored.
@@ -34,7 +34,7 @@ class GoogleHangoutButton extends HtmlElement with CustomElementProxyMixin, Poly
   /// See the [Invite parameters reference](https://developers.google.com/+/hangouts/button#invite_parameters)
   /// for more details.
   List get invites => jsElement[r'invites'];
-  set invites(List value) { jsElement[r'invites'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set invites(List value) { jsElement[r'invites'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// Pre-populates the topic field for Hangouts on Air. Note that users can
   /// change the topic of the Hangout after they have joined.

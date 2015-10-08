@@ -52,7 +52,7 @@ class PaperTooltip extends HtmlElement with CustomElementProxyMixin, PolymerBase
   factory PaperTooltip() => new Element.tag('paper-tooltip');
 
   get animationConfig => jsElement[r'animationConfig'];
-  set animationConfig(value) { jsElement[r'animationConfig'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set animationConfig(value) { jsElement[r'animationConfig'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// If true, no parts of the tooltip will ever be shown offscreen.
   bool get fitToVisibleBounds => jsElement[r'fitToVisibleBounds'];

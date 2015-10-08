@@ -32,7 +32,7 @@ class GoogleAnalyticsViewSelector extends HtmlElement with CustomElementProxyMix
 
   /// The `account` attribute is the currently selected account.
   get account => jsElement[r'account'];
-  set account(value) { jsElement[r'account'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set account(value) { jsElement[r'account'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The `ids` attribute, when found is used to preselect the chosen
   /// account, property, and view.
@@ -43,7 +43,7 @@ class GoogleAnalyticsViewSelector extends HtmlElement with CustomElementProxyMix
 
   /// The `property` attribute is the currently selected property.
   get property => jsElement[r'property'];
-  set property(value) { jsElement[r'property'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set property(value) { jsElement[r'property'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// True if setup is ready
   bool get setupReady => jsElement[r'setupReady'];
@@ -54,11 +54,11 @@ class GoogleAnalyticsViewSelector extends HtmlElement with CustomElementProxyMix
   ///
   /// See the <a href="https://github.com/googleanalytics/javascript-api-utils">Github repo</a> for more details.
   get summaries => jsElement[r'summaries'];
-  set summaries(value) { jsElement[r'summaries'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set summaries(value) { jsElement[r'summaries'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The `view` attribute is the currently selected view.
   get view => jsElement[r'view'];
-  set view(value) { jsElement[r'view'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set view(value) { jsElement[r'view'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   accountChanged(newAccount, oldAccount) =>
       jsElement.callMethod('accountChanged', [newAccount, oldAccount]);

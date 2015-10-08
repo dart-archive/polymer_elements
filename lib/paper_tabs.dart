@@ -114,5 +114,5 @@ class PaperTabs extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
 
   /// Gets or sets the selected element. The default is to use the index of the item.
   get selected => jsElement[r'selected'];
-  set selected(value) { jsElement[r'selected'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set selected(value) { jsElement[r'selected'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 }

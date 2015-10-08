@@ -25,7 +25,7 @@ abstract class IronButtonState implements CustomElementProxyMixin, IronA11yKeysB
   set ariaActiveAttribute(String value) { jsElement[r'ariaActiveAttribute'] = value; }
 
   get keyBindings => jsElement[r'keyBindings'];
-  set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// True if the element is currently being pressed by a "pointer," which
   /// is loosely defined as mouse or touch input (but specifically excluding

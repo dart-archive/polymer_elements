@@ -25,7 +25,7 @@ class GoogleCalendarList extends HtmlElement with CustomElementProxyMixin, Polym
 
   /// List of calendars
   List get calendars => jsElement[r'calendars'];
-  set calendars(List value) { jsElement[r'calendars'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set calendars(List value) { jsElement[r'calendars'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// A title to be displayed on top of the calendar list.
   String get title => jsElement[r'title'];

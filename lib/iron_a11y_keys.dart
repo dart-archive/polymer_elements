@@ -78,5 +78,5 @@ class IronA11yKeys extends HtmlElement with CustomElementProxyMixin, PolymerBase
   set keys(String value) { jsElement[r'keys'] = value; }
 
   get target => jsElement[r'target'];
-  set target(value) { jsElement[r'target'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set target(value) { jsElement[r'target'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 }

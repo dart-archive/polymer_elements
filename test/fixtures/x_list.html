@@ -7,11 +7,6 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS
 -->
-
-<link rel="import" href="../packages/polymer_interop/polymer.html">
-<link rel="import" href="../packages/polymer_elements/iron_flex_layout_nodart.html">
-<link rel="import" href="../packages/polymer_elements/iron_list_nodart.html">
-
 <dom-module id="x-list">
 
   <style>
@@ -20,10 +15,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     @apply(--layout-vertical);
 
       display: block;
-    }
-
-    iron-list {
-      height: 300px;
     }
 
     .item {
@@ -40,38 +31,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </style>
 
   <template>
-    <iron-list items="[[data]]" as="item" id="list">
+    <iron-list style$="[[computedListHeight(listHeight)]]" items="[[data]]"
+               as="item" id="list">
       <template>
         <div class="item">
-          <div style$="[[_computedStyle()]]">[[item.index]]</div>
+          <div style$="[[computedItemHeight()]]">[[item.index]]</div>
         </div>
       </template>
     </iron-list>
   </template>
 
 </dom-module>
-
-<script>
-  Polymer({
-    is: 'x-list',
-
-    properties: {
-      data: {
-        type: Array
-      },
-
-      itemHeight: {
-        type: Number,
-        value: 100
-      }
-    },
-
-    get list() {
-      return this.$.list;
-    },
-
-    _computedStyle: function() {
-      return 'height: ' + (this.itemHeight) + 'px';
-    }
-  });
-</script>

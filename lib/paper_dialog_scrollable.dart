@@ -36,7 +36,7 @@ class PaperDialogScrollable extends HtmlElement with CustomElementProxyMixin, Po
 
   /// The dialog element that implements `Polymer.PaperDialogBehavior` containing this element.
   get dialogElement => jsElement[r'dialogElement'];
-  set dialogElement(value) { jsElement[r'dialogElement'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set dialogElement(value) { jsElement[r'dialogElement'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Returns the scrolling element.
   get scrollTarget => jsElement[r'scrollTarget'];

@@ -34,7 +34,7 @@ class GoogleFeeds extends HtmlElement with CustomElementProxyMixin, PolymerBase 
 
   /// An array of multiple feeds. Feed will load, and report results in `google-feeds-response` event.
   List get feeds => jsElement[r'feeds'];
-  set feeds(List value) { jsElement[r'feeds'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set feeds(List value) { jsElement[r'feeds'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// True if feeds API is loading an item
   bool get loading => jsElement[r'loading'];
@@ -46,5 +46,5 @@ class GoogleFeeds extends HtmlElement with CustomElementProxyMixin, PolymerBase 
 
   /// Result of loading a single feed url
   get results => jsElement[r'results'];
-  set results(value) { jsElement[r'results'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set results(value) { jsElement[r'results'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 }

@@ -33,9 +33,9 @@ class FirebaseDocument extends HtmlElement with CustomElementProxyMixin, Polymer
 
   /// The `data` object mapped to `location`.
   get data => jsElement[r'data'];
-  set data(value) { jsElement[r'data'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set data(value) { jsElement[r'data'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Firebase Query object corresponding to `location`.
   get queryObject => jsElement[r'query'];
-  set queryObject(value) { jsElement[r'query'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set queryObject(value) { jsElement[r'query'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 }

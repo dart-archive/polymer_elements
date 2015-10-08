@@ -6,7 +6,9 @@ library polymer_elements.test.iron_dropdown_test;
 
 import 'dart:async';
 import 'dart:html';
+import 'dart:js';
 import 'package:polymer_elements/iron_dropdown.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
@@ -23,19 +25,19 @@ main() async {
   await initWebComponents();
   group('<iron-dropdown>', () {
     IronDropdown dropdown;
+    DivElement content;
 
     group('basic', () {
       setUp(() {
         dropdown = fixture('TrivialDropdown');
+        content = Polymer.dom(dropdown).querySelector('.dropdown-content');
       });
 
       test('effectively hides the dropdown content', () {
-        var content = dropdown.querySelector('.dropdown-content');
         expect(elementIsVisible(content), isFalse);
       });
 
       test('shows dropdown content when opened', () {
-        var content = dropdown.querySelector('.dropdown-content');
         dropdown.open();
         return new Future(() {
           expect(elementIsVisible(content), isTrue);
@@ -44,7 +46,6 @@ main() async {
 
       test('hides dropdown content when outside is clicked', () {
         var done = new Completer();
-        var content = dropdown.querySelector('.dropdown-content');
         dropdown.open();
         new Future(() {
           expect(elementIsVisible(content), isTrue);
@@ -57,6 +58,57 @@ main() async {
         });
         return done.future;
       });
+
+      group('when content is focusable', () {
+        setUp(() {
+          dropdown = fixture('FocusableContentDropdown');
+          content = Polymer.dom(dropdown).querySelector('.dropdown-content');
+        });
+        test('focuses the content when opened', () {
+          var done = new Completer();
+          dropdown.open();
+
+          dropdown.async(() {
+            expect(document.activeElement, content);
+            done.complete();
+          });
+          return done.future;
+        });
+
+        test('focuses a configured focus target', () {
+          var done = new Completer();
+          var focusableChild =
+              Polymer.dom(content).querySelector('div[tabindex]');
+          dropdown.focusTarget = focusableChild;
+
+          dropdown.open();
+
+          dropdown.async(() {
+            expect(document.activeElement, isNot(content));
+            expect(document.activeElement, focusableChild);
+            done.complete();
+          });
+
+          return done.future;
+        });
+      });
+    });
+
+    group('locking scroll', () {
+      IronDropdown dropdown;
+
+      setUp(() {
+        dropdown = fixture('NonLockingDropdown');
+      });
+
+      test('can be disabled with `allowOutsideScroll`', () {
+        dropdown.open();
+
+        expect(
+            context['Polymer']['IronDropdownScrollManager']
+                .callMethod('elementIsScrollLocked', [document.body]),
+            false);
+      }, skip: 'https://github.com/dart-lang/polymer_elements/issues/83');
     });
 
     group('aligned dropdown', () {

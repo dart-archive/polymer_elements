@@ -25,11 +25,11 @@ import 'package:polymer_interop/polymer_interop.dart';
 abstract class IronA11yKeysBehavior implements CustomElementProxyMixin {
 
   get keyBindings => jsElement[r'keyBindings'];
-  set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The HTMLElement that will be firing relevant KeyboardEvents.
   get keyEventTarget => jsElement[r'keyEventTarget'];
-  set keyEventTarget(value) { jsElement[r'keyEventTarget'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set keyEventTarget(value) { jsElement[r'keyEventTarget'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Can be used to imperatively add a key binding to the implementing
   /// element. This is the imperative equivalent of declaring a keybinding

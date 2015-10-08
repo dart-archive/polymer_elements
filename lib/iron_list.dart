@@ -99,7 +99,7 @@ class IronList extends HtmlElement with CustomElementProxyMixin, PolymerBase, Te
   /// An array containing items determining how many instances of the template
   /// to stamp and that that each template instance should bind to.
   List get items => jsElement[r'items'];
-  set items(List value) { jsElement[r'items'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set items(List value) { jsElement[r'items'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// When `true`, multiple items may be selected at once (in this case,
   /// `selected` is an array of currently selected items).  When `false`,
@@ -115,11 +115,11 @@ class IronList extends HtmlElement with CustomElementProxyMixin, PolymerBase, Te
   /// When `multiSelection` is false, this is the currently selected item, or `null`
   /// if no item is selected.
   get selectedItem => jsElement[r'selectedItem'];
-  set selectedItem(value) { jsElement[r'selectedItem'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set selectedItem(value) { jsElement[r'selectedItem'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// When `multiSelection` is true, this is an array that contains the selected items.
   get selectedItems => jsElement[r'selectedItems'];
-  set selectedItems(value) { jsElement[r'selectedItems'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set selectedItems(value) { jsElement[r'selectedItems'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// When true, tapping a row will select the item, placing its data model
   /// in the set of selected items retrievable via the selection property.

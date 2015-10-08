@@ -106,7 +106,7 @@ class GoogleSignin extends HtmlElement with CustomElementProxyMixin, PolymerBase
   ///
   /// Available options: short, standard, tall.
   get height => jsElement[r'height'];
-  set height(value) { jsElement[r'height'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set height(value) { jsElement[r'height'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// True if authorizations for *this* element have been granted
   bool get isAuthorized => jsElement[r'isAuthorized'];
@@ -150,13 +150,13 @@ class GoogleSignin extends HtmlElement with CustomElementProxyMixin, PolymerBase
   ///
   /// Available options: light, dark.
   get theme => jsElement[r'theme'];
-  set theme(value) { jsElement[r'theme'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set theme(value) { jsElement[r'theme'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The width to use for the button.
   ///
   /// Available options: iconOnly, standard, wide.
   get width => jsElement[r'width'];
-  set width(value) { jsElement[r'width'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set width(value) { jsElement[r'width'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Sign in user. Opens the authorization dialog for signing in.
   /// The dialog will be blocked by a popup blocker unless called inside click handler.

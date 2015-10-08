@@ -34,7 +34,7 @@ class GoogleCastableVideo extends VideoElement with CustomElementProxyMixin, Pol
   /// the objects currentTime property doesn't represent the actual currentTime of the video
   /// playing on the Chromecast device. To always get the actual position please use bothCurrentTime.
   get bothCurrentTime => jsElement[r'bothCurrentTime'];
-  set bothCurrentTime(value) { jsElement[r'bothCurrentTime'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set bothCurrentTime(value) { jsElement[r'bothCurrentTime'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   get bothPaused => jsElement[r'bothPaused'];
 

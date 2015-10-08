@@ -17,7 +17,7 @@ class HydrolysisAnalyzer extends HtmlElement with CustomElementProxyMixin, Polym
 
   /// The resultant `Analyzer` object from Hydrolysis.
   get analyzer => jsElement[r'analyzer'];
-  set analyzer(value) { jsElement[r'analyzer'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set analyzer(value) { jsElement[r'analyzer'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Whether the hydrolysis descriptors should be cleaned of redundant
   /// properties.

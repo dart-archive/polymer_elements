@@ -77,6 +77,24 @@ main() async {
       });
       return done.future;
     });
+    
+    test('close an overlay in proximity to another overlay', () {
+      TestOverlay secondOverlay = fixture('basic');
+      // Open and close a separate overlay.
+      secondOverlay.open();
+      secondOverlay.close();
+
+      // Open the overlay we care about.
+      overlay.open();
+
+      // Wait for infinite recursion, otherwise we win:
+      var done = overlay.on['iron-overlay-closed'].first;
+
+      // Immediately close the first overlay:
+      overlay.close();
+
+      return done;
+    });
 
     test('clicking an overlay does not close it', () {
       var done = new Completer();

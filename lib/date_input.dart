@@ -24,7 +24,7 @@ class DateInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
 
   /// The date object used by the validator. Has two properties, month and year.
   get date => jsElement[r'date'];
-  set date(value) { jsElement[r'date'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set date(value) { jsElement[r'date'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The month component of the date displayed.
   String get month => jsElement[r'month'];

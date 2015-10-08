@@ -19,7 +19,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!--<script type="application/dart" src="iron_form_test.dart"></script>-->
   <!--<script src="packages/browser/dart.js"></script>-->
   <script src="packages/test/dart.js"></script>
-  <link rel="import" href="fixtures/simple_element.html">
 </head>
 <body>
   <template id="Basic">
@@ -72,6 +71,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <form is="iron-form" action="fixtures/responds_to_post_with_json.json" method="post">
       <simple-element name="zig"></simple-element>
       <input name="foo" required>
+    </form>
+  </template>
+
+  <template id="FormWithRequiredElements">
+    <form is="iron-form" action="/responds_with_json" method="post">
+      <simple-element required></simple-element>
+      <input required>
     </form>
   </template>
 </body>

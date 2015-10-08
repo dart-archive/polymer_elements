@@ -71,7 +71,7 @@ class PaperDropdownMenu extends HtmlElement with CustomElementProxyMixin, Polyme
   get contentElement => jsElement[r'contentElement'];
 
   get keyBindings => jsElement[r'keyBindings'];
-  set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The label for the dropdown.
   String get label => jsElement[r'label'];
@@ -99,7 +99,7 @@ class PaperDropdownMenu extends HtmlElement with CustomElementProxyMixin, Polyme
   /// a child with class `dropdown-content`, and that child triggers an
   /// `iron-select` event with the selected `item` in the `detail`.
   get selectedItem => jsElement[r'selectedItem'];
-  set selectedItem(value) { jsElement[r'selectedItem'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set selectedItem(value) { jsElement[r'selectedItem'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The derived "label" of the currently selected item. This value
   /// is the `label` property on the selected item if set, or else the

@@ -48,7 +48,7 @@ class PaperRadioButton extends HtmlElement with CustomElementProxyMixin, Polymer
 
   /// Fired when the checked state changes.
   get ariaActiveAttribute => jsElement[r'ariaActiveAttribute'];
-  set ariaActiveAttribute(value) { jsElement[r'ariaActiveAttribute'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set ariaActiveAttribute(value) { jsElement[r'ariaActiveAttribute'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Update the checkbox aria-label. This is a temporary workaround not
   /// being able to observe changes in <content>

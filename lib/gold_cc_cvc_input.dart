@@ -64,7 +64,7 @@ class GoldCcCvcInput extends HtmlElement with CustomElementProxyMixin, PolymerBa
   set label(String value) { jsElement[r'label'] = value; }
 
   get value => jsElement[r'value'];
-  set value(value) { jsElement[r'value'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set value(value) { jsElement[r'value'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Returns true if the element has a valid value, and sets the visual
   /// error state.
