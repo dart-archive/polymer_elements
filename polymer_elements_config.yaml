@@ -295,7 +295,7 @@ files_to_generate:
 #  - platinum-sw/platinum-sw-import-script.html
 #  - platinum-sw/platinum-sw-register.html
 files_to_load:
-  - package:polymer_interop/src/js/src/lib/template/templatizer.html
+  - package:polymer_interop/src/js/debug/src/lib/template/templatizer.html
 deletion_patterns:
   - metadata\.html$
   - index\.html$

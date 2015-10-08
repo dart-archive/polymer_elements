@@ -4,8 +4,8 @@ author: Polymer.dart Authors <web-ui-dev@dartlang.org>
 description: Polymer polymer-elements for Dart
 homepage: https://www.dartlang.org/polymer/
 dependencies:
-  browser: any
-  polymer_interop: ^0.2.0
+  browser: ^0.10.0
+  polymer_interop: ^1.0.0-rc.1
   web_components: ^0.12.0
   reflectable: ^0.3.1
 dev_dependencies:
@@ -14,20 +14,8 @@ dev_dependencies:
   path: ^1.0.0
   yaml: ">=1.0.0 <3.0.0"
   test: ^0.12.0
-  polymer:
-    git:
-      ref: 1.0.0-rc.2
-      url: https://github.com/dart-lang/polymer-dart.git
+  polymer: ^1.0.0-rc.2
 
-dependency_overrides:
-  polymer_interop:
-    git:
-      ref: 0.2.0-rc1
-      url: https://github.com/dart-lang/polymer_interop.git
-  custom_element_apigen:
-    git:
-      ref: 0.2.0-dev
-      url: https://github.com/dart-lang/custom-element-apigen.git
 environment:
   sdk: '>=1.6.0 <2.0.0'
 transformers:
@@ -57,3 +45,6 @@ transformers:
     - test/paper_scroll_header_panel_scroll_test.dart
 - test/pub_serve:
     $include: test/**_test{.*,}.dart
+
+environment:
+  sdk: ">=1.8.0 <2.0.0"
