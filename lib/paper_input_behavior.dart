@@ -164,7 +164,7 @@ abstract class PaperInputBehavior implements CustomElementProxyMixin, IronContro
 
   /// Restores the cursor to its original position after updating the value.
   /// [newValue]: The value that should be saved.
-  void updateValueAndPreserveCaret(String newValue) =>
+  updateValueAndPreserveCaret(String newValue) =>
       jsElement.callMethod('updateValueAndPreserveCaret', [newValue]);
 
   /// Validates the input element and sets an error style if needed.

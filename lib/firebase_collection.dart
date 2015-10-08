@@ -133,19 +133,19 @@ class FirebaseCollection extends HtmlElement with CustomElementProxyMixin, Polym
   /// Look up an item in the local `data` Array by key.
   /// [key]: The key associated with the item in the parent
   ///     document.
-  void getByKey(String key) =>
+  getByKey(String key) =>
       jsElement.callMethod('getByKey', [key]);
 
   /// Remove an item from the document referenced at `location`. The item
   /// is assumed to be an identical reference to an item already in the
   /// `data` Array.
   /// [data]: An identical reference to an item in `this.data`.
-  void removeItem(data) =>
+  removeItem(data) =>
       jsElement.callMethod('remove', [data]);
 
   /// Remove an item from the document associated with `location` by key.
   /// [key]: The key associated with the item in the document
   ///     located at `location`.
-  void removeByKey(String key) =>
+  removeByKey(String key) =>
       jsElement.callMethod('removeByKey', [key]);
 }

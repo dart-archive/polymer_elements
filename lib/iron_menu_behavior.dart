@@ -28,6 +28,9 @@ abstract class IronMenuBehavior implements CustomElementProxyMixin, IronMultiSel
   get keyBindings => jsElement[r'keyBindings'];
   set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
-  void select(value) =>
+  /// Selects the given value. If the `multi` property is true, then the selected state of the
+  /// `value` will be toggled; otherwise the `value` will be selected.
+  /// [value]: the value to select.
+  select(String value) =>
       jsElement.callMethod('select', [value]);
 }

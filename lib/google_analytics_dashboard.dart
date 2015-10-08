@@ -10,7 +10,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'google_signin_aware.dart';
 
-/// Element for grouping Google Analytics elements together.
+/// Container element for binding Google Analytics controls to Google Analytics charts.
 ///
 /// `<google-analytics-chart>` elements inside a `<google-analytics-dashboard>`
 /// element will automatically update as control elements (e.g.
@@ -28,8 +28,8 @@ import 'google_signin_aware.dart';
 ///         metrics="ga:sessions"
 ///         dimensions="ga:country"
 ///         sort="-ga:sessions"
-///         maxResults="5"
-///         chartType="column">
+///         max-results="5"
+///         chart-type="column">
 ///       </google-analytics-chart>
 ///
 ///     </google-analytics-dashboard>
@@ -52,11 +52,11 @@ class GoogleAnalyticsDashboard extends HtmlElement with CustomElementProxyMixin,
   /// `analytics-dashboard-control-change` event is fired. It updates the
   /// query attribute, which is then sent to child charts.
   /// [event]: The event with the query data.
-  void queryUpdated(event) =>
+  queryUpdated(event) =>
       jsElement.callMethod('queryUpdated', [event]);
 
   /// The `updateChildren` method updates each of this dashboards
   /// `<google-analytics-chart>` element with its current query value.
-  void updateChildren() =>
+  updateChildren() =>
       jsElement.callMethod('updateChildren', []);
 }

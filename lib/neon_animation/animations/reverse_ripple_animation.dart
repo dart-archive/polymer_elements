@@ -35,9 +35,9 @@ class ReverseRippleAnimation extends HtmlElement with CustomElementProxyMixin, P
   ReverseRippleAnimation.created() : super.created();
   factory ReverseRippleAnimation() => new Element.tag('reverse-ripple-animation');
 
-  void complete() =>
+  complete() =>
       jsElement.callMethod('complete', []);
 
-  void configure(config) =>
+  configure(config) =>
       jsElement.callMethod('configure', [config]);
 }

@@ -19,18 +19,18 @@ abstract class NeonAnimationBehavior implements CustomElementProxyMixin {
   set animationTiming(value) { jsElement[r'animationTiming'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Called when the animation finishes.
-  void complete() =>
+  complete() =>
       jsElement.callMethod('complete', []);
 
   /// Sets `transform` and `transformOrigin` properties along with the prefixed versions.
-  void setPrefixedProperty(node, property, value) =>
+  setPrefixedProperty(node, property, value) =>
       jsElement.callMethod('setPrefixedProperty', [node, property, value]);
 
   /// Returns the animation timing by mixing in properties from `config` to the defaults defined
   /// by the animation.
-  void timingFromConfig(config) =>
+  timingFromConfig(config) =>
       jsElement.callMethod('timingFromConfig', [config]);
 
-  void registered() =>
+  registered() =>
       jsElement.callMethod('registered', []);
 }

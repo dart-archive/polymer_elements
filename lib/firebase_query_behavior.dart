@@ -28,6 +28,6 @@ abstract class FirebaseQueryBehavior implements CustomElementProxyMixin {
   set queryObject(value) { jsElement[r'query'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Disconnects the current Firebase Query instance.
-  void disconnect() =>
+  disconnect() =>
       jsElement.callMethod('disconnect', []);
 }

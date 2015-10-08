@@ -27,6 +27,6 @@ class SlideUpAnimation extends HtmlElement with CustomElementProxyMixin, Polymer
   SlideUpAnimation.created() : super.created();
   factory SlideUpAnimation() => new Element.tag('slide-up-animation');
 
-  void configure(config) =>
+  configure(config) =>
       jsElement.callMethod('configure', [config]);
 }

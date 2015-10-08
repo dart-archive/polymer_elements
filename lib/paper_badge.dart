@@ -62,4 +62,15 @@ class PaperBadge extends HtmlElement with CustomElementProxyMixin, PolymerBase, 
   /// either the element given by the `for` attribute, or the immediate parent
   /// of the badge.
   get target => jsElement[r'target'];
+
+  /// Repositions the badge relative to its anchor element. This is called
+  /// automatically when the badge is attached or an `iron-resize` event is
+  /// fired (for exmaple if the window has resized, or your target is a
+  /// custom element that implements IronResizableBehavior).
+  ///
+  /// You should call this in all other cases when the achor's position
+  /// might have changed (for example, if it's visibility has changed, or
+  /// you've manually done a page re-layout).
+  updatePosition() =>
+      jsElement.callMethod('updatePosition', []);
 }

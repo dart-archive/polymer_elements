@@ -25,13 +25,15 @@ abstract class IronSelectableBehavior implements CustomElementProxyMixin {
   String get attrForSelected => jsElement[r'attrForSelected'];
   set attrForSelected(String value) { jsElement[r'attrForSelected'] = value; }
 
+  /// The set of excluded elements where the key is the `localName`
+  /// of the element that will be ignored from the item list.
   get excludedLocalNames => jsElement[r'excludedLocalNames'];
   set excludedLocalNames(value) { jsElement[r'excludedLocalNames'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Returns an array of selectable items.
   get items => jsElement[r'items'];
 
-  /// This is a CSS selector sting.  If this is set, only items that matches the CSS selector
+  /// This is a CSS selector string.  If this is set, only items that match the CSS selector
   /// are selectable.
   String get selectable => jsElement[r'selectable'];
   set selectable(String value) { jsElement[r'selectable'] = value; }
@@ -53,19 +55,19 @@ abstract class IronSelectableBehavior implements CustomElementProxyMixin {
   set selectedItem(value) { jsElement[r'selectedItem'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Returns the index of the given item.
-  void indexOf(item) =>
+  indexOf(item) =>
       jsElement.callMethod('indexOf', [item]);
 
   /// Selects the given value.
   /// [value]: the value to select.
-  void select(String value) =>
+  select(String value) =>
       jsElement.callMethod('select', [value]);
 
   /// Selects the next item.
-  void selectNext() =>
+  selectNext() =>
       jsElement.callMethod('selectNext', []);
 
   /// Selects the previous item.
-  void selectPrevious() =>
+  selectPrevious() =>
       jsElement.callMethod('selectPrevious', []);
 }

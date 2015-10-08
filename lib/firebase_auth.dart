@@ -62,7 +62,7 @@ class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase
   ///
   /// If the operation fails, the `error` event is fired, with `e.detail`
   /// containing error information supplied from Firebase.
-  void changeEmail(String oldEmail, String newEmail, password) =>
+  changeEmail(String oldEmail, String newEmail, password) =>
       jsElement.callMethod('changeEmail', [oldEmail, newEmail, password]);
 
   /// Changes the password of a "password provider"-based user account.
@@ -71,7 +71,7 @@ class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase
   ///
   /// If the operation fails, the `error` event is fired, with `e.detail`
   /// containing error information supplied from Firebase.
-  void changePassword(String email, String oldPassword, String newPassword) =>
+  changePassword(String email, String oldPassword, String newPassword) =>
       jsElement.callMethod('changePassword', [email, oldPassword, newPassword]);
 
   /// Creates a "password provider"-based user account.
@@ -80,7 +80,7 @@ class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase
   ///
   /// If the operation fails, the `error` event is fired, with `e.detail`
   /// containing error information supplied from Firebase.
-  void createUser(String email, String password) =>
+  createUser(String email, String password) =>
       jsElement.callMethod('createUser', [email, password]);
 
   /// Performs a login attempt, using the `provider` specified via attribute/property,
@@ -97,9 +97,7 @@ class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase
   /// If the browswer supports `navigator.onLine` network status reporting and the
   /// network is currently offline, the login attempt will be queued until the network
   /// is restored.
-  /// [params]: (optional)
-  /// [options]: (optional)
-  void login(String params, String options) =>
+  login(params, options) =>
       jsElement.callMethod('login', [params, options]);
 
   /// Performs a logout attempt.
@@ -112,7 +110,7 @@ class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase
   /// If the browswer supports `navigator.onLine` network status reporting and the
   /// network is currently offline, the logout attempt will be queued until the network
   /// is restored.
-  void logout() =>
+  logout() =>
       jsElement.callMethod('logout', []);
 
   /// Removes a "password provider"-based user account.
@@ -121,7 +119,7 @@ class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase
   ///
   /// If the operation fails, the `error` event is fired, with `e.detail`
   /// containing error information supplied from Firebase.
-  void removeUser(String email, String password) =>
+  removeUser(String email, String password) =>
       jsElement.callMethod('removeUser', [email, password]);
 
   /// Sends a password reset email for a "password provider"-based user account.
@@ -130,6 +128,6 @@ class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase
   ///
   /// If the operation fails, the `error` event is fired, with `e.detail`
   /// containing error information supplied from Firebase.
-  void sendPasswordResetEmail(String email) =>
+  sendPasswordResetEmail(String email) =>
       jsElement.callMethod('sendPasswordResetEmail', [email]);
 }

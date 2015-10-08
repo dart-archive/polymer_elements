@@ -60,40 +60,40 @@ class GoogleAnalyticsViewSelector extends HtmlElement with CustomElementProxyMix
   get view => jsElement[r'view'];
   set view(value) { jsElement[r'view'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
-  void accountChanged(newAccount, oldAccount) =>
+  accountChanged(newAccount, oldAccount) =>
       jsElement.callMethod('accountChanged', [newAccount, oldAccount]);
 
   /// Fire a change event passing all the currently stored data.
-  void fireChangeEvent() =>
+  fireChangeEvent() =>
       jsElement.callMethod('fireChangeEvent', []);
 
-  void idsChanged(newIds, oldIds) =>
+  idsChanged(newIds, oldIds) =>
       jsElement.callMethod('idsChanged', [newIds, oldIds]);
 
-  void propertyChanged(newProperty, oldProperty) =>
+  propertyChanged(newProperty, oldProperty) =>
       jsElement.callMethod('propertyChanged', [newProperty, oldProperty]);
 
-  void setupReadyChanged(newVal, oldVal) =>
+  setupReadyChanged(newVal, oldVal) =>
       jsElement.callMethod('setupReadyChanged', [newVal, oldVal]);
 
   /// The `updateAccount` method is bound to the change event on the
   /// account `<select>`. It updates the property and view `<select>`s based
   /// on the new account data. It also updates the `ids` attribute.
-  void updateAccount() =>
+  updateAccount() =>
       jsElement.callMethod('updateAccount', []);
 
   /// The `updateProperty` method is bound to the change event on the
   /// property `<select>`. It updates the view `<select>` based
   /// on the new property data. It also updates the `ids` attribute.
-  void updateProperty() =>
+  updateProperty() =>
       jsElement.callMethod('updateProperty', []);
 
   /// The `updateView` method is bound to the change event on the
   /// view `<select>`. It updates the `ids` attribute.
-  void updateView() =>
+  updateView() =>
       jsElement.callMethod('updateView', []);
 
   /// this.view = Path.get('views[0]').getValueFrom(newProperty);
-  void viewChanged(newView, oldView) =>
+  viewChanged(newView, oldView) =>
       jsElement.callMethod('viewChanged', [newView, oldView]);
 }

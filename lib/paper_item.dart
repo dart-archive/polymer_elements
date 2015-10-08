@@ -8,8 +8,11 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
-import 'iron_flex_layout.dart';
+import 'iron_control_state.dart';
+import 'iron_button_state.dart';
+import 'iron_a11y_keys_behavior.dart';
 import 'paper_styles.dart';
+import 'paper_item_shared_styles.dart';
 
 /// `<paper-item>` is a non-interactive list item. By default, it is a horizontal flexbox.
 ///
@@ -47,7 +50,7 @@ import 'paper_styles.dart';
 ///       <paper-checkbox></paper-checkbox>
 ///     </paper-item>
 @CustomElementProxy('paper-item')
-class PaperItem extends HtmlElement with CustomElementProxyMixin, PolymerBase {
+class PaperItem extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronButtonState, IronA11yKeysBehavior {
   PaperItem.created() : super.created();
   factory PaperItem() => new Element.tag('paper-item');
 }

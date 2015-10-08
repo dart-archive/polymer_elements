@@ -9,8 +9,9 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_material.dart';
+import 'iron_flex_layout.dart';
 
-/// Material Design: <a href="http://www.google.com/design/spec/components/card.html">Cards</a>
+/// Material Design: <a href="http://www.google.com/design/spec/components/cards.html">Cards</a>
 ///
 /// `paper-card` is a container with a drop shadow.
 ///
@@ -35,6 +36,9 @@ import 'paper_material.dart';
 /// ----------------|-------------|----------
 /// `--paper-card-header-color` | The color of the header text | `#000`
 /// `--paper-card-header` | Mixin applied to the card header section | `{}`
+/// `--paper-card-header-text` | Mixin applied to the title in the card header section | `{}`
+/// `--paper-card-header-image` | Mixin applied to the image in the card header section | `{}`
+/// `--paper-card-header-image-text` | Mixin applied to the text overlapping the image in the card header section | `{}`
 /// `--paper-card-content` | Mixin applied to the card content section| `{}`
 /// `--paper-card-actions` | Mixin applied to the card action section | `{}`
 /// `--paper-card` | Mixin applied to the card | `{}`

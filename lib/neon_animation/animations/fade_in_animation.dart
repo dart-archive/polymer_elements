@@ -25,6 +25,6 @@ class FadeInAnimation extends HtmlElement with CustomElementProxyMixin, PolymerB
   FadeInAnimation.created() : super.created();
   factory FadeInAnimation() => new Element.tag('fade-in-animation');
 
-  void configure(config) =>
+  configure(config) =>
       jsElement.callMethod('configure', [config]);
 }

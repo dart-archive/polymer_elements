@@ -31,18 +31,18 @@ class GoogleAnalyticsLoader extends HtmlElement with CustomElementProxyMixin, Po
   bool get authorized => jsElement[r'authorized'];
   set authorized(bool value) { jsElement[r'authorized'] = value; }
 
-  void computeAllReady(apiReady, authorized) =>
+  computeAllReady(apiReady, authorized) =>
       jsElement.callMethod('computeAllReady', [apiReady, authorized]);
 
-  void handleApiFailedToLoad(ev, detail) =>
+  handleApiFailedToLoad(ev, detail) =>
       jsElement.callMethod('handleApiFailedToLoad', [ev, detail]);
 
-  void handleApiLoad() =>
+  handleApiLoad() =>
       jsElement.callMethod('handleApiLoad', []);
 
-  void handleAuthSignout() =>
+  handleAuthSignout() =>
       jsElement.callMethod('handleAuthSignout', []);
 
-  void handleAuthSuccess() =>
+  handleAuthSuccess() =>
       jsElement.callMethod('handleAuthSuccess', []);
 }

@@ -20,7 +20,7 @@ import 'firebase_query_behavior.dart';
 ///
 ///     <firebase-document
 ///       location="https://dinosaur-facts.firebaseio.com/dinosaurs"
-///       data="{{dinosaurs}}">
+///       data="{{dinosaurs}}"></firebase-document>
 ///
 /// In the above example, if the `dinosaurs` object is data-bound elsewhere via
 /// Polymer's data-binding system, changes to the document will be automatically

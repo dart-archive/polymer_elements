@@ -6,9 +6,12 @@ library polymer_elements.test.iron_ajax_test;
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:html';
 import 'dart:js';
 import 'package:polymer_elements/iron_ajax.dart';
 import 'package:polymer_elements/iron_request.dart';
+import 'package:polymer_interop/polymer_interop.dart';
+import 'package:polymer/polymer.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
@@ -57,7 +60,7 @@ main() async {
         ajax.headers = 'invalid';
         JsObject options = ajax.toRequestOptions();
         var keys = context['Object'].callMethod('keys', [options['headers']]);
-        expect(keys.length, 1);
+        expect(keys.length, 0);
       });
     });
 
@@ -66,8 +69,10 @@ main() async {
         var done = new Completer();
 
         ajax.on['request'].take(1).listen((event) {
-          expect(new JsObject.fromBrowserObject(event)['detail']['options'][
-              'method'], 'GET');
+          expect(
+              new JsObject.fromBrowserObject(event)['detail']['options']
+                  ['method'],
+              'GET');
 
           ajax.method = 'POST';
           ajax.url = 'fixtures/responds_to_post_with_json.json';
@@ -77,8 +82,10 @@ main() async {
           // working as intended?
           new Future(() {}).then((_) {
             ajax.on['request'].take(1).listen((event) {
-              expect(new JsObject.fromBrowserObject(event)['detail']['options'][
-                  'method'], 'POST');
+              expect(
+                  new JsObject.fromBrowserObject(event)['detail']['options']
+                      ['method'],
+                  'POST');
               done.complete();
             });
 
@@ -93,8 +100,20 @@ main() async {
     });
 
     group('when generating a request', () {
-      test('yields a iron-request instance', () {
+      test('yields an iron-request instance', () {
         expect(ajax.generateRequest() is IronRequest, isTrue);
+      });
+
+      test('reflects the loading state in the `loading` property', () {
+        IronRequest request = ajax.generateRequest();
+
+        expect(ajax.loading, true);
+
+        return jsPromiseToFuture(request.completes)
+            .then((_) => wait(1))
+            .then((_) {
+          expect(ajax.loading, false);
+        });
       });
     });
 
@@ -109,8 +128,19 @@ main() async {
         }
       });
 
-      test('holds all requests in the `activeRequests` Array', () {
+      test('holds all requests in the `activeRequests` Array', () async {
         expect(requests, ajax.activeRequests);
+        var futures =
+            requests.map((request) => jsPromiseToFuture(request.completes));
+        await Future.wait(futures);
+      });
+
+      test('empties `activeRequests` when requests are completed', () async {
+        var futures =
+            requests.map((request) => jsPromiseToFuture(request.completes));
+        await Future.wait(futures);
+        await wait(1);
+        expect(ajax.activeRequests.length, 0);
       });
     });
 
@@ -120,16 +150,15 @@ main() async {
         var done = new Completer();
 
         ajax.on['request'].take(1).listen((event) {
-          expect(
-              new JsObject.fromBrowserObject(event)['detail']['options']['url'],
+          expect(convertToDart(event).detail['options']['url'],
               'fixtures/responds_to_get_with_json.json?a=a');
 
           // If we don't do this inside a future, then the outer stream isn't
           // cancelled yet and it gets called twice.
           new Future(() {}).then((_) {
             ajax.on['request'].take(1).listen((event) {
-              expect(new JsObject.fromBrowserObject(event)['detail']['options'][
-                  'url'], 'fixtures/responds_to_get_with_json.json?b=b');
+              expect(convertToDart(event).detail['options']['url'],
+                  'fixtures/responds_to_get_with_json.json?b=b');
               done.complete();
             });
 
@@ -218,8 +247,8 @@ main() async {
         var done = new Completer();
 
         ajax.on['request'].take(1).listen((event) {
-          var options =
-              new JsObject.fromBrowserObject(event)['detail']['options'];
+          var options = new JsObject.fromBrowserObject(event)['detail']
+              ['options'];
           expect(options['body'], requestBody);
           expect(request.xhr['status'], 200);
           done.complete();
@@ -229,6 +258,69 @@ main() async {
         request = ajax.generateRequest();
 
         return done.future;
+      });
+
+      test('if `contentType` is set to form encode, the body is encoded', () {
+        ajax.body = {'foo': 'bar\nbip', 'biz bo': 'baz blar'};
+        ajax.contentType = 'application/x-www-form-urlencoded';
+        IronRequest request = ajax.generateRequest();
+
+        // TODO(jakemac): https://github.com/dart-lang/polymer_elements/issues/16
+        // expect(server.requests[0], isNotNull);
+        // expect(server.requests[0].requestBody,
+        //    'foo=bar%0D%0Abip&biz+bo=baz+blar');
+      });
+
+      test('if `contentType` is json, the body is json encoded', () {
+        var requestObj = {
+          'foo': 'bar',
+          'baz': [1, 2, 3]
+        };
+        ajax.body = requestObj;
+        ajax.contentType = 'application/json';
+        ajax.generateRequest();
+
+        // TODO(jakemac): https://github.com/dart-lang/polymer_elements/issues/16
+        // expect(server.requests[0], isNotNull);
+        // expect(server.requests[0].requestBody,
+        //     JSON.encode(requestObj));
+      });
+
+      group('the examples in the documentation work', () {
+        test('json content, body attribute is an object', () {
+          ajax.setAttribute('body', '{"foo": "bar baz", "x": 1}');
+          ajax.contentType = 'application/json';
+          ajax.generateRequest();
+
+          // TODO(jakemac): https://github.com/dart-lang/polymer_elements/issues/16
+          // expect(server.requests[0], isNotNull);
+          // expect(server.requests[0].requestBody,
+          //     '{"foo":"bar baz","x":1}');
+        });
+
+        test('form content, body attribute is an object', () {
+          ajax.setAttribute('body', '{"foo": "bar baz", "x": 1}');
+          ajax.contentType = 'application/x-www-form-urlencoded';
+          ajax.generateRequest();
+
+          // TODO(jakemac): https://github.com/dart-lang/polymer_elements/issues/16
+          // expect(server.requests[0], isNotNull);
+          // expect(server.requests[0].requestBody,
+          //     'foo=barbaz&x=1');
+        });
+      });
+
+      group('and `contentType` is explicitly set to form encode', () {
+        test('we encode a custom object', () {
+          var requestObj = new Foo('baz');
+          ajax.body = requestObj;
+          ajax.contentType = 'application/x-www-form-urlencoded';
+          ajax.generateRequest();
+
+          // TODO(jakemac): https://github.com/dart-lang/polymer_elements/issues/16
+          // expect(server.requests[0], isNotNull);
+          // expect(server.requests[0].requestBody, 'bar=baz');
+        }, skip: 'https://github.com/dart-lang/polymer-dart/issues/618');
       });
     });
 
@@ -243,8 +335,8 @@ main() async {
         ajax.on['request'].take(2).listen((_) {
           timesCalled++;
         });
-        ajax.requestOptionsChanged();
-        ajax.requestOptionsChanged();
+        ajax.jsElement.callMethod('_requestOptionsChanged');
+        ajax.jsElement.callMethod('_requestOptionsChanged');
         new Future.delayed(new Duration(milliseconds: 200), () {
           expect(timesCalled, 1);
           done.complete();
@@ -349,5 +441,71 @@ main() async {
         return done.future;
       });
     });
+
+    group('when making a POST over the wire', () {
+      IronAjax ajax;
+
+      setUp(() {
+        ajax = fixture('RealPost');
+      });
+
+      test('FormData is handled correctly', () {
+        var requestBody = new FormData();
+        requestBody.append('a', 'foo');
+        requestBody.append('b', 'bar');
+
+        ajax.body = requestBody;
+        return jsPromiseToFuture(ajax.generateRequest().completes).then((_) {
+          expect(ajax.lastResponse['headers']['Content-Type'],
+              matches(r'^multipart/form-data; boundary=.*$'));
+
+          expect(ajax.lastResponse['form']['a'], 'foo');
+          expect(ajax.lastResponse['form']['b'], 'bar');
+        });
+      }, skip: 'https://github.com/dart-lang/polymer_elements/issues/82');
+
+      test('json is handled correctly', () {
+        ajax.body = JSON.encode({'a': 'foo', 'b': 'bar'});
+        ajax.contentType = 'application/json';
+        return jsPromiseToFuture(ajax.generateRequest().completes).then((_) {
+          expect(ajax.lastResponse['headers']['Content-Type'],
+              matches(r'^application\/json(;.*)?$'));
+          expect(ajax.lastResponse['json']['a'], 'foo');
+          expect(ajax.lastResponse['json']['b'], 'bar');
+        });
+      });
+
+      test('urlencoded data is handled correctly', () {
+        ajax.body = 'a=foo&b=bar';
+        return jsPromiseToFuture(ajax.generateRequest().completes).then((_) {
+          expect(ajax.lastResponse['headers']['Content-Type'],
+              matches(r'^application/x-www-form-urlencoded(;.*)?$'));
+
+          expect(ajax.lastResponse['form']['a'], 'foo');
+          expect(ajax.lastResponse['form']['b'], 'bar');
+        });
+      });
+
+      test('xml is handled correctly', () {
+        var xmlDoc = document.implementation.createDocument(null, "foo", null);
+        var node = xmlDoc.createElement("bar");
+        node.setAttribute("name", "baz");
+        xmlDoc.documentElement.append(node);
+        ajax.body = xmlDoc;
+        return jsPromiseToFuture(ajax.generateRequest().completes).then((_) {
+          expect(ajax.lastResponse['headers']['Content-Type'],
+              matches(r'^application\/xml(;.*)?$'));
+          expect(ajax.lastResponse['data'],
+              matches(r'<foo\s*><bar\s+name="baz"\s*\/><\/foo\s*>'));
+        });
+      });
+    });
   });
+}
+
+class Foo extends JsProxy {
+  @reflectable
+  String bar;
+
+  Foo(this.bar);
 }

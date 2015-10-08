@@ -60,6 +60,9 @@ class PaperMenuButton extends HtmlElement with CustomElementProxyMixin, PolymerB
   get closeAnimationConfig => jsElement[r'closeAnimationConfig'];
   set closeAnimationConfig(value) { jsElement[r'closeAnimationConfig'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
+  /// The content element that is contained by the menu button, if any.
+  get contentElement => jsElement[r'contentElement'];
+
   /// The orientation against which to align the menu dropdown
   /// horizontally relative to the dropdown trigger.
   String get horizontalAlign => jsElement[r'horizontalAlign'];
@@ -73,8 +76,8 @@ class PaperMenuButton extends HtmlElement with CustomElementProxyMixin, PolymerB
 
   /// Set to true to disable automatically closing the dropdown after
   /// a selection has been made.
-  bool get ignoreActivate => jsElement[r'ignoreActivate'];
-  set ignoreActivate(bool value) { jsElement[r'ignoreActivate'] = value; }
+  bool get ignoreSelect => jsElement[r'ignoreSelect'];
+  set ignoreSelect(bool value) { jsElement[r'ignoreSelect'] = value; }
 
   /// Set to true to disable animations when opening and closing the
   /// dropdown.
@@ -102,11 +105,11 @@ class PaperMenuButton extends HtmlElement with CustomElementProxyMixin, PolymerB
   set verticalOffset(num value) { jsElement[r'verticalOffset'] = value; }
 
   /// Hide the dropdown content.
-  void close() =>
+  close() =>
       jsElement.callMethod('close', []);
 
   /// Make the dropdown content appear as an overlay positioned relative
   /// to the dropdown trigger.
-  void open() =>
+  open() =>
       jsElement.callMethod('open', []);
 }

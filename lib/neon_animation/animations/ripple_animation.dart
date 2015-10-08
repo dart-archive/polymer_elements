@@ -37,9 +37,9 @@ class RippleAnimation extends HtmlElement with CustomElementProxyMixin, PolymerB
   RippleAnimation.created() : super.created();
   factory RippleAnimation() => new Element.tag('ripple-animation');
 
-  void complete() =>
+  complete() =>
       jsElement.callMethod('complete', []);
 
-  void configure(config) =>
+  configure(config) =>
       jsElement.callMethod('configure', [config]);
 }

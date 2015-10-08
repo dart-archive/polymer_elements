@@ -41,6 +41,6 @@ class DateInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   String get year => jsElement[r'year'];
   set year(String value) { jsElement[r'year'] = value; }
 
-  void validate() =>
+  validate() =>
       jsElement.callMethod('validate', []);
 }

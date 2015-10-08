@@ -34,17 +34,16 @@ abstract class IronA11yKeysBehavior implements CustomElementProxyMixin {
   /// Can be used to imperatively add a key binding to the implementing
   /// element. This is the imperative equivalent of declaring a keybinding
   /// in the `keyBindings` prototype property.
-  void addOwnKeyBinding(eventString, handlerName) =>
+  addOwnKeyBinding(eventString, handlerName) =>
       jsElement.callMethod('addOwnKeyBinding', [eventString, handlerName]);
 
-  /// Returns true if `event.key` or `event.keyCode` matches `eventString`.
-  bool keyboardEventMatchesKeys(event, String eventString) =>
+  keyboardEventMatchesKeys(event, eventString) =>
       jsElement.callMethod('keyboardEventMatchesKeys', [event, eventString]);
 
   /// When called, will remove all imperatively-added key bindings.
-  void removeOwnKeyBindings() =>
+  removeOwnKeyBindings() =>
       jsElement.callMethod('removeOwnKeyBindings', []);
 
-  void registered() =>
+  registered() =>
       jsElement.callMethod('registered', []);
 }

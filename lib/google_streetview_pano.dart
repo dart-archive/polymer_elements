@@ -94,15 +94,15 @@ class GoogleStreetviewPano extends HtmlElement with CustomElementProxyMixin, Pol
   set zoom(num value) { jsElement[r'zoom'] = value; }
 
   /// Reset the pov for the panorama.
-  void reset() =>
+  reset() =>
       jsElement.callMethod('reset', []);
 
   /// Cancel the slow panning animation.
-  void stop() =>
+  stop() =>
       jsElement.callMethod('stop', []);
 
   /// Fired every rAF. Updates the heading to create a slow pan effect
   /// Will be canceled by mouse enter or calling stop()
-  void update() =>
+  update() =>
       jsElement.callMethod('update', []);
 }

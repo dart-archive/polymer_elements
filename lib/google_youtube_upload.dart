@@ -87,6 +87,6 @@ class GoogleYoutubeUpload extends HtmlElement with CustomElementProxyMixin, Poly
   ///
   /// `this.accessToken` must already be set to a valid OAuth 2 access token.
   /// [file]: File object corresponding to the video to upload.
-  void uploadFile(file) =>
+  uploadFile(file) =>
       jsElement.callMethod('uploadFile', [file]);
 }

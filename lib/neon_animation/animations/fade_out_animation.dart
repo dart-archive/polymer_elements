@@ -25,6 +25,6 @@ class FadeOutAnimation extends HtmlElement with CustomElementProxyMixin, Polymer
   FadeOutAnimation.created() : super.created();
   factory FadeOutAnimation() => new Element.tag('fade-out-animation');
 
-  void configure(config) =>
+  configure(config) =>
       jsElement.callMethod('configure', [config]);
 }

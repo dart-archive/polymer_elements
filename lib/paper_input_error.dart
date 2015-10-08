@@ -36,6 +36,6 @@ class PaperInputError extends HtmlElement with CustomElementProxyMixin, PolymerB
   bool get invalid => jsElement[r'invalid'];
   set invalid(bool value) { jsElement[r'invalid'] = value; }
 
-  void update(state) =>
+  update(state) =>
       jsElement.callMethod('update', [state]);
 }

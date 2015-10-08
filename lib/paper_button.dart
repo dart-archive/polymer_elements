@@ -13,6 +13,7 @@ import 'iron_button_state.dart';
 import 'iron_control_state.dart';
 import 'paper_material.dart';
 import 'paper_ripple.dart';
+import 'iron_flex_layout.dart';
 
 /// Material Design: <a href="http://www.google.com/design/spec/components/buttons.html">Buttons</a>
 ///
@@ -22,10 +23,10 @@ import 'paper_ripple.dart';
 ///
 /// Example:
 ///
-///     <paper-button>flat button</paper-button>
-///     <paper-button raised>raised button</paper-button>
+///     <paper-button>Flat button</paper-button>
+///     <paper-button raised>Raised button</paper-button>
 ///     <paper-button noink>No ripple effect</paper-button>
-///     <paper-button toggles>toggle-able button</paper-button>
+///     <paper-button toggles>Toggle-able button</paper-button>
 ///
 /// A button that has `toggles` true will remain `active` after being clicked (and
 /// will have an `active` attribute set). For more information, see the `Polymer.IronButtonState`
@@ -43,29 +44,32 @@ import 'paper_ripple.dart';
 ///
 /// Style the button with CSS as you would a normal DOM element.
 ///
-///     /* make #my-button green with yellow text */
-///     #my-button {
-///         background: green;
-///         color: yellow;
+///     paper-button.fancy {
+///       background: green;
+///       color: yellow;
+///     }
+///
+///     paper-button.fancy:hover {
+///       background: lime;
+///     }
+///
+///     paper-button[disabled],
+///     paper-button[toggles][active] {
+///       background: red;
 ///     }
 ///
 /// By default, the ripple is the same color as the foreground at 25% opacity. You may
-/// customize the color using this selector:
-///
-///     /* make #my-button use a blue ripple instead of foreground color */
-///     #my-button::shadow paper-ripple {
-///       color: blue;
-///     }
-///
-/// The opacity of the ripple is not customizable via CSS.
+/// customize the color using the `--paper-button-ink-color` custom property.
 ///
 /// The following custom properties and mixins are also available for styling:
 ///
 /// Custom property | Description | Default
 /// ----------------|-------------|----------
-/// `--paper-button-flat-focus-color` | Background color of a focused flat button | `--paper-grey-200`
+/// `--paper-button-ink-color` | Background color of the ripple | `Based on the button's color`
 /// `--paper-button` | Mixin applied to the button | `{}`
-/// `--paper-button-disabled` | Mixin applied to the disabled button | `{}`
+/// `--paper-button-disabled` | Mixin applied to the disabled button. Note that you can also use the `paper-button[disabled]` selector | `{}`
+/// `--paper-button-flat-keyboard-focus` | Mixin applied to a flat button after it's been focused using the keyboard | `{}`
+/// `--paper-button-raised-keyboard-focus` | Mixin applied to a raised button after it's been focused using the keyboard | `{}`
 @CustomElementProxy('paper-button')
 class PaperButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperButtonBehavior, IronButtonState, IronControlState, PaperButtonBehaviorImpl {
   PaperButton.created() : super.created();

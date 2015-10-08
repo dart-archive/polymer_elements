@@ -6,6 +6,8 @@ library polymer_elements.test.gold_cc_expiration_input;
 
 import 'package:polymer_elements/gold_cc_expiration_input.dart';
 import 'package:polymer_elements/date_input.dart';
+import 'package:polymer_elements/paper_input_error.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:web_components/web_components.dart';
 import 'package:test/test.dart';
 import 'common.dart';
@@ -22,6 +24,12 @@ main() async {
       var container = input.querySelector('paper-input-container');
       expect(container, isNotNull);
       expect(container.invalid, isTrue);
+
+      PaperInputError error =
+          Polymer.dom(input.root).querySelector('paper-input-error');
+      expect(error, isNotNull, reason: 'paper-input-error exists');
+      expect(error.getComputedStyle().visibility, isNot('hidden'),
+          reason: 'error is not visibility:hidden');
     });
 
     test('misformed dates are not ok', () {
@@ -32,6 +40,12 @@ main() async {
       var container = input.querySelector('paper-input-container');
       expect(container, isNotNull);
       expect(container.invalid, isTrue);
+
+      PaperInputError error =
+          Polymer.dom(input.root).querySelector('paper-input-error');
+      expect(error, isNotNull, reason: 'paper-input-error exists');
+      expect(error.getComputedStyle().visibility, isNot('hidden'),
+          reason: 'error is not visibility:hidden');
     });
 
     test('past dates are not ok', () {
@@ -42,6 +56,12 @@ main() async {
       var container = input.querySelector('paper-input-container');
       expect(container, isNotNull);
       expect(container.invalid, isTrue);
+
+      PaperInputError error =
+          Polymer.dom(input.root).querySelector('paper-input-error');
+      expect(error, isNotNull, reason: 'paper-input-error exists');
+      expect(error.getComputedStyle().visibility, isNot('hidden'),
+          reason: 'error is not visibility:hidden');
     });
 
     test('future dates are ok', () {
@@ -54,6 +74,12 @@ main() async {
       expect(container, isNotNull);
       expect(container.invalid, isFalse);
       expect(input.value, equals('11/99'));
+
+      PaperInputError error =
+          Polymer.dom(input.root).querySelector('paper-input-error');
+      expect(error, isNotNull, reason: 'paper-input-error exists');
+      expect(error.getComputedStyle().visibility, 'hidden',
+          reason: 'error is visibility:hidden');
     });
 
     test('value is updated correctly ', () {
@@ -64,14 +90,24 @@ main() async {
       expect(input.value, equals('11/15'));
     });
 
-    test('empty required input shows error', () {
+    test('empty required input shows error on blur', () {
       GoldCcExpirationInput input = fixture('basic');
       forceXIfStamp(input);
 
-      var error = input.querySelector('paper-input-error');
+      PaperInputError error = input.querySelector('paper-input-error');
       expect(error, isNotNull);
-      expect(error.getComputedStyle().display, isNot('none'),
+      expect(error.getComputedStyle().visibility, 'hidden',
           reason: 'error should not be display:none');
+
+      var done = input.on['blur'].first.then((event) {
+        expect(input.focused, isFalse, reason: 'input is blurred');
+        expect(error.getComputedStyle().visibility, isNot('hidden'),
+            reason: 'error is not visibility:hidden');
+      });
+      focus(input.inputElement);
+      blur(input.inputElement);
+
+      return done;
     });
   });
 

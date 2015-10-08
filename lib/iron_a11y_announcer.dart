@@ -50,6 +50,6 @@ class IronA11yAnnouncer extends HtmlElement with CustomElementProxyMixin, Polyme
 
   /// Cause a text string to be announced by screen readers.
   /// [text]: The text that should be announced.
-  void announce(String text) =>
+  announce(String text) =>
       jsElement.callMethod('announce', [text]);
 }

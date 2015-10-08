@@ -9,7 +9,11 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 
-
+/// iron-request can be used to perform XMLHttpRequests.
+///
+///     <iron-request id="xhr"></iron-request>
+///     ...
+///     this.$.xhr.send({url: url, params: params});
 @CustomElementProxy('iron-request')
 class IronRequest extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronRequest.created() : super.created();
@@ -34,21 +38,33 @@ class IronRequest extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   get response => jsElement[r'response'];
   set response(value) { jsElement[r'response'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
+  /// A reference to the status code, if the `xhr` has completely resolved.
+  num get status => jsElement[r'status'];
+  set status(num value) { jsElement[r'status'] = value; }
+
+  /// A reference to the status text, if the `xhr` has completely resolved.
+  String get statusText => jsElement[r'statusText'];
+  set statusText(String value) { jsElement[r'statusText'] = value; }
+
   /// Succeeded is true if the request succeeded. The request succeeded if the
   /// status code is greater-than-or-equal-to 200, and less-than 300. Also,
   /// the status code 0 is accepted as a success even though the outcome may
   /// be ambiguous.
-  get succeeded => jsElement[r'succeeded'];
+  bool get succeeded => jsElement[r'succeeded'];
 
   /// A reference to the XMLHttpRequest instance used to generate the
   /// network request.
   get xhr => jsElement[r'xhr'];
   set xhr(value) { jsElement[r'xhr'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
-  void abort() =>
+  /// Aborts the request.
+  abort() =>
       jsElement.callMethod('abort', []);
 
-  void parseResponse() =>
+  /// Attempts to parse the response body of the XHR. If parsing succeeds,
+  /// the value returned will be deserialized based on the `responseType`
+  /// set on the XHR.
+  parseResponse() =>
       jsElement.callMethod('parseResponse', []);
 
   /// Sends an HTTP request to the server and returns the XHR object.

@@ -160,10 +160,10 @@ class GoogleSignin extends HtmlElement with CustomElementProxyMixin, PolymerBase
 
   /// Sign in user. Opens the authorization dialog for signing in.
   /// The dialog will be blocked by a popup blocker unless called inside click handler.
-  void signIn() =>
+  signIn() =>
       jsElement.callMethod('signIn', []);
 
   /// Sign out the user
-  void signOut() =>
+  signOut() =>
       jsElement.callMethod('signOut', []);
 }

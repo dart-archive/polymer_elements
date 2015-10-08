@@ -53,19 +53,19 @@ class IronCollapse extends HtmlElement with CustomElementProxyMixin, PolymerBase
   bool get opened => jsElement[r'opened'];
   set opened(bool value) { jsElement[r'opened'] = value; }
 
-  void enableTransition(enabled) =>
+  enableTransition(enabled) =>
       jsElement.callMethod('enableTransition', [enabled]);
 
-  void hide() =>
+  hide() =>
       jsElement.callMethod('hide', []);
 
-  void show() =>
+  show() =>
       jsElement.callMethod('show', []);
 
   /// Toggle the opened state.
-  void toggle() =>
+  toggle() =>
       jsElement.callMethod('toggle', []);
 
-  void updateSize(size, animated) =>
+  updateSize(size, animated) =>
       jsElement.callMethod('updateSize', [size, animated]);
 }

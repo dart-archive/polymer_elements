@@ -22,7 +22,8 @@ import 'google_maps_api.dart';
 ///       <google-map-directions map="{{map}}"
 ///           start-address="San Francisco"
 ///           end-address="Mountain View"
-///           travel-mode="TRANSIT"></google-map-directions>
+///           travel-mode="TRANSIT"
+///           waypoints="[{location: 'Palo Alto'}, {location: 'San Mateo'}]"></google-map-directions>
 ///       <google-map map="{{map}}" latitude="37.779"
 ///                   longitude="-122.3892"></google-map>
 ///     </template>
@@ -72,4 +73,13 @@ class GoogleMapDirections extends HtmlElement with CustomElementProxyMixin, Poly
   /// Travel mode to use.  One of 'DRIVING', 'WALKING', 'BICYCLING', 'TRANSIT'.
   String get travelMode => jsElement[r'travelMode'];
   set travelMode(String value) { jsElement[r'travelMode'] = value; }
+
+  /// Array of intermediate waypoints. Directions will be calculated
+  /// from the origin to the destination by way of each waypoint in this array.
+  /// The maximum allowed waypoints is 8, plus the origin, and destination.
+  /// Maps API for Business customers are allowed 23 waypoints,
+  /// plus the origin, and destination.
+  /// Waypoints are not supported for transit directions. Optional.
+  List get waypoints => jsElement[r'waypoints'];
+  set waypoints(List value) { jsElement[r'waypoints'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
 }

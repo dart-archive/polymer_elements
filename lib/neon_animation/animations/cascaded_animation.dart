@@ -28,9 +28,9 @@ class CascadedAnimation extends HtmlElement with CustomElementProxyMixin, Polyme
   CascadedAnimation.created() : super.created();
   factory CascadedAnimation() => new Element.tag('cascaded-animation');
 
-  void complete() =>
+  complete() =>
       jsElement.callMethod('complete', []);
 
-  void configure(config) =>
+  configure(config) =>
       jsElement.callMethod('configure', [config]);
 }
