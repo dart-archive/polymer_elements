@@ -37,7 +37,7 @@ import 'paper_item_shared_styles.dart';
 /// `--paper-item-icon-width` | Width of the icon area     | `56px`
 /// `--paper-icon-item`       | Mixin applied to the item  | `{}`
 @CustomElementProxy('paper-icon-item')
-class PaperIconItem extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronButtonState, IronA11yKeysBehavior {
+class PaperIconItem extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, IronButtonState {
   PaperIconItem.created() : super.created();
   factory PaperIconItem() => new Element.tag('paper-icon-item');
 }

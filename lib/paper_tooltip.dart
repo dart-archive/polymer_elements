@@ -47,7 +47,7 @@ import 'neon_animation/animations/fade_out_animation.dart';
 /// `--paper-tooltip-text-color` | The text color of the tooltip | `white`
 /// `--paper-tooltip` | Mixin applied to the tooltip | `{}`
 @CustomElementProxy('paper-tooltip')
-class PaperTooltip extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimationRunnerBehavior, NeonAnimatableBehavior {
+class PaperTooltip extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimatableBehavior, NeonAnimationRunnerBehavior {
   PaperTooltip.created() : super.created();
   factory PaperTooltip() => new Element.tag('paper-tooltip');
 

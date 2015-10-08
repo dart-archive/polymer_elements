@@ -10,6 +10,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_inky_focus_behavior.dart';
 import 'iron_button_state.dart';
+import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
 import 'iron_checked_element_behavior.dart';
 import 'iron_form_element_behavior.dart';
@@ -42,7 +43,7 @@ import 'default_theme.dart';
 /// `--paper-radio-button-checked-ink-color` | Selected/focus ripple color when the input is checked | `--default-primary-color`
 /// `--paper-radio-button-label-color` | Label color | `--primary-text-color`
 @CustomElementProxy('paper-radio-button')
-class PaperRadioButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInkyFocusBehavior, IronButtonState, IronControlState, IronCheckedElementBehavior, IronFormElementBehavior, IronValidatableBehavior {
+class PaperRadioButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperInkyFocusBehavior, IronFormElementBehavior, IronValidatableBehavior, IronCheckedElementBehavior {
   PaperRadioButton.created() : super.created();
   factory PaperRadioButton() => new Element.tag('paper-radio-button');
 

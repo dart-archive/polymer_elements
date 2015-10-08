@@ -11,13 +11,13 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_form_element_behavior.dart';
 import 'paper_inky_focus_behavior.dart';
 import 'iron_button_state.dart';
+import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
 import 'iron_range_behavior.dart';
 import 'paper_styles.dart';
 import 'paper_progress.dart';
 import 'paper_input.dart';
 import 'paper_ripple.dart';
-import 'iron_a11y_keys_behavior.dart';
 
 /// `paper-slider` allows user to select a value from a range of values by
 /// moving the slider thumb.  The interactive nature of the slider makes it a
@@ -54,7 +54,7 @@ import 'iron_a11y_keys_behavior.dart';
 /// `--paper-slider-pin-start-color` | The color of the pin at the far left | `#c8c8c8`
 /// `--paper-slider-height` | Height of the progress bar | `2px`
 @CustomElementProxy('paper-slider')
-class PaperSlider extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronFormElementBehavior, PaperInkyFocusBehavior, IronButtonState, IronControlState, IronRangeBehavior {
+class PaperSlider extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronFormElementBehavior, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperInkyFocusBehavior, IronRangeBehavior {
   PaperSlider.created() : super.created();
   factory PaperSlider() => new Element.tag('paper-slider');
 

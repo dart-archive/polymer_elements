@@ -11,6 +11,9 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_resizable_behavior.dart';
 import 'iron_menubar_behavior.dart';
 import 'iron_menu_behavior.dart';
+import 'iron_multi_selectable.dart';
+import 'iron_selectable.dart';
+import 'iron_a11y_keys_behavior.dart';
 import 'iron_flex_layout.dart';
 import 'iron_flex_layout/classes/iron_flex_layout.dart';
 import 'iron_icon.dart';
@@ -77,7 +80,7 @@ import 'paper_tab.dart';
 /// `--paper-tabs-selection-bar-color` | Color for the selection bar | `--paper-yellow-a100`
 /// `--paper-tabs` | Mixin applied to the tabs | `{}`
 @CustomElementProxy('paper-tabs')
-class PaperTabs extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronResizableBehavior, IronMenubarBehavior, IronMenuBehavior {
+class PaperTabs extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronResizableBehavior, IronSelectableBehavior, IronMultiSelectableBehavior, IronA11yKeysBehavior, IronMenuBehavior, IronMenubarBehavior {
   PaperTabs.created() : super.created();
   factory PaperTabs() => new Element.tag('paper-tabs');
 

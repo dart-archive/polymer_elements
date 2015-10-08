@@ -9,6 +9,8 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_overlay_behavior.dart';
+import 'iron_fit_behavior.dart';
+import 'iron_resizable_behavior.dart';
 import 'paper_styles.dart';
 
 /// Use `Polymer.PaperDialogBehavior` and `paper-dialog-common.css` to implement a Material Design
@@ -55,7 +57,7 @@ import 'paper_styles.dart';
 ///
 /// The `aria-labelledby` attribute will be set to the header element, if one exists.
 @BehaviorProxy(const ['Polymer', 'PaperDialogBehavior'])
-abstract class PaperDialogBehavior implements CustomElementProxyMixin, IronOverlayBehavior {
+abstract class PaperDialogBehavior implements CustomElementProxyMixin, IronFitBehavior, IronResizableBehavior, IronOverlayBehavior {
 
   /// If `modal` is true, this implies `no-cancel-on-outside-click` and `with-backdrop`.
   bool get modal => jsElement[r'modal'];

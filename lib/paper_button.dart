@@ -10,6 +10,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_button_behavior.dart';
 import 'iron_button_state.dart';
+import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
 import 'paper_material.dart';
 import 'paper_ripple.dart';
@@ -71,7 +72,7 @@ import 'iron_flex_layout.dart';
 /// `--paper-button-flat-keyboard-focus` | Mixin applied to a flat button after it's been focused using the keyboard | `{}`
 /// `--paper-button-raised-keyboard-focus` | Mixin applied to a raised button after it's been focused using the keyboard | `{}`
 @CustomElementProxy('paper-button')
-class PaperButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperButtonBehavior, IronButtonState, IronControlState, PaperButtonBehaviorImpl {
+class PaperButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperButtonBehavior {
   PaperButton.created() : super.created();
   factory PaperButton() => new Element.tag('paper-button');
 

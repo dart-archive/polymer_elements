@@ -50,7 +50,7 @@ import 'paper_item_shared_styles.dart';
 ///       <paper-checkbox></paper-checkbox>
 ///     </paper-item>
 @CustomElementProxy('paper-item')
-class PaperItem extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronButtonState, IronA11yKeysBehavior {
+class PaperItem extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, IronButtonState {
   PaperItem.created() : super.created();
   factory PaperItem() => new Element.tag('paper-item');
 }
