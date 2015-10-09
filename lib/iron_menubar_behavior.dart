@@ -15,7 +15,7 @@ import 'iron_a11y_keys_behavior.dart';
 
 /// `Polymer.IronMenubarBehavior` implements accessible menubar behavior.
 @BehaviorProxy(const ['Polymer', 'IronMenubarBehavior'])
-abstract class IronMenubarBehavior implements CustomElementProxyMixin, IronSelectableBehavior, IronMultiSelectableBehavior, IronA11yKeysBehavior, IronMenuBehavior {
+abstract class IronMenubarBehavior implements CustomElementProxyMixin, IronMenuBehavior {
 
   get keyBindings => jsElement[r'keyBindings'];
   set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}

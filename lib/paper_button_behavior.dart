@@ -14,5 +14,5 @@ import 'iron_control_state.dart';
 
 
 @BehaviorProxy(const ['Polymer', 'PaperButtonBehavior'])
-abstract class PaperButtonBehavior implements CustomElementProxyMixin, IronA11yKeysBehavior, IronButtonState, IronControlState {
+abstract class PaperButtonBehavior implements CustomElementProxyMixin, IronButtonState, IronControlState {
 }

@@ -27,6 +27,7 @@ transformers:
     - test/iron_behavior_active_state_test.dart
     - test/iron_behavior_disabled_state_test.dart
     - test/iron_behavior_focused_state_test.dart
+    - test/iron_checked_element_behavior_test.dart
     - test/iron_fit_behavior_test.dart
     - test/iron_form_test.dart
     - test/iron_list_basic_test.dart
@@ -55,9 +56,3 @@ transformers:
 
 environment:
   sdk: ">=1.8.0 <2.0.0"
-
-dependency_overrides:
-  custom_element_apigen:
-    git:
-      ref: 0.2.0+2
-      url: https://github.com/dart-lang/custom-element-apigen.git
