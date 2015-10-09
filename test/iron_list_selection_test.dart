@@ -251,23 +251,29 @@ main() async {
       // multi selection
       list.multiSelection = true;
 
+      // Work around dart2js error where template instance isn't a JsObject.
+      JsObject _getTemplateInstance(HtmlElement item) {
+        var instance =
+            new JsObject.fromBrowserObject(item)['_templateInstance'];
+        return instance is JsObject
+            ? instance
+            : new JsObject.fromBrowserObject(instance);
+      }
+
       expect(
-          new JsObject.fromBrowserObject(list.jsElement['_physicalItems'][0])[
-              '_templateInstance']['selected'],
+          _getTemplateInstance(list.jsElement['_physicalItems'][0])['selected'],
           isFalse);
 
       list.selectItem(0);
 
       expect(
-          new JsObject.fromBrowserObject(list.jsElement['_physicalItems'][0])[
-              '_templateInstance']['selected'],
+          _getTemplateInstance(list.jsElement['_physicalItems'][0])['selected'],
           isTrue);
 
       list.toggleSelectionForItem(0);
 
       expect(
-          new JsObject.fromBrowserObject(list.jsElement['_physicalItems'][0])[
-              '_templateInstance']['selected'],
+          _getTemplateInstance(list.jsElement['_physicalItems'][0])['selected'],
           isFalse);
 
       // single selection
@@ -277,12 +283,11 @@ main() async {
       list.selectItem(10);
 
       expect(
-          new JsObject.fromBrowserObject(list.jsElement['_physicalItems'][0])[
-              '_templateInstance']['selected'],
+          _getTemplateInstance(list.jsElement['_physicalItems'][0])['selected'],
           isFalse);
       expect(
-          new JsObject.fromBrowserObject(list.jsElement['_physicalItems'][10])[
-              '_templateInstance']['selected'],
+          _getTemplateInstance(list.jsElement['_physicalItems'][10])[
+              'selected'],
           isTrue);
     });
 
