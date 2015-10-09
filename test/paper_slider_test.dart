@@ -137,14 +137,14 @@ main() async {
       expect(slider.value, slider.max);
       slider.step = 1;
     });
-    
+
     test('value should notify', () {
       var targetValue = 10;
 
       var done = slider.on['value-changed'].first.then((e) {
         expect(convertToDart(e).detail['value'], targetValue);
       });
-      
+
       slider.min = 0;
       slider.max = 100;
       slider.value = targetValue;
@@ -159,14 +159,16 @@ main() async {
         expect(convertToDart(e).detail['value'], targetValue);
         expect(slider.immediateValue, targetValue);
       });
-      
+
       var cursor = topLeftOfNode(slider.$['sliderBar']);
-      cursor.x += slider.$['sliderBar'].getBoundingClientRect().width * targetValue/100;
+      cursor.x += slider.$['sliderBar'].getBoundingClientRect().width *
+          targetValue /
+          100;
 
       slider.min = 0;
       slider.max = 100;
       down(slider.$['sliderBar'], cursor);
-      
+
       return done;
     });
   });
