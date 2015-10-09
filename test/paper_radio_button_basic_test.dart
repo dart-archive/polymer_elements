@@ -25,7 +25,7 @@ main() async {
         expect(r1.checked, isTrue);
         completer.complete();
       });
-      // **Dart Note**: Using `tap` instead of `down` to get test to pass.
+
       tap(r1);
       await completer.future;
     });
@@ -38,23 +38,20 @@ main() async {
         expect(r1.checked, isFalse);
         completer.complete();
       });
-      // **Dart Note**: Using `tap` instead of `down` to get test to pass.
+
       tap(r1);
       await completer.future;
     });
 
     test('disabled button cannot be clicked', () async {
       r1.disabled = true;
-      var completer = new Completer();
-      r1.on['click'].take(1).listen((event) {
-        // **Dart Note**: Expect `false`, js test is wrong.
-        expect(r1.attributes['aria-checked'], 'false');
-        expect(r1.checked, isFalse);
-        completer.complete();
-      });
-      // **Dart Note**: Using `tap` instead of `down` to get test to pass.
+      r1.checked = true;
       tap(r1);
-      await completer.future;
+
+      await wait(1);
+
+      expect(r1.attributes['aria-checked'], 'true');
+      expect(r1.checked, isTrue);
     });
   });
 
@@ -73,7 +70,7 @@ main() async {
     });
 
     test('button with no label has no aria label', () {
-      expect(r1.attributes.containsKey('aria-label'), isFalse);
+      expect(r1.attributes['aria-label'], isEmpty);
     });
 
     test('button with a label sets an aria label', () {
@@ -84,5 +81,10 @@ main() async {
       var c = fixture('AriaLabel');
       expect(c.attributes['aria-label'], equals("Batman"));
     });
+
+    // TODO(jakemac): Investigate these.
+    // a11ySuite('NoLabel');
+    // a11ySuite('WithLabel');
+    // a11ySuite('AriaLabel');
   });
 }

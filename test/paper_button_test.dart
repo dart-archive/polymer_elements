@@ -33,10 +33,6 @@ main() async {
       });
     });
 
-    test('has aria role "button"', () {
-      expect(button.getAttribute('role'), equals('button'));
-    });
-
     test('can be disabled imperatively', () {
       button.disabled = true;
       expect(button.getAttribute('aria-disabled'), equals('true'));
@@ -62,5 +58,20 @@ main() async {
 
       return done.future;
     });
+  });
+  
+  group('<paper-button>', () {
+    var button;
+
+    setUp(() {
+      button = fixture('TrivialButton');
+    });
+
+    test('has aria role "button"', () {
+      expect(button.getAttribute('role'), 'button');
+    });
+
+    // TODO(jakemac): What is this?
+    // a11ySuite('TrivialButton');
   });
 }

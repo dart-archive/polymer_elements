@@ -6,6 +6,7 @@ library polymer_elements.test.paper_checkbox_test;
 
 import 'dart:async';
 import 'package:polymer_elements/paper_checkbox.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:web_components/web_components.dart';
 import 'package:test/test.dart';
 import 'common.dart';
@@ -47,19 +48,42 @@ main() async {
       return done.future;
     });
 
-    test('disabled checkbox cannot be clicked', () {
-      Completer done = new Completer();
+    test('disabled checkbox cannot be clicked', () async {
       c1.disabled = true;
       c1.checked = true;
 
-      c1.on['click'].take(1).listen((_) {
-        expect(c1.getAttribute('aria-checked'), equals('true'));
-        expect(c1.checked, isTrue);
-        done.complete();
-      });
       tap(c1);
+      await wait(1);
+      
+      expect(c1.getAttribute('aria-checked'), equals('true'));
+      expect(c1.checked, isTrue);
+    });
+    
+    test('checkbox can be validated', () {
+      c1.required = true;
+      expect(c1.validate(null), isFalse);
 
-      return done.future;
+      c1.checked = true;
+      expect(c1.validate(null), isTrue);
+    });
+
+    test('disabled checkbox is always valid', () {
+      c1.disabled = true;
+      c1.required = true;
+      expect(c1.validate(null), isTrue);
+
+      c1.checked = true;
+      expect(c1.validate(null), isTrue);
+    });
+
+    test('checkbox label can be updated', () {
+      Polymer.dom(c1).text = 'Batman';
+      c1.updateAriaLabel();
+      expect(c1.getAttribute('aria-label'), 'Batman');
+
+      Polymer.dom(c1).text = 'Robin';
+      c1.updateAriaLabel();
+      expect(c1.getAttribute('aria-label'), 'Robin');
     });
   });
 
@@ -78,7 +102,7 @@ main() async {
     });
 
     test('checkbox with no label has no aria label', () {
-      expect(c1.getAttribute('aria-label'), isNull);
+      expect(c1.getAttribute('aria-label'), isEmpty);
     });
 
     test('checkbox with a label sets an aria label', () {
@@ -89,5 +113,10 @@ main() async {
       PaperCheckbox c = fixture('AriaLabel');
       expect(c.getAttribute('aria-label'), equals("Batman"));
     });
+
+    // TODO(jakemac): Investigate these
+    // a11ySuite('NoLabel');
+    // a11ySuite('WithLabel');
+    // a11ySuite('AriaLabel');
   });
 }

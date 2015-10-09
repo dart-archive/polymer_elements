@@ -10,6 +10,12 @@ import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
 
+// Thanks IE10.
+bool isHidden(Element element) {
+  var rect = element.getBoundingClientRect();
+  return (rect.width == 0 && rect.height == 0);
+}
+
 String escapeHTML(string) {
   SpanElement span = document.createElement('span');
   span.text = string;
@@ -33,45 +39,120 @@ const noValidation = const NoValidation();
 main() async {
   await initWebComponents();
 
-  group('<marked-element>', () {
+  group('<marked-element> with .markdown-html child', () {
     group('respects camelCased HTML', () {
       MarkedElement markedElement;
       DivElement proofElement;
+      DivElement outputElement;
 
       setUp(() {
         markedElement = fixture('CamelCaseHTML');
         proofElement = document.createElement('div');
+        outputElement = document.getElementById('output');
       });
 
       test('in code blocks', () {
         proofElement.setInnerHtml('<div camelCase></div>',
             validator: noValidation);
+
+        expect(outputElement, markedElement.outputElement);
+        expect(isHidden(markedElement.$['content']), isTrue);
+
         // If Markdown content were put into a `<template>` or directly into the DOM, it would be
         // rendered as DOM and be converted from camelCase to lowercase per HTML parsing rules. By
         // using `<script>` descendants, content is interpreted as plain text.
         expect(proofElement.innerHtml, equals('<div camelcase=""></div>'));
-        expect(markedElement.$['content'].innerHtml,
-            contains(escapeHTML('<div camelCase>')));
+        expect(
+            markedElement.innerHtml, contains(escapeHTML('<div camelCase>')));
       });
     });
 
     group('respects bad HTML', () {
       MarkedElement markedElement;
       DivElement proofElement;
+      DivElement outputElement;
 
       setUp(() {
         markedElement = fixture('BadHTML');
         proofElement = document.createElement('div');
+        outputElement = document.getElementById('output');
       });
 
       test('in code blocks', () {
         proofElement.setInnerHtml('<p><div></p></div>');
+        expect(outputElement, markedElement.outputElement);
+        expect(isHidden(markedElement.$['content']), isTrue);
+
         // If Markdown content were put into a `<template>` or directly into the DOM, it would be
         // rendered as DOM and close unbalanced tags. Because they are in code blocks they should
         // remain as typed.
-        expect(proofElement.innerHtml, equals('<p></p><div><p></p></div>'));
-        expect(markedElement.$['content'].innerHtml,
+        // Turns out, however IE and everybody else have slightly different opinions
+        // about how the incorrect HTML should be fixed. It seems that:
+        // IE says:       <p><div></p></div> -> <p><div><p></p></div>
+        // Chrome/FF say: <p><div></p></div> -> <p></p><div><p></p></div>.
+        // So that's cool.
+        var isEqualToOneOfThem = proofElement.innerHtml ==
+                '<p><div><p></p></div>' ||
+            proofElement.innerHtml == '<p></p><div><p></p></div>';
+        expect(isEqualToOneOfThem, isTrue);
+        expect(outputElement.innerHtml,
             contains(escapeHTML('<p><div></p></div>')));
+      });
+    });
+
+    group('<marked-element> without .markdown-html child', () {
+      group('respects camelCased HTML', () {
+        var markedElement;
+        var proofElement;
+
+        setUp(() {
+          markedElement = fixture('CamelCaseHTMLWithoutChild');
+          proofElement = document.createElement('div');
+        });
+
+        test('in code blocks', () {
+          proofElement.setInnerHtml('<div camelCase></div>',
+              validator: noValidation);
+          expect(markedElement.$['content'], markedElement.outputElement);
+          expect(isHidden(markedElement.$['content']), isFalse);
+
+          // If Markdown content were put into a `<template>` or directly into the DOM, it would be
+          // rendered as DOM and be converted from camelCase to lowercase per HTML parsing rules. By
+          // using `<script>` descendants, content is interpreted as plain text.
+          expect(proofElement.innerHtml, '<div camelcase=""></div>');
+          expect(markedElement.$['content'].innerHtml,
+              contains(escapeHTML('<div camelCase>')));
+        });
+      });
+
+      group('respects bad HTML', () {
+        var markedElement;
+        var proofElement;
+
+        setUp(() {
+          markedElement = fixture('BadHTMLWithoutChild');
+          proofElement = document.createElement('div');
+        });
+
+        test('in code blocks', () {
+          proofElement.innerHtml = '<p><div></p></div>';
+          expect(markedElement.$['content'], markedElement.outputElement);
+          expect(isHidden(markedElement.$['content']), isFalse);
+          // If Markdown content were put into a `<template>` or directly into the DOM, it would be
+          // rendered as DOM and close unbalanced tags. Because they are in code blocks they should
+          // remain as typed.
+          // Turns out, however IE and everybody else have slightly different opinions
+          // about how the incorrect HTML should be fixed. It seems that:
+          // IE says:       <p><div></p></div> -> <p><div><p></p></div>
+          // Chrome/FF say: <p><div></p></div> -> <p></p><div><p></p></div>.
+          // So that's cool.
+          var isEqualToOneOfThem = proofElement.innerHtml ==
+                  '<p><div><p></p></div>' ||
+              proofElement.innerHtml == '<p></p><div><p></p></div>';
+          expect(isEqualToOneOfThem, isTrue);
+          expect(markedElement.$['content'].innerHtml,
+              contains(escapeHTML('<p><div></p></div>')));
+        });
       });
     });
   });

@@ -17,8 +17,8 @@ main() async {
     PaperItem item;
     PaperIconItem iconItem;
     setUp(() {
-      item = fixture('item');
-      iconItem = fixture('iconItem');
+      item = fixture('item').querySelector('paper-item');
+      iconItem = fixture('iconItem').querySelector('paper-icon-item');
     });
 
     test('item has role="listitem"', () {
@@ -30,5 +30,9 @@ main() async {
       expect(iconItem.getAttribute('role'), equals('listitem'),
           reason: 'should have role="item"');
     });
+
+    // TODO(jakemac): Investigate these
+    // a11ySuite('item');
+    // a11ySuite('iconItem');
   });
 }

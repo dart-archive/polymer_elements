@@ -7,34 +7,24 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-
-<link rel="import" href="../packages/polymer_interop/polymer.html">
-<link rel="import" href="../packages/polymer_elements/paper_tooltip.html">
-
 <dom-module id="test-button">
-    <style>
-        :host {
-            display: inline-block;
-        }
-
-        #button {
-            width: 100px;
-            height: 20px;
-            background-color: red;
-        }
-        paper-tooltip {
-            width: 70px;
-        }
-
-    </style>
     <template>
+        <style>
+            :host {
+                display: inline-block;
+            }
+
+            #button {
+                width: 100px;
+                height: 20px;
+                background-color: red;
+            }
+            paper-tooltip {
+                width: 70px;
+            }
+
+        </style>
         <div id="button"></div>
         <paper-tooltip id="tooltip" for="button">Tooltip text</paper-tooltip>
     </template>
-
-    <script>
-        Polymer({
-            is: 'test-button'
-        });
-    </script>
 </dom-module>

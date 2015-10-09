@@ -143,20 +143,17 @@ main() async {
     });
 
     test('pressing enter on tab causes a click', () {
-      Completer done = new Completer();
       int clickCount = 0;
 
-      tab.on['click'].take(1).listen((_) {
+      var done = tab.on['click'].first.then((_) {
         clickCount++;
 
         expect(clickCount, equals(1));
-
-        done.complete();
       });
 
       pressEnter(tab);
 
-      return done.future;
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/51');
+      return done;
+    });
   });
 }

@@ -49,6 +49,7 @@ transformers:
     - test/paper_scroll_header_panel_basic_test.dart
     - test/paper_scroll_header_panel_header_state_test.dart
     - test/paper_scroll_header_panel_scroll_test.dart
+    - test/paper_tooltip_test.dart
 - test/pub_serve:
     $include: test/**_test{.*,}.dart
 

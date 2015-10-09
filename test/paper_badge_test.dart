@@ -20,7 +20,7 @@ main() async {
       PaperBadge badge = f.querySelector('paper-badge');
       HtmlElement actualbadge = badge.querySelector('#badge');
       expect(actualbadge.text, equals("1"));
-      badge.jsElement.callMethod('_setPosition');
+      badge.updatePosition();
 
       Completer done = new Completer();
 
@@ -47,7 +47,7 @@ main() async {
     test('badge is positioned correctly after being dynamically set', () {
       DivElement f = fixture('dynamic');
       PaperBadge badge = f.querySelector('paper-badge');
-      badge.jsElement.callMethod('_setPosition');
+      badge.updatePosition();
 
       Completer done = new Completer();
 
@@ -55,7 +55,7 @@ main() async {
         Rectangle contentRect = badge.getBoundingClientRect();
         expect(contentRect.left, isNot(100 - 11));
         badge.forId = 'target';
-        badge.jsElement.callMethod('_setPosition');
+        badge.updatePosition();
 
         wait(1).then((_) {
           Rectangle divRect =
@@ -88,7 +88,7 @@ main() async {
       PaperBadge badge = f.querySelector('paper-badge');
       HtmlElement actualbadge = badge.querySelector('#badge');
       expect(actualbadge.text, equals("1"));
-      badge.jsElement.callMethod('_setPosition');
+      badge.updatePosition();
 
       Completer done = new Completer();
 
