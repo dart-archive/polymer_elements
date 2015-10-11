@@ -42,7 +42,7 @@ import 'zip_validator.dart';
 /// See `Polymer.PaperInputContainer` for a list of custom properties used to
 /// style this element.
 @CustomElementProxy('gold-zip-input')
-class GoldZipInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInputBehavior, IronControlState, IronFormElementBehavior {
+class GoldZipInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, PaperInputBehavior, IronFormElementBehavior {
   GoldZipInput.created() : super.created();
   factory GoldZipInput() => new Element.tag('gold-zip-input');
 

@@ -47,12 +47,16 @@ import 'neon_animation/animations/fade_out_animation.dart';
 /// `--paper-tooltip-text-color` | The text color of the tooltip | `white`
 /// `--paper-tooltip` | Mixin applied to the tooltip | `{}`
 @CustomElementProxy('paper-tooltip')
-class PaperTooltip extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimationRunnerBehavior, NeonAnimatableBehavior {
+class PaperTooltip extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimatableBehavior, NeonAnimationRunnerBehavior {
   PaperTooltip.created() : super.created();
   factory PaperTooltip() => new Element.tag('paper-tooltip');
 
   get animationConfig => jsElement[r'animationConfig'];
-  set animationConfig(value) { jsElement[r'animationConfig'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set animationConfig(value) { jsElement[r'animationConfig'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+
+  /// If true, no parts of the tooltip will ever be shown offscreen.
+  bool get fitToVisibleBounds => jsElement[r'fitToVisibleBounds'];
+  set fitToVisibleBounds(bool value) { jsElement[r'fitToVisibleBounds'] = value; }
 
   /// If true, no parts of the tooltip will ever be shown offscreen.
   bool get fitToVisibleBounds => jsElement[r'fitToVisibleBounds'];

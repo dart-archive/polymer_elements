@@ -5,23 +5,26 @@
 library polymer_elements.test.iron_list_physical_count_test;
 
 import 'dart:async';
+import 'dart:html';
 import 'dart:js';
 import 'package:polymer_elements/iron_list.dart';
+import 'package:polymer/polymer.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
 import 'iron_list_test_helpers.dart';
+import 'fixtures/x_list.dart';
 
 main() async {
-  await initWebComponents();
+  await initPolymer();
 
   group('dynamic physical count', () {
     IronList list;
-    JsObject container;
+    XList container;
 
     setUp(() {
-      container = new JsObject.fromBrowserObject(fixture('trivialList'));
-      list = container['list'];
+      container = fixture('trivialList');
+      list = container.list;
     });
 
     test('increase pool size', () {
@@ -34,5 +37,23 @@ main() async {
         expect(getLastItemFromList(list).text, expectedFinalItem.toString());
       });
     });
+    
+    test('increase pool size on resize', () async {
+      list.items = buildDataSet(1000);
+     
+      await wait(1);
+      // change the height of the list
+      container.set('listHeight', 500);
+      // resize
+      list.fire('resize');
+
+      await wait(1);
+      var lastItem = getLastItemFromList(list);
+      var lastItemHeight = lastItem.offsetHeight;
+      int expectedFinalItem = (list.offsetHeight/lastItemHeight - 1).round();
+      
+      expect(lastItemHeight, 1);
+      expect(getLastItemFromList(list).text, '$expectedFinalItem');
+    }, skip: 'Fails in test runner since window is <500px tall');
   });
 }

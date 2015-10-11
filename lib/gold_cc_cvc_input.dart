@@ -51,7 +51,7 @@ import 'iron_flex_layout/classes/iron_flex_layout.dart';
 /// See `Polymer.PaperInputContainer` for a list of custom properties used to
 /// style this element.
 @CustomElementProxy('gold-cc-cvc-input')
-class GoldCcCvcInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInputBehavior, IronControlState, IronFormElementBehavior {
+class GoldCcCvcInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, PaperInputBehavior, IronFormElementBehavior {
   GoldCcCvcInput.created() : super.created();
   factory GoldCcCvcInput() => new Element.tag('gold-cc-cvc-input');
 
@@ -64,7 +64,7 @@ class GoldCcCvcInput extends HtmlElement with CustomElementProxyMixin, PolymerBa
   set label(String value) { jsElement[r'label'] = value; }
 
   get value => jsElement[r'value'];
-  set value(value) { jsElement[r'value'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set value(value) { jsElement[r'value'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Returns true if the element has a valid value, and sets the visual
   /// error state.

@@ -70,7 +70,7 @@ class GoogleStreetviewPano extends HtmlElement with CustomElementProxyMixin, Pol
   set libraries(String value) { jsElement[r'libraries'] = value; }
 
   get pano => jsElement[r'pano'];
-  set pano(value) { jsElement[r'pano'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set pano(value) { jsElement[r'pano'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Specifies which photosphere to load
   ///
@@ -83,7 +83,7 @@ class GoogleStreetviewPano extends HtmlElement with CustomElementProxyMixin, Pol
   set pitch(num value) { jsElement[r'pitch'] = value; }
 
   get rAFid => jsElement[r'rAFid'];
-  set rAFid(value) { jsElement[r'rAFid'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set rAFid(value) { jsElement[r'rAFid'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Version of the Google Maps API to use.
   String get version => jsElement[r'version'];

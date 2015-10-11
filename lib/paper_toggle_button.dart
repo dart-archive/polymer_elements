@@ -10,6 +10,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_inky_focus_behavior.dart';
 import 'iron_button_state.dart';
+import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
 import 'iron_checked_element_behavior.dart';
 import 'iron_form_element_behavior.dart';
@@ -42,7 +43,7 @@ import 'paper_ripple.dart';
 /// `--paper-toggle-button-checked-bar` | Mixin applied to the slider when the input is checked | `{}`
 /// `--paper-toggle-button-checked-button` | Mixin applied to the slider button when the input is checked | `{}`
 @CustomElementProxy('paper-toggle-button')
-class PaperToggleButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInkyFocusBehavior, IronButtonState, IronControlState, IronCheckedElementBehavior, IronFormElementBehavior, IronValidatableBehavior {
+class PaperToggleButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperInkyFocusBehavior, IronFormElementBehavior, IronValidatableBehavior, IronCheckedElementBehavior {
   PaperToggleButton.created() : super.created();
   factory PaperToggleButton() => new Element.tag('paper-toggle-button');
 }

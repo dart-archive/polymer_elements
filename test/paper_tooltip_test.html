@@ -15,7 +15,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <title>paper tooltip test</title>
 
     <script src="packages/web_components/webcomponents-lite.js"></script>
-    <link rel="import" href="fixtures/tooltip_button.html">
     <link rel="x-dart-test" href="paper_tooltip_test.dart">
     <!--<script type="application/dart" src="paper_tooltip_test.dart"></script>-->
     <script src="packages/test/dart.js"></script>
@@ -32,7 +31,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         paper-tooltip {
             width: 70px;
-            height: 29px;
+            height: 30px;
+        }
+
+        .wide {
+            width: 200px;
         }
     </style>
 </head>
@@ -43,6 +46,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div>
             <div id="target"></div>
             <paper-tooltip for="target">Tooltip text</paper-tooltip>
+        </div>
+    </template>
+
+    <template id="fitted">
+        <div>
+            <div id="target" style="position:absolute"></div>
+            <paper-tooltip for="target" class="wide" fit-to-visible-bounds>Tooltip text</paper-tooltip>
+        </div>
+    </template>
+
+    <template id="no-text">
+        <div>
+            <div id="target"></div>
+            <paper-tooltip for="target"></paper-tooltip>
         </div>
     </template>
 

@@ -10,6 +10,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_inky_focus_behavior.dart';
 import 'iron_button_state.dart';
+import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
 import 'iron_checked_element_behavior.dart';
 import 'iron_form_element_behavior.dart';
@@ -45,7 +46,7 @@ import 'color.dart';
 /// `--paper-checkbox-label-color` | Label color | `--primary-text-color`
 /// `--paper-checkbox-error-color` | Checkbox color when invalid | `--google-red-500`
 @CustomElementProxy('paper-checkbox')
-class PaperCheckbox extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInkyFocusBehavior, IronButtonState, IronControlState, IronCheckedElementBehavior, IronFormElementBehavior, IronValidatableBehavior {
+class PaperCheckbox extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperInkyFocusBehavior, IronFormElementBehavior, IronValidatableBehavior, IronCheckedElementBehavior {
   PaperCheckbox.created() : super.created();
   factory PaperCheckbox() => new Element.tag('paper-checkbox');
 

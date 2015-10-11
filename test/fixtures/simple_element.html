@@ -7,42 +7,9 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-<link rel="import" href="../packages/polymer_interop/polymer.html">
-<link rel="import" href="../packages/polymer_elements/iron_form_element_behavior_nodart.html">
 
 <dom-module id="simple-element">
   <template>
     <span>[[value]]</span>
   </template>
 </dom-module>
-
-<script>
-
-  Polymer({
-
-    is: 'simple-element',
-
-    behaviors: [
-      Polymer.IronFormElementBehavior
-    ],
-
-    properties: {
-      invalid: {
-        type: Boolean,
-        value: false
-      },
-
-      value: {
-        type: String
-      }
-    },
-
-    validate: function() {
-      var valid = this.value ? this.value != '' : false;
-      this.invalid = !valid;
-      return valid;
-    }
-
-  });
-
-</script>

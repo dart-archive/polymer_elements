@@ -7,21 +7,23 @@ library polymer_elements.test.iron_list_mutations_test;
 import 'dart:async';
 import 'dart:js';
 import 'package:polymer_elements/iron_list.dart';
+import 'package:polymer/polymer.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
 import 'iron_list_test_helpers.dart';
+import 'fixtures/x_list.dart';
 
 main() async {
-  await initWebComponents();
+  await initPolymer();
 
   group('mutations to items', () {
     IronList list;
-    JsObject container;
+    XList container;
 
     setUp(() {
-      container = new JsObject.fromBrowserObject(fixture('trivialList'));
-      list = container['list'];
+      container = fixture('trivialList');
+      list = container.list;
     });
 
     test('update physical item', () {

@@ -45,7 +45,7 @@ main() async {
       b1.checked = true;
 
       b1.on['click'].take(1).listen((_) {
-        expect(b1.getAttribute('aria-pressed'), 'false');
+        expect(b1.getAttribute('aria-pressed'), isNot('true'));
         expect(b1.checked, isFalse);
         done.complete();
       });
@@ -55,21 +55,16 @@ main() async {
       return done.future;
     });
 
-    test('disabled button cannot be clicked', () {
-      Completer done = new Completer();
-
+    test('disabled button cannot be clicked', () async {
       b1.disabled = true;
-
-      b1.on['click'].take(1).listen((_) {
-        expect(b1.getAttribute('aria-pressed'), 'true');
-        expect(b1.checked, isTrue);
-        done.complete();
-      });
-
+      b1.checked = true;
       tap(b1);
 
-      return done.future;
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/47');
+      await wait(1);
+
+      expect(b1.getAttribute('aria-pressed'), 'true');
+      expect(b1.checked, isTrue);
+    });
   });
 
   group('a11y', () {
@@ -82,5 +77,8 @@ main() async {
     test('has aria role "button"', () {
       expect(b1.getAttribute('role'), equals('button'));
     });
+
+    // TODO(jakemac): Investigate these
+    // a11ySuite('Basic');
   });
 }

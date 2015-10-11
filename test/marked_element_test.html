@@ -16,12 +16,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script src="packages/web_components/webcomponents-lite.js"></script>
   <link rel="x-dart-test" href="marked_element_test.dart">
+  <!--<script type="application/dart" src="marked_element_test.dart"></script>-->
   <script src="packages/test/dart.js"></script>
 </head>
 <body>
 
 <template id="CamelCaseHTML">
   <marked-element>
+    <div id="output" class="markdown-html"></div>
     <script type="text/markdown">
 ```html
 <div camelCase></div>
@@ -32,11 +34,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <template id="BadHTML">
   <marked-element>
+    <div id="output" class="markdown-html"></div>
     <script type="text/markdown">
 ```html
 <p><div></p></div>
 ```
-        </script>
+    </script>
+  </marked-element>
+</template>
+
+<template id="CamelCaseHTMLWithoutChild">
+  <marked-element>
+    <script type="text/markdown">
+```html
+<div camelCase></div>
+```
+    </script>
+  </marked-element>
+</template>
+
+<template id="BadHTMLWithoutChild">
+  <marked-element>
+    <script type="text/markdown">
+```html
+<p><div></p></div>
+```
+    </script>
   </marked-element>
 </template>
 </body>

@@ -60,7 +60,7 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   /// See <a href="https://google-developers.appspot.com/chart/interactive/docs/reference#DataTable_addColumn">Google Visualization API reference (addColumn)</a>
   /// for column definition format.
   List get cols => jsElement[r'cols'];
-  set cols(List value) { jsElement[r'cols'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set cols(List value) { jsElement[r'cols'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// Sets the entire dataset for this object.
   /// Can be used to provide the data directly, or to provide a URL from
@@ -78,7 +78,7 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   ///  ["Category 1", 1.0],
   ///  ["Category 2", 1.1]]</pre>
   get data => jsElement[r'data'];
-  set data(value) { jsElement[r'data'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set data(value) { jsElement[r'data'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Sets the options for the chart.
   ///
@@ -92,7 +92,7 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   /// See <a href="https://google-developers.appspot.com/chart/interactive/docs/gallery">Google Visualization API reference (Chart Gallery)</a>
   /// for the options available to each chart type.
   get options => jsElement[r'options'];
-  set options(value) { jsElement[r'options'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set options(value) { jsElement[r'options'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Sets the data rows for this object.
   ///
@@ -105,7 +105,7 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   /// See <a href="https://google-developers.appspot.com/chart/interactive/docs/reference#addrow">Google Visualization API reference (addRow)</a>
   /// for row format.
   List get rows => jsElement[r'rows'];
-  set rows(List value) { jsElement[r'rows'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set rows(List value) { jsElement[r'rows'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// Selected datapoint(s) in the map.
   ///
@@ -121,7 +121,7 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   ///   [{row:0,column:1}, {row:1, column:null}]
   /// </pre>
   List get selection => jsElement[r'selection'];
-  set selection(List value) { jsElement[r'selection'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set selection(List value) { jsElement[r'selection'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// Sets the type of the chart.
   ///

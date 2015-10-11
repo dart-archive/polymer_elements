@@ -38,7 +38,7 @@ import 'iron_input.dart';
 /// See `Polymer.PaperInputContainer` for a list of custom properties used to
 /// style this element.
 @CustomElementProxy('gold-email-input')
-class GoldEmailInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInputBehavior, IronControlState, IronFormElementBehavior {
+class GoldEmailInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, PaperInputBehavior, IronFormElementBehavior {
   GoldEmailInput.created() : super.created();
   factory GoldEmailInput() => new Element.tag('gold-email-input');
 
@@ -55,7 +55,7 @@ class GoldEmailInput extends HtmlElement with CustomElementProxyMixin, PolymerBa
   set regex(String value) { jsElement[r'regex'] = value; }
 
   get value => jsElement[r'value'];
-  set value(value) { jsElement[r'value'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set value(value) { jsElement[r'value'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Returns true if the element has a valid value, and sets the visual error
   /// state.

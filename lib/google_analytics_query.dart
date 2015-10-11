@@ -30,7 +30,7 @@ class GoogleAnalyticsQuery extends HtmlElement with CustomElementProxyMixin, Pol
   /// Analytics Core Reporting API. This value will be updated as
   /// subsequent requests are made.
   get data => jsElement[r'data'];
-  set data(value) { jsElement[r'data'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set data(value) { jsElement[r'data'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The `dimensions` attribute is a list of comma-separated dimensions
   /// for your Analytics data, such as ga:browser,ga:city.

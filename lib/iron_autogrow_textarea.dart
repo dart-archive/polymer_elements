@@ -75,11 +75,11 @@ class IronAutogrowTextarea extends HtmlElement with CustomElementProxyMixin, Pol
 
   /// Returns textarea's selection end.
   get selectionEnd => jsElement[r'selectionEnd'];
-  set selectionEnd(value) { jsElement[r'selectionEnd'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set selectionEnd(value) { jsElement[r'selectionEnd'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Returns textarea's selection start.
   get selectionStart => jsElement[r'selectionStart'];
-  set selectionStart(value) { jsElement[r'selectionStart'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set selectionStart(value) { jsElement[r'selectionStart'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Returns the underlying textarea.
   get textarea => jsElement[r'textarea'];

@@ -16,7 +16,7 @@ abstract class NeonSharedElementAnimationBehavior implements CustomElementProxyM
 
   /// Cached copy of shared elements.
   get sharedElements => jsElement[r'sharedElements'];
-  set sharedElements(value) { jsElement[r'sharedElements'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set sharedElements(value) { jsElement[r'sharedElements'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Finds shared elements based on `config`.
   findSharedElements(config) =>

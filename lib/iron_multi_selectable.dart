@@ -20,12 +20,12 @@ abstract class IronMultiSelectableBehavior implements CustomElementProxyMixin, I
 
   /// Returns an array of currently selected items.
   List get selectedItems => jsElement[r'selectedItems'];
-  set selectedItems(List value) { jsElement[r'selectedItems'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set selectedItems(List value) { jsElement[r'selectedItems'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// Gets or sets the selected elements. This is used instead of `selected` when `multi`
   /// is true.
   List get selectedValues => jsElement[r'selectedValues'];
-  set selectedValues(List value) { jsElement[r'selectedValues'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set selectedValues(List value) { jsElement[r'selectedValues'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   multiChanged(multi) =>
       jsElement.callMethod('multiChanged', [multi]);

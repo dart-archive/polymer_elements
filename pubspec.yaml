@@ -1,5 +1,5 @@
 name: polymer_elements
-version: 1.0.0-rc.1
+version: 1.0.0-rc.2
 author: Polymer.dart Authors <web-ui-dev@dartlang.org>
 description: Polymer polymer-elements for Dart
 homepage: https://www.dartlang.org/polymer/
@@ -9,7 +9,7 @@ dependencies:
   web_components: ^0.12.0
   reflectable: ^0.3.1
 dev_dependencies:
-  custom_element_apigen: ^0.2.0+1
+  custom_element_apigen: ^0.2.0+2
   html5lib: ">=0.11.0 <0.13.0"
   path: ^1.0.0
   yaml: ">=1.0.0 <3.0.0"
@@ -27,7 +27,14 @@ transformers:
     - test/iron_behavior_active_state_test.dart
     - test/iron_behavior_disabled_state_test.dart
     - test/iron_behavior_focused_state_test.dart
+    - test/iron_checked_element_behavior_test.dart
     - test/iron_fit_behavior_test.dart
+    - test/iron_form_test.dart
+    - test/iron_list_basic_test.dart
+    - test/iron_list_hidden_test.dart
+    - test/iron_list_mutations_test.dart
+    - test/iron_list_physical_count_test.dart
+    - test/iron_list_selection_test.dart
     - test/iron_menu_behavior_test.dart
     - test/iron_menubar_behavior_test.dart
     - test/iron_overlay_behavior_test.dart
@@ -43,6 +50,7 @@ transformers:
     - test/paper_scroll_header_panel_basic_test.dart
     - test/paper_scroll_header_panel_header_state_test.dart
     - test/paper_scroll_header_panel_scroll_test.dart
+    - test/paper_tooltip_test.dart
 - test/pub_serve:
     $include: test/**_test{.*,}.dart
 

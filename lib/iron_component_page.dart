@@ -37,15 +37,15 @@ class IronComponentPage extends HtmlElement with CustomElementProxyMixin, Polyme
 
   /// The Hydrolysis behavior descriptors that have been loaded.
   List get docBehaviors => jsElement[r'docBehaviors'];
-  set docBehaviors(List value) { jsElement[r'docBehaviors'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set docBehaviors(List value) { jsElement[r'docBehaviors'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// Demos for the currently selected element.
   List get docDemos => jsElement[r'docDemos'];
-  set docDemos(List value) { jsElement[r'docDemos'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set docDemos(List value) { jsElement[r'docDemos'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// The Hydrolysis element descriptors that have been loaded.
   List get docElements => jsElement[r'docElements'];
-  set docElements(List value) { jsElement[r'docElements'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set docElements(List value) { jsElement[r'docElements'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// The URL to a precompiled JSON descriptor. If you have precompiled
   /// and stored a documentation set using Hydrolysis, you can load the

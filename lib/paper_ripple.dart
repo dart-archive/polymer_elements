@@ -82,7 +82,7 @@ class PaperRipple extends HtmlElement with CustomElementProxyMixin, PolymerBase,
   set initialOpacity(num value) { jsElement[r'initialOpacity'] = value; }
 
   get keyBindings => jsElement[r'keyBindings'];
-  set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// How fast (opacity per second) the wave fades out.
   num get opacityDecayVelocity => jsElement[r'opacityDecayVelocity'];
@@ -95,7 +95,7 @@ class PaperRipple extends HtmlElement with CustomElementProxyMixin, PolymerBase,
 
   /// A list of the visual ripples.
   List get ripples => jsElement[r'ripples'];
-  set ripples(List value) { jsElement[r'ripples'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set ripples(List value) { jsElement[r'ripples'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   get shouldKeepAnimating => jsElement[r'shouldKeepAnimating'];
 

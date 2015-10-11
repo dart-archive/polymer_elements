@@ -39,7 +39,7 @@ import 'neon_animation/animations/opaque_animation.dart';
 /// hidden until the dropdown element has `opened` set to true, or when the `open`
 /// method is called on the element.
 @CustomElementProxy('iron-dropdown')
-class IronDropdown extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, IronOverlayBehavior, IronFitBehavior, IronResizableBehavior, NeonAnimationRunnerBehavior, NeonAnimatableBehavior {
+class IronDropdown extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, IronFitBehavior, IronResizableBehavior, IronOverlayBehavior, NeonAnimatableBehavior, NeonAnimationRunnerBehavior {
   IronDropdown.created() : super.created();
   factory IronDropdown() => new Element.tag('iron-dropdown');
 
@@ -53,7 +53,7 @@ class IronDropdown extends HtmlElement with CustomElementProxyMixin, PolymerBase
   /// An animation config. If provided, this will be used to animate the
   /// closing of the dropdown.
   get closeAnimationConfig => jsElement[r'closeAnimationConfig'];
-  set closeAnimationConfig(value) { jsElement[r'closeAnimationConfig'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set closeAnimationConfig(value) { jsElement[r'closeAnimationConfig'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The element that is contained by the dropdown, if any.
   get containedElement => jsElement[r'containedElement'];
@@ -61,7 +61,7 @@ class IronDropdown extends HtmlElement with CustomElementProxyMixin, PolymerBase
   /// If provided, this will be the element that will be focused when
   /// the dropdown opens.
   get focusTarget => jsElement[r'focusTarget'];
-  set focusTarget(value) { jsElement[r'focusTarget'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set focusTarget(value) { jsElement[r'focusTarget'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The orientation against which to align the dropdown content
   /// horizontally relative to the dropdown trigger.
@@ -82,12 +82,12 @@ class IronDropdown extends HtmlElement with CustomElementProxyMixin, PolymerBase
   /// An animation config. If provided, this will be used to animate the
   /// opening of the dropdown.
   get openAnimationConfig => jsElement[r'openAnimationConfig'];
-  set openAnimationConfig(value) { jsElement[r'openAnimationConfig'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set openAnimationConfig(value) { jsElement[r'openAnimationConfig'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The element that should be used to position the dropdown when
   /// it is opened.
   get positionTarget => jsElement[r'positionTarget'];
-  set positionTarget(value) { jsElement[r'positionTarget'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set positionTarget(value) { jsElement[r'positionTarget'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The orientation against which to align the dropdown content
   /// vertically relative to the dropdown trigger.

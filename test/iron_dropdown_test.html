@@ -28,12 +28,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </iron-dropdown>
   </template>
 
+  <template id="NonLockingDropdown">
+    <iron-dropdown>
+      <div class="dropdown-content" allow-outside-scroll>I don't lock scroll!</div>
+    </iron-dropdown>
+  </template>
+
   <template id="AlignedDropdown">
     <div style="display: block; position: relative; width: 100px; height: 100px;">
       <iron-dropdown horizontal-align="right" vertical-align="top">
         <div class="dropdown-content">Hello!</div>
       </iron-dropdown>
     </div>
+  </template>
+
+  <template id="FocusableContentDropdown">
+    <iron-dropdown>
+      <div class="dropdown-content" tabindex="0">
+        <div class="subcontent" tabindex="0"></div>
+      </div>
+    </iron-dropdown>
   </template>
 </body>
 </html>

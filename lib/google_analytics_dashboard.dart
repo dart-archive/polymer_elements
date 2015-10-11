@@ -46,7 +46,7 @@ class GoogleAnalyticsDashboard extends HtmlElement with CustomElementProxyMixin,
   /// dashboard. It is updated when control elements fire the
   /// `analytics-dashboard-control-change` event and pass along query data.
   get queryObject => jsElement[r'query'];
-  set queryObject(value) { jsElement[r'query'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set queryObject(value) { jsElement[r'query'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The `queryUpdated` method is the callback for whenever the
   /// `analytics-dashboard-control-change` event is fired. It updates the

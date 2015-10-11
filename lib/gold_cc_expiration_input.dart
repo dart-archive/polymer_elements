@@ -43,7 +43,7 @@ import 'date_input.dart';
 /// See `Polymer.PaperInputContainer` for a list of custom properties used to
 /// style this element.
 @CustomElementProxy('gold-cc-expiration-input')
-class GoldCcExpirationInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInputBehavior, IronControlState, IronFormElementBehavior {
+class GoldCcExpirationInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, PaperInputBehavior, IronFormElementBehavior {
   GoldCcExpirationInput.created() : super.created();
   factory GoldCcExpirationInput() => new Element.tag('gold-cc-expiration-input');
 
@@ -52,7 +52,7 @@ class GoldCcExpirationInput extends HtmlElement with CustomElementProxyMixin, Po
   set label(String value) { jsElement[r'label'] = value; }
 
   get value => jsElement[r'value'];
-  set value(value) { jsElement[r'value'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set value(value) { jsElement[r'value'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Overidden from Polymer.PaperInputBehavior.
   validate() =>

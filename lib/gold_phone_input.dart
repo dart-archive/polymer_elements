@@ -50,7 +50,7 @@ import 'iron_flex_layout/classes/iron_flex_layout.dart';
 /// See `Polymer.PaperInputContainer` for a list of custom properties used to
 /// style this element.
 @CustomElementProxy('gold-phone-input')
-class GoldPhoneInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInputBehavior, IronControlState, IronFormElementBehavior {
+class GoldPhoneInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, PaperInputBehavior, IronFormElementBehavior {
   GoldPhoneInput.created() : super.created();
   factory GoldPhoneInput() => new Element.tag('gold-phone-input');
 
@@ -68,7 +68,7 @@ class GoldPhoneInput extends HtmlElement with CustomElementProxyMixin, PolymerBa
   set phoneNumberPattern(String value) { jsElement[r'phoneNumberPattern'] = value; }
 
   get value => jsElement[r'value'];
-  set value(value) { jsElement[r'value'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set value(value) { jsElement[r'value'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Overidden from Polymer.PaperInputBehavior.
   validate() =>

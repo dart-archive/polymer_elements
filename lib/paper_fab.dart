@@ -10,6 +10,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_button_behavior.dart';
 import 'iron_button_state.dart';
+import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
 import 'iron_icon.dart';
 import 'iron_flex_layout/classes/iron_flex_layout.dart';
@@ -50,7 +51,7 @@ import 'paper_ripple.dart';
 /// `--paper-fab-mini` | Mixin applied to a mini button | `{}`
 /// `--paper-fab-disabled` | Mixin applied to a disabled button | `{}`
 @CustomElementProxy('paper-fab')
-class PaperFab extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperButtonBehavior, IronButtonState, IronControlState, PaperButtonBehaviorImpl {
+class PaperFab extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperButtonBehavior {
   PaperFab.created() : super.created();
   factory PaperFab() => new Element.tag('paper-fab');
 

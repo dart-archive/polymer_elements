@@ -31,13 +31,13 @@ abstract class IronFitBehavior implements CustomElementProxyMixin {
 
   /// The element to fit `this` into.
   get fitInto => jsElement[r'fitInto'];
-  set fitInto(value) { jsElement[r'fitInto'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set fitInto(value) { jsElement[r'fitInto'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The element that will receive a `max-height`/`width`. By default it is the same as `this`,
   /// but it can be set to a child element. This is useful, for example, for implementing a
   /// scrolling region inside the element.
   get sizingTarget => jsElement[r'sizingTarget'];
-  set sizingTarget(value) { jsElement[r'sizingTarget'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set sizingTarget(value) { jsElement[r'sizingTarget'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Centers horizontally and vertically if not already positioned. This also sets
   /// `position:fixed`.

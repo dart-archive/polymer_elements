@@ -30,7 +30,7 @@ import '../../neon_animation_behavior.dart';
 /// }
 /// ```
 @CustomElementProxy('hero-animation')
-class HeroAnimation extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonSharedElementAnimationBehavior, NeonAnimationBehavior {
+class HeroAnimation extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimationBehavior, NeonSharedElementAnimationBehavior {
   HeroAnimation.created() : super.created();
   factory HeroAnimation() => new Element.tag('hero-animation');
 

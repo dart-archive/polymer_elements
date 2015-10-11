@@ -31,7 +31,7 @@ class GoogleAnalyticsChart extends HtmlElement with CustomElementProxyMixin, Pol
   factory GoogleAnalyticsChart() => new Element.tag('google-analytics-chart');
 
   get data => jsElement[r'data'];
-  set data(value) { jsElement[r'data'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set data(value) { jsElement[r'data'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   String get dimensions => jsElement[r'dimensions'];
   set dimensions(String value) { jsElement[r'dimensions'] = value; }
@@ -67,7 +67,7 @@ class GoogleAnalyticsChart extends HtmlElement with CustomElementProxyMixin, Pol
   /// See <a href="https://google-developers.appspot.com/chart/interactive/docs/gallery">Google Visualization API reference (Chart Gallery)</a>
   /// for the options available to each chart type.
   get options => jsElement[r'options'];
-  set options(value) { jsElement[r'options'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set options(value) { jsElement[r'options'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// True after the chart has been rendered for the first time.
   bool get rendered => jsElement[r'rendered'];

@@ -5,14 +5,18 @@
 library polymer_elements.test.iron_form_test;
 
 import 'dart:async';
+import 'dart:html';
 import 'dart:js';
 import 'package:polymer_elements/iron_form.dart';
+import 'package:polymer/polymer.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
+import 'fixtures/simple_element.dart';
 
+/// [SimpleElement] used.
 main() async {
-  await initWebComponents();
+  await initPolymer();
 
   group('registration', () {
     IronForm f;
@@ -36,6 +40,58 @@ main() async {
         expect(f.jsElement['_customElements']['length'], 0);
         expect(f.jsElement['elements']['length'], 1);
       });
+    });
+  });
+  
+  group('validation', () {
+    test('elements are validated if they don\'t have a name', () {
+      IronForm f = fixture('FormWithRequiredElements');
+      expect(f.jsElement['_customElements'].length, 1);
+      expect(f.jsElement['elements']['length'], 1);
+
+      SimpleElement simpleElement = f.jsElement['_customElements'][0];
+      InputElement input = f.jsElement['elements'][0];
+
+      expect(f.validate(), isFalse);
+      expect(simpleElement.invalid, isTrue);
+      expect(input.validity.valid, isFalse);
+
+      simpleElement.value = 'batman';
+      input.value = 'robin';
+
+      expect(f.validate(), isTrue);
+      expect(simpleElement.invalid, isFalse);
+      expect(input.validity.valid, isTrue);
+
+      // Since the elements don't have names, they don't get serialized.
+      var json = f.serialize();
+      expect(context['Object'].callMethod('keys', [json]).length, 0);
+    });
+
+    test('elements are validated if they have a name', () {
+      IronForm f = fixture('FormWithRequiredElements');
+      expect(f.jsElement['_customElements'].length, 1);
+      expect(f.jsElement['elements']['length'], 1);
+
+      SimpleElement simpleElement = f.jsElement['_customElements'][0];
+      InputElement input = f.jsElement['elements'][0];
+      simpleElement.name = 'zig';
+      input.name = 'zag';
+
+      expect(f.validate(), isFalse);
+      expect(simpleElement.invalid, isTrue);
+      expect(input.validity.valid, isFalse);
+
+      simpleElement.value = 'batman';
+      input.value = 'robin';
+
+      expect(f.validate(), isTrue);
+      expect(simpleElement.invalid, isFalse);
+      expect(input.validity.valid, isTrue);
+
+      // The elements have names, so they're serialized.
+      var json = f.serialize();
+      expect(context['Object'].callMethod('keys', [json]).length, 2);
     });
   });
 
@@ -102,9 +158,8 @@ main() async {
       var done = new Completer();
       form = fixture('InvalidForm');
       var nativeElement = form.querySelector('input');
-      var customElement =
-          new JsObject.fromBrowserObject(form.querySelector('simple-element'));
-      customElement['value'] = "foo";
+      SimpleElement customElement = form.querySelector('simple-element');
+      customElement.value = "foo";
 
       form.on['iron-form-submit'].take(1).listen((_) {
         throw 'Form should not be submitted!';
@@ -112,7 +167,7 @@ main() async {
 
       form.on['iron-form-invalid'].take(1).listen((_) {
         expect(nativeElement.validity.valid, isFalse);
-        expect(customElement['invalid'], isFalse);
+        expect(customElement.invalid, isFalse);
         done.complete();
       });
 
@@ -171,10 +226,10 @@ main() async {
       form.action = "/responds_with_error";
 
       form.on['iron-form-error'].take(1).listen((event) {
-        var error = new JsObject.fromBrowserObject(event)['detail'];
+        var error = convertToDart(event).detail;
 
         expect(error, isNotNull);
-        expect(error is JsObject, isTrue);
+        expect(error is Map, isTrue);
         expect(error['error'], isNotNull);
         done.complete();
       });

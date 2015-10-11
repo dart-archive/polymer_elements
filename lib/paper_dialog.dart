@@ -10,6 +10,8 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_dialog_behavior.dart';
 import 'iron_overlay_behavior.dart';
+import 'iron_fit_behavior.dart';
+import 'iron_resizable_behavior.dart';
 import 'neon_animation_runner_behavior.dart';
 import 'neon_animatable_behavior.dart';
 import 'paper_styles.dart';
@@ -60,7 +62,7 @@ import 'paper_styles.dart';
 /// See the docs for `Polymer.PaperDialogBehavior` for accessibility features implemented by this
 /// element.
 @CustomElementProxy('paper-dialog')
-class PaperDialog extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperDialogBehavior, IronOverlayBehavior, NeonAnimationRunnerBehavior, NeonAnimatableBehavior {
+class PaperDialog extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronFitBehavior, IronResizableBehavior, IronOverlayBehavior, PaperDialogBehavior, NeonAnimatableBehavior, NeonAnimationRunnerBehavior {
   PaperDialog.created() : super.created();
   factory PaperDialog() => new Element.tag('paper-dialog');
 }

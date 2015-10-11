@@ -10,6 +10,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_inky_focus_behavior.dart';
 import 'iron_button_state.dart';
+import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
 import 'iron_icon.dart';
 import 'iron_flex_layout.dart';
@@ -64,7 +65,7 @@ import 'paper_ripple.dart';
 /// `--paper-icon-button` | Mixin for a button | `{}`
 /// `--paper-icon-button-disabled` | Mixin for a disabled button | `{}`
 @CustomElementProxy('paper-icon-button')
-class PaperIconButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInkyFocusBehavior, IronButtonState, IronControlState {
+class PaperIconButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperInkyFocusBehavior {
   PaperIconButton.created() : super.created();
   factory PaperIconButton() => new Element.tag('paper-icon-button');
 

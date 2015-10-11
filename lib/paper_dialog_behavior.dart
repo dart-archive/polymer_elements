@@ -9,6 +9,8 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_overlay_behavior.dart';
+import 'iron_fit_behavior.dart';
+import 'iron_resizable_behavior.dart';
 import 'paper_styles.dart';
 
 /// Use `Polymer.PaperDialogBehavior` and `paper-dialog-common.css` to implement a Material Design

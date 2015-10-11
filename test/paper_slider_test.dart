@@ -6,6 +6,7 @@ library polymer_elements.test.paper_slider_test;
 
 import 'package:polymer_elements/paper_input.dart';
 import 'package:polymer_elements/paper_slider.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
@@ -135,6 +136,40 @@ main() async {
       await wait(1);
       expect(slider.value, slider.max);
       slider.step = 1;
+    });
+
+    test('value should notify', () {
+      var targetValue = 10;
+
+      var done = slider.on['value-changed'].first.then((e) {
+        expect(convertToDart(e).detail['value'], targetValue);
+      });
+
+      slider.min = 0;
+      slider.max = 100;
+      slider.value = targetValue;
+
+      return done;
+    });
+
+    test('immediateValue should notify', () {
+      var targetValue = 50;
+
+      var done = slider.on['immediate-value-changed'].first.then((e) {
+        expect(convertToDart(e).detail['value'], targetValue);
+        expect(slider.immediateValue, targetValue);
+      });
+
+      var cursor = topLeftOfNode(slider.$['sliderBar']);
+      cursor.x += slider.$['sliderBar'].getBoundingClientRect().width *
+          targetValue /
+          100;
+
+      slider.min = 0;
+      slider.max = 100;
+      down(slider.$['sliderBar'], cursor);
+
+      return done;
     });
   });
 }

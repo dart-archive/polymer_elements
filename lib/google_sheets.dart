@@ -100,19 +100,19 @@ class GoogleSheets extends HtmlElement with CustomElementProxyMixin, PolymerBase
 
   /// If a spreadsheet `key` is specified, returns a list of cell row data.
   List get rows => jsElement[r'rows'];
-  set rows(List value) { jsElement[r'rows'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set rows(List value) { jsElement[r'rows'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// The fetched sheet corresponding to the `key` attribute.
   get sheet => jsElement[r'sheet'];
-  set sheet(value) { jsElement[r'sheet'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set sheet(value) { jsElement[r'sheet'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// List of the user's spreadsheets. Shared across instances.
   List get spreadsheets => jsElement[r'spreadsheets'];
-  set spreadsheets(List value) { jsElement[r'spreadsheets'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set spreadsheets(List value) { jsElement[r'spreadsheets'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// Meta data about the particular tab that was retrieved for the spreadsheet.
   get tab => jsElement[r'tab'];
-  set tab(value) { jsElement[r'tab'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set tab(value) { jsElement[r'tab'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Tab within a spreadsheet. For example, the first tab in a spreadsheet
   /// would be `tab-id="1"`.

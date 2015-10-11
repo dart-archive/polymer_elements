@@ -7,21 +7,24 @@ library polymer_elements.test.iron_list_basic_test;
 import 'dart:async';
 import 'dart:js';
 import 'package:polymer_elements/iron_list.dart';
+import 'package:polymer/polymer.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
 import 'iron_list_test_helpers.dart';
+import 'fixtures/x_list.dart';
 
+/// Uses [XList].
 main() async {
-  await initWebComponents();
+  await initPolymer();
 
   group('basic features', () {
     IronList list;
-    JsObject container;
+    XList container;
 
     setUp(() {
-      container = new JsObject.fromBrowserObject(fixture('trivialList'));
-      list = container['list'];
+      container = fixture('trivialList');
+      list = container.list;
     });
 
     test('defaults', () {
@@ -31,14 +34,14 @@ main() async {
     });
 
     test('check items length', () {
-      container['data'] = buildDataSet(100);
+      container.set('data', buildDataSet(100));
       return new Future(() {}).then((_) {
-        expect(list.items.length, container['data'].length);
+        expect(list.items.length, container.data.length);
       });
     });
 
     test('check physical item heights', () {
-      container['data'] = buildDataSet(100);
+      container.set('data', buildDataSet(100));
       return new Future(() {}).then((_) {
         var rowHeight = list.jsElement['_physicalItems'][0].offsetHeight;
         list.jsElement['_physicalItems'].forEach((item) {
@@ -48,8 +51,8 @@ main() async {
     });
 
     test('check physical item size', () {
-      var setSize = list.jsElement['_physicalCount'] - 1;
-      container['data'] = buildDataSet(setSize);
+      var setSize = 10;
+      container.set('data', buildDataSet(setSize));
       return new Future(() {}).then((_) {
         expect(list.items.length, setSize);
       });
@@ -57,7 +60,7 @@ main() async {
 
     test('first visible index', () {
       var done = new Completer();
-      container['data'] = buildDataSet(100);
+      container.set('data', buildDataSet(100));
       new Future(() {}).then((_) {
         var rowHeight = list.jsElement['_physicalItems'][0].offsetHeight;
         var viewportHeight = list.offsetHeight;
@@ -116,6 +119,23 @@ main() async {
         });
       });
       return done.future;
+    });
+
+    test('reset items', () async {
+      list.items = buildDataSet(100);
+
+      await wait(1);
+      var firstItem = getFirstItemFromList(list);
+      expect(firstItem.text, '0');
+
+      list.items = null;
+
+      await wait(1);
+      expect(getFirstItemFromList(list), isNot(firstItem));
+      list.items = buildDataSet(100);
+
+      await wait(1);
+      expect(getFirstItemFromList(list), firstItem);
     });
   });
 }

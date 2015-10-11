@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.paper_progress_test;
 
+import 'dart:html';
 import 'package:polymer_elements/paper_progress.dart';
 import 'package:web_components/web_components.dart';
 import 'package:test/test.dart';
@@ -12,89 +13,120 @@ import 'common.dart';
 main() async {
   await initWebComponents();
 
-  group('<paper-progress>', () {
-    PaperProgress range;
+  group('basic features', () {
+    PaperProgress progress;
+
     setUp(() {
-      range = fixture('trivialProgress');
+      progress = fixture('trivialProgress');
     });
 
     test('check default', () {
-      expect(range.min, equals(0));
-      expect(range.max, equals(100));
-      expect(range.value, equals(0));
+      expect(progress.min, equals(0));
+      expect(progress.max, equals(100));
+      expect(progress.value, equals(0));
     });
 
     test('set value', () {
-      range.value = 50;
+      progress.value = 50;
 
       flushAsynchronousOperations();
 
-      expect(range.value, equals(50));
+      expect(progress.value, equals(50));
 
       // test clamp value
-      range.value = 60.1;
+      progress.value = 60.1;
 
       flushAsynchronousOperations();
 
-      expect(range.value, equals(60));
+      expect(progress.value, equals(60));
     });
 
     test('set max', () {
-      range.max = 10;
-      range.value = 11;
+      progress.max = 10;
+      progress.value = 11;
 
-      expect(range.value, equals(range.max));
+      expect(progress.value, equals(progress.max));
     });
 
     test('test ratio', () {
-      range.max = 10;
-      range.value = 5;
+      progress.max = 10;
+      progress.value = 5;
 
       flushAsynchronousOperations();
 
-      expect(range.ratio, equals(50));
+      expect(progress.ratio, equals(50));
     });
 
     test('test secondary ratio', () {
-      range.max = 10;
-      range.secondaryProgress = 5;
+      progress.max = 10;
+      progress.secondaryProgress = 5;
 
       flushAsynchronousOperations();
 
-      expect(range.secondaryRatio, equals(50));
+      expect(progress.secondaryRatio, equals(50));
     });
 
     test('set min', () {
-      range.min = 10;
-      range.max = 50;
-      range.value = 30;
+      progress.min = 10;
+      progress.max = 50;
+      progress.value = 30;
 
       flushAsynchronousOperations();
 
-      expect(range.ratio, equals(50));
+      expect(progress.ratio, equals(50));
 
-      range.value = 0;
+      progress.value = 0;
 
       flushAsynchronousOperations();
 
-      expect(range.value, equals(range.min));
+      expect(progress.value, equals(progress.min));
     });
 
     test('set step', () {
-      range.min = 0;
-      range.max = 10;
-      range.value = 5.1;
+      progress.min = 0;
+      progress.max = 10;
+      progress.value = 5.1;
 
       flushAsynchronousOperations();
 
-      expect(range.value, equals(5));
+      expect(progress.value, equals(5));
 
-      range.step = 0.1;
-      range.value = 5.1;
+      progress.step = 0.1;
+      progress.value = 5.1;
 
       flushAsynchronousOperations();
 
-      expect(range.value, equals(5.1));
+      expect(progress.value, equals(5.1));
+    });
+  });
+
+  group('transiting class', () {
+    var progress;
+
+    setUp(() {
+      progress = fixture('transitingProgress');
+    });
+
+    test('progress bars', () {
+      var stylesForPrimaryProgress =
+          progress.$['primaryProgress'].getComputedStyle();
+      var stylesForSecondaryProgress =
+          progress.$['secondaryProgress'].getComputedStyle();
+      var transitionProp = stylesForPrimaryProgress.transitionProperty;
+
+      expect(
+          transitionProp == 'transform' ||
+              transitionProp == '-webkit-transform',
+          isTrue);
+      expect(stylesForPrimaryProgress.transitionDuration, '0.08s');
+
+      transitionProp = stylesForSecondaryProgress.transitionProperty;
+
+      expect(
+          transitionProp == 'transform' ||
+              transitionProp == '-webkit-transform',
+          isTrue);
+      expect(stylesForSecondaryProgress.transitionDuration, '0.08s');
     });
   });
 }

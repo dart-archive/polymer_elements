@@ -49,7 +49,7 @@ class GoogleMapSearch extends HtmlElement with CustomElementProxyMixin, PolymerB
 
   /// The lat/lng location.
   get location => jsElement[r'location'];
-  set location(value) { jsElement[r'location'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set location(value) { jsElement[r'location'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Longitude of the center of the search area.
   /// Ignored if `globalSearch` is true.
@@ -58,7 +58,7 @@ class GoogleMapSearch extends HtmlElement with CustomElementProxyMixin, PolymerB
 
   /// The Google map object.
   get map => jsElement[r'map'];
-  set map(value) { jsElement[r'map'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set map(value) { jsElement[r'map'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The search query.
   String get queryObject => jsElement[r'query'];
@@ -75,7 +75,7 @@ class GoogleMapSearch extends HtmlElement with CustomElementProxyMixin, PolymerB
 
   /// The search results.
   List get results => jsElement[r'results'];
-  set results(List value) { jsElement[r'results'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set results(List value) { jsElement[r'results'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// Space-separated list of result types.
   /// The search will only return results of the listed types.

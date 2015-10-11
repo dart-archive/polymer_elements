@@ -58,7 +58,10 @@ class PaperMenuButton extends HtmlElement with CustomElementProxyMixin, PolymerB
   /// An animation config. If provided, this will be used to animate the
   /// closing of the dropdown.
   get closeAnimationConfig => jsElement[r'closeAnimationConfig'];
-  set closeAnimationConfig(value) { jsElement[r'closeAnimationConfig'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set closeAnimationConfig(value) { jsElement[r'closeAnimationConfig'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+
+  /// The content element that is contained by the menu button, if any.
+  get contentElement => jsElement[r'contentElement'];
 
   /// The content element that is contained by the menu button, if any.
   get contentElement => jsElement[r'contentElement'];
@@ -87,7 +90,7 @@ class PaperMenuButton extends HtmlElement with CustomElementProxyMixin, PolymerB
   /// An animation config. If provided, this will be used to animate the
   /// opening of the dropdown.
   get openAnimationConfig => jsElement[r'openAnimationConfig'];
-  set openAnimationConfig(value) { jsElement[r'openAnimationConfig'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set openAnimationConfig(value) { jsElement[r'openAnimationConfig'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// True if the content is currently displayed.
   bool get opened => jsElement[r'opened'];

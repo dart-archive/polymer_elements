@@ -59,7 +59,7 @@ class GoogleMap extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   /// properties.
   /// Ex: `<google-map additional-map-options='{"mapTypeId":"satellite"}'>`
   get additionalMapOptions => jsElement[r'additionalMapOptions'];
-  set additionalMapOptions(value) { jsElement[r'additionalMapOptions'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set additionalMapOptions(value) { jsElement[r'additionalMapOptions'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// A Maps API key. To obtain an API key, see developers.google.com/maps/documentation/javascript/tutorial#api_key.
   String get apiKey => jsElement[r'apiKey'];
@@ -118,7 +118,7 @@ class GoogleMap extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
 
   /// A Maps API object.
   get map => jsElement[r'map'];
-  set map(value) { jsElement[r'map'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set map(value) { jsElement[r'map'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Map type to display. One of 'roadmap', 'satellite', 'hybrid', 'terrain'.
   String get mapType => jsElement[r'mapType'];
@@ -126,7 +126,7 @@ class GoogleMap extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
 
   /// The markers on the map.
   List get markers => jsElement[r'markers'];
-  set markers(List value) { jsElement[r'markers'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set markers(List value) { jsElement[r'markers'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// A maximum zoom level which will be displayed on the map.
   num get maxZoom => jsElement[r'maxZoom'];
@@ -152,7 +152,7 @@ class GoogleMap extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   /// If set, custom styles can be applied to the map.
   /// For style documentation see developers.google.com/maps/documentation/javascript/reference#MapTypeStyle
   get styles => jsElement[r'styles'];
-  set styles(value) { jsElement[r'styles'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set styles(value) { jsElement[r'styles'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Version of the Google Maps API to use.
   String get version => jsElement[r'version'];

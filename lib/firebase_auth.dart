@@ -28,11 +28,11 @@ class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase
   /// Provider-specific options to pass to login, for provider types that take a second
   /// object to pass firebase-specific options.  May be overridden at `login()`-time.
   get options => jsElement[r'options'];
-  set options(value) { jsElement[r'options'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set options(value) { jsElement[r'options'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Provider-specific parameters to pass to login.  May be overridden at `login()`-time.
   get params => jsElement[r'params'];
-  set params(value) { jsElement[r'params'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set params(value) { jsElement[r'params'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Default login provider type.  May be one of: `anonymous`, `custom`, `password`
   /// `facebook`, `github`, `twitter`, `google`.
@@ -46,7 +46,7 @@ class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase
 
   /// A pointer to the Firebase instance being used by the firebase-auth element.
   get ref => jsElement[r'ref'];
-  set ref(value) { jsElement[r'ref'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set ref(value) { jsElement[r'ref'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// When true, login status can be determined by checking `user` property.
   bool get statusKnown => jsElement[r'statusKnown'];
@@ -54,7 +54,7 @@ class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase
 
   /// When logged in, this property reflects the firebase user auth object.
   get user => jsElement[r'user'];
-  set user(value) { jsElement[r'user'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set user(value) { jsElement[r'user'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Changes the email of a "password provider"-based user account.
   ///

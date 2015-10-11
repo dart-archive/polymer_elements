@@ -71,7 +71,7 @@ class GoogleYoutubeUpload extends HtmlElement with CustomElementProxyMixin, Poly
 
   /// The array of tags for the new YouTube video.
   List get tags => jsElement[r'tags'];
-  set tags(List value) { jsElement[r'tags'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set tags(List value) { jsElement[r'tags'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// The id of the new video.
   ///

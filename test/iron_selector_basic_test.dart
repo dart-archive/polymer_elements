@@ -89,5 +89,28 @@ main() async {
       s2.selected = 'item2';
       expect(selectedEventCounter, 0);
     });
+
+    group('items changing', () {
+      test('cause iron-items-changed to fire', () async {
+        var newItem = document.createElement('div');
+        var changeCount = 0;
+
+        newItem.id = 'item999';
+
+        var sub = s2.on['iron-items-changed'].listen((_) {
+          changeCount++;
+        });
+
+        s2.append(newItem);
+
+        await wait(1);
+        s2.children.remove(newItem);
+
+        await wait(1);
+        expect(changeCount, 2);
+
+        sub.cancel();
+      });
+    });
   });
 }

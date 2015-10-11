@@ -69,7 +69,6 @@ class TestButton extends PolymerElement
         IronA11yKeysBehavior,
         IronButtonState,
         IronControlState,
-        PaperButtonBehaviorImpl,
         PaperButtonBehavior {
   TestButton.created() : super.created();
 }

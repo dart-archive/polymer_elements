@@ -46,11 +46,11 @@ class GoogleMapMarker extends HtmlElement with CustomElementProxyMixin, PolymerB
 
   /// Image URL for the marker icon.
   get icon => jsElement[r'icon'];
-  set icon(value) { jsElement[r'icon'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set icon(value) { jsElement[r'icon'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// A Google Map Infowindow object.
   get info => jsElement[r'info'];
-  set info(value) { jsElement[r'info'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set info(value) { jsElement[r'info'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The marker's latitude coordinate.
   num get latitude => jsElement[r'latitude'];
@@ -62,11 +62,11 @@ class GoogleMapMarker extends HtmlElement with CustomElementProxyMixin, PolymerB
 
   /// The Google map object.
   get map => jsElement[r'map'];
-  set map(value) { jsElement[r'map'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set map(value) { jsElement[r'map'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// A Google Maps marker object.
   get marker => jsElement[r'marker'];
-  set marker(value) { jsElement[r'marker'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set marker(value) { jsElement[r'marker'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// When true, marker mouse* events are automatically registered.
   bool get mouseEvents => jsElement[r'mouseEvents'];

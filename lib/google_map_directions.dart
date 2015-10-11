@@ -60,11 +60,11 @@ class GoogleMapDirections extends HtmlElement with CustomElementProxyMixin, Poly
 
   /// The Google map object.
   get map => jsElement[r'map'];
-  set map(value) { jsElement[r'map'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set map(value) { jsElement[r'map'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The response from the directions service.
   get response => jsElement[r'response'];
-  set response(value) { jsElement[r'response'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set response(value) { jsElement[r'response'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Start address or latlng to get directions from.
   String get startAddress => jsElement[r'startAddress'];
@@ -81,5 +81,5 @@ class GoogleMapDirections extends HtmlElement with CustomElementProxyMixin, Poly
   /// plus the origin, and destination.
   /// Waypoints are not supported for transit directions. Optional.
   List get waypoints => jsElement[r'waypoints'];
-  set waypoints(List value) { jsElement[r'waypoints'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set waypoints(List value) { jsElement[r'waypoints'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 }

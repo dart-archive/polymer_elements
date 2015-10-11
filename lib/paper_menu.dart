@@ -10,6 +10,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_menu_behavior.dart';
 import 'iron_multi_selectable.dart';
+import 'iron_selectable.dart';
 import 'iron_a11y_keys_behavior.dart';
 import 'paper_styles.dart';
 
@@ -57,7 +58,7 @@ import 'paper_styles.dart';
 /// down arrow keys, esc to exit the menu, and enter to activate a menu item. Typing the first letter
 /// of a menu item will also focus it.
 @CustomElementProxy('paper-menu')
-class PaperMenu extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronMenuBehavior, IronMultiSelectableBehavior, IronA11yKeysBehavior {
+class PaperMenu extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronSelectableBehavior, IronMultiSelectableBehavior, IronA11yKeysBehavior, IronMenuBehavior {
   PaperMenu.created() : super.created();
   factory PaperMenu() => new Element.tag('paper-menu');
 }

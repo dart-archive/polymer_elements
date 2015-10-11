@@ -53,7 +53,7 @@ class IronMeta extends HtmlElement with CustomElementProxyMixin, PolymerBase {
 
   /// Array of all meta-data values for the given type.
   List get list => jsElement[r'list'];
-  set list(List value) { jsElement[r'list'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set list(List value) { jsElement[r'list'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// If true, `value` is set to the iron-meta instance itself.
   bool get self => jsElement[r'self'];
@@ -66,7 +66,7 @@ class IronMeta extends HtmlElement with CustomElementProxyMixin, PolymerBase {
 
   /// The meta-data to store or retrieve.
   get value => jsElement[r'value'];
-  set value(value) { jsElement[r'value'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set value(value) { jsElement[r'value'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Retrieves meta data value by key.
   /// [key]: The key of the meta-data to be returned.
@@ -126,7 +126,7 @@ class IronMetaQuery extends HtmlElement with CustomElementProxyMixin, PolymerBas
 
   /// Array of all meta-data values for the given type.
   List get list => jsElement[r'list'];
-  set list(List value) { jsElement[r'list'] = (value is! JsArray) ? new JsObject.jsify(value) : value;}
+  set list(List value) { jsElement[r'list'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
   /// The type of meta-data.  All meta-data of the same type is stored
   /// together.
@@ -135,7 +135,7 @@ class IronMetaQuery extends HtmlElement with CustomElementProxyMixin, PolymerBas
 
   /// The meta-data to store or retrieve.
   get value => jsElement[r'value'];
-  set value(value) { jsElement[r'value'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  set value(value) { jsElement[r'value'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Retrieves meta data value by key.
   /// [key]: The key of the meta-data to be returned.
