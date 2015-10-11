@@ -138,43 +138,6 @@ class IronList extends HtmlElement with CustomElementProxyMixin, PolymerBase, Te
   deselectItem(item) =>
       jsElement.callMethod('deselectItem', [item]);
 
-  /// When `true`, multiple items may be selected at once (in this case,
-  /// `selected` is an array of currently selected items).  When `false`,
-  /// only one item may be selected at a time.
-  bool get multiSelection => jsElement[r'multiSelection'];
-  set multiSelection(bool value) { jsElement[r'multiSelection'] = value; }
-
-  /// The name of the variable to add to the binding scope to indicate
-  /// if the row is selected.
-  String get selectedAs => jsElement[r'selectedAs'];
-  set selectedAs(String value) { jsElement[r'selectedAs'] = value; }
-
-  /// When `multiSelection` is false, this is the currently selected item, or `null`
-  /// if no item is selected.
-  get selectedItem => jsElement[r'selectedItem'];
-  set selectedItem(value) { jsElement[r'selectedItem'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
-
-  /// When `multiSelection` is true, this is an array that contains the selected items.
-  get selectedItems => jsElement[r'selectedItems'];
-  set selectedItems(value) { jsElement[r'selectedItems'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
-
-  /// When true, tapping a row will select the item, placing its data model
-  /// in the set of selected items retrievable via the selection property.
-  ///
-  /// Note that tapping focusable elements within the list item will not
-  /// result in selection, since they are presumed to have their * own action.
-  bool get selectionEnabled => jsElement[r'selectionEnabled'];
-  set selectionEnabled(bool value) { jsElement[r'selectionEnabled'] = value; }
-
-  /// Clears the current selection state of the list.
-  clearSelection() =>
-      jsElement.callMethod('clearSelection', []);
-
-  /// Deselects the given item list if it is already selected.
-  /// [item]: the item object or its index
-  deselectItem(item) =>
-      jsElement.callMethod('deselectItem', [item]);
-
   /// Scroll to a specific item in the virtual list regardless
   /// of the physical items in the DOM tree.
   /// [idx]: The index of the item

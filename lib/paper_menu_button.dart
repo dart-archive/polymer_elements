@@ -63,9 +63,6 @@ class PaperMenuButton extends HtmlElement with CustomElementProxyMixin, PolymerB
   /// The content element that is contained by the menu button, if any.
   get contentElement => jsElement[r'contentElement'];
 
-  /// The content element that is contained by the menu button, if any.
-  get contentElement => jsElement[r'contentElement'];
-
   /// The orientation against which to align the menu dropdown
   /// horizontally relative to the dropdown trigger.
   String get horizontalAlign => jsElement[r'horizontalAlign'];

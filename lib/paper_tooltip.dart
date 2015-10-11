@@ -58,10 +58,6 @@ class PaperTooltip extends HtmlElement with CustomElementProxyMixin, PolymerBase
   bool get fitToVisibleBounds => jsElement[r'fitToVisibleBounds'];
   set fitToVisibleBounds(bool value) { jsElement[r'fitToVisibleBounds'] = value; }
 
-  /// If true, no parts of the tooltip will ever be shown offscreen.
-  bool get fitToVisibleBounds => jsElement[r'fitToVisibleBounds'];
-  set fitToVisibleBounds(bool value) { jsElement[r'fitToVisibleBounds'] = value; }
-
   /// The id of the element that the tooltip is anchored to. This element
   /// must be a sibling of the tooltip.
   String get forId => jsElement[r'for'];

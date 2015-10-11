@@ -46,14 +46,6 @@ class IronRequest extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   String get statusText => jsElement[r'statusText'];
   set statusText(String value) { jsElement[r'statusText'] = value; }
 
-  /// A reference to the status code, if the `xhr` has completely resolved.
-  num get status => jsElement[r'status'];
-  set status(num value) { jsElement[r'status'] = value; }
-
-  /// A reference to the status text, if the `xhr` has completely resolved.
-  String get statusText => jsElement[r'statusText'];
-  set statusText(String value) { jsElement[r'statusText'] = value; }
-
   /// Succeeded is true if the request succeeded. The request succeeded if the
   /// status code is greater-than-or-equal-to 200, and less-than 300. Also,
   /// the status code 0 is accepted as a success even though the outcome may
