@@ -17,7 +17,7 @@ import 'package:polymer_elements/iron_validator_behavior.dart';
 class SsnValidator extends PolymerElement with IronValidatorBehavior {
   SsnValidator.created() : super.created();
 
-  @eventHandler
+  @reflectable
   @override
   bool validate(value) {
     // this regex validates incomplete ssn's (by design)

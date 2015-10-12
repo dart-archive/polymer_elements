@@ -34,27 +34,30 @@ class IronValidatorBehaviorDemo extends PolymerElement {
     _validator = (new IronMetaQuery()..type = 'validator').byKey('cats-only');
   }
 
-  @eventHandler
+  @reflectable
   void inputHandler(dom.Event event, [_]) {
     set('valid', _validator.validate((event.target as dom.InputElement).value));
   }
 
-  @eventHandler
+  @reflectable
   void inputMultiHandler(dom.Event event, [_]) {
     var values = <String>[];
-    var nodes = Polymer.dom(event.currentTarget).querySelectorAll('input');
-    for(dom.InputElement node in nodes) {
+    var nodes = (Polymer.dom(event.currentTarget) as PolymerDom)
+        .querySelectorAll('input') as List<dom.InputElement>;
+    for (dom.InputElement node in nodes) {
       values.add(node.value);
     }
     set('validMulti', _validator.validate(values));
   }
 
-  @eventHandler
+  @reflectable
   submitHandler(dom.MouseEvent event, [_]) {
     var data = {};
     // TODO(zoechi) replace commented-out line when dart-lang/sdk#24008 is fixed
     //for (dom.InputElement el in (event.target as dom.ButtonElement).form.elements) {
-    for (dom.InputElement el in (event.target as dom.ButtonElement).form.querySelectorAll('input')) {
+    for (dom.InputElement el in (event.target as dom.ButtonElement)
+        .form
+        .querySelectorAll('input') as List<dom.InputElement>) {
       if (el.attributes.containsKey('name') != null &&
           el.attributes['name'].isNotEmpty) {
         data[el.name] = el.value;

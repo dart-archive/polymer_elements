@@ -23,6 +23,6 @@ class PaperDrawerPanelDemo extends PolymerElement {
 
   @property bool rightDrawer = false;
 
-  @eventHandler
+  @reflectable
   void flipDrawer([_,__]) => set('rightDrawer', !rightDrawer);
 }

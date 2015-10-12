@@ -66,7 +66,7 @@ class GoogleChartDemo extends PolymerElement {
   double _getRandomGaugeValue(offset, factor) =>
       offset + factor * new Random().nextDouble();
 
-  @eventHandler
+  @reflectable
   void selectionDemoChartRender([_, __]) {
     var chart = $['selection-chart'] as GoogleChart;
     chart.selection = [

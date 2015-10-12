@@ -27,7 +27,7 @@ class IronAjaxDemo extends PolymerElement {
 
   @property var ajaxResponse;
 
-  @eventHandler
+  @reflectable
   computeUrl(String videoId) =>
     'https://www.youtube.com/watch?v=${videoId}';
 }

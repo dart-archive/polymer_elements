@@ -22,7 +22,7 @@ class GoogleStreetviewPanoDemo extends PolymerElement {
 
   GoogleStreetviewPano get _pano => $['pano'];
 
-  @eventHandler
+  @reflectable
   void showMachu([_, __]) {
     _pano.heading = 330;
     _pano.pitch = -2;
@@ -30,7 +30,7 @@ class GoogleStreetviewPanoDemo extends PolymerElement {
     _pano.panoId = 'VsCKIVGfvpEAAAQJKfdW1w';
   }
 
-  @eventHandler
+  @reflectable
   void showBrazil([_, __]) {
     _pano.heading = 210;
     _pano.pitch = 15;
@@ -38,7 +38,7 @@ class GoogleStreetviewPanoDemo extends PolymerElement {
     _pano.panoId = 'CkmCkfwvIGUAAAQW-qy0KQ';
   }
 
-  @eventHandler
+  @reflectable
   void showStatue([_, __]) {
     _pano.heading = 80;
     _pano.pitch = 7;

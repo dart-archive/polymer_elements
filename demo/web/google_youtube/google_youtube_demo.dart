@@ -32,32 +32,32 @@ class GoogleYoutubeDemo extends PolymerElement {
 
   GoogleYoutube get _youTube => $['googleYouTube'];
 
-  @eventHandler
+  @reflectable
   double computeProgress(int currentTime, num duration) => currentTime / duration;
 
-  @eventHandler
+  @reflectable
   bool computePlayDisabled(int state, bool playSupported) =>
       state == 1 || state == 3 || !playSupported;
 
-  @eventHandler
+  @reflectable
   bool computePauseDisabled(int state) => state != 1 && state != 3;
 
-  @eventHandler
+  @reflectable
   handleStateChange(dom.CustomEvent event, [_]) =>
       add('events', {'data': event.detail['data']});
 
-  @eventHandler
+  @reflectable
   void handleYouTubeError(dom.CustomEvent event, [_]) {
     print('YouTube playback error');
     dom.window.console.error(event.detail);
   }
 
-  @eventHandler
+  @reflectable
   handlePlayVideo([_, __]) => _youTube.play();
 
-  @eventHandler
+  @reflectable
   handlePauseVideo([_, __]) => _youTube.pause();
 
-  @eventHandler
+  @reflectable
   handleCueVideo([_, __]) => _youTube.videoId = $['videoId'].value;
 }

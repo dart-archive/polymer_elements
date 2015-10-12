@@ -30,9 +30,9 @@ import 'ssn_validator.dart';
 class PaperInputDemo extends PolymerElement {
   PaperInputDemo.created() : super.created();
 
-  @eventHandler
+  @reflectable
   validate([_, __]) => $['inputForValidation'].validate();
 
-  @eventHandler
+  @reflectable
   clearInput([_, __]) => $['inputWithButton'].value = '';
 }

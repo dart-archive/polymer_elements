@@ -53,7 +53,7 @@ class PaperProgressDemo extends PolymerElement {
   PaperProgress get progress => $['progress'];
   PaperButton get button => $['progress'];
 
-  @eventHandler
+  @reflectable
   void startProgress([_, __]) {
     _repeat = 0;
     set('progressValue', progress.min);

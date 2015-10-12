@@ -24,6 +24,8 @@ import 'package:polymer_elements/maps_icons.dart';
 import 'package:polymer_elements/notification_icons.dart';
 import 'package:polymer_elements/social_icons.dart';
 import 'package:polymer_elements_demo/styles/demo_elements.dart';
+import 'package:polymer_elements/iron_iconset.dart';
+import 'package:polymer_elements/iron_iconset_svg.dart';
 
 /// Silence analyzer [IronFlexLayout], [IronIcons], [AvIcons], [CommunicationIcons], [DeviceIcons], [EditorIcons], [HardwareIcons], [ImageIcons], [MapsIcons], [NotificationIcons], [SocialIcons], [DemoElements],
 @PolymerRegister('iron-icons-demo')
@@ -32,6 +34,14 @@ class IronIconsDemo extends PolymerElement {
 
   @property List iconsets;
 
-  @eventHandler
-  List<String> getIconNames(iconSet) => iconSet.getIconNames();
+  @reflectable
+  List<String> getIconNames(iconSet) {
+    List<String> iconNames;
+    if(iconSet is IronIconset) {
+      iconNames = iconSet.iconNames as List<String>;
+    } else if(iconSet is IronIconsetSvg) {
+      iconNames = iconSet.getIconNames() as List<String>;
+    }
+    return iconNames;
+  }
 }

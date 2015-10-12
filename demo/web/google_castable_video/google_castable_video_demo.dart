@@ -26,24 +26,24 @@ class GoogleCastableVideoDemo extends PolymerElement {
 
   GoogleCastableVideo get _video => $['video'];
 
-  @eventHandler
+  @reflectable
   void play([_, __]) {
     _video.play(null);
     set('isPlaying', true);
   }
 
-  @eventHandler
+  @reflectable
   void pause([_, __]) {
     _video.pause(null);
     set('isPlaying', false);
   }
 
-  @eventHandler
+  @reflectable
   cast([_, __]) => _video.launchSessionManager();
 
   // TODO(zoechi) e.target.value doesn't always provide the value
   // representing the mouse-up position. This might be a Dartium issue
-  @eventHandler
+  @reflectable
   void progressMouseUp(dom.Event e, [_]) {
     var duration = _video.duration;
     var newPosition = (duration / 100) *
@@ -52,7 +52,7 @@ class GoogleCastableVideoDemo extends PolymerElement {
   }
 
   //IMPORTANT use this to get the currentTime even when casting
-  @eventHandler
+  @reflectable
   void timeUpdate(dom.CustomEvent event, [_]) {
     var duration = _video.duration;
     var currentTime = event.detail['currentTime'];
@@ -60,7 +60,7 @@ class GoogleCastableVideoDemo extends PolymerElement {
   }
 
   //listen for casting event to change icon
-  @eventHandler
+  @reflectable
   casting(dom.CustomEvent event, [_]) {
     ($['cast'] as dom.ButtonElement).innerHtml =
         event.detail.casting ? "STOP CASTING" : "START CASTING";

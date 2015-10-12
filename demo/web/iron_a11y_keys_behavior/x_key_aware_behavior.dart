@@ -42,7 +42,7 @@ class XKeyAware extends PolymerElement with IronA11yKeysBehavior {
     set('boundKeys', bindings.keys.join(' ').split(' '));
   }
 
-  @eventHandler
+  @reflectable
   void updatePressed(dom.CustomEvent event, [_]) {
     print(event.detail);
 

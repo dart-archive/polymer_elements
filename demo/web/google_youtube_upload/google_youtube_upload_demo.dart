@@ -35,34 +35,34 @@ class GoogleYoutubeUploadDemo extends PolymerElement {
   @property String videoId = '';
   @property String videoUrl = 'computeVideoUrl(videoId)';
 
-  @eventHandler
+  @reflectable
   bool canShowPreUpload(String state) => state == 'pre-upload';
 
-  @eventHandler
+  @reflectable
   bool canShowUpload(String state) => state == 'upload';
 
-  @eventHandler
+  @reflectable
   bool canShowUploadComplete(String state) => state == 'upload-complete';
 
-  @eventHandler
+  @reflectable
   bool canShowProcessingComplete(String state) =>
       state == 'processing-complete';
 
-  @eventHandler
+  @reflectable
   bool canShowError(String state) => state == 'error';
 
-  @eventHandler
+  @reflectable
   String computeProgressText(
           int megabytesPerSecond, int minutesRemaining, int secondsRemaining) =>
       '${megabytesPerSecond}MB/s, ${minutesRemaining}m ${secondsRemaining}s remaining';
 
-  @eventHandler
+  @reflectable
   String computeVideoUrl(int videoId) => 'https://youtu.be/${videoId}';
 
-  @eventHandler
+  @reflectable
   handleYouTubeUploadStart([_, __]) => set('state', 'upload');
 
-  @eventHandler
+  @reflectable
   void handleYouTubeUploadProgress(dom.CustomEvent event, [_]) {
     set('megabytesPerSecond',
         (event.detail.bytesPerSecond / (1024 * 1024)).toFixed(2));
@@ -73,26 +73,26 @@ class GoogleYoutubeUploadDemo extends PolymerElement {
     set('fractionComplete', event.detail.fractionComplete);
   }
 
-  @eventHandler
+  @reflectable
   void handleYouTubeUploadComplete([_, __]) {
     set('state', 'upload-complete');
   }
 
-  @eventHandler
+  @reflectable
   void handleYouTubeUploadFail(dom.CustomEvent event, [_]) {
     set('error', event.detail);
     set('state', 'error');
   }
 
-  @eventHandler
+  @reflectable
   handleYouTubeProcessingPoll([_, __]) =>
       set('processingEllipses', '${processingEllipses}.');
 
-  @eventHandler
+  @reflectable
   handleYouTubeProcessingComplete([_, __]) =>
       set('state', 'processing-complete');
 
-  @eventHandler
+  @reflectable
   void handleYouTubeProcessingFail(dom.CustomEvent event, [_]) {
     var error;
     switch (event.detail.uploadStatus) {

@@ -152,7 +152,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!-- Main List for the items -->
         <iron-list id="itemsList" items="[[data]]" selected-items="{{selectedItems}}" selection-enabled multi-selection>
           <template>
-            <div on-tap="addSelection" item-index$="[[index]]">
+            <div item-index$="[[index]]">
               <div tabindex="0" aria-label$="[[getAriaLabel(item, selected)]]" class$="[[computedClass(selected)]]">
                 <img class="avatar" src="[[item.image]]">
                 <div class="pad">

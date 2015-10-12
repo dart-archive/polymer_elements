@@ -26,22 +26,22 @@ class GoogleDriveDemo extends PolymerElement {
   @property List queueUploadList;
   @property List uploadedList;
 
-  @eventHandler
+  @reflectable
   void uploadStarted(dom.CustomEvent event, [_]) {
     set('queueUploadList', (event.detail.files as List).toList());
   }
 
-  @eventHandler
+  @reflectable
   void filesSelected(dom.CustomEvent event, [_]) {
     set('queueUploadList', (event.detail.files as List).toList());
   }
 
-  @eventHandler
+  @reflectable
   void uploadCompleted(dom.CustomEvent event, [_]) {
     set('uploadedList', (event.detail.files as List).toList());
   }
 
-  @eventHandler
+  @reflectable
   void uploadStatus(dom.CustomEvent event, [_]) {
     set('statusMessage', event.detail.status);
   }

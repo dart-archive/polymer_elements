@@ -42,6 +42,6 @@ class XSelect extends PolymerElement {
     }
   ];
 
-  @eventHandler
+  @reflectable
   open([_, __]) => ($['dropdown'] as IronDropdown).open();
 }

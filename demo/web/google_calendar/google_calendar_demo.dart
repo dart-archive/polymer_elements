@@ -16,7 +16,7 @@ import 'package:polymer_elements/google_signin.dart';
 import 'package:polymer_elements/google_calendar.dart';
 import 'package:polymer_elements_demo/styles/demo_elements.dart';
 
-/// Silence analyzer [GoogleSignin], [GoogleCalendar], [DemoElements],
+/// Silence analyzer [GoogleSignin], [GoogleCalendarList], [DemoElements],
 @PolymerRegister('google-calendar-demo')
 class GoogleCalendarDemo extends PolymerElement {
   GoogleCalendarDemo.created() : super.created();

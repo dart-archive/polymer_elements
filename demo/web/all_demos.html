@@ -11,31 +11,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template>
     <style include="demo-elements"></style>
     <style>
+      paper-item {
+        font-size: small;
+      }
 
-      #paper-drawer-panel {
-        --paper-drawer-panel-main-container: {
-            background-color: blue;
-          };
-        --paper-drawer-panel-left-drawer-container: {
-            background-color: red;
-          };
+      paper-item[active] {
+        background-color: #eceff1;
       }
     </style>
     <paper-drawer-panel>
-        <paper-header-panel drawer>
-          <paper-toolbar>toolbar</paper-toolbar>
-          <iron-list items="[[demos]]" as="demo" >
-            <template>
-              <div data-id$="[[demo.name]]" on-click="loadDemo">[[demo.name]]</div>
-            </template>
-          </iron-list>
-        </paper-header-panel>
+      <paper-header-panel drawer>
+        <paper-toolbar>
+          <paper-icon-button icon="menu" on-tap="menuAction"></paper-icon-button>
+          <div class="title">Polymer Elements</div>
+          <paper-icon-button icon="more-vert" on-tap="moreAction"></paper-icon-button>
+        </paper-toolbar>
+        <iron-list id="demolist" items="[[demos]]" as="demo" selection-enabled
+                   selected-item="{{selected}}">
+          <template>
+            <paper-item active="[[selected]]" on-click="demoClickHandler" data-demo-name$="[[demo.name]]">
+              <div>[[demo.name]]</div>
+            </paper-item>
+          </template>
+        </iron-list>
+      </paper-header-panel>
 
-        <paper-header-panel main id="placeholder" class="fit">
+      <paper-header-panel main id="placeholder" class="fit"></paper-header-panel>
 
-        </paper-header-panel>
-      </paper-drawer-panel>
-
+    </paper-drawer-panel>
 
   </template>
 </dom-module>

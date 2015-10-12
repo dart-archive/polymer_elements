@@ -33,7 +33,7 @@ class IronListExternalContentDemo extends PolymerElement with PolymerBase {
   @property bool loading = false;
   @property List people;
 
-  @eventHandler
+  @reflectable
   String iconForItem(var item) => item != null ? (item['integer'] < 50 ? 'star-border' : 'star') : '';
 
   // Custom transformation: scale header's title
@@ -60,7 +60,7 @@ class IronListExternalContentDemo extends PolymerElement with PolymerBase {
   }
 
   // Refresh Data
-  @eventHandler
+  @reflectable
   void refreshData([_, __]) {
     $['get_filltext_ajax'].generateRequest();
   }

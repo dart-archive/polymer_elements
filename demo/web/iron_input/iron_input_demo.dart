@@ -27,9 +27,9 @@ class IronInputDemo extends PolymerElement {
   @property String bindValueInput;
   @property String valueInput;
 
-  @eventHandler setBindValue([_, __]) =>
+  @reflectable setBindValue([_, __]) =>
       set('bindValue', bindValueInput);
 
-  @eventHandler setValue([_, __]) =>
+  @reflectable setValue([_, __]) =>
       set('value', valueInput);
 }

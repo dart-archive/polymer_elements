@@ -28,7 +28,7 @@ class XAnnounces extends PolymerElement {
         .callMethod('requestAvailability', []);
   }
 
-  @eventHandler
+  @reflectable
   void onTapAnnounce([_, __]) {
     fire('iron-announce',
     // TODO(zoechi) convertToJs shouldn't be needed anymore

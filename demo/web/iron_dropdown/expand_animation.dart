@@ -19,7 +19,7 @@ import 'package:polymer_elements/neon_animatable_behavior.dart';
 class ExpandAnimation extends PolymerElement with NeonAnimatableBehavior{
   ExpandAnimation.created() : super.created();
 
-  @eventHandler
+  @reflectable
   configure(config) {
 //    var node = config.node;
 //

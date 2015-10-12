@@ -38,11 +38,11 @@ class IronListSelectionDemo extends PolymerElement with PolymerBase {
   @property List selectedItems = [];
   @Property(observer: 'showSelectionChanged') bool showSelection = true;
 
-  @eventHandler
+  @reflectable
   String iconForItem(bool isSelected) => isSelected ? 'star-border' : 'star';
 
-    @eventHandler
-  void computedClass(bool isSelected) {
+  @reflectable
+  String computedClass(bool isSelected) {
     var classes = 'item';
     if (isSelected) {
       classes += ' selected';
@@ -50,21 +50,7 @@ class IronListSelectionDemo extends PolymerElement with PolymerBase {
     return classes;
   }
 
-  @eventHandler
-    addSelection(dom.CustomEvent event, [_]) {
-      dom.Element element = event.target;
-      while (element != null && !element.attributes.keys.contains('item-index')) {
-        element = element.parent;
-      }
-      if (element != null) {
-        int index = int.parse(element.attributes['item-index']);
-        if(!selectedItems.contains(data[index])) {
-          add('selectedItems', data[index]);
-        }
-      }
-    }
-
-  @eventHandler
+  @reflectable
   void unselect(dom.CustomEvent event, [_]) {
     dom.Element element = event.target;
     while (element != null && !element.attributes.keys.contains('item-index')) {
@@ -76,17 +62,17 @@ class IronListSelectionDemo extends PolymerElement with PolymerBase {
     }
   }
 
-  @eventHandler
+  @reflectable
   void toggleStarredView([_, __]) {
     set('showSelection', !this.showSelection);
   }
 
-  @eventHandler
+  @reflectable
   void showSelectionChanged([_, __]) {
     $['selectedItemsList'].fire('resize');
   }
 
-  @eventHandler
+  @reflectable
   String getAriaLabel(Map item, bool selected) =>
       selected ? 'Deselect ' + item['name'] : 'Select ${item['name']}';
 }

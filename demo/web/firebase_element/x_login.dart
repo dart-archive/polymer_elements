@@ -30,7 +30,7 @@ class XLogin extends PolymerElement {
   @property bool statusKnown = false;
   @property String params; //
 
-  @eventHandler
+  @reflectable
   void login([_, __]) {
     String params;
     Map parameters;
@@ -52,36 +52,36 @@ class XLogin extends PolymerElement {
 
   FirebaseAuth get _firebaseLogin => $['firebaseLogin'];
 
-  @eventHandler
+  @reflectable
   void logout([_, __]) => _firebaseLogin.logout();
 
-  @eventHandler
+  @reflectable
   errorHandler(dom.Event e, var detail) =>
       set('message', 'Error: ${detail['message']}');
 
-  @eventHandler
+  @reflectable
   userSuccessHandler(dom.Event e, [_]) => set('message', '${e.type} success!');
 
-  @eventHandler
+  @reflectable
   createUserHandler(dom.Event e, [_]) =>
       _firebaseLogin.createUser(email, password);
 
-  @eventHandler
+  @reflectable
   changePasswordHandler(dom.Event e, [_]) =>
       _firebaseLogin.changePassword(email, password, newPassword);
 
-  @eventHandler
+  @reflectable
   resetPasswordHandler(dom.Event e, [_]) =>
       _firebaseLogin.sendPasswordResetEmail(email);
 
-  @eventHandler
+  @reflectable
   bool computePasswordHidden(String provider) => provider != 'password';
 
-  @eventHandler
+  @reflectable
   bool computeCreateUserDisabled(String email, String password) =>
       email == null || email.isEmpty || password == null || password.isEmpty;
 
-  @eventHandler
+  @reflectable
   bool computeChangePasswordDisabled(
           String email, String password, String newPassword) =>
       email == null ||
@@ -91,23 +91,23 @@ class XLogin extends PolymerElement {
           newPassword == null ||
           newPassword.isEmpty;
 
-  @eventHandler
+  @reflectable
   bool computeResetPasswordDisabled(String email, String password) =>
       email == null || email.isEmpty || password == null || password.isEmpty;
 
-  @eventHandler
+  @reflectable
   bool computeRemoveUserDisabled(String email, String password) =>
       email == null || email.isEmpty || password == null || password.isEmpty;
 
-  @eventHandler
+  @reflectable
   bool computeLoginHidden(bool statusKnown, Map user) =>
       !statusKnown || user != null;
 
-  @eventHandler
+  @reflectable
   bool computeLogoutHidden(bool statusKnown, Map user) =>
       !statusKnown || user == null;
 
-  @eventHandler
+  @reflectable
   String computeLoginStatus(bool statusKnown, Map user) {
     if (statusKnown && user != null) {
       return 'Logged in';

@@ -5,14 +5,11 @@ description: Polymer polymer-elements for Dart examples.
 homepage: https://www.dartlang.org/polymer/
 dependencies:
   browser: any
-  polymer:
-    git:
-      url: git@github.com:dart-lang/polymer-dart.git
-      ref: 1.0.0-rc.1
+  polymer: 1.0.0-rc.2
   polymer_elements:
     path: ..
-  polymer_interop: ^0.2.0-rc1
-  reflectable: ^0.2.1
+  polymer_interop: ^1.0.0-rc.1
+  reflectable: ^0.3.2
   web_components: ^0.12.0
 dev_dependencies:
   github: '>=2.2.3+1 <3.0.0'
@@ -21,12 +18,6 @@ dev_dependencies:
   yaml: ">=1.0.0 <3.0.0"
   quiver: '>=0.21.4 <0.22.0'
   crypto: '>=0.9.1 <0.10.0'
-dependency_overrides:
-  reflectable: 0.2.1
-  polymer_interop:
-    git:
-      ref: 0.2.0-rc1
-      url: https://github.com/dart-lang/polymer_interop.git
 environment:
   sdk: '>=1.6.0 <2.0.0'
 transformers:
@@ -35,9 +26,9 @@ transformers:
     - web/index.html
     #- web/chartjs_element/index.html TODO(zoechi) element not available
     - web/firebase_element/index.html
-    - web/gold_cc_cvc_input/index.html # TODO(zoechi) issues #64
+    - web/gold_cc_cvc_input/index.html
     - web/gold_cc_expiration_input/index.html
-    - web/gold_cc_input/index.html # TODO(zoechi) issues #64
+    - web/gold_cc_input/index.html
     - web/gold_email_input/index.html
     - web/gold_phone_input/index.html
     - web/gold_zip_input/index.html
@@ -52,7 +43,7 @@ transformers:
     - web/google_hangout_button/index.html
     - web/google_map/index.html
     #- web/google_recaptcha/index.html # TODO(zoechi) element not available
-    - web/google_sheets/index.html # TODO(zoechi) issues #68
+    - web/google_sheets/index.html
     - web/google_signin/index.html # TODO(zoechi) issues #67
     - web/google_streetview_pano/index.html
     - web/google_url_shortener/index.html
@@ -64,9 +55,9 @@ transformers:
     - web/iron_ajax/index.html
     - web/iron_autogrow_textarea/index.html
     - web/iron_behaviors/index.html
-    #- web/iron_checked_element_behavior/index.html # TODO(zoechi) element not available #71
+    - web/iron_checked_element_behavior/index.html
     - web/iron_collapse/index.html
-    - web/iron_component_page/index.html
+    - web/iron_component_page/index.html # TODO(zoechi) json file can't be loaded when run without `pub serve`, some path issue
     - web/iron_doc_viewer/index.html
     - web/iron_dropdown/index.html # TODO(zoechi) doesn't work (position is off), I don't know how to port code in `expand_animation.dart`
     - web/iron_fit_behavior/index.html
@@ -83,7 +74,7 @@ transformers:
     # - web/iron_label/index.html # TODO(zoechi) element not available
     - web/iron_list/index.html # TODO(zoechi) items height wrong when demo is inside an element
     - web/iron_list/external_content.html # for all 3 examples
-    - web/iron_list/selection.html
+    - web/iron_list/selection.html # TODO(zoechi) clicking an item also adds it again to selected, even when it was already added
     - web/iron_localstorage/index.html
     - web/iron_media_query/index.html
     - web/iron_menu_behavior/index.html # TODO(zoechi) Dartium aw snaps when an item of a multi-select menu is clicked
@@ -132,7 +123,7 @@ transformers:
     - web/paper_spinner/index.html
     - web/paper_styles/index.html
     - web/paper_tabs/index.html
-    - web/paper_toast/index.html
+    - web/paper_toast/index.html # TODO(zoechi) shown mostly behind left drawer in all-demos
     - web/paper_toggle_button/index.html # TODO(zoechi) labels are now show. I'll check again after a new versions of the elements is available
     - web/paper_toolbar/index.html
     - web/paper_tooltip/index.html # TODO(zoechi) rich text tooltips location wrong
@@ -177,13 +168,12 @@ transformers:
     - web/iron_ajax/index.dart
     - web/iron_autogrow_textarea/index.dart
     - web/iron_behaviors/index.dart
-#    - web/iron_checked_element_behavior/index.dart
+    - web/iron_checked_element_behavior/index.dart
     - web/iron_collapse/index.dart
     - web/iron_component_page/index.dart
     - web/iron_doc_viewer/index.dart
     - web/iron_dropdown/index.dart
     - web/iron_fit_behavior/index.dart
-    - web/iron_flex_layout/index.dart
     - web/iron_flex_layout/index.dart
     - web/iron_form/index.dart
     - web/iron_form_element_behavior/index.dart

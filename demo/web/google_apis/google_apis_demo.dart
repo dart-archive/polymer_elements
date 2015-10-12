@@ -22,7 +22,7 @@ import 'package:polymer_elements_demo/styles/demo_elements.dart';
 class GoogleApisDemo extends PolymerElement {
   GoogleApisDemo.created() : super.created();
 
-  @eventHandler
+  @reflectable
   void loadedShortener(dom.Event event, [_]) {
     var request = (event.target as dynamic).api['url'].apply('get', [
       {'shortUrl': 'http://goo.gl/fbsS'}
@@ -32,7 +32,7 @@ class GoogleApisDemo extends PolymerElement {
     });
   }
 
-  @eventHandler
+  @reflectable
   void loaded(dom.Event event, [_]) {
     var message = '${(event.target as dom.Element).localName} loaded';
     dom.document.querySelector('#messages').innerHtml += '${message}<br>';

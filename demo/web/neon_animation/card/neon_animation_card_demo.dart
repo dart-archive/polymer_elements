@@ -24,7 +24,7 @@ import 'x_cards_list.dart';
 class NeonAnimationCardDemo extends PolymerElement {
   NeonAnimationCardDemo.created() : super.created();
 
-  @eventHandler
+  @reflectable
   void onPolymerClick(dom.Event event, [_]) {
     ($['list'] as XCardsList).sharedElements = {
       'ripple': event.target,
@@ -33,7 +33,7 @@ class NeonAnimationCardDemo extends PolymerElement {
     ($['pages'] as NeonAnimatedPages).selected = 1;
   }
 
-  @eventHandler
+  @reflectable
   void onAngularClick(dom.Event event, [_]) {
     ($['list'] as XCardsList).sharedElements = {
       'ripple': event.target,
@@ -42,7 +42,7 @@ class NeonAnimationCardDemo extends PolymerElement {
     ($['pages'] as NeonAnimatedPages).selected = 2;
   }
 
-  @eventHandler
+  @reflectable
   onBackClick(dom.Event event, [_]) {
     ($['pages'] as NeonAnimatedPages).selected = 0;
   }

@@ -11,7 +11,6 @@ import 'package:polymer/polymer.dart';
 import 'iron_a11y_announcer_demo.dart';
 import 'package:polymer_elements/paper_styles.dart';
 import 'package:polymer_elements/demo_pages.dart';
-import 'iron_a11y_announcer_demo.dart';
 
 /// Silence analyzer [IronA11yAnnouncerDemo]
 main() async {

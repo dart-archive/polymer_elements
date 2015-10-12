@@ -17,7 +17,7 @@ import 'package:polymer_elements/iron_validator_behavior.dart';
 class CatsOnly extends PolymerElement with IronValidatorBehavior {
   CatsOnly.created() : super.created();
 
-  @eventHandler
+  @reflectable
   @override
   bool validate(values) {
     if (values is Map) {

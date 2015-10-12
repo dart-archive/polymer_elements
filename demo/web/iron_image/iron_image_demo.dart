@@ -36,7 +36,7 @@ class IronImageDemo extends PolymerElement {
   @property var loading3cFade;
 
   final Random _rnd = new Random();
-  @eventHandler preload(dom.Event event, [_]) {
+  @reflectable preload(dom.Event event, [_]) {
     var id = (event.target as dom.Element).attributes['target'];
     var img = $[id] as IronImage;
     img.src = './polymer.svg?${_rnd.nextDouble()}';

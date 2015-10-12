@@ -32,14 +32,14 @@ main() async {
 //  scope['onNextClick'] = onNextClick;
 }
 
-//@eventHandler
+//@reflectable
 //void onPrevClick([_, __]) {
 //  scope['entryAnimation'] = 'slide-from-left-animation';
 //  scope['this.exitAnimation'] = 'slide-right-animation';
 //  scope['selected'] = scope['selected'] == 0 ? 4 : (scope['selected'] - 1);
 //}
 //
-//@eventHandler
+//@reflectable
 //void onNextClick([_, __]) {
 //  scope['entryAnimation'] = 'slide-from-right-animation';
 //  scope['exitAnimation'] = 'slide-left-animation';

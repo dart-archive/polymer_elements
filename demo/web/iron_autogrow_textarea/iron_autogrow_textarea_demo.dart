@@ -25,10 +25,10 @@ class IronAutogrowTextareaDemo extends PolymerElement {
   @property String textArea1;
   @property String textArea2;
 
-  @eventHandler
+  @reflectable
   bindValueClick([_, __]) => set('bindValue', textArea1);
 
-  @eventHandler
+  @reflectable
   valueClick([_, __]) =>
       (($['agta'] as IronAutogrowTextarea).textarea as dom.TextAreaElement)
           .value = textArea2;

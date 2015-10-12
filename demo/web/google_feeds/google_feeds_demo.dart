@@ -25,11 +25,11 @@ class GoogleFeedsDemo extends PolymerElement {
   void ready() {
     on['google-feeds-response'].listen((e) {
       set('message', '$message${e.target.localName} loaded\n');
-      print(e.detail.feed);
+      print(e.detail['feed']);
     });
 
     on['google-feeds-queryresponse'].listen((e) {
-      print('findFeeds response: ${e.detail.entries}');
+      print('findFeeds response: ${e.detail['entries']}');
     });
 
     $['feeder'].feeds = [

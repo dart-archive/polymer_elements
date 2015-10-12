@@ -29,11 +29,11 @@ class IronFormDemo extends PolymerElement {
 
   @property String output;
 
-  @eventHandler
+  @reflectable
   display(dom.CustomEvent event, [_]) =>
       set('output', JSON.encode(event.detail));
 
-  @eventHandler
+  @reflectable
   void clickHandler(dom.Event event, [_]) {
     (((Polymer.dom(event) as PolymerEvent).localTarget as dom.Element).parent
         as dom.FormElement).submit();

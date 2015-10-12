@@ -21,10 +21,10 @@ import 'package:polymer_elements_demo/styles/demo_elements.dart';
 class PaperSpinnerDemo extends PolymerElement {
   PaperSpinnerDemo.created() : super.created();
 
-  @eventHandler
+  @reflectable
   toggle1(dom.Event event, [_]) => _toggleGroup('group1');
 
-  @eventHandler
+  @reflectable
   toggle2(dom.Event event, [_]) => _toggleGroup('group2');
 
   void _toggleGroup(String id) => $[id].querySelectorAll('paper-spinner').forEach((s) => s.active =! s.active);

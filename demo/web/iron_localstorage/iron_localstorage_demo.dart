@@ -32,7 +32,7 @@ class IronLocalstorageDemo extends PolymerElement {
     }
   }
 
-  @eventHandler
+  @reflectable
   void initializeDefaultValue([_, __]) {
     print("initializeTemplate");
     set('value', convertToJs({'name': "Mickey", 'hasEars': true}));

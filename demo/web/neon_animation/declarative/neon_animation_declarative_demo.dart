@@ -31,14 +31,14 @@ class NeonAnimationDeclarativeDemo extends PolymerElement {
   @property String entryAnimation;
   @property String exitAnimation;
 
-  @eventHandler
+  @reflectable
   void onPrevClick ([_, __]) {
     entryAnimation = 'slide-from-left-animation';
     exitAnimation = 'slide-right-animation';
     set('selected', selected == 0 ? 4 : (this.selected - 1));
   }
 
-  @eventHandler
+  @reflectable
   void onNextClick([_, __]) {
     entryAnimation = 'slide-from-right-animation';
     exitAnimation = 'slide-left-animation';

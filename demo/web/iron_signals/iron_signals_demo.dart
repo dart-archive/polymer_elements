@@ -27,6 +27,6 @@ class IronSignalsDemo extends PolymerElement {
       // TODO(zoechi) convertToJs shouldn't be needed anymore
     fire('iron-signal', detail: convertToJs({'name': "foo", 'data': "Foo!"}));
 
-  @eventHandler
+  @reflectable
   fooSignal(_, String detail) => set('detail', detail);
 }

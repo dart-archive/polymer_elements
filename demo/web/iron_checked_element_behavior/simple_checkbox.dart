@@ -13,20 +13,22 @@ library polymer_elements_demo.web.web.iron_checked_element_behavior.simple_check
 import 'package:web_components/web_components.dart' show HtmlImport;
 import 'package:polymer_elements/iron_checked_element_behavior.dart';
 import 'package:polymer/polymer.dart';
+import 'package:polymer_elements/iron_form_element_behavior.dart';
+import 'package:polymer_elements/iron_validatable_behavior.dart';
 
 /// Silence analyzer
 @PolymerRegister('simple-checkbox')
-class SimpleCheckbox extends PolymerElement with IronCheckedElementBehavior {
+class SimpleCheckbox extends PolymerElement with IronFormElementBehavior, IronValidatableBehavior, IronCheckedElementBehavior {
   SimpleCheckbox.created() : super.created();
 
   @property String label = 'not validated';
 
-  @eventHandler
+  @reflectable
   onCheckTap([_, __]) => set('checked', $['checkbox'].checked);
 
-  @eventHandler
+  @reflectable
   void clickHandler([_, __]) {
-    validate();
+    validate(null);
     set('label', invalid ? 'is invalid' : 'is valid');
   }
 }

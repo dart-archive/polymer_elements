@@ -38,17 +38,17 @@ class SampleContent extends PolymerElement {
   ];
 
   final _random = new math.Random();
-  @eventHandler
+  @reflectable
   String randomString() =>
       strings[(_random.nextDouble() * strings.length).floor()];
 
-  @eventHandler
+  @reflectable
   String randomLetter() =>
       new String.fromCharCode(65 + (_random.nextDouble() * 26).floor());
 
   @Property(observer: 'sizeChanged') num size = 0;
 
-  @eventHandler
+  @reflectable
   void sizeChanged([_, __]) {
     var html = '';
     for (var i = 0; i < size; i++) {

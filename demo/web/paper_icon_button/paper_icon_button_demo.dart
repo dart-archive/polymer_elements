@@ -23,7 +23,7 @@ import 'package:polymer_elements_demo/styles/demo_elements.dart';
 class PaperIconButtonDemo extends PolymerElement {
   PaperIconButtonDemo.created() : super.created();
 
-  @eventHandler
+  @reflectable
   void clickHandler(dom.Event event, [_]) {
     var button =
         ((Polymer.dom(event) as PolymerEvent).localTarget as PaperIconButton);

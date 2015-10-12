@@ -19,6 +19,6 @@ import 'package:polymer_elements/iron_range_behavior.dart';
 class XProgressbar extends PolymerElement with IronRangeBehavior {
   XProgressbar.created() : super.created();
 
-  @eventHandler
+  @reflectable
   String computeStyle(num ratio) => 'width: ${ratio}%;';
 }

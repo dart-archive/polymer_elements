@@ -24,11 +24,11 @@ class IronCollapseDemo extends PolymerElement {
   @property bool opened2 = false;
   @property bool opened3 = false;
 
-  @eventHandler
+  @reflectable
   void toggle([dom.Event event, __]) =>
       ($[(event.target as dom.HtmlElement).dataset['target']] as IronCollapse)
           .toggle();
 
-  @eventHandler
+  @reflectable
   String isExpanded(bool opened) => '${opened}';
 }

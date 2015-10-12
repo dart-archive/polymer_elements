@@ -23,12 +23,12 @@ import 'package:polymer_elements_demo/styles/demo_elements.dart';
 class GoogleMapDemo extends PolymerElement {
   GoogleMapDemo.created() : super.created();
 
-  @eventHandler
+  @reflectable
   void apiLoad(dom.CustomEvent event, [_]) {
     ($['directions'] as GoogleMapDirections).map = event.detail.map;
   }
 
-  @eventHandler
+  @reflectable
   void toggleControls([_, __]) {
     $['map'].disableDefaultUi = !$['map'].disableDefaultUi;
   }

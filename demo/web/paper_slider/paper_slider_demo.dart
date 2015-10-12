@@ -22,7 +22,7 @@ class PaperSliderDemo extends PolymerElement {
 
   PaperSlider get ratings => $['ratings'];
 
-  @eventHandler
+  @reflectable
   ratingsChanged([_, __]) =>
       // TODO(zoechi) change vvv to `ratings.value` when #74 is fixd
       $['ratingsLabel']?.text = '${_toNum(ratings.jsElement['value'])}';

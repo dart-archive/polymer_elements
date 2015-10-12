@@ -23,7 +23,7 @@ import 'simple_overlay.dart';
 class IronOverlayBehaviorDemo extends PolymerElement {
   IronOverlayBehaviorDemo.created() : super.created();
 
-  @eventHandler
+  @reflectable
   void clickHandler(dom.Event event, [_]) {
     if (!(event.target as dom.Element).attributes.containsKey('data-dialog')) {
       return;

@@ -25,7 +25,7 @@ import 'package:polymer_elements/paper_dialog.dart';
 class PaperDialogBehaviorDemo extends PolymerElement {
   PaperDialogBehaviorDemo.created() : super.created();
 
-  @eventHandler
+  @reflectable
   void openDialog(dom.Event event, [_]) {
     var id = ((Polymer.dom(event) as PolymerEvent).localTarget as dom.Element)
         .dataset['dialog'];

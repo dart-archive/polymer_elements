@@ -22,6 +22,6 @@ import 'package:polymer_elements/iron_a11y_keys_behavior.dart';
 /// Note: Name prefix `my-` added to disambiguate from
 ///   polymer_elements/paper_button
 @PolymerRegister('my-paper-button')
-class MyPaperButton extends PolymerElement with IronA11yKeysBehavior, IronButtonState, IronControlState, PaperButtonBehaviorImpl, PaperButtonBehavior {
+class MyPaperButton extends PolymerElement with IronA11yKeysBehavior, IronButtonState, IronControlState, PaperButtonBehavior {
   MyPaperButton.created() : super.created();
 }

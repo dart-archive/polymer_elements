@@ -30,7 +30,7 @@ class IronListDemo extends PolymerElement with PolymerBase {
 
   @property var data;
 
-  @eventHandler
+  @reflectable
   String iconForItem(Map item) =>
       item != null ? (item['integer'] < 50 ? 'star-border' : 'star') : '';
 

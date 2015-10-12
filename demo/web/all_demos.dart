@@ -11,79 +11,110 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 library polymer_elements_demo.web.all_demos;
 
 import 'dart:html' as dom;
-import 'package:web_components/web_components.dart' show HtmlImport;
+
 import 'package:polymer/polymer.dart';
-import 'package:polymer_elements_demo/styles/demo_elements.dart';
+import 'package:polymer_elements/iron_list.dart';
 import 'package:polymer_elements/paper_drawer_panel.dart';
 import 'package:polymer_elements/paper_header_panel.dart';
-import 'package:polymer_elements/iron_list.dart';
+import 'package:polymer_elements/paper_item.dart';
 import 'package:polymer_elements/paper_toolbar.dart';
+import 'package:polymer_elements_demo/styles/demo_elements.dart';
+import 'package:web_components/web_components.dart' show HtmlImport;
 
+import 'firebase_element/firebase_element_demo.dart';
+import 'gold_cc_cvc_input/gold_cc_cvc_input_demo.dart';
+import 'gold_cc_expiration_input/gold_cc_expiration_input_demo.dart';
+import 'gold_cc_input/gold_cc_input_demo.dart';
+import 'gold_email_input/gold_email_input_demo.dart';
+import 'gold_phone_input/gold_phone_input_demo.dart';
+import 'gold_zip_input/gold_zip_input_demo.dart';
+import 'google_analytics/google_analytics_demo.dart';
+import 'google_apis/google_apis_demo.dart';
+import 'google_calendar/google_calendar_demo.dart';
+import 'google_castable_video/google_castable_video_demo.dart';
+import 'google_chart/google_chart_demo.dart';
+import 'google_feeds/google_feeds_demo.dart';
+import 'google_hangout_button/google_hangout_button_demo.dart';
+import 'google_map/google_map_demo.dart';
+import 'google_sheets/google_sheets_demo.dart';
+import 'google_signin/google_signin_demo.dart';
+import 'google_streetview_pano/google_streetview_pano_demo.dart';
+import 'google_url_shortener/google_url_shortener_demo.dart';
+import 'google_youtube/google_youtube_demo.dart';
+import 'google_youtube_upload/google_youtube_upload_demo.dart';
+import 'iron_a11y_announcer/iron_a11y_announcer_demo.dart';
+import 'iron_a11y_keys/iron_a11y_keys_demo.dart';
+import 'iron_a11y_keys_behavior/iron_a11y_keys_behavior_demo.dart';
+import 'iron_ajax/iron_ajax_demo.dart';
+import 'iron_autogrow_textarea/iron_autogrow_textarea_demo.dart';
+import 'iron_behaviors/iron_behaviors_demo.dart';
+import 'iron_checked_element_behavior/iron_checked_element_behavior_demo.dart';
+import 'iron_collapse/iron_collapse_demo.dart';
+import 'iron_component_page/iron_component_page_demo.dart';
+import 'iron_doc_viewer/iron_doc_viewer_demo.dart';
+import 'iron_dropdown/iron_dropdown_demo.dart';
+import 'iron_fit_behavior/iron_fit_behavior_demo.dart';
+import 'iron_flex_layout/iron_flex_layout_demo.dart';
+import 'iron_form/iron_form_demo.dart';
+import 'iron_form_element_behavior/iron_form_element_behavior_demo.dart';
+import 'iron_icon/iron_icon_demo.dart';
+import 'iron_icons/iron_icons_demo.dart';
+import 'iron_iconset/iron_iconset_demo.dart';
+import 'iron_iconset_svg/iron_iconset_svg_demo.dart';
+import 'iron_image/iron_image_demo.dart';
+import 'iron_input/iron_input_demo.dart';
+import 'iron_jsonp_library/iron_jsonp_library_demo.dart';
+import 'iron_list/iron_list_demo.dart';
+import 'iron_list/iron_list_external_content_demo.dart';
+import 'iron_list/iron_list_selection_demo.dart';
+import 'iron_localstorage/iron_localstorage_demo.dart';
+import 'iron_media_query/iron_media_query_demo.dart';
+import 'iron_menu_behavior/iron_menu_behavior_demo.dart';
+import 'iron_meta/iron_meta_demo.dart';
+import 'iron_overlay_behavior/iron_overlay_behavior_demo.dart';
+import 'iron_pages/iron_pages_demo.dart';
+import 'iron_range_behavior/iron_range_behavior_demo.dart';
+import 'iron_resizable_behavior/iron_resizable_behavior_demo.dart';
+import 'iron_selector/iron_selector_demo.dart';
+import 'iron_signals/iron_signals_demo.dart';
+import 'iron_validatable_behavior/iron_validatable_behavior_demo.dart';
+import 'iron_validator_behavior/iron_validator_behavior_demo.dart';
+import 'marked_element/marked_element_demo.dart';
+import 'paper_badge/paper_badge_demo.dart';
+import 'paper_behaviors/paper_behaviors_demo.dart';
+import 'paper_card/paper_card_demo.dart';
+import 'paper_checkbox/paper_checkbox_demo.dart';
+import 'paper_dialog/paper_dialog_demo.dart';
+import 'paper_dialog_behavior/paper_dialog_behavior_demo.dart';
+import 'paper_dialog_scrollable/paper_dialog_scrollable_demo.dart';
+import 'paper_drawer_panel/paper_drawer_panel_demo.dart';
+import 'paper_dropdown_menu/paper_dropdown_menu_demo.dart';
+import 'paper_fab/paper_fab_demo.dart';
+import 'paper_header_panel/paper_header_panel_demo.dart';
+import 'paper_icon_button/paper_icon_button_demo.dart';
+import 'paper_input/paper_input_demo.dart';
+import 'paper_item/paper_item_demo.dart';
+import 'paper_material/paper_material_demo.dart';
+import 'paper_menu/paper_menu_demo.dart';
+import 'paper_menu_button/paper_menu_button_demo.dart';
+import 'paper_progress/paper_progress_demo.dart';
+import 'paper_radio_button/paper_radio_button_demo.dart';
+import 'paper_radio_group/paper_radio_group_demo.dart';
+import 'paper_ripple/paper_ripple_demo.dart';
+import 'paper_scroll_header_panel/paper_scroll_header_panel_demo.dart';
+import 'paper_slider/paper_slider_demo.dart';
+import 'paper_spinner/paper_spinner_demo.dart';
+import 'paper_styles/paper_styles_demo.dart';
+import 'paper_tabs/paper_tabs_demo.dart';
+import 'paper_toast/paper_toast_demo.dart';
+import 'paper_toggle_button/paper_toggle_button_demo.dart';
+import 'paper_toolbar/paper_toolbar_demo.dart';
+import 'paper_tooltip/paper_tooltip_demo.dart';
 //  import 'chartjs_element/index.dart';
-import 'firebase_element/index.dart';
-import 'gold_cc_cvc_input/index.dart';
-import 'gold_cc_expiration_input/index.dart';
-import 'gold_cc_input/index.dart';
-import 'gold_email_input/index.dart';
-import 'gold_phone_input/index.dart';
-import 'gold_zip_input/index.dart';
-import 'google_analytics/index.dart';
-import 'google_apis/index.dart';
-import 'google_calendar/index.dart';
-import 'google_castable_video/index.dart';
-import 'google_chart/index.dart';
-//  import 'google_domain_user_picker/index.dart';
-//  import 'google_drive/index.dart';
-import 'google_feeds/index.dart';
-import 'google_hangout_button/index.dart';
-import 'google_map/index.dart';
-//  import 'google_recaptcha/index.dart';
-import 'google_sheets/index.dart';
-import 'google_signin/index.dart';
-import 'google_streetview_pano/index.dart';
-import 'google_url_shortener/index.dart';
-import 'google_youtube/index.dart';
-import 'google_youtube_upload/index.dart';
-import 'iron_a11y_announcer/index.dart';
-import 'iron_a11y_keys/index.dart';
-import 'iron_a11y_keys_behavior/index.dart';
-import 'iron_ajax/index.dart';
-import 'iron_autogrow_textarea/index.dart';
-import 'iron_behaviors/index.dart';
-//import 'iron_checked_element_behavior/index.dart';
-import 'iron_collapse/index.dart';
-import 'iron_component_page/index.dart';
-import 'iron_doc_viewer/index.dart';
-import 'iron_dropdown/index.dart';
-import 'iron_fit_behavior/index.dart';
-import 'iron_flex_layout/index.dart';
-import 'iron_flex_layout/index.dart';
-import 'iron_form/index.dart';
-import 'iron_form_element_behavior/index.dart';
-import 'iron_icon/index.dart';
-import 'iron_icons/index.dart';
-import 'iron_iconset/index.dart';
-import 'iron_iconset_svg/index.dart';
-import 'iron_image/index.dart';
-import 'iron_input/index.dart';
-import 'iron_jsonp_library/index.dart';
-// import 'iron_label/index.dart';
-import 'iron_list/index.dart';
-import 'iron_list/external_content.dart';
-import 'iron_list/selection.dart';
-import 'iron_localstorage/index.dart';
-import 'iron_media_query/index.dart';
-import 'iron_menu_behavior/index.dart';
-import 'iron_meta/index.dart';
-import 'iron_overlay_behavior/index.dart';
-import 'iron_pages/index.dart';
-import 'iron_range_behavior/index.dart';
-import 'iron_resizable_behavior/index.dart';
-import 'iron_selector/index.dart';
-import 'iron_signals/index.dart';
-import 'iron_validatable_behavior/index.dart';
-import 'iron_validator_behavior/index.dart';
-import 'marked_element/index.dart';
+//  import 'google_domain_user_picker/google_domain_user_picker_demo.dart';
+//  import 'google_drive/google_drive_demo.dart';
+//  import 'google_recaptcha/google_recaptcha_demo.dart';
+// import 'iron_label/iron_label_demo.dart';
 //  import 'neon_animation/card/index.dart';
 //  import 'neon_animation/declarative/index.dart';
 //  import 'neon_animation/doc/index.dart';
@@ -93,54 +124,148 @@ import 'marked_element/index.dart';
 //  import 'neon_animation/load/index.dart';
 //  import 'neon_animation/reprojection/index.dart';
 //  import 'neon_animation/tiles/index.dart';
-import 'paper_badge/index.dart';
-import 'paper_behaviors/index.dart';
-import 'paper_card/index.dart';
-import 'paper_checkbox/index.dart';
-import 'paper_dialog/index.dart';
-import 'paper_dialog_behavior/index.dart';
-import 'paper_dialog_scrollable/index.dart';
-import 'paper_drawer_panel/index.dart';
-import 'paper_dropdown_menu/index.dart';
-import 'paper_fab/index.dart';
-import 'paper_header_panel/index.dart';
-import 'paper_icon_button/index.dart';
-import 'paper_input/index.dart';
-import 'paper_item/index.dart';
-import 'paper_material/index.dart';
-import 'paper_menu/index.dart';
-import 'paper_menu_button/index.dart';
-import 'paper_progress/index.dart';
-import 'paper_radio_button/index.dart';
-import 'paper_radio_group/index.dart';
-import 'paper_ripple/index.dart';
-import 'paper_scroll_header_panel/index.dart';
-import 'paper_slider/index.dart';
-import 'paper_spinner/index.dart';
-import 'paper_styles/index.dart';
-import 'paper_tabs/index.dart';
-import 'paper_toast/index.dart';
-import 'paper_toggle_button/index.dart';
-import 'paper_toolbar/index.dart';
-import 'paper_tooltip/index.dart';
 
-/// Silence analyzer [DemoElements],
+
+/// Silence analyzer [DemoElements], [PaperItem], [PaperDrawerPanel],
+/// [PaperHeaderPanel], [IronList], [PaperToolbar],
+/// [FirebaseElementDemo]
+/// [GoldCcCvcInputDemo]
+/// [GoldCcExpirationInputDemo]
+/// [GoldCcInputDemo]
+/// [GoldEmailInputDemo]
+/// [GoldPhoneInputDemo]
+/// [GoldZipInputDemo]
+/// [GoogleAnalyticsDemo]
+/// [GoogleApisDemo]
+/// [GoogleCalendarDemo]
+/// [GoogleCastableVideoDemo]
+/// [GoogleChartDemo]
+/// [GoogleDomainUserPickerDemo]
+/// [GoogleDriveDemo]
+/// [GoogleFeedsDemo]
+/// [GoogleHangoutButtonDemo]
+/// [GoogleMapDemo]
+/// [GoogleRecaptchaDemo]
+/// [GoogleSheetsDemo]
+/// [GoogleSigninDemo]
+/// [GoogleStreetviewPanoDemo]
+/// [GoogleUrlShortenerDemo]
+/// [GoogleYoutubeDemo]
+/// [GoogleYoutubeUploadDemo]
+/// [IronA11yAnnouncerDemo]
+/// [IronA11yKeysDemo]
+/// [IronA11yKeysBehaviorDemo]
+/// [IronAjaxDemo]
+/// [IronAutogrowTextareaDemo]
+/// [IronBehaviorsDemo]
+/// [IronCheckedElementBehaviorDemo]
+/// [IronCollapseDemo]
+/// [IronComponentPageDemo]
+/// [IronDocViewerDemo]
+/// [IronDropdownDemo]
+/// [IronFitBehaviorDemo]
+/// [IronFlexLayoutDemo]
+/// [IronFormDemo]
+/// [IronFormElementBehaviorDemo]
+/// [IronIconDemo]
+/// [IronIconsDemo]
+/// [IronIconsetDemo]
+/// [IronIconsetSvgDemo]
+/// [IronImageDemo]
+/// [IronInputDemo]
+/// [IronJsonpLibraryDemo]
+/// [IronLabelDemo]
+/// [IronListDemo]
+/// [IronListExternalContentDemo]
+/// [IronListSelectionDemo]
+/// [IronListDemo]
+/// [IronLocalstorageDemo]
+/// [IronMediaQueryDemo]
+/// [IronMenuBehaviorDemo]
+/// [IronMetaDemo]
+/// [IronOverlayBehaviorDemo]
+/// [IronPagesDemo]
+/// [IronRangeBehaviorDemo]
+/// [IronResizableBehaviorDemo]
+/// [IronSelectorDemo]
+/// [IronSignalsDemo]
+/// [IronValidatableBehaviorDemo]
+/// [IronValidatorBehaviorDemo]
+/// [MarkedElementDemo]
+/// [NeonAnimationCardDemo]
+/// [NeonAnimationDeclarativeDemo]
+/// [NeonAnimationDocDemo]
+/// [NeonAnimationDropdownDemo]
+/// [NeonAnimationGridDemo]
+/// [NeonAnimationListDemo]
+/// [NeonAnimationLoadDemo]
+/// [NeonAnimationReprojectionDemo]
+/// [NeonAnimationTilesDemo]
+/// [PaperBadgeDemo]
+/// [PaperBehaviorsDemo]
+/// [PaperCardDemo]
+/// [PaperCheckboxDemo]
+/// [PaperDialogDemo]
+/// [PaperDialogBehaviorDemo]
+/// [PaperDialogScrollableDemo]
+/// [PaperDrawerPanelDemo]
+/// [PaperDropdownMenuDemo]
+/// [PaperFabDemo]
+/// [PaperHeaderPanelDemo]
+/// [PaperIconButtonDemo]
+/// [PaperInputDemo]
+/// [PaperItemDemo]
+/// [PaperMaterialDemo]
+/// [PaperMenuDemo]
+/// [PaperMenuButtonDemo]
+/// [PaperProgressDemo]
+/// [PaperRadioButtonDemo]
+/// [PaperRadioGroupDemo]
+/// [PaperRippleDemo]
+/// [PaperScrollHeaderPanelDemo]
+/// [PaperSliderDemo]
+/// [PaperSpinnerDemo]
+/// [PaperStylesDemo]
+/// [PaperTabsDemo]
+/// [PaperToastDemo]
+/// [PaperToggleButtonDemo]
+/// [PaperToolbarDemo]
+/// [PaperTooltipDemo]
 @PolymerRegister('all-demos')
 class AllDemos extends PolymerElement {
   AllDemos.created() : super.created();
   List<DemoElementItem> __demos;
   @property List<DemoElementItem> get demos => __demos;
-  set demos(value){}
+  set demos(value) {}
+
+  @property
+  DemoElementItem selected;
 
   void ready() {
-    __demos = demoElements.map((name) => new DemoElementItem(name)).toList();
+    __demos = demoElements.map((name) => new DemoElementItem(name)).toList()
+        as List<DemoElementItem>;
     notifyPath('demos', __demos);
-    print('all-demos ready');
+    _demoList.selectItem(convertToJs(demos.first));
+    _loadDemo(demos.first);
   }
 
-  @eventHandler
-  void loadDemo(dom.Event event, [_]) {
-    final demo = new dom.Element.tag((event.target as dom.Element).dataset['id']);
+  IronList get _demoList => $['demolist'] as IronList;
+
+  @reflectable
+  void demoClickHandler(dom.Event event, [_]) {
+    final item = convertToDart(_demoList.jsElement.callMethod(
+        'modelForElement', [event.target])['demo']) as DemoElementItem;
+    // If the currently selected item is clicked, IronList deselects it.
+    // We disable this behavior.
+    if (_demoList.selectedItem == null) {
+      _demoList.selectItem(convertToJs(item));
+    } else {
+      _loadDemo(item);
+    }
+  }
+
+  void _loadDemo(DemoElementItem item) {
+    final demo = new dom.Element.tag(item.name);
     final placeholder = Polymer.dom($['placeholder']) as PolymerDom;
     placeholder.childNodes.clear();
     placeholder.append(demo);
@@ -148,8 +273,17 @@ class AllDemos extends PolymerElement {
 }
 
 class DemoElementItem extends JsProxy {
+  @reflectable
+  bool isActive = false;
+  @reflectable
   final String name;
+  @reflectable
   DemoElementItem(this.name);
+
+  bool operator ==(other) => other is DemoElementItem && name == other.name;
+
+  @override
+  int get hashCode => name.hashCode;
 }
 
 const List demoElements = const [
@@ -184,13 +318,12 @@ const List demoElements = const [
   'iron-ajax-demo',
   'iron-autogrow-textarea-demo',
   'iron-behaviors-demo',
-//  'iron-checked-element-behavior-demo',
+  'iron-checked-element-behavior-demo',
   'iron-collapse-demo',
   'iron-component-page-demo',
   'iron-doc-viewer-demo',
   'iron-dropdown-demo',
   'iron-fit-behavior-demo',
-  'iron-flex-layout-demo',
   'iron-flex-layout-demo',
   'iron-form-demo',
   'iron-form-element-behavior-demo',
@@ -201,10 +334,10 @@ const List demoElements = const [
   'iron-image-demo',
   'iron-input-demo',
   'iron-jsonp-library-demo',
-//  'iron-labe-demo',
+//  'iron-label-demo',
   'iron-list-demo',
-  'iron-list/external-demo',
-  'iron-list-demo',
+  'iron-list-external-content-demo',
+  'iron-list-selection-demo',
   'iron-localstorage-demo',
   'iron-media-query-demo',
   'iron-menu-behavior-demo',

@@ -13,7 +13,6 @@ library polymer_elements_demo.web.web.paper_dialog_behavior.simple_dialog;
 import 'package:web_components/web_components.dart' show HtmlImport;
 import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/paper_dialog_behavior.dart';
-import 'package:polymer_elements/paper_dialog_behavior.dart';
 import 'package:polymer_elements/iron_overlay_behavior.dart';
 import 'package:polymer_elements/iron_fit_behavior.dart';
 import 'package:polymer_elements/iron_resizable_behavior.dart';

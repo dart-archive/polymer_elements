@@ -25,7 +25,7 @@ class GoogleUrlShortenerDemo extends PolymerElement {
   @property String shortUrl;
   @property String urlError;
 
-  @eventHandler
+  @reflectable
   bool shorten([_, __]) {
     set('longUrl', ($['longUrl'] as dom.UrlInputElement).value);
     return false;

@@ -19,7 +19,7 @@ class XPrettyJson extends PolymerElement {
   XPrettyJson.created() : super.created();
   @property Map object;
 
-  @eventHandler
+  @reflectable
   String prettify(Object object) {
     if (object == null) {
       return '';

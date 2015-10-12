@@ -27,7 +27,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <section class="flex layout horizontal wrap">
       <template is="dom-repeat" items="[[ajaxResponse.items]]">
         <div>
-          <h2><a href="[[url(item.id.videoId)]]" target="_blank">[[item.snippet.title]]</a></h2>
+          <h2><a href="[[computeUrl(item.id.videoId)]]" target="_blank">[[item.snippet.title]]</a></h2>
           <iron-image src="[[item.snippet.thumbnails.high.url]]" width="256" height="256" sizing="cover" preload fade></iron-image>
           <p>[[item.snippet.description]]</p>
         </div>

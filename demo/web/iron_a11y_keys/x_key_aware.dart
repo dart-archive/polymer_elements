@@ -35,7 +35,7 @@ class XKeyAware extends PolymerElement {
     set('boundKeys', $['keys'].keys.split(' '));
   }
 
-  @eventHandler
+  @reflectable
   void updatePressed(dom.CustomEvent event, [_]) {
     print(event.detail);
     _pressed = '${pressed}${event.detail['combo']} pressed!\n';

@@ -37,7 +37,7 @@ class GoogleSigninDemo extends PolymerElement {
   js.JsObject get _gapiAuthInstance =>
       js.context['gapi']['auth2'].callMethod('getAuthInstance', []);
 
-  @eventHandler
+  @reflectable
   void handleSignIn(dom.CustomEvent response, [_]) {
     set('status', 'Signin granted');
     // console.log('[Aware] Signin Response', response);
@@ -48,19 +48,19 @@ class GoogleSigninDemo extends PolymerElement {
             .callMethod('getBasicProfile', []).callMethod('getName', []));
   }
 
-  @eventHandler
+  @reflectable
   void handleOffline(dom.CustomEvent response, [_]) {
     set('offlineCode', response.detail.code);
   }
 
-  @eventHandler
+  @reflectable
   void handleSignOut(dom.CustomEvent response, [_]) {
     set('status', 'Signed out');
     // console.log('[Aware] Signout Response', response);
     set('userName', 'N/A');
   }
 
-  @eventHandler
+  @reflectable
   void disconnect([_, __]) {
     //var b = document.querySelector('google-signin');
     var currentUser = _gapiAuthInstance['auth2']

@@ -25,13 +25,13 @@ import 'package:polymer_elements_demo/styles/demo_elements.dart';
 class PaperCardDemo extends PolymerElement {
   PaperCardDemo.created() : super.created();
 
-  @eventHandler
+  @reflectable
   void decreaseShadow([_, __]) {
     PaperCard card = $['shadow_demo'];
     card.elevation = card.elevation > 0 ? card.elevation - 1 : 0;
   }
 
-  @eventHandler
+  @reflectable
   void increaseShadow([_, __]) {
     PaperCard card = $['shadow_demo'];
     card.elevation = card.elevation < 5 ? card.elevation + 1 : 5;

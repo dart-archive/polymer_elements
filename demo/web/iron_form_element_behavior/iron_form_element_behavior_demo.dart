@@ -23,7 +23,7 @@ class IronFormElementBehaviorDemo extends PolymerElement {
 
   @property List items;
 
-  @eventHandler
+  @reflectable
   update([_, __]) =>
     set('items', ($['form'] as SimpleForm).formElements.map((e) => e.value).toList());
 }

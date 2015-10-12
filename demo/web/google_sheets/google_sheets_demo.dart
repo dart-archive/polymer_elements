@@ -28,7 +28,7 @@ class GoogleSheetsDemo extends PolymerElement {
   @property int tabId = 1;
   @property String openInGoogleDocsUrl;
 
-  @eventHandler
+  @reflectable
   void useTab(dom.Event event, [_]) {
     set('tabId',
         int.parse((event.currentTarget as dom.Element).dataset['tabid']));

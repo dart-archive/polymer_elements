@@ -23,7 +23,7 @@ import 'package:polymer_elements_demo/styles/demo_elements.dart';
 class PaperMaterialDemo extends PolymerElement {
   PaperMaterialDemo.created() : super.created();
 
-  @eventHandler
+  @reflectable
   void tapAction (dom.Event event, [_]) {
     PaperMaterial target = (Polymer.dom(event) as PolymerEvent).localTarget;
     if (!target.attributes.containsKey('down')) {
