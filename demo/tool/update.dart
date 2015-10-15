@@ -1,25 +1,37 @@
 library polymer_elements_examples.tool.update;
 
-import 'dart:async' show Future, Stream;
-import 'dart:convert' show JsonEncoder;
+import 'dart:async' show Completer, Future, Stream;
+import 'dart:convert' show JsonEncoder, JSON;
 import 'dart:io' as io;
 import 'package:crypto/crypto.dart' show CryptoUtils;
 import 'package:github/server.dart'
-    show Authentication, GitHub, GitHubFile, RepositoriesService, Repository, RepositoryContents, RepositorySlug, initGitHub;
+    show
+        Authentication,
+        GitHub,
+        GitHubFile,
+        RepositoriesService,
+        Repository,
+        RepositoryContents,
+        RepositorySlug,
+        initGitHub;
 import 'package:path/path.dart' as path;
-import 'package:yaml/yaml.dart';
 import 'package:quiver/core.dart' show hash2;
 
-// TODO(zoechi) unicode characters aren't loaded correctly (see for example paper_badge demo)
+const webDirPath = '../web';
+
+// TODO(zoechi) unicode characters in file content aren't written correctly (see for example paper_badge demo)
 
 main() async {
-  final UpdateStatus updateStatus = new UpdateStatus('updatestatus.yaml')
+  final UpdateStatus updateStatus = new UpdateStatus('tool/updatestatus.json')
     ..load();
 
-  String gitHubToken = _readGitHubToken('.github_token');
+  String gitHubToken = _readGitHubToken('tool/.github_token');
   final gitHub = new StatusComparer(updateStatus, gitHubToken);
+  print('compare');
   await gitHub.compare();
+  print('download');
   await gitHub.downloadAdded();
+  print('persist');
   await updateStatus.persist();
 }
 
@@ -63,11 +75,9 @@ class StatusComparer {
 
   /// Updates [updateStatus] with information acquired from GitHub.
   Future compare() async {
-    List<Future> tasks = <Future>[];
     for (final org in organizations) {
-      tasks.add(org.compare());
+      await org.compare();
     }
-    await Future.wait(tasks);
     organizations.sort((a, b) =>
         a.organizationStatus.name.compareTo(b.organizationStatus.name));
     organizations.forEach((o) => o.organizationStatus.sortRepositories());
@@ -114,16 +124,18 @@ class GitHubOrganizationComparer {
   }
 
   /// Fetch files information from a GitHub repositories `demo` subdirectory.
-  Future<RepositoryContents> _loadDemoFiles(Repository repository, {String path : 'demo'}) async {
+  Future<RepositoryContents> _loadDemoFiles(Repository repository,
+      {String path: 'demo'}) async {
     final service = new RepositoriesService(gitHubClient);
     final contents = await service.getContents(repository.slug(), path);
     final files = <GitHubFile>[];
-    if(contents.tree != null) {
-      for(final file in contents.tree) {
-        if(file.type == 'file') {
+    if (contents.tree != null) {
+      for (final file in contents.tree) {
+        if (file.type == 'file') {
           files.add(file);
-        } else if(file.type == 'dir'){
-          files.addAll((await _loadDemoFiles(repository, path: file.path)).tree);
+        } else if (file.type == 'dir') {
+          files
+              .addAll((await _loadDemoFiles(repository, path: file.path)).tree);
         } else {
           print('Unsupported file GitHub type "${file.type}".');
         }
@@ -137,58 +149,87 @@ class GitHubOrganizationComparer {
   /// set whether repositories and files have been added, removed or updated.
   Future compare() async {
     final repoService = new RepositoriesService(gitHubClient);
-    final subscription = _loadRepositories().listen((repository) async {
+    final repositories = await _loadRepositories().toList(); //.listen((repository) async {
+    for(final repository in repositories) {
       final slug = new RepositorySlug(organizationStatus.name, repository.name);
-      var foundRepoStatus = organizationStatus.repositories
+      var oldRepositoryStatus = organizationStatus.repositories
           .where((repoStatus) => repoStatus.name == repository.name);
-      RepositoryStatus repositoryStatus;
-      if (foundRepoStatus.isNotEmpty) {
-        repositoryStatus = foundRepoStatus.first
+      RepositoryStatus newRepositoryStatus;
+      if (oldRepositoryStatus.isNotEmpty) {
+        // repository already know locally
+        print('known repository: ${oldRepositoryStatus.first.name}');
+        newRepositoryStatus = oldRepositoryStatus.first
           ..change = RepositoryChange.none;
       } else {
-        repositoryStatus =
+        // previously unknown repository
+        newRepositoryStatus =
             new RepositoryStatus(organizationStatus.name, repository.name)
               ..change = RepositoryChange.added;
-        organizationStatus.repositories.add(repositoryStatus);
+        organizationStatus.repositories.add(newRepositoryStatus);
+        print('new repository: ${newRepositoryStatus.name}');
       }
 
       final contents = await _loadDemoFiles(repository);
+      // for each file in the repository in demo/**
       if (contents.tree != null) {
         for (var item in contents.tree) {
+          print('  ${repository.name} item: ${item.path}');
           if (item.type == 'file') {
-            var foundFiles =
-                repositoryStatus.files.where((file) => file.path == item.path);
-            FileStatus file;
-            if (foundFiles.isNotEmpty) {
-              file = foundFiles.first;
-              if (file.sha == item.sha) {
-                file.change = FileChange.none;
+            var oldFiles = newRepositoryStatus.files
+                .where((file) => file.path == item.path);
+            FileStatus newFile;
+            final newCommit = await repoService.getCommit(slug, 'master');
+            if (oldFiles.isNotEmpty) {
+              // file already known locally
+              newFile = oldFiles.first;
+              // file unchanged
+              if (newFile.sha == item.sha) {
+                print('    known unchanged');
+                newFile.change = FileChange.none;
+                // update file which was added before commitSha was supported
+                if (newFile.commitSha == null) {
+                  newFile.commitSha = newCommit.sha;
+                }
+                // update files which were added before compareView was supported
+                if (newFile.compareView == null) {
+                  newFile.compareView = item.htmlUrl;
+                }
               } else {
-                final newCommit = await repoService.getCommit(slug, item.sha);
-                final oldCommit = await repoService.getCommit(slug, file.sha);
-                // TODO(zoechi) compare isn't yet implemented in the github package
-                file
-                  ..oldSha = file.sha
+                // file modified
+                print('    known modified');
+                newFile
+                  ..oldSha = newFile.sha
                   ..sha = item.sha
+                  ..oldCommitSha = newFile.commitSha
+                  ..commitSha = newCommit.sha
                   ..change = FileChange.modified
-                  ..compareView =
-                      '${repository.htmlUrl}/compare/master...${file.oldSha}';
+                  ..compareView = newFile.oldCommitSha == null
+                      ? item.htmlUrl
+                      : '${repository.htmlUrl}/compare/${newFile.oldCommitSha}...master';
               }
             } else {
-              file = new FileStatus(repository.name, item.path)
+              // new file
+              newFile = new FileStatus(repository.name, item.path)
                 ..sha = item.sha
-                ..change = FileChange.added;
-              repositoryStatus.files.add(file);
+                ..commitSha = newCommit.sha
+                ..change = FileChange.added
+                ..compareView = item.htmlUrl;
+              newRepositoryStatus.files.add(newFile);
+              print('    new file: ${newFile.path}');
             }
           }
         }
       }
-      repositoryStatus.files
+      // all files where `file.change` still is `FileChange.unknown` were
+      // deleted remotely
+      newRepositoryStatus.files
           .where((file) => file.change == FileChange.unknown)
-          .forEach((file) => file.change = FileChange.deleted);
-    });
+          .forEach((file) {
+        file.change = FileChange.deleted;
+        print('deleted file: ${file.path}');
+      });
+    }
 
-    await subscription.asFuture();
     organizationStatus.repositories
         .where((repoStatus) => repoStatus.change == RepositoryChange.unknown)
         .forEach((repoStatus) => repoStatus.change = RepositoryChange.deleted);
@@ -203,8 +244,8 @@ class GitHubOrganizationComparer {
         final contents = await new RepositoriesService(gitHubClient)
             .getContents(new RepositorySlug(organizationStatus.name, repo.name),
                 file.path);
-        String filePath = _dartifyPath(path.join(
-            'web', repo.name, path.relative(contents.file.path, from: 'demo')));
+        String filePath = _dartifyPath(path.join(webDirPath, repo.name,
+            path.relative(contents.file.path, from: 'demo')));
         final fileContent =
             CryptoUtils.base64StringToBytes(contents.file.content);
         if (file.change == FileChange.added) {
@@ -215,7 +256,7 @@ class GitHubOrganizationComparer {
           if (contents.file.name.toLowerCase() == 'index.html') {
             _generateDartFiles(
                 '${repo.name}-demo',
-                path.join('web', _tagNameToFileName(repo.name)),
+                path.join(webDirPath, _tagNameToFileName(repo.name)),
                 new String.fromCharCodes(fileContent));
           }
           filePath = path.join(
@@ -230,7 +271,6 @@ class GitHubOrganizationComparer {
           destination.writeAsBytesSync(fileContent);
           print('${destination} created.');
         }
-//        file.change = FileChange.none;
       }
     }
   }
@@ -358,7 +398,8 @@ class GitHubOrganizationComparer {
             library:
                 'polymer_elements_demo.${_pathToLibraryName(exampleDirectory)}',
             elementsImports: elementsImports,
-            localImports: localImports, importDemoElements: true));
+            localImports: localImports,
+            importDemoElements: true));
   }
 
   /// Creates the Dart code for a Polymer element.
@@ -375,7 +416,8 @@ class GitHubOrganizationComparer {
   String _elementDartContent(String tagName,
       {String library: '',
       List<String> elementsImports,
-      List<String> localImports, bool importDemoElements: false}) {
+      List<String> localImports,
+      bool importDemoElements: false}) {
     final fileName = _tagNameToFileName(tagName);
     String className = _tagNameToClassName(tagName);
     List<String> imports = <String>[];
@@ -504,14 +546,14 @@ ${_htmlLicense}
 }
 
 /// Manages the status of organizations, repositories and files.
-/// Serializes and deserializes the `updatestatus.yaml` file to and from
+/// Serializes and deserializes the `updatestatus.json` file to and from
 ///   model classes.
 class UpdateStatus {
   final String statusFilePath;
   io.File _statusFile;
   final List<OrganizationStatus> organizations = <OrganizationStatus>[];
 
-  /// [statusFilePath] is the path to the status file ('updatestatus.yaml')
+  /// [statusFilePath] is the path to the status file ('updatestatus.json')
   ///   to work with.
   UpdateStatus(this.statusFilePath);
 
@@ -520,11 +562,11 @@ class UpdateStatus {
   void load() {
     _statusFile = new io.File(statusFilePath);
     if (_statusFile.existsSync()) {
-      final yaml = loadYaml(_statusFile.readAsStringSync());
-      final List organizationsYaml = yaml['organizations'];
-      if (organizationsYaml != null) {
-        organizations.addAll(organizationsYaml
-            .map((repo) => new OrganizationStatus.fromYaml(repo)));
+      final json = JSON.decode(_statusFile.readAsStringSync());
+      final List organizationsJson = json['organizations'];
+      if (organizationsJson != null) {
+        organizations.addAll(organizationsJson
+            .map((repo) => new OrganizationStatus.fromJson(repo)));
       }
     } else {
       print('info: update status file "$statusFilePath" doesn\'t exist.');
@@ -571,13 +613,13 @@ class OrganizationStatus {
   OrganizationStatus(this.name, {List<RepositoryStatus> repositories})
       : repositories = repositories ?? <RepositoryStatus>[];
 
-  factory OrganizationStatus.fromYaml(Map yaml) {
-    final organization = yaml['organization'];
+  factory OrganizationStatus.fromJson(Map json) {
+    final organization = json['organization'];
     List<RepositoryStatus> repositories = <RepositoryStatus>[];
-    List repositoriesYaml = yaml['repositories'];
-    if (repositoriesYaml != null) {
-      repositories.addAll(repositoriesYaml
-          .map((repo) => new RepositoryStatus.fromYaml(organization, repo)));
+    List repositoriesJson = json['repositories'];
+    if (repositoriesJson != null) {
+      repositories.addAll(repositoriesJson
+          .map((repo) => new RepositoryStatus.fromJson(organization, repo)));
     }
     return new OrganizationStatus(organization, repositories: repositories);
   }
@@ -612,7 +654,7 @@ class RepositoryStatus {
   /// The files found in the `demo` subdirectory of the GitHub repository.
   final List<FileStatus> files;
 
-  /// If the `skip` property in the `updatestatus.yaml` file for a repository is
+  /// If the `skip` property in the `updatestatus.json` file for a repository is
   /// set to true, this repository will be ignored when files are downloaded
   /// and local stubs are created.
   final bool skip;
@@ -623,18 +665,18 @@ class RepositoryStatus {
   /// The current change status.
   RepositoryChange change = RepositoryChange.unknown;
 
-  factory RepositoryStatus.fromYaml(String organization, Map yaml) {
-    final repository = yaml['repository'];
+  factory RepositoryStatus.fromJson(String organization, Map json) {
+    final repository = json['repository'];
     List<FileStatus> files = <FileStatus>[];
-    List filesYaml = yaml['files'];
-    if (filesYaml != null) {
+    List filesJson = json['files'];
+    if (filesJson != null) {
       files.addAll(
-          filesYaml.map((file) => new FileStatus.fromYaml(repository, file)));
+          filesJson.map((file) => new FileStatus.fromJson(repository, file)));
     }
     return new RepositoryStatus(organization, repository,
         files: files,
-        skip: yaml['skip'] ?? false,
-        skipReason: yaml['skip_reason']);
+        skip: json['skip'] ?? false,
+        skipReason: json['skip_reason']);
   }
 
   RepositoryStatus(this.organization, this.name,
@@ -681,13 +723,17 @@ class FileStatus {
   final String path;
   String sha;
   String oldSha;
+  String commitSha;
+  String oldCommitSha;
   FileChange change = FileChange.unknown;
   String compareView;
 
   FileStatus(this.repository, this.path);
 
-  factory FileStatus.fromYaml(String repository, Map yaml) {
-    return new FileStatus(repository, yaml['file'])..sha = yaml['sha'];
+  factory FileStatus.fromJson(String repository, Map json) {
+    return new FileStatus(repository, json['file'])
+      ..sha = json['sha']
+      ..commitSha = json['commit_sha'];
   }
 
   operator ==(other) => other is FileStatus &&
@@ -698,8 +744,9 @@ class FileStatus {
   int get hashCode => hash2(repository.hashCode, path.hashCode);
 
   Map toJson() {
-    final result = {'file': path, 'sha': sha};
+    final result = {'file': path, 'sha': sha, 'commit_sha': commitSha};
     if (oldSha != null) result['old_sha'] = oldSha;
+    if (oldCommitSha != null) result['old_commit_sha'] = oldCommitSha;
     if (change != FileChange.none.toString()) result['change'] =
         change.toString();
     if (compareView != null) result['compare_view'] = compareView;

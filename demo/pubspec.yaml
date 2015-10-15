@@ -15,7 +15,6 @@ dev_dependencies:
   github: '>=2.2.3+1 <3.0.0'
   path: '>=1.3.6 <2.0.0'
   test: ^0.12.0
-  yaml: ">=1.0.0 <3.0.0"
   quiver: '>=0.21.4 <0.22.0'
   crypto: '>=0.9.1 <0.10.0'
 environment:
@@ -24,6 +23,7 @@ transformers:
 - web_components:
     entry_points:
     - web/index.html
+    - tool/status.html
     #- web/chartjs_element/index.html TODO(zoechi) element not available
     - web/firebase_element/index.html
     - web/gold_cc_cvc_input/index.html
@@ -137,6 +137,7 @@ transformers:
 - reflectable:
     entry_points:
     - web/index.dart
+    - tool/status.dart
     #- web/chartjs_element/index.dart
     - web/firebase_element/index.dart
     - web/gold_cc_cvc_input/index.dart

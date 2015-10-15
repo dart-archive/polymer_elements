@@ -1,0 +1,143 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<dom-module id="update-status">
+  <template>
+    <style>
+      :host {
+        font-family: sans-serif;
+      }
+      paper-item {
+        font-size: small;
+      }
+
+      paper-item[active] {
+        background-color: #eceff1;
+      }
+      .with-tooltip {
+        display: inline-block;
+        overflow: hidden;
+      }
+      .main-container {
+        @apply(--layout-fit);
+        @apply(--layout-horizontal);
+      }
+      paper-header-panel.organizations {
+        width: 250px;
+        padding-left: 5px;
+        padding-right: 5px;
+        margin-right: 5px;
+        background-color: var(--google-blue-100);
+      }
+
+      paper-header-panel.repositories {
+        width: 300px;
+        padding-left: 5px;
+        padding-right: 5px;
+        margin-right: 5px;
+        background-color: var(--google-green-100);
+      }
+      paper-header-panel.files {
+        padding-left: 5px;
+        padding-right: 5px;
+        @apply(--layout-flex);
+      }
+
+      [hidden] {
+        display: none;
+      }
+
+      #repositoryFilterMenu {
+        background-color: var(--google-grey-300);
+        --paper-menu-selected-item: {
+          color: var(--google-red-700);
+          background-color: white;
+        };
+        --paper-menu-focused-item: {
+          color: var(--google-red-700);
+          background-color: var(--google-yellow-100);
+        }
+      }
+    </style>
+    <iron-ajax url="updatestatus.json" last-response="{{data}}" auto></iron-ajax>
+    <div class="main-container">
+      <paper-header-panel class="organizations">
+        <div class="paper-header">Organizations:</div>
+        <iron-list id="organizations" items="[[organizations]]" as="organization"
+                   selection-enabled
+                   selected-item="{{selectedOrganization}}">
+          <template>
+            <paper-item active="[[selected]]"
+                        on-tap="organizationClickHandler"
+                        data-demo-name$="[[demo.name]]">
+              <div>[[organization]]</div>
+            </paper-item>
+          </template>
+        </iron-list>
+      </paper-header-panel>
+      <paper-header-panel class="repositories" hidden$="[[!selectedOrganization]]">
+        <div class="paper-header">Repositories:</div>
+          <paper-menu id="repositoryFilterMenu" attr-for-selected="filter" selected="{{repositoryFilter}}">
+            <span class="with-tooltip" filter="all">
+              <paper-icon-button icon="icons:apps" alt="All"></paper-icon-button>
+              <paper-tooltip fit-to-visible-bounds>Show all repositories</paper-tooltip>
+            </span>
+            <span class="with-tooltip" filter="added">
+              <paper-icon-button icon="icons:add-circle" alt="Added"></paper-icon-button>
+              <paper-tooltip fit-to-visible-bounds>Show added repositories</paper-tooltip>
+            </span>
+            <span class="with-tooltip" filter="deleted">
+              <paper-icon-button icon="icons:remove-circle" alt="Removed"></paper-icon-button>
+              <paper-tooltip fit-to-visible-bounds>Show removed repositories</paper-tooltip>
+            </span>
+            <span class="with-tooltip" filter="any-changes">
+              <paper-icon-button icon="icons:change-history" alt="Any repository or file changes"></paper-icon-button>
+              <paper-tooltip fit-to-visible-bounds>Any repository or file changes</paper-tooltip>
+            </span>
+          </paper-menu>
+        <iron-list id="repositories" items="[[repositories]]" as="repository" selection-enabled
+                   selected-item="{{selectedRepository}}">
+          <template>
+            <paper-item active="[[selected]]" on-tap="repositoryClickHandler" data-demo-name$="[[repository]]">
+              <span class="with-tooltip" filter="any-changes">
+                <iron-icon icon="[[repositoryChangeIcon(repository.change)]]"></iron-icon>
+                <paper-tooltip fit-to-visible-bounds>[[repository.change]]</paper-tooltip>
+              </span>
+              <span>[[repository.repository]]</span>
+            </paper-item>
+          </template>
+        </iron-list>
+      </paper-header-panel>
+      <paper-header-panel class="files" hidden$="[[!selectedRepository]]">
+        <div class="paper-header">Files:</div>
+        <!--<div>Skip: <span>[[repositoryData.skip]]</span></div>-->
+        <iron-list id="files" items="[[repositoryData.files]]" as="file" selection-enabled
+                   selected-item="{{selectedFile}}">
+          <template>
+            <paper-item active="[[selected]]" on-tap="fileClickHandler" data-demo-name$="[[demo.name]]">
+              <span class="with-tooltip" filter="any-changes">
+                <iron-icon icon="[[fileChangeIcon(file.change)]]"></iron-icon>
+                <paper-tooltip fit-to-visible-bounds>[[file.change]]</paper-tooltip>
+              </span>
+              <span>[[repository.repository]]</span>
+
+              <!--<iron-icon icon="[[fileChangeIcon(file.change)]]"></iron-icon>-->
+              <template is="dom-if" if="{{file.compare_view}}">
+                <a href="[[file.compare_view]]" target="_blank">[[file.file]]</a>
+              </template>
+              <template is="dom-if" if="{{!file.compare_view}}">
+                <span>[[file.file]]</span>
+              </template>
+            </paper-item>
+          </template>
+        </iron-list>
+      </paper-header-panel>
+    </div>
+  </template>
+</dom-module>
