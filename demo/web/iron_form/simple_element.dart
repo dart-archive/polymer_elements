@@ -30,6 +30,7 @@ class SimpleElement extends PolymerElement with IronFormElementBehavior, IronVal
 
   // Overidden from Polymer.IronValidatableBehavior. Will set the `invalid`
   // attribute automatically, which should be used for styling.
+  // TODO(zoechi) should override `_getValidity()` from IronValidatableBehavior but that is not available in Dart
   @override
   bool getValidity() =>
     value != null && value.isNotEmpty;

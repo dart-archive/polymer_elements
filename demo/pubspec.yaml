@@ -41,7 +41,8 @@ transformers:
     #- web/google_drive/index.html TODO(zoechi) element not available
     - web/google_feeds/index.html
     - web/google_hangout_button/index.html
-    - web/google_map/index.html
+    #- web/google_map/index.html # TODO(zoechi) #94
+    #- web/google_map/poly.html # TODO(zoechi) #94
     #- web/google_recaptcha/index.html # TODO(zoechi) element not available
     - web/google_sheets/index.html
     - web/google_signin/index.html # TODO(zoechi) issues #67
@@ -72,8 +73,9 @@ transformers:
     - web/iron_input/index.html
     - web/iron_jsonp_library/index.html
     # - web/iron_label/index.html # TODO(zoechi) element not available
-    - web/iron_list/index.html # TODO(zoechi) items height wrong when demo is inside an element
-    - web/iron_list/external_content.html # for all 3 examples
+    - web/iron_list/index.html # TODO(zoechi) items height wrong when demo is inside an element for 3 examples
+    - web/iron_list/collapse.html # TODO(zoechi) #95
+    - web/iron_list/external_content.html
     - web/iron_list/selection.html # TODO(zoechi) clicking an item also adds it again to selected, even when it was already added
     - web/iron_localstorage/index.html
     - web/iron_media_query/index.html
@@ -98,7 +100,8 @@ transformers:
     #- web/neon_animation/reprojection/index.html
     #- web/neon_animation/tiles/index.html
     - web/paper_badge/index.html
-    - web/paper_behaviors/index.html
+    #- web/paper_behaviors/index.html # TODO(zoechi) #96
+    - web/paper_button/index.html
     - web/paper_card/index.html
     - web/paper_checkbox/index.html
     - web/paper_dialog/index.html # TODO(zoechi) check button size (too big) after next elements update
@@ -111,6 +114,7 @@ transformers:
     - web/paper_input/index.html
     - web/paper_icon_button/index.html
     - web/paper_item/index.html
+    #- web/paper_listbox/index.html # TODO(zoechi) element not available #97
     - web/paper_material/index.html
     - web/paper_menu/index.html
     - web/paper_menu_button/index.html
@@ -155,7 +159,8 @@ transformers:
     #- web/google_drive/index.dart
     - web/google_feeds/index.dart
     - web/google_hangout_button/index.dart
-    - web/google_map/index.dart
+    #- web/google_map/index.dart
+    #- web/google_map/poly.dart
     #- web/google_recaptcha/index.dart
     - web/google_sheets/index.dart
     - web/google_signin/index.dart
@@ -187,6 +192,7 @@ transformers:
     - web/iron_jsonp_library/index.dart
     # - web/iron_label/index.dart
     - web/iron_list/index.dart
+    - web/iron_list/collapse.dart
     - web/iron_list/external_content.dart
     - web/iron_list/selection.dart
     - web/iron_localstorage/index.dart
@@ -212,7 +218,8 @@ transformers:
     #- web/neon_animation/reprojection/index.dart
     #- web/neon_animation/tiles/index.dart
     - web/paper_badge/index.dart
-    - web/paper_behaviors/index.dart
+    #- web/paper_behaviors/index.dart
+    - web/paper_button/index.dart
     - web/paper_card/index.dart
     - web/paper_checkbox/index.dart
     - web/paper_dialog/index.dart
@@ -225,6 +232,7 @@ transformers:
     - web/paper_icon_button/index.dart
     - web/paper_input/index.dart
     - web/paper_item/index.dart
+    - web/paper_listbox/index.dart
     - web/paper_material/index.dart
     - web/paper_menu/index.dart
     - web/paper_menu_button/index.dart

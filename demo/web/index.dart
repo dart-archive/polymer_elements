@@ -12,7 +12,7 @@ import 'all_demos.dart';
 import 'package:polymer_elements/paper_styles.dart';
 import 'package:polymer_elements/demo_pages.dart';
 
-/// Silence analyzer [SeedElementDemo]
+/// Silence analyzer [AllDemos]
 main() async {
   await initPolymer();
 }

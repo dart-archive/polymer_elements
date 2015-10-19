@@ -17,7 +17,7 @@ import 'package:github/server.dart'
 import 'package:path/path.dart' as path;
 import 'package:quiver/core.dart' show hash2;
 
-const webDirPath = '../web';
+const webDirPath = 'web';
 
 // TODO(zoechi) unicode characters in file content aren't written correctly (see for example paper_badge demo)
 

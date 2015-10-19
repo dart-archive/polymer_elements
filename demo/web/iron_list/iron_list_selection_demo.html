@@ -41,7 +41,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         border-bottom: 1px solid #DDD;
       }
 
-      .item:focus {
+      .item:focus,
+      .item.selected:focus {
         outline: 0;
         background-color: #ddd;
       }
@@ -50,7 +51,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: var(--paper-blue-600);
       }
 
-      .item.selected {
+      .item.selected:not(:focus) {
         background-color: var(--google-grey-100);
       }
 
@@ -112,7 +113,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background-color: #ddd;
       }
 
-      paper-item:hover:after {
+      paper-item:hover::after {
         content: "－";
         width: 16px;
         height: 16px;

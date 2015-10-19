@@ -39,9 +39,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --paper-slider-pin-color: var(--paper-orange-500);
       }
 
-      #ratingsLabel {
+      .caption {
         padding-left: 12px;
         color: #a0a0a0;
+      }
+
+      #grade {
+        --paper-slider-secondary-color: var(--paper-red-a200);
       }
     </style>
     <style include="demo-elements"></style>
@@ -56,7 +60,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div>Hydrogen</div>
         <paper-slider value="0"></paper-slider><br><br>
         <div>Nitrogen</div>
-        <paper-slider value="78"></paper-slider><br><br>
+        <paper-slider value="78" secondary-progress="85"></paper-slider><br><br>
         <div>Sprinkles</div>
         <paper-slider disabled value="33"></paper-slider>
       </div>
@@ -85,8 +89,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="vertical-section">
         <div>Brightness</div><br>
         <paper-slider pin value="20" class="orange"></paper-slider>
-        <div>Ratings: <span>{{}}</span></div><br>
+        <div>Ratings: <span class="caption">[[ratingsLabel]]</span></div><br>
         <paper-slider id="ratings" on-value-change="ratingsChanged" pin snaps max="10" step="1" value="5" class="orange"></paper-slider>
+        <div>Grade: <span class="caption">[[gradeLabel]]</span></div><br>
+        <paper-slider id="grade" on-value-change="gradeChanged" pin value="20" secondary-progress="{{gradeSecondaryProgress}}" class="blue"></paper-slider>
       </div>
     </div>
 

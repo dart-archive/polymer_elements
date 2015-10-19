@@ -11,12 +11,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 library polymer_elements_demo.web.web.iron_iconset_svg.svg_sample_icons;
 
 import 'package:web_components/web_components.dart' show HtmlImport;
-import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/iron_icon.dart';
 import 'package:polymer_elements/iron_iconset_svg.dart';
 
-/// Silence analyzer [IronIcon], [IronIconsetSvg]
-@PolymerRegister('svg-sample-icons')
-class SvgSampleIcons extends PolymerElement {
-  SvgSampleIcons.created() : super.created();
-}

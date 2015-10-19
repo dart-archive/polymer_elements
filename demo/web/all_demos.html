@@ -29,7 +29,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <iron-list id="demolist" items="[[demos]]" as="demo" selection-enabled
                    selected-item="{{selected}}">
           <template>
-            <paper-item active="[[selected]]" on-click="demoClickHandler" data-demo-name$="[[demo.name]]">
+            <paper-item active="[[selected]]" on-tap="demoClickHandler" data-demo-name$="[[demo.name]]">
               <div>[[demo.name]]</div>
             </paper-item>
           </template>

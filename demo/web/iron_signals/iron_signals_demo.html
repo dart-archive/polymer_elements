@@ -13,16 +13,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="vertical-section vertical-section-container centered">
 
-      <h1>&lt;iron-signal&gt;</h1>
-      <!--<template is="dom-bind" id="my-app">-->
-        <iron-signals on-iron-signal-foo="fooSignal"></iron-signals>
-      <!--</template>-->
+      <h1>&lt;iron-signals&gt;</h1>
+      <iron-signals on-iron-signal-foo="fooSignal"></iron-signals>
 
-      <!--<template is="dom-bind" id="signal-message">-->
-        <template is="dom-if" if="{{detail}}">
-          <div><code>my-app</code> got a <code>{{detail}}</code> signal</div>
-        </template>
-      <!--</template>-->
+      <template is="dom-if" if="{{detail}}">
+        <div><code>my-app</code> got a <code>{{detail}}</code> signal</div>
+      </template>
 
     </div>
 

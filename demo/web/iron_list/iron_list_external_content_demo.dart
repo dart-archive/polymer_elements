@@ -29,7 +29,6 @@ import 'package:polymer_elements_demo/styles/demo_elements.dart';
 class IronListExternalContentDemo extends PolymerElement with PolymerBase {
   IronListExternalContentDemo.created() : super.created();
 
-  // TODO(zoechi) paper-spinner doesn't show
   @property bool loading = false;
   @property List people;
 

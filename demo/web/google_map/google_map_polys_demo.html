@@ -7,25 +7,18 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-<dom-module id="google-map-demo">
+<dom-module id="google-map-polys-demo">
   <template>
     <style>
-      #controlsToggle {
+      #toggleEdit {
         position: absolute;
-        left: 10%;
-        bottom: 10%;
+        top: 10px;
+        left: 120px;
       }
     </style>
     <style include="demo-elements"></style>
 
-    <google-map id="map"
-                on-api-load="apiLoad"
-                latitude="37.779" longitude="-122.3892" min-zoom="9" max-zoom="11"
-                language="en">
-      <google-map-marker latitude="37.779" longitude="-122.3892"
-                         title="Go Giants!" draggable="true">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/San_Francisco_Giants_Cap_Insignia.svg/200px-San_Francisco_Giants_Cap_Insignia.svg.png" />
-      </google-map-marker>
+    <google-map latitude="37.779" longitude="-122.3892" min-zoom="9" max-zoom="11" language="en">
       <google-map-poly closed fill-color="red" fill-opacity=".25" stroke-weight="1">
         <google-map-point latitude="37.779" longitude="-122.3892"></google-map-point>
         <google-map-point latitude="37.804" longitude="-122.2711"></google-map-point>
@@ -33,10 +26,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </google-map-poly>
     </google-map>
 
-    <google-map-directions id="directions" start-address="Oakland" end-address="Mountain View"
-                language="en"></google-map-directions>
-
-    <button id="controlsToggle" on-click="toggleControls">Toggle controls</button>
+    <button id="toggleEdit" on-click="toggleEdit">Toggle editing</button>
 
   </template>
 </dom-module>

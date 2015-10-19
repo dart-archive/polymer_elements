@@ -20,12 +20,28 @@ import 'package:polymer_elements_demo/styles/demo_elements.dart';
 class PaperSliderDemo extends PolymerElement {
   PaperSliderDemo.created() : super.created();
 
+  @property String ratingsLabel;
+
+  @property String gradeLabel;
+
+  @property int gradeSecondaryProgress = 70;
+
   PaperSlider get ratings => $['ratings'];
+
+  PaperSlider get grade => $['grade'];
 
   @reflectable
   ratingsChanged([_, __]) =>
       // TODO(zoechi) change vvv to `ratings.value` when #74 is fixd
-      $['ratingsLabel']?.text = '${_toNum(ratings.jsElement['value'])}';
+      set('ratingsLabel', '${_toNum(ratings.jsElement['value'])}');
+
+  @reflectable
+  gradeChanged([_, __]) {
+    var value = _toNum(grade.jsElement['value']);
+    var label = (value < gradeSecondaryProgress) ? "Fail" : "Pass" ;
+      // TODO(zoechi) change vvv to `ratings.value` when #74 is fixd
+      set('gradeLabel', '$value ($label)');
+  }
 
   // TODO(zoechi) remove when ratings.value behaves properly #74
   num _toNum(val) {
