@@ -46,7 +46,7 @@ add a new organization to the `updatestatus.json` file like shown in
    "organizations": [
      {
        "organization": "PolymerElements",
-       "organization": "GoogleWebComponents"
+       "organization": "GoogleWebComponents",
        "repositories": [
           {
             "repository": "demos",
@@ -199,7 +199,7 @@ shows the entries related to the item selected in `Repository`.
 The toolbar above the `Repositories` allows to filter repositories by 
 "not filtered", "new repositories only", "deleted repositories only" and 
 "repositories with modified files only".
-On the left of the items in the `Repositories` and `Files` list an icon 
+On the left of the items in the `Repositories` and `Files` list, an icon 
 indicates whether the repository was added or removed or whether the file
 was added, removed or modified.
    
