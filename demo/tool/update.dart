@@ -107,7 +107,9 @@ String _dartifyPath(String path) => path.toLowerCase().replaceAll('-', '_');
 /// Creates a class name `SomeElementDemo` from a tag name
 /// `some-element-demo`.
 String _tagNameToClassName(String tagName) =>
-    '${tagName[0].toUpperCase()}${tagName.substring(1).replaceAllMapped(new RegExp('(?:-)(.?)'), (match) => match.group(1).toUpperCase())}';
+    '${tagName[0].toUpperCase()}${tagName.substring(1)
+        .replaceAllMapped(new RegExp('(?:-)(.?)'),
+        (match) => match.group(1).toUpperCase())}';
 
 /// Uses OrganizationStatus and checks if the listed organizations have added,
 /// changed or removed repositories.
@@ -115,7 +117,7 @@ class GitHubOrganizationComparer {
   final OrganizationStatus organizationStatus;
   final GitHub gitHubClient;
 
-  GitHubOrganizationComparer(this.organizationStatus, this.gitHubClient) {}
+  GitHubOrganizationComparer(this.organizationStatus, this.gitHubClient);
 
   /// Fetch repositories from a GitHub organization.
   Stream<Repository> _loadRepositories() {
@@ -149,8 +151,9 @@ class GitHubOrganizationComparer {
   /// set whether repositories and files have been added, removed or updated.
   Future compare() async {
     final repoService = new RepositoriesService(gitHubClient);
-    final repositories = await _loadRepositories().toList(); //.listen((repository) async {
-    for(final repository in repositories) {
+    final repositories =
+        await _loadRepositories().toList();
+    for (final repository in repositories) {
       final slug = new RepositorySlug(organizationStatus.name, repository.name);
       var oldRepositoryStatus = organizationStatus.repositories
           .where((repoStatus) => repoStatus.name == repository.name);
