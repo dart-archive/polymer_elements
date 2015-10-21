@@ -22,19 +22,11 @@ import 'package:polymer_elements_demo/styles/demo_elements.dart';
 class IronLocalstorageDemo extends PolymerElement {
   IronLocalstorageDemo.created() : super.created();
 
-  Map _value;
-  Map get value => _value;
-  set value(var value) {
-    if(value is Map) {
-      _value = value;
-    } else {
-      _value = convertToDart(value);
-    }
-  }
+  @property Map value;
 
   @reflectable
   void initializeDefaultValue([_, __]) {
     print("initializeTemplate");
-    set('value', convertToJs({'name': "Mickey", 'hasEars': true}));
+    set('value', {'name': "Mickey", 'hasEars': true});
   }
 }
