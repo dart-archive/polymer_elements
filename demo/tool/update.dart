@@ -98,7 +98,7 @@ String _tagNameToFileName(String tagName) => tagName.replaceAll('-', '_');
 
 /// Creates a library name `web.some_element.some_element_demo` from a path
 /// `web/some_element/some_element_demo`
-String _pathToLibraryName(String path) => '${path.split('/').join('.')}.';
+String _pathToLibraryName(String path) => '${path.split('/').join('.')}';
 
 /// Creates a path like `web/some_element/some_file.ext` from a path like
 /// `web/some-element/some-file.ext`

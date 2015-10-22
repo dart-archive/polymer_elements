@@ -22,7 +22,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div id="controls">
       <button on-click="play" disabled="{{isPlaying}}">PLAY</button>
       <button on-click="pause" disabled="{{!isPlaying}}">PAUSE</button>
-      <button id="cast" on-click="cast">START CASTING</button>
+      <button id="cast" on-click="cast">{{castButtonCaption}}</button>
       <input type="range" min="0" max="100" value="[[progress]]" on-mouseup="progressMouseUp">
     </div>
 

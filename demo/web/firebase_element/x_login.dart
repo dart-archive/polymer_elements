@@ -47,6 +47,7 @@ class XLogin extends PolymerElement {
     }
 
     //_firebaseLogin.login(parameters, null);
+    // TODO(zoechi) remove workaround when #59 is fixed
     _firebaseLogin.jsElement.callMethod('login', [parameters, null]);
   }
 
@@ -56,7 +57,7 @@ class XLogin extends PolymerElement {
   void logout([_, __]) => _firebaseLogin.logout();
 
   @reflectable
-  errorHandler(dom.Event e, var detail) =>
+  errorHandler(dom.Event e, detail) =>
       set('message', 'Error: ${detail['message']}');
 
   @reflectable

@@ -26,6 +26,8 @@ class GoogleCastableVideoDemo extends PolymerElement {
 
   GoogleCastableVideo get _video => $['video'];
 
+  @property String castButtonCaption = 'START CASTING';
+
   @reflectable
   void play([_, __]) {
     _video.play(null);
@@ -62,7 +64,7 @@ class GoogleCastableVideoDemo extends PolymerElement {
   //listen for casting event to change icon
   @reflectable
   casting(dom.CustomEvent event, [_]) {
-    ($['cast'] as dom.ButtonElement).innerHtml =
-        event.detail.casting ? "STOP CASTING" : "START CASTING";
+    set('castButtonCaption',
+        event.detail.casting ? "STOP CASTING" : "START CASTING");
   }
 }

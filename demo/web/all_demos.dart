@@ -241,17 +241,13 @@ import 'paper_tooltip/paper_tooltip_demo.dart';
 @PolymerRegister('all-demos')
 class AllDemos extends PolymerElement {
   AllDemos.created() : super.created();
-  List<DemoElementItem> __demos;
-  @property List<DemoElementItem> get demos => __demos;
-  set demos(value) {}
+  @property List<DemoElementItem> demos;
 
   @property
   DemoElementItem selected;
 
   void ready() {
-    __demos = demoElements.map((name) => new DemoElementItem(name)).toList()
-        as List<DemoElementItem>;
-    notifyPath('demos', __demos);
+    set('demos', demoElements.map((name) => new DemoElementItem(name)).toList());
     _demoList.selectItem(convertToJs(demos.first));
     _loadDemo(demos.first);
   }
@@ -260,6 +256,7 @@ class AllDemos extends PolymerElement {
 
   @reflectable
   void demoClickHandler(dom.Event event, [_]) {
+    // TODO(zoechi) remove workaround when #90 is fixed
     final item = convertToDart(_demoList.jsElement.callMethod(
         'modelForElement', [event.target])['demo']) as DemoElementItem;
     // If the currently selected item is clicked, IronList deselects it.

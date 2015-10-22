@@ -5,7 +5,7 @@ description: Polymer polymer-elements for Dart examples.
 homepage: https://www.dartlang.org/polymer/
 dependencies:
   browser: any
-  polymer: 1.0.0-rc.2
+  polymer: ^1.0.0-rc.2
   polymer_elements:
     path: ..
   polymer_interop: ^1.0.0-rc.1
