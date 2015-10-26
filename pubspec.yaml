@@ -2,7 +2,7 @@ name: polymer_elements
 version: 1.0.0-rc.2
 author: Polymer.dart Authors <web-ui-dev@dartlang.org>
 description: Polymer polymer-elements for Dart
-homepage: https://www.dartlang.org/polymer/
+homepage: https://github.com/dart-lang/polymer_elements
 dependencies:
   browser: ^0.10.0
   polymer_interop: ^1.0.0-rc.1
