@@ -48,19 +48,13 @@ class GoogleMapDirections extends HtmlElement with CustomElementProxyMixin, Poly
   String get language => jsElement[r'language'];
   set language(String value) { jsElement[r'language'] = value; }
 
-  /// A comma separated list (e.g. "places,geometry") of libraries to load
-  /// with this map. Defaults to "places". For more information see
-  /// https://developers.google.com/maps/documentation/javascript/libraries.
-  ///
-  /// Note, this needs to be set to the same value as the one used on <google-map>.
-  /// If you're overriding that element's `libraries` property, this one also
-  /// needs to be set to the Maps API loads the library code.
-  String get libraries => jsElement[r'libraries'];
-  set libraries(String value) { jsElement[r'libraries'] = value; }
-
   /// The Google map object.
   get map => jsElement[r'map'];
   set map(value) { jsElement[r'map'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+
+  /// Options for the display of results
+  get rendererOptions => jsElement[r'rendererOptions'];
+  set rendererOptions(value) { jsElement[r'rendererOptions'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The response from the directions service.
   get response => jsElement[r'response'];

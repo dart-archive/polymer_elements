@@ -16,6 +16,7 @@ main() async {
   group('defaults', () {
     var LEFT_ARROW = 37;
     var RIGHT_ARROW = 39;
+
     test('group can have no selection', () {
       PaperRadioGroup g = fixture('NoSelection');
       expect(g.selected, isNull);
@@ -25,6 +26,7 @@ main() async {
       expect(items[1].checked, isFalse);
       expect(items[2].checked, isFalse);
     });
+
     test('group can have a selection', () {
       PaperRadioGroup g = fixture('WithSelection');
       expect(g.selected, isNotNull);
@@ -104,11 +106,28 @@ main() async {
       tap(items[0]);
       // The selection should not change, but wait for a little bit just
       // in case it would and an event would be fired.
-      await wait(200);
+      await wait(1);
 
       expect(items[0].checked, isTrue);
       expect(items[1].checked, isFalse);
       expect(items[2].checked, isFalse);
+    });
+    
+    test('clicking the selected item should deselect if allow-empty-selection is set', () async {
+      var g = fixture('WithSelection');
+      g.allowEmptySelection = true;
+      var items = g.items;
+
+      expect(items[0].checked, true);
+      tap(items[0]);
+
+      // The selection should not change, but wait for a little bit just
+      // in case it would and an event would be fired.
+      await wait(1);
+
+      expect(items[0].checked, false);
+      expect(items[1].checked, false);
+      expect(items[2].checked, false);
     });
   });
 }

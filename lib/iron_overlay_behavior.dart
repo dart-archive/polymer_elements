@@ -23,7 +23,8 @@ import 'iron_overlay_backdrop.dart';
 /// it will cancel whenever the user taps outside it or presses the escape key. This behavior is
 /// configurable with the `no-cancel-on-esc-key` and the `no-cancel-on-outside-click` properties.
 /// `close()` should be called explicitly by the implementer when the user interacts with a control
-/// in the overlay element.
+/// in the overlay element. When the dialog is canceled, the overlay fires an 'iron-overlay-canceled'
+/// event. Call `preventDefault` on this event to prevent the overlay from closing.
 ///
 /// ### Positioning
 ///

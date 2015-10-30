@@ -29,8 +29,8 @@ class IronMediaQuery extends HtmlElement with CustomElementProxyMixin, PolymerBa
   bool get queryMatches => jsElement[r'queryMatches'];
   set queryMatches(bool value) { jsElement[r'queryMatches'] = value; }
 
-  queryChanged(query) =>
-      jsElement.callMethod('queryChanged', [query]);
+  queryChanged() =>
+      jsElement.callMethod('queryChanged', []);
 
   queryHandler(mq) =>
       jsElement.callMethod('queryHandler', [mq]);

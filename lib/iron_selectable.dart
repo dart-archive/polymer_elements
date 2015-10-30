@@ -25,11 +25,6 @@ abstract class IronSelectableBehavior implements CustomElementProxyMixin {
   String get attrForSelected => jsElement[r'attrForSelected'];
   set attrForSelected(String value) { jsElement[r'attrForSelected'] = value; }
 
-  /// The set of excluded elements where the key is the `localName`
-  /// of the element that will be ignored from the item list.
-  get excludedLocalNames => jsElement[r'excludedLocalNames'];
-  set excludedLocalNames(value) { jsElement[r'excludedLocalNames'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
-
   /// Returns an array of selectable items.
   get items => jsElement[r'items'];
 

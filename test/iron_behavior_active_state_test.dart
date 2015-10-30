@@ -22,18 +22,16 @@ main() async {
       activeTarget = fixture('TrivialActiveState');
     });
 
-    group('non-primary pointer input source', () {
-      test('does not cause state to change', () {
-        var rightClickMouseEvent = new CustomEvent('mousedown');
-        new JsObject.fromBrowserObject(rightClickMouseEvent)['buttons'] = 2;
-        activeTarget.dispatchEvent(rightClickMouseEvent);
-        expect(activeTarget.pressed, false);
-      });
-    });
-
     group('active state with toggles attribute', () {
       setUp(() {
         activeTarget = fixture('ToggleActiveState');
+      });
+      
+      group('when down', () {
+        test('is pressed', () {
+          down(activeTarget);
+          expect(activeTarget.getAttribute('pressed'), isNotNull);
+        });
       });
 
       group('when clicked', () {

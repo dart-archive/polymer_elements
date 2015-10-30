@@ -106,7 +106,7 @@ main() async {
 
       await wait(1);
       slider.value = 2;
-      expect((slider.$$('#input') as PaperInput).value, '${slider.value}');
+      expect((slider.$$('#input') as PaperInput).value, slider.value);
     });
 
     test('decimal values', () async {

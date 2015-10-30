@@ -24,6 +24,12 @@ import 'iron_flex_layout.dart';
 ///       </div>
 ///     </paper-card>
 ///
+/// Example - top card image:
+///
+///     <paper-card heading="Card Title" image="/path/to/image.png">
+///       ...
+///     </paper-card>
+///
 /// ### Accessibility
 ///
 /// By default, the `aria-label` will be set to the value of the `heading` attribute.

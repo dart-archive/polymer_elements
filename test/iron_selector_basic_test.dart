@@ -5,6 +5,7 @@
 library polymer_elements.test.iron_selector_basic_test;
 
 import 'dart:html';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:polymer_elements/iron_selector.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
@@ -110,6 +111,23 @@ main() async {
         expect(changeCount, 2);
 
         sub.cancel();
+      });
+    });
+    
+    group('dynamic selector', () {
+      test('selects dynamically added child automatically', () async {
+        var selector = document.createElement('iron-selector');
+        var child = document.createElement('div');
+
+        selector.selected = '0';
+        child.text = 'Item 0';
+
+        Polymer.dom(selector).append(child);
+        document.body.append(selector);
+
+        await wait(1);
+        expect(child.className, 'iron-selected');
+        selector.remove();
       });
     });
   });

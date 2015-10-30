@@ -187,7 +187,7 @@ main() async {
       form.on['iron-form-response'].take(1).listen((event) {
         expect(submitted, isTrue);
 
-        var response = new JsObject.fromBrowserObject(event)['detail'];
+        var response = convertToDart(event).detail.response;
         expect(response, isNotNull);
         expect(response is JsObject, isTrue);
         expect(response['success'], isTrue);
@@ -209,7 +209,7 @@ main() async {
 
       form.on['iron-form-response'].take(1).listen((event) {
         expect(submitted, isTrue);
-        var response = event.detail;
+        var response = convertToDart(event).detail.response;
         expect(response, isNotNull);
         expect(response is JsObject, isTrue);
         expect(response['success'], isTrue);

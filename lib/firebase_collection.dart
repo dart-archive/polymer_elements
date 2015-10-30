@@ -127,7 +127,7 @@ class FirebaseCollection extends HtmlElement with CustomElementProxyMixin, Polym
   /// with the item will be created by Firebase, and can be accessed via the
   /// Firebase Query instance returned by this method.
   /// [data]: A value to add to the document.
-  add(data) =>
+  firebaseAdd(data) =>
       jsElement.callMethod('add', [data]);
 
   /// Look up an item in the local `data` Array by key.
@@ -140,7 +140,7 @@ class FirebaseCollection extends HtmlElement with CustomElementProxyMixin, Polym
   /// is assumed to be an identical reference to an item already in the
   /// `data` Array.
   /// [data]: An identical reference to an item in `this.data`.
-  removeItem(data) =>
+  firebaseRemove(data) =>
       jsElement.callMethod('remove', [data]);
 
   /// Remove an item from the document associated with `location` by key.

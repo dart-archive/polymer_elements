@@ -15,9 +15,9 @@ import 'iron_meta.dart';
 /// `iron-iconset-svg` element. Multiple icons should be given distinct id's.
 ///
 /// Using svg elements to create icons has a few advantages over traditional
-/// bitmap graphics like jpg or png. Icons that use svg are vector based so they
-/// are resolution independent and should look good on any device. They are
-/// stylable via css. Icons can be themed, colorized, and even animated.
+/// bitmap graphics like jpg or png. Icons that use svg are vector based so
+/// they are resolution independent and should look good on any device. They
+/// are stylable via css. Icons can be themed, colorized, and even animated.
 ///
 /// Example:
 ///
@@ -58,7 +58,7 @@ class IronIconsetSvg extends HtmlElement with CustomElementProxyMixin, PolymerBa
   /// otherwise to the element itself.
   /// [element]: Element to which the icon is applied.
   /// [iconName]: Name of the icon to apply.
-  Element applyIcon(Element element, String iconName) =>
+  applyIcon(Element element, String iconName) =>
       jsElement.callMethod('applyIcon', [element, iconName]);
 
   /// Construct an array of all icon names in this iconset.

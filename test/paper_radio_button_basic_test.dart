@@ -70,11 +70,7 @@ main() async {
     });
 
     test('button with no label has no aria label', () {
-      expect(r1.attributes['aria-label'], isEmpty);
-    });
-
-    test('button with a label sets an aria label', () {
-      expect(r2.attributes['aria-label'], equals("Batman"));
+      expect(r1.attributes['aria-label'], isNull);
     });
 
     test('button respects the user set aria-label', () {

@@ -4,7 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.paper_ripple_test;
 
-import 'dart:html';
+import 'dart:html' hide Point;
 import 'package:polymer_elements/paper_ripple.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
@@ -22,21 +22,60 @@ main() async {
       setUp(() {
         rippleContainer = fixture('TrivialRipple');
         ripple = rippleContainer.children.first;
-        mouseEvent = fakeMouseEvent(ripple, 10, 10);
       });
 
       test('creates a ripple', () {
         expect(ripple.ripples.length, 0);
-        ripple.downAction(mouseEvent);
+        down(ripple);
         expect(ripple.ripples.length, 1);
       });
 
       test('may create multiple ripples that overlap', () {
         expect(ripple.ripples.length, 0);
         for (var i = 0; i < 3; ++i) {
-          ripple.downAction(mouseEvent);
+          down(ripple);
           expect(ripple.ripples.length, i + 1);
         }
+      });
+    });
+    
+    group('when holdDown is togggled', () {
+      setUp( () {
+        rippleContainer = fixture('TrivialRipple');
+        ripple = rippleContainer.children.first;
+      });
+
+      test('generates a ripple', () {
+        ripple.holdDown = true;
+        expect(ripple.ripples.length, 1);
+      });
+
+      test('generates a ripple when noink', () {
+        ripple.noink = true;
+        ripple.holdDown = true;
+        expect(ripple.ripples.length, 1);
+
+      });
+
+    });
+
+    group('when target is noink',  () {
+      setUp( () {
+        rippleContainer = fixture('NoinkTarget');
+        ripple = rippleContainer.children.first;
+      });
+
+      test('tapping does not create a ripple',  () {
+        expect(ripple.keyEventTarget, ripple);
+        expect(ripple.ripples.length, 0);
+        down(ripple);
+        expect(ripple.ripples.length, 0);
+      });
+
+      test('ripples can be manually created',  () {
+        expect(ripple.ripples.length, 0);
+        ripple.simulatedRipple();
+        expect(ripple.ripples.length, 1);
       });
     });
 
@@ -44,7 +83,6 @@ main() async {
       setUp(() {
         rippleContainer = fixture('CenteringRipple');
         ripple = rippleContainer.children.first;
-        mouseEvent = fakeMouseEvent(ripple, 10, 10);
       });
 
       test('ripples will center', () {
@@ -52,9 +90,9 @@ main() async {
         // let's ask the browser what `translate3d(0px, 0px, 0)` will actually look like
         var div = document.createElement('div');
         div.style.transform = 'translate3d(0px, 0px, 0)';
-        ripple.downAction(mouseEvent);
+        down(ripple);
         waveContainerElement = ripple.ripples[0]['waveContainer'];
-        ripple.upAction(mouseEvent);
+        up(ripple);
         return requestAnimationFrame().then((_) {
           var currentTransform = waveContainerElement.style.transform;
           expect(div.style.transform, isNotNull);
@@ -74,10 +112,10 @@ main() async {
       test('ripples will gravitate towards the center', () {
         var waveContainerElement;
         var waveTranslateString;
-        ripple.downAction(mouseEvent);
+        down(ripple, new Point(10, 10));
         waveContainerElement = ripple.ripples[0]['waveContainer'];
         waveTranslateString = waveContainerElement.style.transform;
-        ripple.upAction(mouseEvent);
+        up(ripple);
         return requestAnimationFrame().then((_) {
           expect(waveTranslateString, isNotNull);
           expect(waveContainerElement.style.transform, isNotNull);

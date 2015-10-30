@@ -31,6 +31,11 @@ abstract class IronA11yKeysBehavior implements CustomElementProxyMixin {
   get keyEventTarget => jsElement[r'keyEventTarget'];
   set keyEventTarget(value) { jsElement[r'keyEventTarget'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
+  /// If true, this property will cause the implementing element to
+  /// automatically stop propagation on any handled KeyboardEvents.
+  bool get stopKeyboardEventPropagation => jsElement[r'stopKeyboardEventPropagation'];
+  set stopKeyboardEventPropagation(bool value) { jsElement[r'stopKeyboardEventPropagation'] = value; }
+
   /// Can be used to imperatively add a key binding to the implementing
   /// element. This is the imperative equivalent of declaring a keybinding
   /// in the `keyBindings` prototype property.

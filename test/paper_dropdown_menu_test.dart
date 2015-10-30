@@ -75,5 +75,58 @@ main() async {
         expect(dropdownMenu.selectedItem, secondItem);
       });
     });
+    
+    group('deselecting', () {
+      var menu;
+
+      setUp(() {
+        dropdownMenu = fixture('PreselectedDropdownMenu');
+        menu = Polymer.dom(dropdownMenu).querySelector('.dropdown-content');
+      });
+
+      test('an `iron-deselect` event clears the current selection', () {
+        menu.selected = null;
+        expect(dropdownMenu.selectedItem, null);
+      });
+    });
+
+    group('validation', () {
+      var menu;
+
+      test('a non required dropdown is valid regardless of its selection', () {
+        PaperDropdownMenu dropdownMenu = fixture('TrivialDropdownMenu');
+        menu = Polymer.dom(dropdownMenu).querySelector('.dropdown-content');
+
+        // no selection.
+        expect(dropdownMenu.validate(null), isTrue);
+        expect(dropdownMenu.invalid, isFalse);
+        expect(dropdownMenu.value, isNull);
+
+        // some selection.
+        menu.selected = 1;
+        expect(dropdownMenu.validate(null), isTrue);
+        expect(dropdownMenu.invalid, isFalse);
+        expect(dropdownMenu.value, 'Bar');
+      });
+
+      test('a required dropdown is invalid without a selection', () {
+        PaperDropdownMenu dropdownMenu = fixture('TrivialDropdownMenu');
+        dropdownMenu.required = true;
+
+        // no selection.
+        expect(dropdownMenu.validate(null), isFalse);
+        expect(dropdownMenu.invalid, isTrue);
+        expect(dropdownMenu.value, isNull);
+      });
+
+      test('a required dropdown is valid with a selection', () {
+        PaperDropdownMenu dropdownMenu = fixture('PreselectedDropdownMenu');
+        dropdownMenu.required = true;
+        
+        expect(dropdownMenu.validate(null), isTrue);
+        expect(dropdownMenu.invalid, isFalse);
+        expect(dropdownMenu.value, 'Bar');
+      });
+    });
   });
 }

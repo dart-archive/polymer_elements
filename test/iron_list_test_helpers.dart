@@ -5,6 +5,7 @@ library polymer_elements.test.iron_list_test_helpers;
 
 import 'dart:html';
 import 'dart:js';
+import 'package:polymer_elements/iron_list.dart';
 import 'common.dart';
 
 JsFunction _matchesSelector = context['Polymer']['DomApi']['matchesSelector'];
@@ -72,4 +73,26 @@ Element getLastItemFromList(list) {
   var listRect = list.getBoundingClientRect();
   return document.elementFromPoint((listRect.left + 1).floor(),
       (listRect.top + listRect.height - 1).floor());
+}
+
+isFullOfItems(IronList list) {
+  var listRect = list.getBoundingClientRect();
+  var listHeight = listRect.height - 1;
+  var item, y = listRect.top + 1;
+  // IE 10 & 11 doesn't render propertly :(
+  var badPixels = 0;
+  while (y < listHeight) {
+    item = document.elementFromPoint((listRect.left + 1).floor(), y.floor())
+        as HtmlElement;
+    if (item.parentNode != null &&
+        new JsObject.fromBrowserObject(item.parentNode)['_templateInstance'] ==
+            null) {
+      badPixels++;
+    }
+    if (badPixels > 3) {
+      return false;
+    }
+    y += 2;
+  }
+  return true;
 }

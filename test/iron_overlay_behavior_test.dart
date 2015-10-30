@@ -13,7 +13,8 @@ import 'common.dart';
 import 'fixtures/test_overlay.dart';
 
 runAfterOpen(overlay, cb) {
-  overlay.on['iron-overlay-opened'].take(1).listen((_) {
+  overlay.on['iron-overlay-opened'].take(1).listen((_) async {
+    await wait(1);
     cb();
   });
   overlay.open();
@@ -127,7 +128,18 @@ main() async {
     test('cancel an overlay by clicking outside', () {
       var done = new Completer();
       runAfterOpen(overlay, () {
-        overlay.on['iron-overlay-closed'].take(1).listen((event) {
+        overlay.on['iron-overlay-canceled'].first.then((_) {
+          done.complete();
+        });
+        fireEvent('click', null, document);
+      });
+      return done.future;
+    });
+
+    test('close an overlay by clicking outside', () {
+      var done = new Completer();
+      runAfterOpen(overlay, () {
+        overlay.on['iron-overlay-closed'].first.then((event) {
           expect(event.detail['canceled'], isTrue,
               reason: 'overlay is canceled');
           done.complete();
@@ -137,7 +149,38 @@ main() async {
       return done.future;
     });
 
+    test('cancel event can be prevented', () {
+      var done = new Completer();
+      runAfterOpen(overlay, () {
+        overlay.on['iron-overlay-canceled'].first.then((event) {
+          event.preventDefault();
+        });
+        var listener =
+          overlay.on['iron-overlay-closed'].listen((event) {
+            throw 'iron-overlay-closed should not fire';
+          });
+        fireEvent('click', null, document);
+        wait(10).then((_) {
+          listener.cancel();
+          done.complete();
+        });
+      });
+      return done.future;
+    });
+
     test('cancel an overlay with esc key', () {
+      var done = new Completer();
+      runAfterOpen(overlay, () {
+        overlay.on['iron-overlay-canceled'].first.then((event) {
+          done.complete();
+        });
+        fireEvent('keydown', {
+          'keyCode': 27
+        }, document);
+      });
+    });
+
+    test('close an overlay with esc key', () {
       var done = new Completer();
       runAfterOpen(overlay, () {
         overlay.on['iron-overlay-closed'].take(1).listen((event) {

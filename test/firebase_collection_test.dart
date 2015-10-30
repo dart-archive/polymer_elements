@@ -11,192 +11,255 @@ import 'package:polymer_elements/firebase_collection.dart';
 import 'package:web_components/web_components.dart';
 import 'package:test/test.dart';
 import 'common.dart';
+import 'firebase_test_helpers.dart';
 
 main() async {
   await initWebComponents();
 
-  group('<firebase-collection>', () {
+  group('firebase-collection', () {
     FirebaseCollection firebase;
 
-    group('collection manipulation', () {
-      DomBind domBind;
-      var dom;
-
-      setUp(() {
-        dom = fixture('BoundCollection');
-        domBind = dom.querySelector('[is=dom-bind]');
-        firebase = dom.querySelector('firebase-collection');
-      });
-
-      test('added values reflect 1-to-1 in the DOM', () {
-        return firebase.on['firebase-value'].first.then((_) {
-          var done = firebase.on['firebase-child-added'].first.then((_) {
-            expect(dom.querySelectorAll('div').length, firebase.data.length);
-          });
-          domBind.insert('data', 0, {'value': 'blah'});
-          domBind.render();
-          return done;
-        });
-      });
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/62');
+    tearDown(() {
+      if (firebase != null) removeFirebase(firebase);
+    });
 
     group('basic usage', () {
-      setUp(() {
-        firebase = fixture('TrivialCollection');
-      });
+      var numberOfItems;
 
-      tearDown(() {
-        firebase.disconnect();
+      setUp(() {
+        numberOfItems = 3;
+        firebase =
+            fixtureFirebase('TrivialCollection', arrayOfObjects(numberOfItems));
+        return wait(1);
       });
 
       test('exposes data as an array', () {
-        return firebase.on['firebase-child-added'].first.then((_) {
-          expect(firebase.data is List, isTrue);
-        });
+        expect(firebase.data is List, isTrue);
+        expect(firebase.data.length, numberOfItems);
       });
 
       test('receives data from Firebase location', () {
-        return firebase.on['data-changed'].first.then((_) {
-          expect(firebase.data[0]['value'], true);
-        });
+        expect(firebase.data[0]['value'] is num, isTrue);
       });
     });
 
     group('ordered primitives', () {
-      setUp(() {
-        firebase = fixture('PrimitiveCollection');
-      });
+      var numberOfItems;
 
-      tearDown(() {
-        firebase.disconnect();
+      setUp(() {
+        numberOfItems = 5;
+        firebase = fixtureFirebase(
+            'TrivialCollection', arrayOfPrimitives(numberOfItems));
+        firebase.orderByValue = true;
       });
 
       test('converts primitives into objects with a value key', () {
-        return firebase.on['firebase-child-added'].first.then((_) {
-          expect(firebase.data[0], isNotNull);
-        });
+        expect(firebase.data[0] is JsObject, isTrue);
       });
 
       test('orders primitives by value', () {
-        return firebase.on['firebase-value'].first.then((_) {
-          var lastValue = -1.0 / 0;
-          expect(firebase.data.length, greaterThan(0));
-          firebase.data.forEach((item) {
-            expect(item['value'], greaterThanOrEqualTo(lastValue));
-            lastValue = item['value'];
-          });
-        });
-      });
+        var lastValue = -1;
 
-      group('adding a value locally', () {
-        setUp(() {
-          return firebase.on['firebase-value'].first;
-        });
+        expect(firebase.data.length, numberOfItems);
 
-        test('can be done with `add`', () {
-          var length = firebase.data.length;
-          var newValue = firebase.data[firebase.data.length - 1]['value'] + 1;
-          var key;
-
-          var done = firebase.on['firebase-child-added'].first.then((_) {
-            expect(firebase.data.length, length + 1);
-            expect(firebase.data[firebase.data.length - 1]['value'], newValue);
-          }).then((_) async {
-            await wait(1);
-            firebase.removeByKey(key);
-          });
-
-          key = firebase.add(newValue).callMethod('key');
-          return done;
+        firebase.data.forEach((datum) {
+          expect(datum['value'], isNot(lessThan(lastValue)));
+          lastValue = datum['value'];
         });
       });
     });
 
-    group('a child changes', () {
+    group('removing a value locally', () {
+      var numberOfItems;
       setUp(() {
-        firebase = fixture('ChangingChildren');
-        return firebase.on['firebase-value'].first;
+        numberOfItems = 3;
+        firebase =
+            fixtureFirebase('TrivialCollection', arrayOfObjects(numberOfItems));
+      });
+
+      test('works for data-bound changes', () {
+        firebase.removeAt('data', 0);
+        expect(firebase.data.length, numberOfItems - 1);
+      });
+
+      test('can be done with `remove`', () {
+        var objectToBeRemoved = firebase.data[0];
+        firebase.firebaseRemove(objectToBeRemoved);
+
+        expect(firebase.data.length, numberOfItems - 1);
+        expect(firebase.data.indexOf(objectToBeRemoved), -1);
+      });
+    });
+
+    group('adding a value locally', () {
+      setUp(() {
+        firebase = fixtureFirebase('TrivialCollection');
+      });
+
+      test('works for data-bound changes', () {
+        var done = new Completer();
+        var intendedValue = randomInt();
+        // Can't call `add` since it is overridden
+        firebase.add('data', intendedValue);
+        var index = firebase.data.length - 1;
+
+        // NOTE(cdata): See polymer/polymer#2491.
+        firebase.async(() {
+          expect(firebase.data[index]['value'], isNotNull);
+          expect(firebase.data[index]['value'], intendedValue);
+          done.complete();
+        }, waitTime: 1);
+
+        return done.future;
+      });
+
+      test('can be done with `add`', () {
+        var done = new Completer();
+        var object = randomObject();
+        var length = firebase.data.length;
+        var foundObject;
+
+        firebase.firebaseAdd(new JsObject.jsify(object));
+
+        // NOTE(cdata): See polymer/polymer#2491.
+        firebase.async(() {
+          expect(firebase.data.length, length + 1);
+
+          firebase.data.forEach((datum) {
+            if (datum['value'] == object['value']) {
+              foundObject = datum;
+            }
+          });
+
+          expect(foundObject, isNotNull);
+          expect(foundObject['value'], object['value']);
+          done.complete();
+        }, waitTime: 1);
+
+        return done.future;
+      });
+    });
+
+    group('a changing child', () {
+      var numberOfItems;
+      var remoteFirebase;
+
+      setUp(() {
+        numberOfItems = 3;
+        firebase =
+            fixtureFirebase('TrivialCollection', arrayOfObjects(numberOfItems));
+        remoteFirebase = new JsObject(context['Firebase'], [firebase.location]);
       });
 
       test('updates the child key in place with the new value', () {
-        var childrenKeys = [];
+        var datum = firebase.data[0];
+        var newValue = 99999;
+        var key = context['Polymer']['Collection']
+            .callMethod('get', [firebase.data]).callMethod('getKey', [datum]);
 
-        var done = firebase.on['firebase-value'].first.then((_) async {
-          // Wait for childrenKeys to be populated
-          await new Future(() {});
-          var middleValue = firebase.getByKey(childrenKeys[1]);
-          var changes;
+        firebase.set('data.$key.value', newValue);
 
-          expect(middleValue['foo'], 1);
-          expect(middleValue['bar'], 1);
-
-          changes = firebase.on['firebase-child-changed'].first;
-
-          firebase.set('data.${firebase.data.indexOf(middleValue)}.bar', 2);
-
-          return changes;
-        }).then((_) {
-          var middleValue = firebase.getByKey(childrenKeys[1]);
-
-          expect(middleValue['foo'], 1);
-          expect(middleValue['bar'], 2);
-        }).then((_) {
-          childrenKeys.forEach((key) {
-            firebase.removeByKey(key);
-          });
-        });
-
-        var index = -1;
-        childrenKeys = [0, 1, 2].map((value) {
-          index++;
-          return firebase
-              .add(new JsObject.jsify({'foo': value, 'bar': index}))
-              .callMethod('key');
-        }).toList();
-
-        return done;
+        expect(firebase.data[0]['value'], newValue);
       });
     });
 
     group('syncing collections', () {
-      FirebaseCollection localFirebase;
-      FirebaseCollection remoteFirebase;
+      var numberOfItems;
+      var remoteFirebase;
 
       setUp(() {
-        var children = fixture('SyncingCollections');
-        localFirebase = children[0];
-        remoteFirebase = children[1];
-        return Future.wait([
-          localFirebase.on['firebase-value'].first,
-          remoteFirebase.on['firebase-value'].first
+        numberOfItems = 3;
+
+        firebase = fixtureFirebase('TrivialCollection', arrayOfObjects(3));
+        firebase.orderValueType = 'number';
+        firebase.orderByValue = true;
+
+        remoteFirebase = new JsObject(context['Firebase'], [firebase.location]);
+      });
+
+      test('sync a new item at the correct index', () {
+        var firstValue = firebase.data[0];
+        var secondValue = firebase.data[1];
+        var datum = firebase.data[0];
+        var key = context['Polymer']['Collection']
+            .callMethod('get', [firebase.data]).callMethod('getKey', [datum]);
+        var remoteValue;
+
+        remoteFirebase.callMethod('on', [
+          'value',
+          (snapshot) {
+            remoteValue = snapshot.callMethod('val');
+          }
         ]);
+
+        expect(remoteValue[0]['value'], firebase.data[0]['value']);
+      });
+    });
+
+    group('data-bound collection manipulation', () {
+      var numberOfItems;
+      var elements;
+      DomBind domBind;
+
+      setUp(() {
+        elements = fixture('BoundCollection');
+        domBind = elements.querySelector('[is=dom-bind]');
+        firebase = elements.querySelector('firebase-collection');
+        firebase.location = fixtureLocation(arrayOfObjects(3));
+        numberOfItems = 3;
       });
 
-      test('syncs a new item at the correct index', () {
-        var data = {'foo': 100};
-        var key;
+      test('splices reflect in Firebase data', () {
+        var done = new Completer();
+        domBind.removeAt('data', 0);
+        domBind.add('data', randomObject());
+        domBind.removeAt('data', 0);
+        domBind.addAll('data', arrayOfObjects(2));
 
-        var done = remoteFirebase.on['firebase-value'].first.then((_) async {
-          await wait(1);
-          var value = remoteFirebase.getByKey(key);
-          var lowValue = remoteFirebase.getByKey('lowValue');
-          var highValue = remoteFirebase.getByKey('highValue');
+        // NOTE(cdata): See polymer/polymer#2491.
+        firebase.async(() {
+          expect(firebase.data.length, domBind['data'].length);
 
-          var index = remoteFirebase.data.indexOf(value);
-          var lowIndex = remoteFirebase.data.indexOf(lowValue);
-          var highIndex = remoteFirebase.data.indexOf(highValue);
+          for (int i = 0; i < firebase.data.length; i++) {
+            var datum = firebase.data[i];
+            expect(domBind['data'][i]['value'], datum['value']);
+          }
 
-          expect(value, isNotNull);
-          expect(index, lessThan(highIndex));
-          expect(index, greaterThan(lowIndex));
-        }).then((_) {
-          localFirebase.removeByKey(key);
-        });
+          done.complete();
+        }, waitTime: 1);
 
-        key = localFirebase.add(new JsObject.jsify(data)).callMethod('key');
-
-        return done;
+        done.future;
       });
+
+      test('splices reflect in the DOM', () {
+        var divs;
+        var done = new Completer();
+
+        firebase.addAll('data', arrayOfObjects(3));
+
+        firebase.async(() {
+          divs = elements.querySelectorAll('div');
+          expect(divs.length, firebase.data.length);
+
+          domBind.removeAt('data', 2);
+          domBind.add('data', randomObject());
+
+          firebase.async(() {
+            divs = elements.querySelectorAll('div');
+            expect(divs.length, firebase.data.length);
+
+            for (int i = 0; i < firebase.data.length; i++) {
+              var datum = firebase.data[i];
+              var divValue = int.parse(divs[i].text);
+              expect(datum.value, divValue);
+            }
+
+            done.complete();
+          }, waitTime: 1);
+        }, waitTime: 1);
+
+        return done.future;
+      }, skip: 'https://github.com/dart-lang/polymer_elements/issues/62');
     });
   });
 }

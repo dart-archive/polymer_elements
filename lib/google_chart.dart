@@ -127,7 +127,7 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   ///
   /// Should be one of:
   /// - `area`, `bar`, `bubble`, `candlestick`, `column`, `combo`, `geo`,
-  ///   `histogram`, `line`, `pie`, `scatter`, `stepped-area`
+  ///   `histogram`, `line`, `pie`, `scatter`, `stepped-area`, `treemap`
   ///
   /// See <a href="https://google-developers.appspot.com/chart/interactive/docs/gallery">Google Visualization API reference (Chart Gallery)</a> for details.
   String get type => jsElement[r'type'];

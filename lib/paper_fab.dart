@@ -12,14 +12,15 @@ import 'paper_button_behavior.dart';
 import 'iron_button_state.dart';
 import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
-import 'iron_icon.dart';
+import 'paper_ripple_behavior.dart';
 import 'iron_flex_layout/classes/iron_flex_layout.dart';
-import 'default_theme.dart';
-import 'color.dart';
+import 'iron_icon.dart';
 import 'paper_material.dart';
 import 'paper_ripple.dart';
+import 'color.dart';
+import 'default_theme.dart';
 
-/// Material Design: <a href="http://www.google.com/design/spec/components/buttons.html">Button</a>
+/// Material design: [Floating Action Button](https://www.google.com/design/spec/components/buttons-floating-action-button.html)
 ///
 /// `paper-fab` is a floating action button. It contains an image placed in the center and
 /// comes in two sizes: regular size and a smaller size by applying the attribute `mini`. When
@@ -50,8 +51,9 @@ import 'paper_ripple.dart';
 /// `--paper-fab` | Mixin applied to the button | `{}`
 /// `--paper-fab-mini` | Mixin applied to a mini button | `{}`
 /// `--paper-fab-disabled` | Mixin applied to a disabled button | `{}`
+/// `--paper-fab-iron-icon` | Mixin applied to the iron-icon within the button | `{}`
 @CustomElementProxy('paper-fab')
-class PaperFab extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperButtonBehavior {
+class PaperFab extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperRippleBehavior, PaperButtonBehavior {
   PaperFab.created() : super.created();
   factory PaperFab() => new Element.tag('paper-fab');
 

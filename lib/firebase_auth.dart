@@ -97,6 +97,8 @@ class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase
   /// If the browswer supports `navigator.onLine` network status reporting and the
   /// network is currently offline, the login attempt will be queued until the network
   /// is restored.
+  /// [params]: (optional)
+  /// [options]: (optional)
   login(params, options) =>
       jsElement.callMethod('login', [params, options]);
 

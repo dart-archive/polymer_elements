@@ -14,6 +14,8 @@ import 'neon_animation_runner_behavior.dart';
 import 'neon_animatable_behavior.dart';
 import 'neon_animation/animations/opaque_animation.dart';
 
+/// Material design: [Meaningful transitions](https://www.google.com/design/spec/animation/meaningful-transitions.html)
+///
 /// `neon-animated-pages` manages a set of pages and runs an animation when switching between them. Its
 /// children pages should implement `Polymer.NeonAnimatableBehavior` and define `entry` and `exit`
 /// animations to be run when switching to or switching out of the page.

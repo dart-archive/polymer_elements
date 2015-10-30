@@ -75,16 +75,6 @@ main() async {
       c1.checked = true;
       expect(c1.validate(null), isTrue);
     });
-
-    test('checkbox label can be updated', () {
-      Polymer.dom(c1).text = 'Batman';
-      c1.updateAriaLabel();
-      expect(c1.getAttribute('aria-label'), 'Batman');
-
-      Polymer.dom(c1).text = 'Robin';
-      c1.updateAriaLabel();
-      expect(c1.getAttribute('aria-label'), 'Robin');
-    });
   });
 
   group('a11y', () {
@@ -102,11 +92,7 @@ main() async {
     });
 
     test('checkbox with no label has no aria label', () {
-      expect(c1.getAttribute('aria-label'), isEmpty);
-    });
-
-    test('checkbox with a label sets an aria label', () {
-      expect(c2.getAttribute('aria-label'), equals("Batman"));
+      expect(c1.getAttribute('aria-label'), isNull);
     });
 
     test('checkbox respects the user set aria-label', () {

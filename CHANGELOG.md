@@ -1,3 +1,13 @@
+## 1.0.0-rc.3
+
+Update the elements and resolve multiple outstanding issues.
+
+Renamed a few methods for the `firebase-collection` element so they don't
+overlap with methods from the `PolymerBase` mixin:
+
+  * `add` => `firebaseAdd`
+  * `removeItem` => `firebaseRemove`
+
 ## 1.0.0-rc.2
 
 Update the elements to the following versions:

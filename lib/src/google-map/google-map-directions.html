@@ -33,7 +33,6 @@ information on the API.
   <template>
     <google-maps-api
       api-key="[[apiKey]]"
-      libraries="[[libraries]]"
       language="[[language]]"
       on-api-load="_mapApiLoaded"></google-maps-api>
   </template>
@@ -48,8 +47,7 @@ information on the API.
 Fired whenever the directions service returns a result.
 
 @event google-map-response
-@param {Object} detail
-@param {object} detail.response The directions service response.
+@param {{response: Object}}} detail
 */
     properties: {
       /**
@@ -110,20 +108,6 @@ Fired whenever the directions service returns a result.
        },
 
       /**
-       * A comma separated list (e.g. "places,geometry") of libraries to load
-       * with this map. Defaults to "places". For more information see
-       * https://developers.google.com/maps/documentation/javascript/libraries.
-       *
-       * Note, this needs to be set to the same value as the one used on <google-map>.
-       * If you're overriding that element's `libraries` property, this one also
-       * needs to be set to the Maps API loads the library code.
-       */
-      libraries: {
-        type: String,
-        value: 'places'
-      },
-
-      /**
        * The localized language to load the Maps API with. For more information
        * see https://developers.google.com/maps/documentation/javascript/basics#Language
        *
@@ -133,6 +117,14 @@ Fired whenever the directions service returns a result.
       language: {
         type: String,
         value: null
+      },
+
+      /**
+       * Options for the display of results
+       */
+      rendererOptions: {
+        type: Object,
+        value: function() { return {}; }
       },
 
       /**
@@ -163,7 +155,7 @@ Fired whenever the directions service returns a result.
     _mapChanged: function() {
       if (this.map && this.map instanceof google.maps.Map) {
         if (!this.directionsRenderer) {
-          this.directionsRenderer = new google.maps.DirectionsRenderer();
+          this.directionsRenderer = new google.maps.DirectionsRenderer(this.rendererOptions);
         }
         this.directionsRenderer.setMap(this.map);
         this._responseChanged();

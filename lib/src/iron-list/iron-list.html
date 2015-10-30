@@ -69,9 +69,19 @@ bound from the model object provided to the template scope):
       </iron-list>
     </template>
 
+### Styling
+
+Use the `--iron-list-items-container` mixin to style the container of items, e.g.
+
+    iron-list {
+     --iron-list-items-container: {
+        margin: auto;
+      };
+    }
+
 ### Resizing
 
-`iron-list` lays out the items when it recives a notification via the `resize` event.
+`iron-list` lays out the items when it recives a notification via the `iron-resize` event.
 This event is fired by any element that implements `IronResizableBehavior`.
 
 By default, elements such as `iron-pages`, `paper-tabs` or `paper-dialog` will trigger
@@ -79,46 +89,47 @@ this event automatically. If you hide the list manually (e.g. you use `display: 
 you might want to implement `IronResizableBehavior` or fire this event manually right
 after the list became visible again. e.g.
 
-    document.querySelector('iron-list').fire('resize');
+    document.querySelector('iron-list').fire('iron-resize');
 
 
 @group Iron Element
 @element iron-list
-@demo demo/index.html
+@demo demo/index.html Simple list
+@demo demo/selection.html Selection of items
+@demo demo/collapse.html Collapsable items
 -->
 
 <dom-module id="iron-list">
-  <style>
-
-    :host {
-      display: block;
-    }
-
-    :host(.has-scroller) {
-      overflow: auto;
-    }
-
-    :host(:not(.has-scroller)) {
-      position: relative;
-    }
-
-    #items {
-      position: relative;
-    }
-
-    #items > ::content > * {
-      width: 100%;
-      box-sizing: border-box;
-      position: absolute;
-      top: 0;
-      will-change: transform;
-    }
-
-  </style>
   <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      :host(.has-scroller) {
+        overflow: auto;
+      }
+
+      :host(:not(.has-scroller)) {
+        position: relative;
+      }
+
+      #items {
+        @apply(--iron-list-items-container);
+        position: relative;
+      }
+
+      #items > ::content > * {
+        width: 100%;
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        will-change: transform;
+      }
+    </style>
 
     <array-selector id="selector" items="{{items}}"
-        selected="{{selectedItems}}" selected-item="{{selectedItem}}">
+      selected="{{selectedItems}}" selected-item="{{selectedItem}}">
     </array-selector>
 
     <div id="items">
@@ -162,8 +173,7 @@ after the list became visible again. e.g.
 
       /**
        * The name of the variable to add to the binding scope with the index
-       * for the row.  If `sort` is provided, the index will reflect the
-       * sorted order (rather than the original array order).
+       * for the row.
        */
       indexAs: {
         type: String,
@@ -242,6 +252,7 @@ after the list became visible again. e.g.
 
     /**
      * The element that controls the scroll
+     * @type {?Element}
      */
     _scroller: null,
 
@@ -323,22 +334,26 @@ after the list became visible again. e.g.
 
     /**
      * An array of DOM nodes that are currently in the tree
+     * @type {?Array<!TemplatizerNode>}
      */
     _physicalItems: null,
 
     /**
      * An array of heights for each item in `_physicalItems`
+     * @type {?Array<number>}
      */
     _physicalSizes: null,
 
     /**
      * A cached value for the visible index.
      * See `firstVisibleIndex`
+     * @type {?number}
      */
     _firstVisibleIndexVal: null,
 
     /**
      * A Polymer collection for the items.
+     * @type {?Polymer.Collection}
      */
     _collection: null,
 
@@ -353,6 +368,13 @@ after the list became visible again. e.g.
      */
     get _physicalBottom() {
       return this._physicalTop + this._physicalSize;
+    },
+
+    /**
+     * The bottom of the scroll.
+     */
+    get _scrollBottom() {
+      return this._scrollPosition + this._viewportSize;
     },
 
     /**
@@ -371,8 +393,7 @@ after the list became visible again. e.g.
      * The largest n-th value for an item such that it can be rendered in `_physicalStart`.
      */
     get _maxVirtualStart() {
-      return this._virtualCount < this._physicalCount ?
-          this._virtualCount : this._virtualCount - this._physicalCount;
+      return Math.max(0, this._virtualCount - this._physicalCount);
     },
 
     /**
@@ -425,9 +446,9 @@ after the list became visible again. e.g.
     },
 
     /**
-     * Gets the first visible item in the viewport.
+     * Gets the index of the first visible item in the viewport.
      *
-     * @property firstVisibleIndex
+     * @type {number}
      */
     get firstVisibleIndex() {
       var physicalOffset;
@@ -466,8 +487,9 @@ after the list became visible again. e.g.
       // e.g. paper-scroll-header-panel
       var el = Polymer.dom(this);
 
-      if (el.parentNode && el.parentNode.scroller) {
-        this._scroller = el.parentNode.scroller;
+      var parentNode = /** @type {?{scroller: ?Element}} */ (el.parentNode);
+      if (parentNode && parentNode.scroller) {
+        this._scroller = parentNode.scroller;
       } else {
         this._scroller = this;
         this.classList.add('has-scroller');
@@ -501,7 +523,7 @@ after the list became visible again. e.g.
      */
     updateViewportBoundaries: function() {
       var scrollerStyle = window.getComputedStyle(this._scroller);
-      this._scrollerPaddingTop = parseInt(scrollerStyle['padding-top']);
+      this._scrollerPaddingTop = parseInt(scrollerStyle['padding-top'], 10);
       this._viewportSize = this._scroller.offsetHeight;
     },
 
@@ -510,19 +532,13 @@ after the list became visible again. e.g.
      * items in the viewport and recycle tiles as needed.
      */
     _refresh: function() {
-      var SCROLL_DIRECTION_UP = -1;
-      var SCROLL_DIRECTION_DOWN = 1;
-      var SCROLL_DIRECTION_NONE = 0;
-
       // clamp the `scrollTop` value
       // IE 10|11 scrollTop may go above `_maxScrollTop`
       // iOS `scrollTop` may go below 0 and above `_maxScrollTop`
       var scrollTop = Math.max(0, Math.min(this._maxScrollTop, this._scroller.scrollTop));
-
-      var tileHeight, kth, recycledTileSet;
+      var tileHeight, tileTop, kth, recycledTileSet, scrollBottom;
       var ratio = this._ratio;
       var delta = scrollTop - this._scrollPosition;
-      var direction = SCROLL_DIRECTION_NONE;
       var recycledTiles = 0;
       var hiddenContentSize = this._hiddenContentSize;
       var currentRatio = ratio;
@@ -534,18 +550,19 @@ after the list became visible again. e.g.
       // clear cached visible index
       this._firstVisibleIndexVal = null;
 
+      scrollBottom = this._scrollBottom;
+
       // random access
       if (Math.abs(delta) > this._physicalSize) {
         this._physicalTop += delta;
-        direction = SCROLL_DIRECTION_NONE;
         recycledTiles =  Math.round(delta / this._physicalAverage);
       }
       // scroll up
       else if (delta < 0) {
         var topSpace = scrollTop - this._physicalTop;
         var virtualStart = this._virtualStart;
+        var physicalBottom = this._physicalBottom;
 
-        direction = SCROLL_DIRECTION_UP;
         recycledTileSet = [];
 
         kth = this._physicalEnd;
@@ -558,12 +575,14 @@ after the list became visible again. e.g.
             // recycle less physical items than the total
             recycledTiles < this._physicalCount &&
             // ensure that these recycled tiles are needed
-            virtualStart - recycledTiles > 0
+            virtualStart - recycledTiles > 0 &&
+            // ensure that the tile is not visible
+            physicalBottom - this._physicalSizes[kth] > scrollBottom
         ) {
 
-          tileHeight = this._physicalSizes[kth] || this._physicalAverage;
+          tileHeight = this._physicalSizes[kth];
           currentRatio += tileHeight / hiddenContentSize;
-
+          physicalBottom -= tileHeight;
           recycledTileSet.push(kth);
           recycledTiles++;
           kth = (kth === 0) ? this._physicalCount - 1 : kth - 1;
@@ -571,15 +590,13 @@ after the list became visible again. e.g.
 
         movingUp = recycledTileSet;
         recycledTiles = -recycledTiles;
-
       }
       // scroll down
       else if (delta > 0) {
-        var bottomSpace = this._physicalBottom - (scrollTop + this._viewportSize);
+        var bottomSpace = this._physicalBottom - scrollBottom;
         var virtualEnd = this._virtualEnd;
         var lastVirtualItemIndex = this._virtualCount-1;
 
-        direction = SCROLL_DIRECTION_DOWN;
         recycledTileSet = [];
 
         kth = this._physicalStart;
@@ -592,10 +609,12 @@ after the list became visible again. e.g.
             // recycle less physical items than the total
             recycledTiles < this._physicalCount &&
             // ensure that these recycled tiles are needed
-            virtualEnd + recycledTiles < lastVirtualItemIndex
+            virtualEnd + recycledTiles < lastVirtualItemIndex &&
+            // ensure that the tile is not visible
+            this._physicalTop + this._physicalSizes[kth] < scrollTop
           ) {
 
-          tileHeight = this._physicalSizes[kth] || this._physicalAverage;
+          tileHeight = this._physicalSizes[kth];
           currentRatio += tileHeight / hiddenContentSize;
 
           this._physicalTop += tileHeight;
@@ -605,7 +624,15 @@ after the list became visible again. e.g.
         }
       }
 
-      if (recycledTiles !== 0) {
+      if (recycledTiles === 0) {
+        // If the list ever reach this case, the physical average is not significant enough
+        // to create all the items needed to cover the entire viewport.
+        // e.g. A few items have a height that differs from the average by serveral order of magnitude.
+        if (this._increasePoolIfNeeded()) {
+          // yield and set models to the new items
+          this.async(this._update);
+        }
+      } else {
         this._virtualStart = this._virtualStart + recycledTiles;
         this._update(recycledTileSet, movingUp);
       }
@@ -613,14 +640,15 @@ after the list became visible again. e.g.
 
     /**
      * Update the list of items, starting from the `_virtualStartVal` item.
+     * @param {!Array<number>=} itemSet
+     * @param {!Array<number>=} movingUp
      */
     _update: function(itemSet, movingUp) {
       // update models
       this._assignModels(itemSet);
 
       // measure heights
-      // TODO(blasten) pass `recycledTileSet`
-      this._updateMetrics();
+      this._updateMetrics(itemSet);
 
       // adjust offset after measuring
       if (movingUp) {
@@ -628,7 +656,6 @@ after the list became visible again. e.g.
           this._physicalTop -= this._physicalSizes[movingUp.pop()];
         }
       }
-
       // update the position of the items
       this._positionItems();
 
@@ -636,9 +663,9 @@ after the list became visible again. e.g.
       this._updateScrollerSize();
 
       // increase the pool of physical items if needed
-      if (itemSet = this._increasePoolIfNeeded()) {
-        // set models to the new items
-        this.async(this._update.bind(this, itemSet));
+      if (this._increasePoolIfNeeded()) {
+        // yield set models to the new items
+        this.async(this._update);
       }
     },
 
@@ -663,24 +690,30 @@ after the list became visible again. e.g.
     },
 
     /**
-     * Increases the pool size. That is, the physical items in the DOM.
+     * Increases the pool of physical items only if needed.
      * This function will allocate additional physical items
      * (limited by `MAX_PHYSICAL_COUNT`) if the content size is shorter than
      * `_optPhysicalSize`
      *
-     * @return Array
+     * @return boolean
      */
     _increasePoolIfNeeded: function() {
-      if (this._physicalSize >= this._optPhysicalSize || this._physicalAverage === 0) {
-        return null;
+      if (this._physicalAverage === 0) {
+        return false;
       }
+      if (this._physicalBottom < this._scrollBottom || this._physicalTop > this._scrollPosition) {
+        return this._increasePool(1);
+      }
+      if (this._physicalSize < this._optPhysicalSize) {
+        return this._increasePool(Math.round((this._optPhysicalSize - this._physicalSize) * 1.2 / this._physicalAverage));
+      }
+      return false;
+    },
 
-      // the estimated number of physical items that we will need to reach
-      // the cap established by `_optPhysicalSize`.
-      var missingItems = Math.round(
-          (this._optPhysicalSize - this._physicalSize) * 1.2 / this._physicalAverage
-        );
-
+    /**
+     * Increases the pool size.
+     */
+    _increasePool: function(missingItems) {
       // limit the size
       var nextPhysicalCount = Math.min(
           this._physicalCount + missingItems,
@@ -692,23 +725,15 @@ after the list became visible again. e.g.
       var delta = nextPhysicalCount - prevPhysicalCount;
 
       if (delta <= 0) {
-        return null;
+        return false;
       }
 
-      var newPhysicalItems = this._createPool(delta);
-      var emptyArray = new Array(delta);
-
-      [].push.apply(this._physicalItems, newPhysicalItems);
-      [].push.apply(this._physicalSizes, emptyArray);
+      [].push.apply(this._physicalItems, this._createPool(delta));
+      [].push.apply(this._physicalSizes, new Array(delta));
 
       this._physicalCount = prevPhysicalCount + delta;
 
-      // fill the array with the new item pos
-      while (delta > 0) {
-        emptyArray[--delta] = prevPhysicalCount + delta;
-      }
-
-      return emptyArray;
+      return true;
     },
 
     /**
@@ -858,6 +883,9 @@ after the list became visible again. e.g.
       }
     },
 
+    /**
+     * @param {!Array<!PolymerSplice>} splices
+     */
     _adjustVirtualIndex: function(splices) {
       var i, splice, idx;
 
@@ -885,6 +913,9 @@ after the list became visible again. e.g.
     /**
      * Executes a provided function per every physical index in `itemSet`
      * `itemSet` default value is equivalent to the entire set of physical indexes.
+     *
+     * @param {!function(number, number)} fn
+     * @param {!Array<number>=} itemSet
      */
     _iterateItems: function(fn, itemSet) {
       var pidx, vidx, rtn, i;
@@ -923,6 +954,7 @@ after the list became visible again. e.g.
 
     /**
      * Assigns the data models to a given set of items.
+     * @param {!Array<number>=} itemSet
      */
     _assignModels: function(itemSet) {
       this._iterateItems(function(pidx, vidx) {
@@ -933,7 +965,8 @@ after the list became visible again. e.g.
         if (item) {
           inst[this.as] = item;
           inst.__key__ = this._collection.getKey(item);
-          inst[this.selectedAs] = this.$.selector.isSelected(item);
+          inst[this.selectedAs] =
+            /** @type {!ArraySelectorElement} */ (this.$.selector).isSelected(item);
           inst[this.indexAs] = vidx;
           el.removeAttribute('hidden');
           this._physicalIndexForKey[inst.__key__] = pidx;
@@ -947,28 +980,32 @@ after the list became visible again. e.g.
 
     /**
      * Updates the height for a given set of items.
+     *
+     * @param {!Array<number>=} itemSet
      */
-    _updateMetrics: function() {
-      var total = 0;
+     _updateMetrics: function(itemSet) {
+      var newPhysicalSize = 0;
+      var oldPhysicalSize = 0;
       var prevAvgCount = this._physicalAverageCount;
       var prevPhysicalAvg = this._physicalAverage;
-
       // Make sure we distributed all the physical items
       // so we can measure them
       Polymer.dom.flush();
 
-      for (var i = 0; i < this._physicalCount; i++) {
-        this._physicalSizes[i] = this._physicalItems[i].offsetHeight;
-        total += this._physicalSizes[i];
-        this._physicalAverageCount += this._physicalSizes[i] ? 1 : 0;
-      }
+      this._iterateItems(function(pidx, vidx) {
+        oldPhysicalSize += this._physicalSizes[pidx] || 0;
+        this._physicalSizes[pidx] = this._physicalItems[pidx].offsetHeight;
+        newPhysicalSize += this._physicalSizes[pidx];
+        this._physicalAverageCount += this._physicalSizes[pidx] ? 1 : 0;
+      }, itemSet);
 
-      this._physicalSize = total;
+      this._physicalSize = this._physicalSize + newPhysicalSize - oldPhysicalSize;
       this._viewportSize = this._scroller.offsetHeight;
 
+      // update the average if we measured something
       if (this._physicalAverageCount !== prevAvgCount) {
         this._physicalAverage = Math.round(
-            ((prevPhysicalAvg * prevAvgCount) + total) /
+            ((prevPhysicalAvg * prevAvgCount) + newPhysicalSize) /
             this._physicalAverageCount);
       }
     },
@@ -976,7 +1013,7 @@ after the list became visible again. e.g.
     /**
      * Updates the position of the physical items.
      */
-    _positionItems: function(itemSet) {
+    _positionItems: function() {
       this._adjustScrollPosition();
 
       var y = this._physicalTop;
@@ -986,7 +1023,7 @@ after the list became visible again. e.g.
         this.transform('translate3d(0, ' + y + 'px, 0)', this._physicalItems[pidx]);
         y += this._physicalSizes[pidx];
 
-      }, itemSet);
+      });
     },
 
     /**
@@ -1018,6 +1055,8 @@ after the list became visible again. e.g.
 
     /**
      * Sets the scroll height, that's the height of the content,
+     *
+     * @param {boolean=} forceUpdate If true, updates the height no matter what.
      */
     _updateScrollerSize: function(forceUpdate) {
       this._estScrollHeight = (this._physicalBottom +
@@ -1045,7 +1084,6 @@ after the list became visible again. e.g.
         return;
       }
 
-      var itemSet;
       var firstVisible = this.firstVisibleIndex;
 
       idx = Math.min(Math.max(idx, 0), this._virtualCount-1);
@@ -1085,11 +1123,10 @@ after the list became visible again. e.g.
       this._resetScrollPosition(this._physicalTop + targetOffsetTop + 1);
 
       // increase the pool of physical items if needed
-      if (itemSet = this._increasePoolIfNeeded()) {
-        // set models to the new items
-        this.async(this._update.bind(this, itemSet));
+      if (this._increasePoolIfNeeded()) {
+        // yield set models to the new items
+        this.async(this._update);
       }
-
       // clear cached visible index
       this._firstVisibleIndexVal = null;
     },
@@ -1103,7 +1140,7 @@ after the list became visible again. e.g.
     },
 
     /**
-     * A handler for the `resize` event triggered by `IronResizableBehavior`
+     * A handler for the `iron-resize` event triggered by `IronResizableBehavior`
      * when the element is resized.
      */
     _resizeHandler: function() {
@@ -1128,23 +1165,30 @@ after the list became visible again. e.g.
     },
 
     /**
-     * Select the list item at the given index.
+     * Gets a valid item instance from its index or the object value.
      *
-     * @method selectItem
-     * @param {(Object|number)} item the item object or its index
+     * @param {(Object|number)} item The item object or its index
      */
-    selectItem: function(item) {
+    _getNormalizedItem: function(item) {
       if (typeof item === 'number') {
         item = this.items[item];
         if (!item) {
           throw new RangeError('<item> not found');
         }
-      } else {
-        if (this._collection.getKey(item) === undefined) {
-          throw new TypeError('<item> should be a valid item');
-        }
+      } else if (this._collection.getKey(item) === undefined) {
+        throw new TypeError('<item> should be a valid item');
       }
+      return item;
+    },
 
+    /**
+     * Select the list item at the given index.
+     *
+     * @method selectItem
+     * @param {(Object|number)} item The item object or its index
+     */
+    selectItem: function(item) {
+      item = this._getNormalizedItem(item);
       var model = this._getModelFromItem(item);
 
       if (!this.multiSelection && this.selectedItem) {
@@ -1159,21 +1203,12 @@ after the list became visible again. e.g.
     /**
      * Deselects the given item list if it is already selected.
      *
+
      * @method deselect
-     * @param {(Object|number)} item the item object or its index
+     * @param {(Object|number)} item The item object or its index
      */
     deselectItem: function(item) {
-      if (typeof item === 'number') {
-        item = this.items[item];
-        if (!item) {
-          throw new RangeError('<item> not found');
-        }
-      } else {
-        if (this._collection.getKey(item) === undefined) {
-          throw new TypeError('<item> should be a valid item');
-        }
-      }
-
+      item = this._getNormalizedItem(item);
       var model = this._getModelFromItem(item);
 
       if (model) {
@@ -1187,11 +1222,11 @@ after the list became visible again. e.g.
      * has already been selected.
      *
      * @method toggleSelectionForItem
-     * @param {(Object|number)} item the item object or its index
+     * @param {(Object|number)} item The item object or its index
      */
     toggleSelectionForItem: function(item) {
-      var item = typeof item === 'number' ? this.items[item] : item;
-      if (this.$.selector.isSelected(item)) {
+      item = this._getNormalizedItem(item);
+      if (/** @type {!ArraySelectorElement} */ (this.$.selector).isSelected(item)) {
         this.deselectItem(item);
       } else {
         this.selectItem(item);
@@ -1217,7 +1252,7 @@ after the list became visible again. e.g.
         unselect.call(this, this.selectedItem);
       }
 
-      this.$.selector.clearSelection();
+      /** @type {!ArraySelectorElement} */ (this.$.selector).clearSelection();
     },
 
     /**
@@ -1227,8 +1262,10 @@ after the list became visible again. e.g.
     _selectionEnabledChanged: function(selectionEnabled) {
       if (selectionEnabled) {
         this.listen(this, 'tap', '_selectionHandler');
+        this.listen(this, 'keypress', '_selectionHandler');
       } else {
         this.unlisten(this, 'tap', '_selectionHandler');
+        this.unlisten(this, 'keypress', '_selectionHandler');
       }
     },
 
@@ -1236,15 +1273,34 @@ after the list became visible again. e.g.
      * Select an item from an event object.
      */
     _selectionHandler: function(e) {
-      var model = this.modelForElement(e.target);
-      if (model) {
-        this.toggleSelectionForItem(model[this.as]);
+      if (e.type !== 'keypress' || e.keyCode === 13) {
+        var model = this.modelForElement(e.target);
+        if (model) {
+          this.toggleSelectionForItem(model[this.as]);
+        }
       }
     },
 
     _multiSelectionChanged: function(multiSelection) {
       this.clearSelection();
       this.$.selector.multi = multiSelection;
+    },
+
+    /**
+     * Updates the size of an item.
+     *
+     * @method updateSizeForItem
+     * @param {(Object|number)} item The item object or its index
+     */
+    updateSizeForItem: function(item) {
+      item = this._getNormalizedItem(item);
+      var key = this._collection.getKey(item);
+      var pidx = this._physicalIndexForKey[key];
+
+      if (pidx !== undefined) {
+        this._updateMetrics([pidx]);
+        this._positionItems();
+      }
     }
   });
 

@@ -11,6 +11,8 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_control_state.dart';
 import 'iron_button_state.dart';
 import 'iron_a11y_keys_behavior.dart';
+import 'iron_form_element_behavior.dart';
+import 'iron_validatable_behavior.dart';
 import 'default_theme.dart';
 import 'paper_input.dart';
 import 'paper_menu_button.dart';
@@ -19,6 +21,8 @@ import 'iron_icons.dart';
 import 'iron_icon.dart';
 import 'iron_selectable.dart';
 
+/// Material design: [Dropdown menus](https://www.google.com/design/spec/components/buttons.html#buttons-dropdown-buttons)
+///
 /// `paper-dropdown-menu` is similar to a native browser select element.
 /// `paper-dropdown-menu` works with selectable content. The currently selected
 /// item is displayed in the control. If no item is selected, the `label` is
@@ -41,6 +45,9 @@ import 'iron_selectable.dart';
 ///
 /// This example renders a dropdown menu with 4 options.
 ///
+/// Similarly to using `iron-select`, `iron-deselect` events will cause the
+/// current selection of the `paper-dropdown-menu` to be cleared.
+///
 /// ### Styling
 ///
 /// The following custom properties and mixins are also available for styling:
@@ -58,7 +65,7 @@ import 'iron_selectable.dart';
 /// style mixins and custom properties to style the internal input and menu button
 /// respectively.
 @CustomElementProxy('paper-dropdown-menu')
-class PaperDropdownMenu extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, IronButtonState {
+class PaperDropdownMenu extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, IronButtonState, IronFormElementBehavior, IronValidatableBehavior {
   PaperDropdownMenu.created() : super.created();
   factory PaperDropdownMenu() => new Element.tag('paper-dropdown-menu');
 
@@ -106,6 +113,12 @@ class PaperDropdownMenu extends HtmlElement with CustomElementProxyMixin, Polyme
   /// trimmed text content of the selected item.
   String get selectedItemLabel => jsElement[r'selectedItemLabel'];
   set selectedItemLabel(String value) { jsElement[r'selectedItemLabel'] = value; }
+
+  /// The value for this element that will be used when submitting in
+  /// a form. It is read only, and will always have the same value
+  /// as `selectedItemLabel`.
+  String get value => jsElement[r'value'];
+  set value(String value) { jsElement[r'value'] = value; }
 
   /// Hide the dropdown content.
   close() =>

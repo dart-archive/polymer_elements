@@ -20,6 +20,7 @@ main() async {
       PaperBadge badge = f.querySelector('paper-badge');
       HtmlElement actualbadge = badge.querySelector('#badge');
       expect(actualbadge.text, equals("1"));
+      expect(badge.target.getAttribute('id'), 'target');
       badge.updatePosition();
 
       Completer done = new Completer();
@@ -49,12 +50,15 @@ main() async {
       PaperBadge badge = f.querySelector('paper-badge');
       badge.updatePosition();
 
+      expect(badge.target.getAttribute('id'), isNot('target'));
+
       Completer done = new Completer();
 
       wait(1).then((_) {
         Rectangle contentRect = badge.getBoundingClientRect();
         expect(contentRect.left, isNot(100 - 11));
         badge.forId = 'target';
+        expect(badge.target.getAttribute('id'), 'target');
         badge.updatePosition();
 
         wait(1).then((_) {
@@ -79,6 +83,33 @@ main() async {
 
       return done.future;
     });
+  });
+  
+  test('badge is positioned correctly when nested in a target element', () async {
+    var f = fixture('nested');
+    var badge = f.querySelector('paper-badge');
+
+    expect(badge.target.getAttribute('id'), 'target');
+
+    badge.updatePosition();
+
+    await wait(1);
+    var divRect = f.querySelector('#target').getBoundingClientRect();
+    expect(divRect.width, 100);
+    expect(divRect.height, 20);
+
+    var contentRect = badge.getBoundingClientRect();
+    expect(contentRect.width, 22);
+    expect(contentRect.height, 22);
+
+    // The target div is 100 x 20, and the badge is centered on the
+    // top right corner.
+    expect(contentRect.left, 100 - 11);
+    expect(contentRect.top, 0 - 11);
+
+    // Also check the math, just in case.
+    expect(contentRect.left, divRect.width - 11);
+    expect(contentRect.top, divRect.top - 11);
   });
 
   group('badge is inside a custom element', () {

@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.iron_meta_test;
 
+import 'dart:js';
 import 'package:polymer_elements/iron_meta.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
@@ -135,6 +136,16 @@ main() async {
 
         expect(registeredValue, isNot(firstValue));
         expect(registeredValue, secondValue);
+      });
+    });
+    
+    group('singleton', () {
+
+      test('only one ironmeta created', () {
+        var ironMeta = context['Polymer']['IronMeta'];
+        var first = ironMeta.callMethod('getIronMeta');
+        var second = ironMeta.callMethod('getIronMeta');
+        expect(first, second);
       });
     });
   });

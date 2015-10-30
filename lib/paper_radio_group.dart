@@ -12,10 +12,15 @@ import 'iron_a11y_keys_behavior.dart';
 import 'iron_selectable.dart';
 import 'paper_radio_button.dart';
 
-/// `paper-radio-group` allows user to select only one radio button from a set.
+/// Material design: [Radio button](https://www.google.com/design/spec/components/selection-controls.html#selection-controls-radio-button)
+///
+/// `paper-radio-group` allows user to select at most one radio button from a set.
 /// Checking one radio button that belongs to a radio group unchecks any
 /// previously checked radio button within the same group. Use
 /// `selected` to get or set the selected radio button.
+///
+/// The <paper-radio-buttons> inside the group must have the `name` attribute
+/// set.
 ///
 /// Example:
 ///
@@ -25,12 +30,24 @@ import 'paper_radio_button.dart';
 ///       <paper-radio-button name="large">Large</paper-radio-button>
 ///     </paper-radio-group>
 ///
-/// See <a href="paper-radio-button.html">paper-radio-button</a> for more
+/// Radio-button-groups can be made optional, and allow zero buttons to be selected:
+///
+///     <paper-radio-group selected="small" allow-empty-selection>
+///       <paper-radio-button name="small">Small</paper-radio-button>
+///       <paper-radio-button name="medium">Medium</paper-radio-button>
+///       <paper-radio-button name="large">Large</paper-radio-button>
+///     </paper-radio-group>
+///
+/// See <a href="paper-radio-button">paper-radio-button</a> for more
 /// information about `paper-radio-button`.
 @CustomElementProxy('paper-radio-group')
 class PaperRadioGroup extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronSelectableBehavior {
   PaperRadioGroup.created() : super.created();
   factory PaperRadioGroup() => new Element.tag('paper-radio-group');
+
+  /// If true, radio-buttons can be deselected
+  bool get allowEmptySelection => jsElement[r'allowEmptySelection'];
+  set allowEmptySelection(bool value) { jsElement[r'allowEmptySelection'] = value; }
 
   /// Overriden from Polymer.IronSelectableBehavior
   String get attrForSelected => jsElement[r'attrForSelected'];

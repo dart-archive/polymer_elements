@@ -5,6 +5,7 @@
 library polymer_elements.test.iron_selector_multi_test;
 
 import 'dart:html';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:polymer_elements/iron_selector.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
@@ -80,6 +81,37 @@ main() async {
       // check events
       expect(selectEventCounter, 1);
       expect(deselectEventCounter, 1);
+    });
+    
+    test('fires selected-values-changed when selection changes', () {
+      var selectedValuesChangedEventCounter = 0;
+
+      s.on['selected-values-changed'].listen((e) {
+        selectedValuesChangedEventCounter++;
+      });
+
+      tap(Polymer.dom(s).children[0]);
+      tap(Polymer.dom(s).children[0]);
+      tap(Polymer.dom(s).children[0]);
+
+      expect(selectedValuesChangedEventCounter, isNot(0));
+    });
+
+    test('selects from items created by dom-repeat', () async {
+      var selectEventCounter = 0;
+      var firstChild;
+
+      s = document.querySelector('#repeatedItems');
+      s.on['iron-select'].first.then((e) {
+        selectEventCounter++;
+      });
+
+      // NOTE(cdata): I guess `dom-repeat` doesn't stamp synchronously..
+      await wait(1);
+      firstChild = Polymer.dom(s).querySelector('div');
+      tap(firstChild);
+
+      expect(s.selectedItems[0].text, 'foo');
     });
 
     /* test('toggle multi from true to false', () {

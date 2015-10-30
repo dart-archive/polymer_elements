@@ -9,6 +9,7 @@ import 'package:polymer_elements/iron_a11y_keys_behavior.dart';
 import 'package:polymer_elements/iron_button_state.dart';
 import 'package:polymer_elements/iron_control_state.dart';
 import 'package:polymer_elements/paper_button_behavior.dart';
+import 'package:polymer_elements/paper_ripple_behavior.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'package:polymer/polymer.dart';
 import 'package:test/test.dart';
@@ -19,26 +20,26 @@ main() async {
   await initPolymer();
   
   group('basic', () {
-    var button;
+    TestButton button;
 
     setUp(() {
       button = fixture('basic');
     });
 
     test('normal (no states)', () {
-      expect(button.jsElement['_elevation'], 1);
+      expect(button.elevation, 1);
     });
 
     test('set disabled property', () {
       button.disabled = true;
-      expect(button.jsElement['_elevation'], 0);
+      expect(button.elevation, 0);
     });
 
     test('pressed and released', () {
       down(button);
-      expect(button.jsElement['_elevation'], 4);
+      expect(button.elevation, 4);
       up(button);
-      expect(button.jsElement['_elevation'], 1);
+      expect(button.elevation, 1);
     });
 
     group('a button with toggles', () {
@@ -49,7 +50,8 @@ main() async {
       test('activated by tap', () {
         var done = new Completer();
         downAndUp(button, () {
-          expect(button.jsElement['_elevation'], 4);
+          expect(button.elevation, 4);
+          expect(button.hasRipple(), isTrue);
           done.complete();
         });
         return done.future;
@@ -58,7 +60,8 @@ main() async {
 
     test('receives focused', () {
       focus(button);
-      expect(button.jsElement['_elevation'], 3);
+      expect(button.elevation, 3);
+      expect(button.hasRipple(), isTrue);
     });
   });
 }
@@ -69,6 +72,7 @@ class TestButton extends PolymerElement
         IronA11yKeysBehavior,
         IronButtonState,
         IronControlState,
+        PaperRippleBehavior,
         PaperButtonBehavior {
   TestButton.created() : super.created();
 }

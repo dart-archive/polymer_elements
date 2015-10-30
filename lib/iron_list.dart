@@ -66,9 +66,19 @@ import 'iron_resizable_behavior.dart';
 ///       </iron-list>
 ///     </template>
 ///
+/// ### Styling
+///
+/// Use the `--iron-list-items-container` mixin to style the container of items, e.g.
+///
+///     iron-list {
+///      --iron-list-items-container: {
+///         margin: auto;
+///       };
+///     }
+///
 /// ### Resizing
 ///
-/// `iron-list` lays out the items when it recives a notification via the `resize` event.
+/// `iron-list` lays out the items when it recives a notification via the `iron-resize` event.
 /// This event is fired by any element that implements `IronResizableBehavior`.
 ///
 /// By default, elements such as `iron-pages`, `paper-tabs` or `paper-dialog` will trigger
@@ -76,7 +86,7 @@ import 'iron_resizable_behavior.dart';
 /// you might want to implement `IronResizableBehavior` or fire this event manually right
 /// after the list became visible again. e.g.
 ///
-///     document.querySelector('iron-list').fire('resize');
+///     document.querySelector('iron-list').fire('iron-resize');
 @CustomElementProxy('iron-list')
 class IronList extends HtmlElement with CustomElementProxyMixin, PolymerBase, Templatizer, IronResizableBehavior {
   IronList.created() : super.created();
@@ -87,12 +97,12 @@ class IronList extends HtmlElement with CustomElementProxyMixin, PolymerBase, Te
   String get as => jsElement[r'as'];
   set as(String value) { jsElement[r'as'] = value; }
 
-  /// Gets the first visible item in the viewport.
-  get firstVisibleIndex => jsElement[r'firstVisibleIndex'];
+  /// Gets the index of the first visible item in the viewport.
+  num get firstVisibleIndex => jsElement[r'firstVisibleIndex'];
+  set firstVisibleIndex(num value) { jsElement[r'firstVisibleIndex'] = value; }
 
   /// The name of the variable to add to the binding scope with the index
-  /// for the row.  If `sort` is provided, the index will reflect the
-  /// sorted order (rather than the original array order).
+  /// for the row.
   String get indexAs => jsElement[r'indexAs'];
   set indexAs(String value) { jsElement[r'indexAs'] = value; }
 
@@ -134,7 +144,7 @@ class IronList extends HtmlElement with CustomElementProxyMixin, PolymerBase, Te
       jsElement.callMethod('clearSelection', []);
 
   /// Deselects the given item list if it is already selected.
-  /// [item]: the item object or its index
+  /// [item]: The item object or its index
   deselectItem(item) =>
       jsElement.callMethod('deselectItem', [item]);
 
@@ -145,15 +155,20 @@ class IronList extends HtmlElement with CustomElementProxyMixin, PolymerBase, Te
       jsElement.callMethod('scrollToIndex', [idx]);
 
   /// Select the list item at the given index.
-  /// [item]: the item object or its index
+  /// [item]: The item object or its index
   selectItem(item) =>
       jsElement.callMethod('selectItem', [item]);
 
   /// Select or deselect a given item depending on whether the item
   /// has already been selected.
-  /// [item]: the item object or its index
+  /// [item]: The item object or its index
   toggleSelectionForItem(item) =>
       jsElement.callMethod('toggleSelectionForItem', [item]);
+
+  /// Updates the size of an item.
+  /// [item]: The item object or its index
+  updateSizeForItem(item) =>
+      jsElement.callMethod('updateSizeForItem', [item]);
 
   /// Invoke this method if you dynamically update the viewport's
   /// size or CSS padding.

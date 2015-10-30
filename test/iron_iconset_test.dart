@@ -4,6 +4,8 @@
 @TestOn('browser')
 library polymer_elements.test.iron_iconset_test;
 
+import 'dart:html';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:polymer_elements/iron_iconset.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
@@ -26,6 +28,14 @@ main() async {
 
       test('it can be accessed via iron-meta', () {
         expect(meta.byKey('foo'), iconset);
+      });
+
+      test('it fires an iron-iconset-added event on the window', () {
+        return window.on['iron-iconset-added'].first.then((ev) {
+          ev = convertToDart(ev);
+          expect(ev, isNotNull);
+          expect(ev.detail, iconset);
+        });
       });
     });
     group('when src, width, iconSize and icons are assigned', () {

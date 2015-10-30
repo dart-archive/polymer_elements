@@ -73,6 +73,42 @@ main() async {
       await wait(1);
       expect(range.value, 5.1);
     });
+    
+    test('odd values', () async {
+      range.min = 1;
+      range.max = 7;
+      range.step = 2;
+      range.value = 3;
+
+      await wait(1);
+      expect(range.value, 3);
+
+      range.value += range.step;
+      expect(range.value, 5);
+
+      range.value += range.step;
+      expect(range.value, 7);
+    });
+
+    test('negative values should round up', () async {
+      range.min = -10;
+      range.max = 10;
+      range.step = 0.1;
+      range.value = -8.4252;
+
+      await wait(1);
+      expect(range.value, -8.4);
+    });
+
+    test('positive values should round up', () async {
+      range.min = 10;
+      range.max = 100;
+      range.step = 0.25;
+      range.value = 19.34567;
+
+      await wait(1);
+      expect(range.value, 19.25);
+    });
   });
 }
 

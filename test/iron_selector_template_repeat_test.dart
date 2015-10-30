@@ -7,6 +7,7 @@ library polymer_elements.test.iron_selector_template_repeat_test;
 import 'dart:async';
 import 'dart:html';
 import 'dart:js';
+import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/iron_selector.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
@@ -16,24 +17,24 @@ main() async {
   await initWebComponents();
 
   group('dom-repeat', () {
-    JsObject scope, t;
+    DomBind scope;
+    DomRepeat t;
     IronSelector s;
 
     setUp(() {
-      scope = new JsObject.fromBrowserObject(
-          document.querySelector('template[is="dom-bind"]'));
-      s = scope[r'$']['selector'];
-      t = new JsObject.fromBrowserObject(scope[r'$']['t']);
-      t['items'] = new JsObject.jsify([
+      scope = document.querySelector('template[is="dom-bind"]');
+      s = scope.$['selector'];
+      t = scope.$['t'];
+      t.items = [
         {'name': 'item0'},
         {'name': 'item1'},
         {'name': 'item2'},
         {'name': 'item3'}
-      ]);
+      ];
     });
 
     tearDown(() {
-      t['items'] = new JsObject.jsify([]);
+      t.items = [];
     });
 
     test('supports repeated items', () {
@@ -58,7 +59,7 @@ main() async {
         // check selected
         expect(s.selected, '1');
         // update items
-        t['items'] = new JsObject.jsify([{'name': 'foo'}, {'name': 'bar'}]);
+        t.items = [{'name': 'foo'}, {'name': 'bar'}];
         wait(1).then((_) {
           // check items
           expect(s.items.length, 2);

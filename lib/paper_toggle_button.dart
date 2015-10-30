@@ -8,10 +8,12 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
+import 'paper_checked_element_behavior.dart';
 import 'paper_inky_focus_behavior.dart';
 import 'iron_button_state.dart';
 import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
+import 'paper_ripple_behavior.dart';
 import 'iron_checked_element_behavior.dart';
 import 'iron_form_element_behavior.dart';
 import 'iron_validatable_behavior.dart';
@@ -19,6 +21,8 @@ import 'color.dart';
 import 'default_theme.dart';
 import 'paper_ripple.dart';
 
+/// Material design: [Switch](https://www.google.com/design/spec/components/selection-controls.html#selection-controls-switch)
+///
 /// `paper-toggle-button` provides a ON/OFF switch that user can toggle the state
 /// by tapping or by dragging the switch.
 ///
@@ -42,8 +46,9 @@ import 'paper_ripple.dart';
 /// `--paper-toggle-button-unchecked-button` | Mixin applied to the slider button when the input is not checked | `{}`
 /// `--paper-toggle-button-checked-bar` | Mixin applied to the slider when the input is checked | `{}`
 /// `--paper-toggle-button-checked-button` | Mixin applied to the slider button when the input is checked | `{}`
+/// `--paper-toggle-button-label-color` | Label color | `--primary-text-color`
 @CustomElementProxy('paper-toggle-button')
-class PaperToggleButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperInkyFocusBehavior, IronFormElementBehavior, IronValidatableBehavior, IronCheckedElementBehavior {
+class PaperToggleButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperRippleBehavior, PaperInkyFocusBehavior, IronFormElementBehavior, IronValidatableBehavior, IronCheckedElementBehavior, PaperCheckedElementBehavior {
   PaperToggleButton.created() : super.created();
   factory PaperToggleButton() => new Element.tag('paper-toggle-button');
 }

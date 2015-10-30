@@ -10,6 +10,8 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'shadow.dart';
 
+/// Material design: [Cards](https://www.google.com/design/spec/components/cards.html)
+///
 /// `paper-material` is a container that renders two shadows on top of each other to
 /// create the effect of a lifted piece of paper.
 ///

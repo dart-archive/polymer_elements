@@ -25,7 +25,7 @@ main() async {
       expect(button.getAttribute('raised'), isNotNull);
       wait(1).then((_) {
         try {
-          expect(button.jsElement['_elevation'], equals(1));
+          expect(button.elevation, equals(1));
           done.complete();
         } catch (e) {
           done.complete(e);

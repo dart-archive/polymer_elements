@@ -33,27 +33,27 @@ main() async {
         var lastItem = getLastItemFromList(list);
         var lastItemHeight = lastItem.offsetHeight;
         var expectedFinalItem = (list.offsetHeight / lastItemHeight).floor();
-        expect(lastItemHeight, 1);
+        expect(lastItemHeight, 2);
         expect(getLastItemFromList(list).text, expectedFinalItem.toString());
       });
     });
-    
+
     test('increase pool size on resize', () async {
       list.items = buildDataSet(1000);
-     
+
       await wait(1);
       // change the height of the list
       container.set('listHeight', 500);
       // resize
-      list.fire('resize');
+      list.fire('iron-resize');
 
       await wait(1);
       var lastItem = getLastItemFromList(list);
       var lastItemHeight = lastItem.offsetHeight;
-      int expectedFinalItem = (list.offsetHeight/lastItemHeight - 1).round();
-      
-      expect(lastItemHeight, 1);
+      int expectedFinalItem = (list.offsetHeight / lastItemHeight).round();
+
+      expect(lastItemHeight, 2);
       expect(getLastItemFromList(list).text, '$expectedFinalItem');
-    }, skip: 'Fails in test runner since window is <500px tall');
+    });
   });
 }

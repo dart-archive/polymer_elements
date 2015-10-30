@@ -15,6 +15,8 @@ class Point {
   num x;
   num y;
 
+  Point(this.x, this.y);
+
   Point.fromJsObject(JsObject object)
       : x = object['x'],
         y = object['y'];
@@ -160,3 +162,4 @@ Future requestAnimationFrame() {
 }
 
 List keysOf(JsObject object) => context['Object'].callMethod('keys', [object]);
+

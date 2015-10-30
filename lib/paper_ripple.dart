@@ -10,19 +10,26 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_a11y_keys_behavior.dart';
 
+/// Material design: [Surface reaction](https://www.google.com/design/spec/animation/responsive-interaction.html#responsive-interaction-surface-reaction)
+///
 /// `paper-ripple` provides a visual effect that other paper elements can
 /// use to simulate a rippling effect emanating from the point of contact.  The
 /// effect can be visualized as a concentric circle with motion.
 ///
 /// Example:
 ///
-///     <paper-ripple></paper-ripple>
+///     <div style="position:relative">
+///       <paper-ripple></paper-ripple>
+///     </div>
+///
+/// Note, it's important that the parent container of the ripple be relative position, otherwise
+/// the ripple will emanate outside of the desired container.
 ///
 /// `paper-ripple` listens to "mousedown" and "mouseup" events so it would display ripple
 /// effect when touches on it.  You can also defeat the default behavior and
 /// manually route the down and up actions to the ripple element.  Note that it is
-/// important if you call downAction() you will have to make sure to call
-/// upAction() so that `paper-ripple` would end the animation loop.
+/// important if you call `downAction()` you will have to make sure to call
+/// `upAction()` so that `paper-ripple` would end the animation loop.
 ///
 /// Example:
 ///
@@ -84,6 +91,13 @@ class PaperRipple extends HtmlElement with CustomElementProxyMixin, PolymerBase,
   get keyBindings => jsElement[r'keyBindings'];
   set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
+  /// If true, the ripple will not generate a ripple effect
+  /// via pointer interaction.
+  /// Calling ripple's imperative api like `simulatedRipple` will
+  /// still generate the ripple effect.
+  bool get noink => jsElement[r'noink'];
+  set noink(bool value) { jsElement[r'noink'] = value; }
+
   /// How fast (opacity per second) the wave fades out.
   num get opacityDecayVelocity => jsElement[r'opacityDecayVelocity'];
   set opacityDecayVelocity(num value) { jsElement[r'opacityDecayVelocity'] = value; }
@@ -107,6 +121,8 @@ class PaperRipple extends HtmlElement with CustomElementProxyMixin, PolymerBase,
   animate() =>
       jsElement.callMethod('animate', []);
 
+  /// Provokes a ripple down effect via a UI event,
+  /// *not* respecting the `noink` property.
   downAction(event) =>
       jsElement.callMethod('downAction', [event]);
 
@@ -119,6 +135,18 @@ class PaperRipple extends HtmlElement with CustomElementProxyMixin, PolymerBase,
   simulatedRipple() =>
       jsElement.callMethod('simulatedRipple', []);
 
+  /// Provokes a ripple down effect via a UI event,
+  /// respecting the `noink` property.
+  uiDownAction(event) =>
+      jsElement.callMethod('uiDownAction', [event]);
+
+  /// Provokes a ripple up effect via a UI event,
+  /// respecting the `noink` property.
+  uiUpAction(event) =>
+      jsElement.callMethod('uiUpAction', [event]);
+
+  /// Provokes a ripple up effect via a UI event,
+  /// *not* respecting the `noink` property.
   upAction(event) =>
       jsElement.callMethod('upAction', [event]);
 }

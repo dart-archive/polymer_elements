@@ -35,5 +35,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div>Item 4</div>
     </iron-selector>
   </template>
+
+  <!--
+  NOTE(cdata): Enable test-fixture when polymer/polymer#2495 is resolved
+  -->
+  <!--
+  <template id="repeatedItems">-->
+    <iron-selector multi id="repeatedItems">
+      <template is="dom-repeat" items='["foo", "bar", "baz"]'>
+        <div>[[item]]</div>
+      </template>
+      <div>vim</div>
+    </iron-selector>
+  <!--</template>-->
 </body>
 </html>

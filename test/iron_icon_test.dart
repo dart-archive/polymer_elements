@@ -69,10 +69,26 @@ main() async {
             style.backgroundPosition, contains(new RegExp(r'-24px 0(%|px)')));
       });
     });
+
     group('when no icon source is provided', () {
       test('will politely wait for an icon source without throwing', () {
         document.createElement('iron-icon');
         fixture('WithoutAnIconSource');
+      });
+    });
+
+    group('when loading async', () {
+      test('will get icon after iconset is added', () {
+        var icon = fixture('UsingAsyncIconset');
+        expect(hasIcon(icon), isFalse);
+
+        var done = window.on['iron-iconset-added'].first.then((_) {
+          expect(hasIcon(icon), isTrue,
+              reason: 'icon didn\'t load after iconset loaded');
+        });
+        fixture('AsyncIconset');
+
+        return done;
       });
     });
   });

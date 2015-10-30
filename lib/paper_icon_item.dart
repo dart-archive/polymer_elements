@@ -32,10 +32,16 @@ import 'paper_item_shared_styles.dart';
 ///
 /// The following custom properties and mixins are available for styling:
 ///
-/// Custom property | Description | Default
-/// ----------------|-------------|----------
-/// `--paper-item-icon-width` | Width of the icon area     | `56px`
-/// `--paper-icon-item`       | Mixin applied to the item  | `{}`
+/// Custom property               | Description                                    | Default
+/// ------------------------------|------------------------------------------------|----------
+/// `--paper-item-icon-width`     | Width of the icon area                         | `56px`
+/// `--paper-icon-item`           | Mixin applied to the item                      | `{}`
+/// `--paper-item-selected-weight`| The font weight of a selected item             | `bold`
+/// `--paper-item-selected`       | Mixin applied to selected paper-items                | `{}`
+/// `--paper-item-disabled-color` | The color for disabled paper-items             | `--disabled-text-color`
+/// `--paper-item-disabled`       | Mixin applied to disabled paper-items        | `{}`
+/// `--paper-item-focused`        | Mixin applied to focused paper-items         | `{}`
+/// `--paper-item-focused-before` | Mixin applied to :before focused paper-items | `{}`
 @CustomElementProxy('paper-icon-item')
 class PaperIconItem extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, IronButtonState {
   PaperIconItem.created() : super.created();

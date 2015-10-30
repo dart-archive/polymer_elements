@@ -60,7 +60,7 @@ main() async {
 
   group('horizontal', () {
     IronCollapse collapse;
-    var delay = new Duration(milliseconds: 500);
+    var delay = 500;
     var width;
 
     setUp(() {
@@ -75,31 +75,28 @@ main() async {
       expect(collapse.horizontal, true);
     });
 
-    test('default opened width', () {
-      return new Future.delayed(delay, () {
-        // store height
-        width = collapse.getComputedStyle().width;
-        // verify height not 0px
-        expect(width, isNot('0px'));
-      });
+    test('default opened width', () async {
+      await wait(delay);
+      // store height
+      width = collapse.getComputedStyle().width;
+      // verify height not 0px
+      expect(width, isNot('0px'));
     });
 
-    test('set opened to false', () {
+    test('set opened to false', () async {
       collapse.opened = false;
-      return new Future.delayed(delay, () {
-        var w = collapse.getComputedStyle().width;
-        // verify height is 0px
-        expect(w, '0px');
-      });
+      await wait(delay);
+      var w = collapse.getComputedStyle().width;
+      // verify height is 0px
+      expect(w, '0px');
     });
 
-    test('set opened to true', () {
+    test('set opened to true', () async {
       collapse.opened = true;
-      return new Future.delayed(delay, () {
-        var w = collapse.getComputedStyle().width;
-        // verify height
-        expect(w, width);
-      });
+      await wait(delay);
+      var w = collapse.getComputedStyle().width;
+      // verify height
+      expect(w, width);
     });
   });
 }

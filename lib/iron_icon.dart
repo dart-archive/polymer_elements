@@ -49,10 +49,11 @@ import 'iron_flex_layout.dart';
 ///
 ///     <iron-icon icon="fruit:cherry"></iron-icon>
 ///
-/// See [iron-iconset](#iron-iconset) and [iron-iconset-svg](#iron-iconset-svg) for more information about
+/// See [iron-iconset](iron-iconset) and [iron-iconset-svg](iron-iconset-svg) for more information about
 /// how to create a custom iconset.
 ///
-/// See [iron-icons](https://elements.polymer-project.org/elements/iron-icons?view=demo:demo/index.html) for the default set of icons.
+/// See the [iron-icons demo](iron-icons?view=demo:demo/index.html) to see the icons available
+/// in the various iconsets.
 ///
 ///
 /// ### Styling
@@ -63,6 +64,8 @@ import 'iron_flex_layout.dart';
 /// ----------------|-------------|----------
 /// `--iron-icon-width` | Width of the icon | `24px`
 /// `--iron-icon-height` | Height of the icon | `24px`
+/// `--iron-icon-fill-color` | Fill color of the svg icon | `currentcolor`
+/// `--iron-icon-stroke-color` | Stroke color of the svg icon | none
 @CustomElementProxy('iron-icon')
 class IronIcon extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronIcon.created() : super.created();

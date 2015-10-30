@@ -10,6 +10,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_resizable_behavior.dart';
 import 'google_maps_api.dart';
+import 'iron_selector.dart';
 import 'google_map_marker.dart';
 
 /// The `google-map` element renders a Google Map.
@@ -45,7 +46,7 @@ import 'google_map_marker.dart';
 ///
 /// <b>Example</b> - with Google directions, using data-binding inside another Polymer element
 ///
-///     <google-map map="{{map}}" libraries="places"></google-map>
+///     <google-map map="{{map}}"></google-map>
 ///     <google-map-directions map="{{map}}"
 ///         start-address="San Francisco" end-address="Mountain View">
 ///     </google-map-directions>
@@ -106,12 +107,6 @@ class GoogleMap extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   num get latitude => jsElement[r'latitude'];
   set latitude(num value) { jsElement[r'latitude'] = value; }
 
-  /// A comma separated list (e.g. "places,geometry") of libraries to load
-  /// with this map. Defaults to "". For more information see
-  /// https://developers.google.com/maps/documentation/javascript/libraries.
-  String get libraries => jsElement[r'libraries'];
-  set libraries(String value) { jsElement[r'libraries'] = value; }
-
   /// A longitude to center the map on.
   num get longitude => jsElement[r'longitude'];
   set longitude(num value) { jsElement[r'longitude'] = value; }
@@ -144,10 +139,18 @@ class GoogleMap extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   bool get noAutoTilt => jsElement[r'noAutoTilt'];
   set noAutoTilt(bool value) { jsElement[r'noAutoTilt'] = value; }
 
+  /// The non-marker objects on the map.
+  List get objects => jsElement[r'objects'];
+  set objects(List value) { jsElement[r'objects'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
+
   /// If true, sign-in is enabled.
   /// See https://developers.google.com/maps/documentation/javascript/signedin#enable_sign_in
   bool get signedIn => jsElement[r'signedIn'];
   set signedIn(bool value) { jsElement[r'signedIn'] = value; }
+
+  /// If set, all other info windows on markers are closed when opening a new one.
+  bool get singleInfoWindow => jsElement[r'singleInfoWindow'];
+  set singleInfoWindow(bool value) { jsElement[r'singleInfoWindow'] = value; }
 
   /// If set, custom styles can be applied to the map.
   /// For style documentation see developers.google.com/maps/documentation/javascript/reference#MapTypeStyle

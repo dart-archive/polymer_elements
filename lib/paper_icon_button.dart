@@ -12,13 +12,14 @@ import 'paper_inky_focus_behavior.dart';
 import 'iron_button_state.dart';
 import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
+import 'paper_ripple_behavior.dart';
 import 'iron_icon.dart';
 import 'iron_flex_layout.dart';
 import 'default_theme.dart';
 import 'paper_button_behavior.dart';
 import 'paper_ripple.dart';
 
-/// Material Design: <a href="http://www.google.com/design/spec/components/buttons.html">Buttons</a>
+/// Material design: [Icon toggles](https://www.google.com/design/spec/components/buttons.html#buttons-toggle-buttons)
 ///
 /// `paper-icon-button` is a button with an image placed at the center. When the user touches
 /// the button, a ripple effect emanates from the center of the button.
@@ -38,7 +39,7 @@ import 'paper_ripple.dart';
 ///     <paper-icon-button icon="favorite"></paper-icon-button>
 ///     <paper-icon-button src="star.png"></paper-icon-button>
 ///
-/// ###Styling
+/// ### Styling
 ///
 /// Style the button with CSS as you would a normal DOM element. If you are using the icons
 /// provided by `iron-icons`, they will inherit the foreground color of the button.
@@ -47,25 +48,18 @@ import 'paper_ripple.dart';
 ///     <paper-icon-button icon="favorite" style="color: red;"></paper-icon-button>
 ///
 /// By default, the ripple is the same color as the foreground at 25% opacity. You may
-/// customize the color using this selector:
-///
-///     /* make #my-button use a blue ripple instead of foreground color */
-///     #my-button::shadow #ripple {
-///       color: blue;
-///     }
-///
-/// The opacity of the ripple is not customizable via CSS.
+/// customize the color using the `--paper-icon-button-ink-color` custom property.
 ///
 /// The following custom properties and mixins are available for styling:
 ///
 /// Custom property | Description | Default
 /// ----------------|-------------|----------
-/// `--paper-icon-button-disabled-text` | The color of the disabled button | `--primary-text-color`
-/// `--paper-icon-button-ink-color` | Selected/focus ripple color | `--default-primary-color`
+/// `--paper-icon-button-disabled-text` | The color of the disabled button | `--disabled-text-color`
+/// `--paper-icon-button-ink-color` | Selected/focus ripple color | `--primary-text-color`
 /// `--paper-icon-button` | Mixin for a button | `{}`
 /// `--paper-icon-button-disabled` | Mixin for a disabled button | `{}`
 @CustomElementProxy('paper-icon-button')
-class PaperIconButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperInkyFocusBehavior {
+class PaperIconButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperRippleBehavior, PaperInkyFocusBehavior {
   PaperIconButton.created() : super.created();
   factory PaperIconButton() => new Element.tag('paper-icon-button');
 

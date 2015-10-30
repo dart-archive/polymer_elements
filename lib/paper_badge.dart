@@ -25,8 +25,8 @@ import 'default_theme.dart';
 ///     </div>
 ///
 ///     <div>
-///       <paper-button id="btn">Status</button>
-///       <paper-badge for="btn" label="♥︎">b/paper-badge>
+///       <paper-button id="btn">Status</paper-button>
+///       <paper-badge for="btn" label="♥︎"></paper-badge>
 ///     </div>
 ///
 /// ### Styling

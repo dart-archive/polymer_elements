@@ -22,11 +22,22 @@ class XList extends PolymerElement {
 
   @property
   int listHeight = 300;
+  
+  @property
+  bool pre = false;
 
   get list => $['list'];
 
   @reflectable
-  String computedItemHeight() => 'height: ${itemHeight}px';
+  String computedItemHeight(item) {
+    var css = pre ? 'white-space:pre;' : '';
+    if (item['height'] != null && item['height'] != 0) {
+      css += itemHeight == 0 ? '' : 'height: ${item['height']}px;';
+    } else if (itemHeight != 0) {
+      css += 'height: ${itemHeight}px;';
+    }
+    return css;
+  }
 
   @reflectable
   String computedListHeight(listHeight) => 'height: ${listHeight}px';

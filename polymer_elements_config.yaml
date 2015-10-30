@@ -18,7 +18,8 @@ files_to_generate:
         - firebase.html
       name_substitutions:
         query: queryObject
-        remove: removeItem
+        remove: firebaseRemove
+        add: firebaseAdd
   - firebase-element/firebase-document.html:
       omit_imports:
         - firebase.html
@@ -64,6 +65,8 @@ files_to_generate:
   - google-map/google-map.html
   - google-map/google-map-directions.html
   - google-map/google-map-marker.html
+  - google-map/google-map-point.html
+  - google-map/google-map-poly.html
   - google-map/google-map-search.html:
       name_substitutions:
         query: queryObject
@@ -148,10 +151,18 @@ files_to_generate:
       omit_imports:
         - iron-overlay-manager.html
   - iron-pages/iron-pages.html
-  - iron-range-behavior/iron-range-behavior.html
+  - iron-range-behavior/iron-range-behavior.html:
+      type_overrides:
+        IronRangeBehavior:
+          value:
+            type: any
   - iron-resizable-behavior/iron-resizable-behavior.html
   - iron-selector/iron-multi-selectable.html
-  - iron-selector/iron-selectable.html
+  - iron-selector/iron-selectable.html:
+      type_overrides:
+        IronSelectableBehavior:
+          selected:
+            type: any
   - iron-selector/iron-selection.html
   - iron-selector/iron-selector.html
   - iron-signals/iron-signals.html
@@ -229,7 +240,9 @@ files_to_generate:
       name_substitutions:
         for: forId
   - paper-behaviors/paper-button-behavior.html
+  - paper-behaviors/paper-checked-element-behavior.html
   - paper-behaviors/paper-inky-focus-behavior.html
+  - paper-behaviors/paper-ripple-behavior.html
   - paper-button/paper-button.html
   - paper-card/paper-card.html
   - paper-checkbox/paper-checkbox.html
@@ -243,7 +256,11 @@ files_to_generate:
   - paper-icon-button/paper-icon-button.html
   - paper-input/paper-input.html
   - paper-input/paper-input-addon-behavior.html
-  - paper-input/paper-input-behavior.html
+  - paper-input/paper-input-behavior.html:
+      type_overrides:
+        PaperInputBehavior:
+          value:
+            type: any
   - paper-input/paper-input-char-counter.html
   - paper-input/paper-input-container.html
   - paper-input/paper-input-error.html
@@ -278,7 +295,11 @@ files_to_generate:
   - paper-styles/classes/shadow-layout.html
   - paper-styles/classes/typography.html
   - paper-tabs/paper-tab.html
-  - paper-tabs/paper-tabs.html
+  - paper-tabs/paper-tabs.html:
+      type_overrides:
+        PaperTabs:
+          selected:
+            type: any
   - paper-tabs/paper-tabs-icons.html
   - paper-toast/paper-toast.html
   - paper-toggle-button/paper-toggle-button.html

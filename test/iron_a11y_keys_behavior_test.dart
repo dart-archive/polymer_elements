@@ -57,6 +57,19 @@ main() async {
         // pressSpace(keys);
         // expect(keys.keyCount, 1);
       });
+
+      test('allows propagation beyond the key combo handler', () {
+        var called = false;
+        var done = document.on['keydown'].first.then((_) {
+          called = true;
+        });
+
+        pressEnter(keys);
+
+        expect(called, true);
+
+        return done;
+      });
   
       group('edge cases', () {
         test('knows that `spacebar` is the same as `space`', () {
@@ -139,6 +152,25 @@ main() async {
         pressSpace(keys);
   
         expect(keys.keyCount, 2);
+      });
+    });
+
+    group('stopping propagation automatically', () {
+      setUp(() {
+        keys = fixture('NonPropagatingKeys');
+      });
+
+      test('does not propagate key events beyond the combo handler', () async {
+        var called = false;
+
+        document.on['keydown'].first.then((_) {
+          called = true;
+        });
+
+        pressEnter(keys);
+        await wait(1);
+
+        expect(called, isFalse);
       });
     });
   });

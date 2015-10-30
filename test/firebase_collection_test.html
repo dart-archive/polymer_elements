@@ -24,38 +24,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <body>
 
   <template id="TrivialCollection">
-    <firebase-collection
-      location="https://fb-element-demo.firebaseio.com/test/trivial"
-      log>
-    </firebase-collection>
-  </template>
-
-  <template id="PrimitiveCollection">
-    <firebase-collection
-      location="https://fb-element-demo.firebaseio.com/test/primitives"
-      order-by-value
-      log>
-    </firebase-collection>
-  </template>
-
-  <template id="ChangingChildren">
-    <firebase-collection
-      location="https://fb-element-demo.firebaseio.com/test/changing_children"
-      order-by-child="foo"
-      log>
-    </firebase-collection>
-  </template>
-
-  <template id="SyncingCollections">
-    <firebase-collection
-      location="https://fb-element-demo.firebaseio.com/test/syncing"
-      log>
-    </firebase-collection>
-    <firebase-collection
-      location="https://fb-element-demo.firebaseio.com/test/syncing"
-      order-by-child="foo"
-      log>
-    </firebase-collection>
+    <firebase-collection log></firebase-collection>
   </template>
 
   <template id="BoundCollection">
@@ -68,7 +37,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <div>[[item.value]]</div>
         </template>
         <firebase-collection
-          location="https://fb-element-demo.firebaseio.com/test/empty"
           data="{{data}}"
           log>
         </firebase-collection>

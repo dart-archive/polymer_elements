@@ -40,6 +40,11 @@ class GoogleMapMarker extends HtmlElement with CustomElementProxyMixin, PolymerB
   GoogleMapMarker.created() : super.created();
   factory GoogleMapMarker() => new Element.tag('google-map-marker');
 
+  /// A animation for the marker. "DROP" or "BOUNCE". See
+  /// https://developers.google.com/maps/documentation/javascript/examples/marker-animations.
+  String get animation => jsElement[r'animation'];
+  set animation(String value) { jsElement[r'animation'] = value; }
+
   /// When true, marker *click events are automatically registered.
   bool get clickEvents => jsElement[r'clickEvents'];
   set clickEvents(bool value) { jsElement[r'clickEvents'] = value; }
@@ -71,6 +76,10 @@ class GoogleMapMarker extends HtmlElement with CustomElementProxyMixin, PolymerB
   /// When true, marker mouse* events are automatically registered.
   bool get mouseEvents => jsElement[r'mouseEvents'];
   set mouseEvents(bool value) { jsElement[r'mouseEvents'] = value; }
+
+  /// Specifies whether the InfoWindow is open or not
+  bool get open => jsElement[r'open'];
+  set open(bool value) { jsElement[r'open'] = value; }
 
   /// Z-index for the marker icon.
   num get zIndex => jsElement[r'zIndex'];

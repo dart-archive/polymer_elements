@@ -9,6 +9,7 @@ import 'dart:html';
 import 'dart:js';
 import 'package:polymer_elements/iron_selector.dart';
 import 'package:polymer_interop/polymer_interop.dart';
+import 'package:polymer/polymer.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
@@ -16,15 +17,13 @@ import 'fixtures/content_element.dart';
 
 /// Used imports: [IronSelector]
 main() async {
-  await initWebComponents();
+  await initPolymer();
 
   TestContentElement s1 = document.querySelector('#selector1');
   TestContentElement s2 = document.querySelector('#selector2');
   TestContentElement s3 = document.querySelector('#selector3');
 
-  // TODO(jakemac): Remove JsObject conversion once
-  // https://github.com/dart-lang/polymer_interop/issues/7 is implemented.
-  var t = new JsObject.fromBrowserObject(document.querySelector('#t'));
+  DomRepeat t = document.querySelector('#t');
 
   group('content', () {
     test('attribute selected', () {
@@ -113,12 +112,12 @@ main() async {
   group('content with dom-repeat', () {
     test('supports repeated children', () {
       var done = new Completer();
-      t['items'] = new JsObject.jsify([
+      t.items = [
         {'name': 'item0'},
         {'name': 'item1'},
         {'name': 'item2'},
         {'name': 'item3'}
-      ]);
+      ];
       wait(1).then((_) {
         // check selected
         expect(s3.selected, 'item0');

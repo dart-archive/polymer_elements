@@ -53,6 +53,13 @@ class IronForm extends FormElement with CustomElementProxyMixin, PolymerBase {
   bool get disableNativeValidationUi => jsElement[r'disableNativeValidationUi'];
   set disableNativeValidationUi(bool value) { jsElement[r'disableNativeValidationUi'] = value; }
 
+  /// HTTP request headers to send
+  ///
+  /// Note: setting a `Content-Type` header here will override the value
+  /// specified by the `contentType` property of this element.
+  get headers => jsElement[r'headers'];
+  set headers(value) { jsElement[r'headers'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+
   /// Set the withCredentials flag when sending data.
   bool get withCredentials => jsElement[r'withCredentials'];
   set withCredentials(bool value) { jsElement[r'withCredentials'] = value; }

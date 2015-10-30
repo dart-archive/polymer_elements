@@ -22,19 +22,19 @@ main() async {
     });
 
     test('default `excludedLocalNames`', () {
-      expect(test1.excludedLocalNames['template'], isNotNull);
-      expect(test2.excludedLocalNames['template'], isNotNull);
+      expect(test1.jsElement['_excludedLocalNames']['template'], isNotNull);
+      expect(test2.jsElement['_excludedLocalNames']['template'], isNotNull);
     });
 
     test('custom `excludedLocalNames`', () {
-      test1.excludedLocalNames['foo'] = 1;
-      expect(test1.excludedLocalNames['foo'], isNotNull);
-      expect(test2.excludedLocalNames['foo'], isNull);
+      test1.jsElement['_excludedLocalNames']['foo'] = 1;
+      expect(test1.jsElement['_excludedLocalNames']['foo'], isNotNull);
+      expect(test2.jsElement['_excludedLocalNames']['foo'], isNull);
     });
 
     test('items', () {
-      test1.excludedLocalNames['span'] = 1;
-      test2.excludedLocalNames['div'] = 1;
+      test1.jsElement['_excludedLocalNames']['span'] = 1;
+      test2.jsElement['_excludedLocalNames']['div'] = 1;
 
       var NOT_FOUND = -1;
       var items1 = test1.items.map((el) => el.localName);

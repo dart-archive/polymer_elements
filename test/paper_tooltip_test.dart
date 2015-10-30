@@ -250,7 +250,7 @@ main() async {
       blur(target);
 
       return done.future;
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/52');
+    });
 
     test('tooltip unlistens to target on detach', () {
       HtmlElement f = fixture('basic');
@@ -275,14 +275,14 @@ main() async {
     });
   });
   group('tooltip is inside a custom element', () {
-    HtmlElement f;
+    TestButton f;
     PaperTooltip tooltip;
     HtmlElement target;
 
     setUp(() {
       f = fixture('custom');
-      target = f.querySelector('#button');
-      tooltip = f.querySelector('paper-tooltip');
+      target = f.$['button'];
+      tooltip = f.$['buttonTooltip'];
     });
 
     test('tooltip is shown when target is focused', () {
@@ -305,13 +305,13 @@ main() async {
       expect(divRect.height, equals(20));
 
       Rectangle contentRect = tooltip.getBoundingClientRect();
-      expect(contentRect.width, equals(70));
+      expect(contentRect.width, equals(30));
       expect(contentRect.height, equals(30));
 
       // The target div width is 100, and the tooltip width is 70, and
       // it's centered. The height of the target div is 20, and the
       // tooltip is 14px below.
-      expect(contentRect.left, equals((100 - 70) / 2));
+      expect(contentRect.left, equals((100 - 30) / 2));
       expect(contentRect.top, equals(20 + 14));
 
       // Also check the math, just in case.
@@ -328,4 +328,12 @@ main() async {
       expect(tooltip.getAttribute('role'), equals('tooltip'));
     });
   });
+  
+  // TODO(jakemac): investigate these
+  //
+  // a11ySuite('basic');
+  // a11ySuite('fitted');
+  // a11ySuite('no-text');
+  // a11ySuite('dynamic');
+  // a11ySuite('custom');
 }

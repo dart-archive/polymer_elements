@@ -7,13 +7,15 @@ library polymer_elements.test.iron_input_test;
 import 'dart:async';
 import 'dart:html';
 import 'dart:js';
+import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/iron_input.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
 
 main() async {
-  await initWebComponents();
+  await initPolymer();
+  var x = 'hello';
 
   group('basic', () {
     test('setting bindValue sets value', () {
@@ -47,12 +49,11 @@ main() async {
     });
 
     test('set bindValue to undefined', () {
-      var scope = new JsObject.fromBrowserObject(
-          document.getElementById('bind-to-object'));
+      DomBind scope = document.getElementById('bind-to-object');
       scope['foo'] = null;
-      expect(scope[r'$']['input'].bindValue, isNull,
+      expect(scope.$['input'].bindValue, isNull,
           reason: 'bindValue is falsy');
-      expect(scope[r'$']['input'].value, isEmpty, reason: 'value is falsy');
+      expect(scope.$['input'].value, isEmpty, reason: 'value is falsy');
     });
 
     test('validator used instead of constraints api if provided', () {

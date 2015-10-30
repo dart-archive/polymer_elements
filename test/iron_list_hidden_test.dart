@@ -34,17 +34,17 @@ main() async {
       expect(list.offsetHeight, 0);
     });
 
-    test('resize', () {
+    test('iron-resize', () {
       var done = new Completer();
       list.items = buildDataSet(100);
-      list.fire('resize');
+      list.fire('iron-resize');
 
       expect(getFirstItemFromList(list).text, isNot('0'));
       context['Polymer']['RenderStatus'].callMethod('whenReady', [() async {
         container.attributes.remove('hidden');
 
         expect(getFirstItemFromList(list).text, isNot('0'));
-        list.fire('resize');
+        list.fire('iron-resize');
         await wait(1);
 
         expect(list.jsElement['isAttached'], isTrue);

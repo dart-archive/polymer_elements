@@ -48,11 +48,6 @@ class GoogleMapsApi extends HtmlElement with CustomElementProxyMixin, PolymerBas
   String get language => jsElement[r'language'];
   set language(String value) { jsElement[r'language'] = value; }
 
-  /// The libraries to load with this map. For more information
-  /// see https://developers.google.com/maps/documentation/javascript/libraries.
-  String get libraries => jsElement[r'libraries'];
-  set libraries(String value) { jsElement[r'libraries'] = value; }
-
   /// Name of event fired when library is loaded and available.
   String get notifyEvent => jsElement[r'notifyEvent'];
   set notifyEvent(String value) { jsElement[r'notifyEvent'] = value; }

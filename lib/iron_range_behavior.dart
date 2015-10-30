@@ -30,6 +30,6 @@ abstract class IronRangeBehavior implements CustomElementProxyMixin {
   set step(num value) { jsElement[r'step'] = value; }
 
   /// The number that represents the current value.
-  num get value => jsElement[r'value'];
-  set value(num value) { jsElement[r'value'] = value; }
+  get value => jsElement[r'value'];
+  set value(value) { jsElement[r'value'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 }

@@ -17,8 +17,8 @@ import 'package:polymer_interop/polymer_interop.dart';
 /// #### Example:
 ///
 ///     <template is="dom-bind">
-///       <google-map-search map="[[map]]" libraries="places" query="Pizza"
-///                          results="{{results}}"></google-map-search>
+///       <google-map-search map="[[map]]" query="Pizza" results="{{results}}">
+///       </google-map-search>
 ///       <google-map map="{{map}}" latitude="37.779"
 ///                   longitude="-122.3892">
 ///         <template is="dom-repeat" items="{{results}}" as="marker">
@@ -84,6 +84,11 @@ class GoogleMapSearch extends HtmlElement with CustomElementProxyMixin, PolymerB
   /// Leave empty or null to search for all result types.
   String get types => jsElement[r'types'];
   set types(String value) { jsElement[r'types'] = value; }
+
+  /// Fetches details for a given place.
+  /// [placeId]: The place id.
+  getDetails(String placeId) =>
+      jsElement.callMethod('getDetails', [placeId]);
 
   /// Perform a search using for `query` for the search term.
   search() =>

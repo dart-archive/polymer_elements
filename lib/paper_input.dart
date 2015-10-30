@@ -16,6 +16,8 @@ import 'paper_input_container.dart';
 import 'paper_input_error.dart';
 import 'paper_input_char_counter.dart';
 
+/// Material design: [Text fields](https://www.google.com/design/spec/components/text-fields.html)
+///
 /// `<paper-input>` is a single-line text field with Material Design styling.
 ///
 ///     <paper-input label="Input label"></paper-input>
@@ -33,6 +35,15 @@ import 'paper_input_char_counter.dart';
 ///     <paper-input label="total">
 ///       <div prefix>$</div>
 ///       <paper-icon-button suffix icon="clear"></paper-icon-button>
+///     </paper-input>
+///
+/// A `paper-input` can use the native `type=search` or `type=file` features.
+/// However, since we can't control the native styling of the input, in these cases
+/// it's recommended to use a placeholder text, or `always-float-label`,
+/// as to not overlap the native UI (search icon, file button, etc.).
+///
+///     <paper-input label="search!" type="search"
+///         placeholder="search for cats" autosave="test" results="5">
 ///     </paper-input>
 ///
 /// See `Polymer.PaperInputBehavior` for more API docs.

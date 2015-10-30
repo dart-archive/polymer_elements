@@ -22,6 +22,8 @@ import 'color.dart';
 import 'paper_tabs_icons.dart';
 import 'paper_tab.dart';
 
+/// Material design: [Tabs](https://www.google.com/design/spec/components/tabs.html)
+///
 /// `paper-tabs` makes it easy to explore and switch between different views or functional aspects of
 /// an app, or to browse categorized data sets.
 ///

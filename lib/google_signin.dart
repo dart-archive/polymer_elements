@@ -47,6 +47,13 @@ import 'iron_flex_layout/classes/iron_flex_layout.dart';
 /// the user. Please note that this attribute is only valid in combination with the
 /// plus.login scope (https://www.googleapis.com/auth/plus.login).
 ///
+/// The `offline` attribute allows you to get an auth code which your server can
+/// redeem for an offline access token
+/// (https://developers.google.com/identity/sign-in/web/server-side-flow).
+/// You can also set `offline-always-prompt` instead of `offline` to ensure that your app
+/// will re-prompt the user for offline access and generate a working `refresh_token`
+/// even if they have already granted offline access to your app in the past.
+///
 /// Use label properties to customize prompts.
 ///
 /// The button can be styled in using the `height`, `width`, and `theme` attributes.
@@ -54,11 +61,14 @@ import 'iron_flex_layout/classes/iron_flex_layout.dart';
 /// (https://developers.google.com/+/branding-guidelines).
 ///
 /// The `google-signin-success` event is triggered when a user successfully authenticates
-/// and `google-signed-out` is triggered when user signeds out.
+/// and `google-signed-out` is triggered when user signs out.
 /// You can also use `isAuthorized` attribute to observe user's authentication state.
 ///
 /// Additional events, such as `google-signout-attempted` are
 /// triggered when the user attempts to sign-out and successfully signs out.
+///
+/// When requesting offline access, the `google-signin-offline-success` event is
+/// triggered when the user successfully consents with offline support.
 ///
 /// The `google-signin-necessary` event is fired when scopes requested via
 /// google-signin-aware elements require additional user permissions.
@@ -108,6 +118,11 @@ class GoogleSignin extends HtmlElement with CustomElementProxyMixin, PolymerBase
   get height => jsElement[r'height'];
   set height(value) { jsElement[r'height'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
+  /// The Google Apps domain to which users must belong to sign in.
+  /// See the relevant [docs](https://developers.google.com/identity/sign-in/web/reference) for more information.
+  String get hostedDomain => jsElement[r'hostedDomain'];
+  set hostedDomain(String value) { jsElement[r'hostedDomain'] = value; }
+
   /// True if authorizations for *this* element have been granted
   bool get isAuthorized => jsElement[r'isAuthorized'];
   set isAuthorized(bool value) { jsElement[r'isAuthorized'] = value; }
@@ -127,6 +142,16 @@ class GoogleSignin extends HtmlElement with CustomElementProxyMixin, PolymerBase
   /// True if additional authorization required globally
   bool get needAdditionalAuth => jsElement[r'needAdditionalAuth'];
   set needAdditionalAuth(bool value) { jsElement[r'needAdditionalAuth'] = value; }
+
+  /// Allows for offline `access_token` retrieval during the signin process.
+  bool get offline => jsElement[r'offline'];
+  set offline(bool value) { jsElement[r'offline'] = value; }
+
+  /// Forces a re-prompt, even if the user has already granted offline
+  /// access to your application in the past. You only need one of
+  /// `offline` and `offlineAlwaysPrompt`.
+  bool get offlineAlwaysPrompt => jsElement[r'offlineAlwaysPrompt'];
+  set offlineAlwaysPrompt(bool value) { jsElement[r'offlineAlwaysPrompt'] = value; }
 
   /// If true, the button will be styled with a shadow.
   bool get raised => jsElement[r'raised'];

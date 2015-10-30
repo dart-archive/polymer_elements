@@ -13,12 +13,16 @@ import 'paper_inky_focus_behavior.dart';
 import 'iron_button_state.dart';
 import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
+import 'paper_ripple_behavior.dart';
 import 'iron_range_behavior.dart';
-import 'paper_styles.dart';
+import 'iron_flex_layout.dart';
+import 'color.dart';
 import 'paper_progress.dart';
 import 'paper_input.dart';
 import 'paper_ripple.dart';
 
+/// Material design: [Sliders](https://www.google.com/design/spec/components/sliders.html)
+///
 /// `paper-slider` allows user to select a value from a range of values by
 /// moving the slider thumb.  The interactive nature of the slider makes it a
 /// great choice for settings that reflect intensity levels, such as volume,
@@ -54,7 +58,7 @@ import 'paper_ripple.dart';
 /// `--paper-slider-pin-start-color` | The color of the pin at the far left | `#c8c8c8`
 /// `--paper-slider-height` | Height of the progress bar | `2px`
 @CustomElementProxy('paper-slider')
-class PaperSlider extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronFormElementBehavior, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperInkyFocusBehavior, IronRangeBehavior {
+class PaperSlider extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronFormElementBehavior, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperRippleBehavior, PaperInkyFocusBehavior, IronRangeBehavior {
   PaperSlider.created() : super.created();
   factory PaperSlider() => new Element.tag('paper-slider');
 

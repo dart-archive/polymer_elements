@@ -8,16 +8,20 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
+import 'paper_checked_element_behavior.dart';
 import 'paper_inky_focus_behavior.dart';
 import 'iron_button_state.dart';
 import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
+import 'paper_ripple_behavior.dart';
 import 'iron_checked_element_behavior.dart';
 import 'iron_form_element_behavior.dart';
 import 'iron_validatable_behavior.dart';
 import 'paper_ripple.dart';
 import 'default_theme.dart';
 
+/// Material design: [Radio button](https://www.google.com/design/spec/components/selection-controls.html#selection-controls-radio-button)
+///
 /// `paper-radio-button` is a button that can be either checked or unchecked.
 /// User can tap the radio button to check or uncheck it.
 ///
@@ -42,21 +46,13 @@ import 'default_theme.dart';
 /// `--paper-radio-button-checked-color` | Radio button color when the input is checked | `--default-primary-color`
 /// `--paper-radio-button-checked-ink-color` | Selected/focus ripple color when the input is checked | `--default-primary-color`
 /// `--paper-radio-button-label-color` | Label color | `--primary-text-color`
+/// `--paper-radio-button-label-spacing` | Spacing between the label and the button | `10px`
 @CustomElementProxy('paper-radio-button')
-class PaperRadioButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperInkyFocusBehavior, IronFormElementBehavior, IronValidatableBehavior, IronCheckedElementBehavior {
+class PaperRadioButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperRippleBehavior, PaperInkyFocusBehavior, IronFormElementBehavior, IronValidatableBehavior, IronCheckedElementBehavior, PaperCheckedElementBehavior {
   PaperRadioButton.created() : super.created();
   factory PaperRadioButton() => new Element.tag('paper-radio-button');
 
   /// Fired when the checked state changes.
-  get ariaActiveAttribute => jsElement[r'ariaActiveAttribute'];
-  set ariaActiveAttribute(value) { jsElement[r'ariaActiveAttribute'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
-
-  /// Update the checkbox aria-label. This is a temporary workaround not
-  /// being able to observe changes in <content>
-  /// (see: https://github.com/Polymer/polymer/issues/1773)
-  ///
-  /// Call this if you manually change the contents of the checkbox
-  /// and want the aria-label to match the new contents.
-  updateAriaLabel() =>
-      jsElement.callMethod('updateAriaLabel', []);
+  String get ariaActiveAttribute => jsElement[r'ariaActiveAttribute'];
+  set ariaActiveAttribute(String value) { jsElement[r'ariaActiveAttribute'] = value; }
 }

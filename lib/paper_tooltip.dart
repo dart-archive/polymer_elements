@@ -13,6 +13,8 @@ import 'neon_animatable_behavior.dart';
 import 'neon_animation/animations/fade_in_animation.dart';
 import 'neon_animation/animations/fade_out_animation.dart';
 
+/// Material design: [Tooltips](https://www.google.com/design/spec/components/tooltips.html)
+///
 /// `<paper-tooltip>` is a label that appears on hover and focus when the user
 /// hovers over an element with the cursor or with the keyboard. It will be centered
 /// to an anchor element specified in the `for` attribute, or, if that doesn't exist,
@@ -51,8 +53,16 @@ class PaperTooltip extends HtmlElement with CustomElementProxyMixin, PolymerBase
   PaperTooltip.created() : super.created();
   factory PaperTooltip() => new Element.tag('paper-tooltip');
 
+  /// The entry and exit animations that will be played when showing and
+  /// hiding the tooltip. If you want to override this, you must ensure
+  /// that your animationConfig has the exact format below.
   get animationConfig => jsElement[r'animationConfig'];
   set animationConfig(value) { jsElement[r'animationConfig'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+
+  /// The delay that will be applied before the `entry` animation is
+  /// played when showing the tooltip.
+  num get animationDelay => jsElement[r'animationDelay'];
+  set animationDelay(num value) { jsElement[r'animationDelay'] = value; }
 
   /// If true, no parts of the tooltip will ever be shown offscreen.
   bool get fitToVisibleBounds => jsElement[r'fitToVisibleBounds'];

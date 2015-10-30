@@ -29,6 +29,16 @@ import 'google_maps_api.dart';
 /// google.com/maps/views/view/102684927602131521305/photo/**1szTnskrdKIAAAGuu3fZRw**
 ///
 /// The hash in bold is the `pano-id`. You'll often need to dial in the `heading`, `pitch` and `zoom` manually.
+///
+/// You can also use the position attribute and set it to a position with a computed value. Example: { lat: 42.345573, lng: -71.098326 }
+///
+///     <google-streetview-pano
+///       position="[[_myComputedPosition()]]"
+///       heading="330"
+///       pitch="-2"
+///       zoom="0.8"
+///       disable-default-ui>
+///     </google-streetview-pano>
 @CustomElementProxy('google-streetview-pano')
 class GoogleStreetviewPano extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleStreetviewPano.created() : super.created();
@@ -63,24 +73,20 @@ class GoogleStreetviewPano extends HtmlElement with CustomElementProxyMixin, Pol
   String get language => jsElement[r'language'];
   set language(String value) { jsElement[r'language'] = value; }
 
-  /// A comma separated list (e.g. "places,geometry") of libraries to load
-  /// with this map. Defaults to "places". For more information see
-  /// https://developers.google.com/maps/documentation/javascript/libraries.
-  String get libraries => jsElement[r'libraries'];
-  set libraries(String value) { jsElement[r'libraries'] = value; }
-
   get pano => jsElement[r'pano'];
   set pano(value) { jsElement[r'pano'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Specifies which photosphere to load
-  ///
-  /// **Required**
   String get panoId => jsElement[r'panoId'];
   set panoId(String value) { jsElement[r'panoId'] = value; }
 
   /// The camera pitch in degrees, relative to the street view vehicle. Ranges from 90° (directly upwards) to -90° (directly downwards).
   num get pitch => jsElement[r'pitch'];
   set pitch(num value) { jsElement[r'pitch'] = value; }
+
+  /// Specifies which position to load
+  get position => jsElement[r'position'];
+  set position(value) { jsElement[r'position'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   get rAFid => jsElement[r'rAFid'];
   set rAFid(value) { jsElement[r'rAFid'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}

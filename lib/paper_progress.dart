@@ -9,8 +9,8 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_range_behavior.dart';
-import 'paper_styles.dart';
-import 'paper_styles_classes.dart';
+import 'color.dart';
+import 'iron_flex_layout.dart';
 
 /// The progress bars are for situations where the percentage completed can be
 /// determined. They give users a quick sense of how much longer an operation

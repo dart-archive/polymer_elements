@@ -22,8 +22,8 @@ abstract class IronFormElementBehavior implements CustomElementProxyMixin {
   /// custom element that uses this behavior should also use
   /// Polymer.IronValidatableBehavior and define a custom validation method.
   /// Otherwise, a `required` element will always be considered valid.
-  /// It's also strongly recomended to provide a visual style for the element
-  /// when it's value is invalid.
+  /// It's also strongly recommended to provide a visual style for the element
+  /// when its value is invalid.
   bool get required => jsElement[r'required'];
   set required(bool value) { jsElement[r'required'] = value; }
 

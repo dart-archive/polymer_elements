@@ -6,6 +6,7 @@ library polymer_elements.test.iron_list_mutations_test;
 
 import 'dart:async';
 import 'dart:js';
+import 'dart:math';
 import 'package:polymer_elements/iron_list.dart';
 import 'package:polymer/polymer.dart';
 import 'package:test/test.dart';
@@ -13,6 +14,8 @@ import 'package:web_components/web_components.dart';
 import 'common.dart';
 import 'iron_list_test_helpers.dart';
 import 'fixtures/x_list.dart';
+
+var rand = new Random();
 
 main() async {
   await initPolymer();
@@ -30,9 +33,7 @@ main() async {
       var setSize = 100;
       var phrase = 'It works!';
       list.items = buildDataSet(setSize);
-      // TODO(jakemac): Update once we resolve
-      // https://github.com/dart-lang/polymer_interop/issues/6
-      list.jsElement.callMethod('set', ['items.0.index', phrase]);
+      list.set('items.0.index', phrase);
       return new Future(() {}).then((_) {
         expect(getFirstItemFromList(list).text, phrase);
       });
@@ -56,14 +57,10 @@ main() async {
       new Future(() {}).then((_) {
         var rowHeight = list.jsElement['_physicalItems'][0].offsetHeight;
         // scroll down
-        simulateScroll({
-          'list': list,
-          'contribution': 100,
-          'target': setSize * rowHeight
-        }, ([_]) {
-          // TODO(jakemac): Update once we resolve
-          // https://github.com/dart-lang/polymer_interop/issues/6
-          list.jsElement.callMethod('set', ['items.0.index', phrase]);
+        simulateScroll(
+            {'list': list, 'contribution': 100, 'target': setSize * rowHeight},
+            ([_]) {
+          list.set('items.0.index', phrase);
           new Future(() {}).then(scrollBackUp);
         });
       });
@@ -76,9 +73,7 @@ main() async {
       var setSize = 100;
       list.items = buildDataSet(setSize);
       setSize = list.items.length;
-      // TODO(jakemac): Update once we resolve
-      // https://github.com/dart-lang/polymer_interop/issues/6
-      list.jsElement.callMethod('push', ['items', buildItem(setSize)]);
+      list.add('items', buildItem(setSize));
       expect(list.items.length, setSize + 1);
       new Future(() {}).then((_) {
         var rowHeight = list.jsElement['_physicalItems'][0].offsetHeight;
@@ -113,7 +108,7 @@ main() async {
           var itemsPerViewport = (viewportHeight / rowHeight).floor();
           // TODO(jakemac): Update once we resolve
           // https://github.com/dart-lang/polymer_interop/issues/6
-          list.jsElement.callMethod('pop', ['items']);
+          list.removeLast('items');
           new Future(() {}).then((_) {
             expect(list.items.length, setSize - 1);
             expect(getFirstItemFromList(list).text, '${setSize - 3 - 1}');
@@ -128,14 +123,27 @@ main() async {
       var setSize = 45;
       var phrase = 'It works!';
       list.items = buildDataSet(setSize);
-      // TODO(jakemac): Update once we resolve
-      // https://github.com/dart-lang/polymer_interop/issues/6
-      list.jsElement.callMethod(
-          'splice', ['items', 0, setSize, buildItem(phrase)]);
+      list.removeRange('items', 0, setSize);
+      list.add('items', buildItem(phrase));
       return new Future(() {}).then((_) {
         expect(list.items.length, 1);
         expect(getFirstItemFromList(list).text, phrase);
       });
+    });
+
+    test('delete item and scroll to bottom', () {
+      var setSize = 100, index;
+
+      list.items = buildDataSet(setSize);
+
+      while (list.items.length > 10) {
+        index = (list.items.length * rand.nextDouble()).floor();
+        list.removeItem('items', list.items[index]);
+        list.scrollToIndex(list.items.length - 1);
+        expect(
+            new RegExp(r'^[0-9]*$').hasMatch(getFirstItemFromList(list).text),
+            isTrue);
+      }
     });
   });
 }

@@ -50,6 +50,19 @@ main() async {
       expect(finalHeight < initialHeight, isTrue);
     });
 
+    test('an undefined bindValue is the empty string', () {
+      IronAutogrowTextarea autogrow = fixture('basic');
+      var initialHeight = autogrow.offsetHeight;
+
+      autogrow.bindValue = 'batman\nand\nrobin';
+      var finalHeight = autogrow.offsetHeight;
+      expect(finalHeight , greaterThan(initialHeight));
+
+      autogrow.bindValue = null;
+      expect(autogrow.offsetHeight, initialHeight);
+      expect(autogrow.textarea.value, '');
+    });
+
     test('textarea selection works', () {
       IronAutogrowTextarea autogrow = fixture('basic');
       var textarea = autogrow.textarea;

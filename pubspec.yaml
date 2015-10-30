@@ -1,5 +1,5 @@
 name: polymer_elements
-version: 1.0.0-rc.2
+version: 1.0.0-rc.3
 author: Polymer.dart Authors <web-ui-dev@dartlang.org>
 description: Polymer polymer-elements for Dart
 homepage: https://github.com/dart-lang/polymer_elements
@@ -9,7 +9,7 @@ dependencies:
   web_components: ^0.12.0
   reflectable: ^0.3.1
 dev_dependencies:
-  custom_element_apigen: ^0.2.0+2
+  custom_element_apigen: ^0.2.1+1
   html5lib: ">=0.11.0 <0.13.0"
   path: ^1.0.0
   yaml: ">=1.0.0 <3.0.0"
@@ -30,23 +30,31 @@ transformers:
     - test/iron_checked_element_behavior_test.dart
     - test/iron_fit_behavior_test.dart
     - test/iron_form_test.dart
+    - test/iron_input_test.dart
     - test/iron_list_basic_test.dart
+    - test/iron_list_different_heights_test.dart
+    - test/iron_list_dynamic_item_size_test.dart
     - test/iron_list_hidden_test.dart
     - test/iron_list_mutations_test.dart
     - test/iron_list_physical_count_test.dart
     - test/iron_list_selection_test.dart
+    - test/iron_localstorage_basic_test.dart
     - test/iron_menu_behavior_test.dart
     - test/iron_menubar_behavior_test.dart
     - test/iron_overlay_behavior_test.dart
     - test/iron_range_behavior_test.dart
     - test/iron_resizable_behavior_basic_test.dart
     - test/iron_resizable_behavior_test.dart
+    - test/iron_selector_content_test.dart
+    - test/iron_selector_template_repeat_test.dart
     - test/iron_validatable_behavior_test.dart
     - test/iron_validator_behavior_test.dart
     - test/neon_animated_pages_test.dart
     - test/paper_button_behavior_test.dart
+    - test/paper_checked_element_behavior_test.dart
+    - test/paper_radio_button_behavior_test.dart
     - test/paper_dialog_behavior_test.dart
-    - test/paper_inky_focus_behavior_test.dart
+    - test/paper_ripple_behavior_test.dart
     - test/paper_scroll_header_panel_basic_test.dart
     - test/paper_scroll_header_panel_header_state_test.dart
     - test/paper_scroll_header_panel_scroll_test.dart

@@ -12,11 +12,12 @@ import 'paper_button_behavior.dart';
 import 'iron_button_state.dart';
 import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
+import 'paper_ripple_behavior.dart';
 import 'paper_material.dart';
 import 'paper_ripple.dart';
 import 'iron_flex_layout.dart';
 
-/// Material Design: <a href="http://www.google.com/design/spec/components/buttons.html">Buttons</a>
+/// Material design: [Buttons](https://www.google.com/design/spec/components/buttons.html)
 ///
 /// `paper-button` is a button. When the user touches the button, a ripple effect emanates
 /// from the point of contact. It may be flat or raised. A raised button is styled with a
@@ -72,7 +73,7 @@ import 'iron_flex_layout.dart';
 /// `--paper-button-flat-keyboard-focus` | Mixin applied to a flat button after it's been focused using the keyboard | `{}`
 /// `--paper-button-raised-keyboard-focus` | Mixin applied to a raised button after it's been focused using the keyboard | `{}`
 @CustomElementProxy('paper-button')
-class PaperButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperButtonBehavior {
+class PaperButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperRippleBehavior, PaperButtonBehavior {
   PaperButton.created() : super.created();
   factory PaperButton() => new Element.tag('paper-button');
 
