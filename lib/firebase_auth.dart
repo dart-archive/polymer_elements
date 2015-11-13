@@ -104,9 +104,9 @@ class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase
 
   /// Performs a logout attempt.
   ///
-  /// If the login is successful, the `logout` event is fired.
+  /// If the logout is successful, the `logout` event is fired.
   ///
-  /// If login fails, the `error` event is fired, with `e.detail` containing error
+  /// If logout fails, the `error` event is fired, with `e.detail` containing error
   /// information supplied from Firebase.
   ///
   /// If the browswer supports `navigator.onLine` network status reporting and the

@@ -8,7 +8,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
-import 'iron_flex_layout/classes/iron_flex_layout.dart';
+import 'iron_flex_layout.dart';
 
 /// `iron-image` is an element for displaying an image that provides useful sizing and
 /// preloading options not found on the standard `<img>` tag.
@@ -55,6 +55,12 @@ import 'iron_flex_layout/classes/iron_flex_layout.dart';
 ///
 ///     <iron-image style="width:400px; height:400px; background-color: lightgray;"
 ///       sizing="cover" preload fade src="http://lorempixel.com/600/400"></iron-image>
+///
+/// Custom property | Description | Default
+/// ----------------|-------------|----------
+/// `--iron-image-placeholder` | Mixin applied to #placeholder | `{}`
+/// `--iron-image-width` | Sets the width of the wrapped image | `auto`
+/// `--iron-image-height` | Sets the height of the wrapped image | `auto`
 @CustomElementProxy('iron-image')
 class IronImage extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronImage.created() : super.created();
@@ -87,13 +93,13 @@ class IronImage extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   String get placeholder => jsElement[r'placeholder'];
   set placeholder(String value) { jsElement[r'placeholder'] = value; }
 
-  /// When a sizing option is uzed (`cover` or `contain`), this determines
+  /// When a sizing option is used (`cover` or `contain`), this determines
   /// how the image is aligned within the element bounds.
   String get position => jsElement[r'position'];
   set position(String value) { jsElement[r'position'] = value; }
 
   /// When `true`, any change to the `src` property will cause the `placeholder`
-  /// image to be shown until the
+  /// image to be shown until the new image has loaded.
   bool get preload => jsElement[r'preload'];
   set preload(bool value) { jsElement[r'preload'] = value; }
 

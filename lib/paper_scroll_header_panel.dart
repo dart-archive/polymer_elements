@@ -10,6 +10,8 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_resizable_behavior.dart';
 
+/// Material design: [Scrolling techniques](https://www.google.com/design/spec/patterns/scrolling-techniques.html)
+///
 /// `paper-scroll-header-panel` contains a header section and a content section.  The
 /// header is initially on the top part of the view but it scrolls away with the
 /// rest of the scrollable content.  Upon scrolling slightly up at any point, the
@@ -20,49 +22,48 @@ import 'iron_resizable_behavior.dart';
 ///
 /// Using [layout classes](https://www.polymer-project.org/1.0/docs/migration.html#layout-attributes) or custom properties, you can easily make the `paper-scroll-header-panel` fill the screen
 ///
-///     <body class="fullbleed layout vertical">
-///       <paper-scroll-header-panel class="flex">
-///         <paper-toolbar>
-///           <div>Hello World!</div>
-///         </paper-toolbar>
-///       </paper-scroll-header-panel>
-///     </body>
+/// ```html
+/// <body class="fullbleed layout vertical">
+///   <paper-scroll-header-panel class="flex">
+///     <paper-toolbar>
+///       <div>Hello World!</div>
+///     </paper-toolbar>
+///   </paper-scroll-header-panel>
+/// </body>
+/// ```
 ///
 /// or, if you would prefer to do it in CSS, just give `html`, `body`, and `paper-scroll-header-panel` a height of 100%:
 ///
-///     html, body {
-///       height: 100%;
-///       margin: 0;
-///     }
-///     paper-scroll-header-panel {
-///       height: 100%;
-///     }
+/// ```css
+/// html, body {
+///   height: 100%;
+///   margin: 0;
+/// }
+/// paper-scroll-header-panel {
+///   height: 100%;
+/// }
+/// ```
 ///
 /// `paper-scroll-header-panel` works well with `paper-toolbar` but can use any element
 /// that represents a header by adding a `paper-header` class to it.
 ///
-///     <paper-scroll-header-panel>
-///       <paper-toolbar>Header</paper-toolbar>
-///       <div>Content goes here...</div>
-///     </paper-scroll-header-panel>
+/// ```html
+/// <paper-scroll-header-panel>
+///   <paper-toolbar>Header</paper-toolbar>
+///   <div>Content goes here...</div>
+/// </paper-scroll-header-panel>
+/// ```
 ///
-/// Styling scroll-header-panel:
+/// ### Styling
+/// =======
 ///
-/// To change background for toolbar when it is at its full size:
+/// The following custom properties and mixins are available for styling:
 ///
-///     paper-scroll-header-panel {
-///       --paper-scroll-header-panel-full-header: {
-///         background-color: red;
-///       };
-///     }
-///
-/// To change the background for toolbar when it is condensed:
-///
-///     paper-scroll-header-panel {
-///       --paper-scroll-header-panel-condensed-header: {
-///         background-color: #f4b400;
-///       };
-///     }
+/// Custom property | Description | Default
+/// ----------------|-------------|----------
+/// --paper-scroll-header-panel-full-header | To change background for toolbar when it is at its full size | {}
+/// --paper-scroll-header-panel-condensed-header | To change the background for toolbar when it is condensed | {}
+/// --paper-scroll-header-container | To override or add container styles | {}
 @CustomElementProxy('paper-scroll-header-panel')
 class PaperScrollHeaderPanel extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronResizableBehavior {
   PaperScrollHeaderPanel.created() : super.created();
@@ -90,23 +91,6 @@ class PaperScrollHeaderPanel extends HtmlElement with CustomElementProxyMixin, P
   /// Returns the header element.
   get header => jsElement[r'header'];
 
-  /// The header's state when it's condensed.
-  num get HEADER_STATE_CONDENSED => jsElement[r'HEADER_STATE_CONDENSED'];
-  set HEADER_STATE_CONDENSED(num value) { jsElement[r'HEADER_STATE_CONDENSED'] = value; }
-
-  /// The header's initial state
-  num get HEADER_STATE_EXPANDED => jsElement[r'HEADER_STATE_EXPANDED'];
-  set HEADER_STATE_EXPANDED(num value) { jsElement[r'HEADER_STATE_EXPANDED'] = value; }
-
-  /// The header's state when it's hidden.
-  num get HEADER_STATE_HIDDEN => jsElement[r'HEADER_STATE_HIDDEN'];
-  set HEADER_STATE_HIDDEN(num value) { jsElement[r'HEADER_STATE_HIDDEN'] = value; }
-
-  /// The header's state when its progress is somewhere between
-  /// the `hidden` and `condensed` state.
-  num get HEADER_STATE_INTERPOLATED => jsElement[r'HEADER_STATE_INTERPOLATED'];
-  set HEADER_STATE_INTERPOLATED(num value) { jsElement[r'HEADER_STATE_INTERPOLATED'] = value; }
-
   /// The height of the header when it is at its full size.
   ///
   /// By default, the height will be measured when it is ready.  If the height
@@ -115,10 +99,12 @@ class PaperScrollHeaderPanel extends HtmlElement with CustomElementProxyMixin, P
   num get headerHeight => jsElement[r'headerHeight'];
   set headerHeight(num value) { jsElement[r'headerHeight'] = value; }
 
-  /// The state of the header. The initial value is `HEADER_STATE_EXPANDED`.
-  /// Depending on the configuration and the `scrollTop` value,
+  /// The state of the header. Depending on the configuration and the `scrollTop` value,
   /// the header state could change to
-  /// `HEADER_STATE_HIDDEN`, `HEADER_STATE_CONDENSED` and `HEADER_STATE_INTERPOLATED`
+  ///      Polymer.PaperScrollHeaderPanel.HEADER_STATE_EXPANDED
+  ///      Polymer.PaperScrollHeaderPanel.HEADER_STATE_HIDDEN
+  ///      Polymer.PaperScrollHeaderPanel.HEADER_STATE_CONDENSED
+  ///      Polymer.PaperScrollHeaderPanel.HEADER_STATE_INTERPOLATED
   num get headerState => jsElement[r'headerState'];
   set headerState(num value) { jsElement[r'headerState'] = value; }
 

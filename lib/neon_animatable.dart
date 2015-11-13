@@ -9,6 +9,7 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'neon_animatable_behavior.dart';
+import 'iron_resizable_behavior.dart';
 
 /// `<neon-animatable>` is a simple container element implementing `Polymer.NeonAnimatableBehavior`. This is a convenience element for use with `<neon-animated-pages>`.
 ///
@@ -21,7 +22,7 @@ import 'neon_animatable_behavior.dart';
 /// </neon-animated-pages>
 /// ```
 @CustomElementProxy('neon-animatable')
-class NeonAnimatable extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimatableBehavior {
+class NeonAnimatable extends HtmlElement with CustomElementProxyMixin, PolymerBase, NeonAnimatableBehavior, IronResizableBehavior {
   NeonAnimatable.created() : super.created();
   factory NeonAnimatable() => new Element.tag('neon-animatable');
 }

@@ -36,6 +36,24 @@ import 'iron_ajax.dart';
 ///     function submitForm() {
 ///       document.getElementById('form').submit();
 ///     }
+///
+/// To customize the request sent to the server, you can listen to the `iron-form-presubmit`
+/// event, and modify the form's[`iron-ajax`](https://elements.polymer-project.org/elements/iron-ajax)
+/// object. However, If you want to not use `iron-ajax` at all, you can cancel the
+/// event and do your own custom submission:
+///
+///   Example of modifying the request, but still using the build-in form submission:
+///     form.addEventListener('iron-form-presubmit', function() {
+///       this.request.method = 'put';
+///       this.request.params = someCustomParams;
+///     });
+///
+///   Example of bypassing the build-in form submission:
+///     form.addEventListener('iron-form-presubmit', function(event) {
+///       event.preventDefault();
+///       var firebase = new Firebase(form.getAttribute('action'));
+///       firebase.set(form.serialize());
+///     });
 @CustomElementProxy('iron-form', extendsTag: 'form')
 class IronForm extends FormElement with CustomElementProxyMixin, PolymerBase {
   IronForm.created() : super.created();
@@ -60,6 +78,10 @@ class IronForm extends FormElement with CustomElementProxyMixin, PolymerBase {
   get headers => jsElement[r'headers'];
   set headers(value) { jsElement[r'headers'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
+  /// iron-ajax request object used to submit the form.
+  get request => jsElement[r'request'];
+  set request(value) { jsElement[r'request'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+
   /// Set the withCredentials flag when sending data.
   bool get withCredentials => jsElement[r'withCredentials'];
   set withCredentials(bool value) { jsElement[r'withCredentials'] = value; }
@@ -71,7 +93,7 @@ class IronForm extends FormElement with CustomElementProxyMixin, PolymerBase {
   serialize() =>
       jsElement.callMethod('serialize', []);
 
-  /// Called to submit the form.
+  /// Submits the form.
   submit() =>
       jsElement.callMethod('submit', []);
 

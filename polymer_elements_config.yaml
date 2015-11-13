@@ -283,6 +283,7 @@ files_to_generate:
   - paper-scroll-header-panel/paper-scroll-header-panel.html
   - paper-slider/paper-slider.html
   - paper-spinner/paper-spinner.html
+  - paper-spinner/paper-spinner-styles.html
   - paper-styles/color.html
   - paper-styles/default-theme.html
   - paper-styles/demo-pages.html
