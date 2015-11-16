@@ -90,4 +90,25 @@ main() async {
       expect(nFocusEvents, greaterThan(0));
     });
   });
+
+  group('elements in the light dom', () {
+    var lightDOM, input;
+
+    setUp(() {
+      lightDOM = fixture('LightDOM');
+      input = document.querySelector('#input');
+    });
+
+    test('should not fire the focus event', () {
+      var nFocusEvents = 0;
+
+      lightDOM.on['focus'].take(1).listen(() {
+        nFocusEvents += 1;
+      });
+
+      focus(input);
+
+      expect(nFocusEvents, 0);
+    });
+  });
 }
