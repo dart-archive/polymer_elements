@@ -112,8 +112,10 @@ main() async {
       expect(items[1].checked, isFalse);
       expect(items[2].checked, isFalse);
     });
-    
-    test('clicking the selected item should deselect if allow-empty-selection is set', () async {
+
+    test(
+        'clicking the selected item should deselect if allow-empty-selection is set',
+        () async {
       var g = fixture('WithSelection');
       g.allowEmptySelection = true;
       var items = g.items;

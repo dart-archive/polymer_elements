@@ -84,7 +84,7 @@ main() async {
       expect(selectEventCounter, 1);
       expect(deselectEventCounter, 1);
     });
-    
+
     test('fires selected-values-changed when selection changes', () {
       var selectedValuesChangedEventCounter = 0;
 
@@ -134,8 +134,6 @@ main() async {
 
       await wait(1);
       expect(s.selectedItems.length, 1);
-
-
     });
 
     /* test('toggle multi from true to false', () {
@@ -149,6 +147,5 @@ main() async {
       // selected should be the first value from the old array
       expect(s.selected, first);
     }); */
-
   });
 }

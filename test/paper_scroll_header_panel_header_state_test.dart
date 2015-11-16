@@ -17,10 +17,14 @@ import 'dart:js';
 /// Used imports: [SampleContent]
 main() async {
   await initPolymer();
-  final int Polymer_PaperScrollHeaderPanel_HEADER_STATE_EXPANDED = context['Polymer']['PaperScrollHeaderPanel']['HEADER_STATE_EXPANDED'];
-  final int Polymer_PaperScrollHeaderPanel_HEADER_STATE_HIDDEN = context['Polymer']['PaperScrollHeaderPanel']['HEADER_STATE_HIDDEN'];
-  final int Polymer_PaperScrollHeaderPanel_HEADER_STATE_CONDENSED = context['Polymer']['PaperScrollHeaderPanel']['HEADER_STATE_CONDENSED'];
-  final int Polymer_PaperScrollHeaderPanel_HEADER_STATE_INTERPOLATED = context['Polymer']['PaperScrollHeaderPanel']['HEADER_STATE_INTERPOLATED'];
+  final int Polymer_PaperScrollHeaderPanel_HEADER_STATE_EXPANDED =
+      context['Polymer']['PaperScrollHeaderPanel']['HEADER_STATE_EXPANDED'];
+  final int Polymer_PaperScrollHeaderPanel_HEADER_STATE_HIDDEN =
+      context['Polymer']['PaperScrollHeaderPanel']['HEADER_STATE_HIDDEN'];
+  final int Polymer_PaperScrollHeaderPanel_HEADER_STATE_CONDENSED =
+      context['Polymer']['PaperScrollHeaderPanel']['HEADER_STATE_CONDENSED'];
+  final int Polymer_PaperScrollHeaderPanel_HEADER_STATE_INTERPOLATED =
+      context['Polymer']['PaperScrollHeaderPanel']['HEADER_STATE_INTERPOLATED'];
 
   group('`headerState`', () {
     PaperScrollHeaderPanel scrollHeaderPanel;

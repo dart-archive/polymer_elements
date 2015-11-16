@@ -40,7 +40,7 @@ main() async {
         mq.mediaQuery = '(max-width: 10000px)';
         expect(mq.queryMatches, true);
       });
-    
+
       test('automatically wrap with parens', () {
         mq.mediaQuery = 'min-width: 1px';
         expect(mq.queryMatches, true);
@@ -59,28 +59,26 @@ main() async {
           expect(mq.queryMatches, isTrue);
         });
       });
-  
+
       group('query does not activate on empty string or null', () {
-  
         test('empty string', () {
           mq.mediaQuery = '';
           expect(mq.jsElement['_mq'], isNull);
         });
-  
+
         test('null', () {
           mq.mediaQuery = null;
           expect(mq.jsElement['_mq'], isNull);
         });
-  
       });
-  
+
       test('media query destroys on detach', () {
         mq.mediaQuery = '(max-width: 800px)';
         mq.remove();
         PolymerDom.flush();
         expect(mq.jsElement['_mq'], isNull);
       });
-  
+
       test('media query re-enables on attach', () {
         mq.mediaQuery = '(max-width: 800px)';
         var parent = mq.parentNode;

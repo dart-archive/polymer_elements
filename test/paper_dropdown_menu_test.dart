@@ -72,11 +72,12 @@ main() async {
 
       test('the input area shows the correct selection', () {
         PolymerDom.flush();
-        var secondItem = Polymer.dom(dropdownMenu).querySelectorAll('paper-item')[1];
+        var secondItem =
+            Polymer.dom(dropdownMenu).querySelectorAll('paper-item')[1];
         expect(dropdownMenu.selectedItem, secondItem);
       });
     });
-    
+
     group('deselecting', () {
       var menu;
 
@@ -126,7 +127,7 @@ main() async {
       test('a required dropdown is valid with a selection', () {
         PaperDropdownMenu dropdownMenu = fixture('PreselectedDropdownMenu');
         dropdownMenu.required = true;
-        
+
         expect(dropdownMenu.validate(null), isTrue);
         expect(dropdownMenu.invalid, isFalse);
         expect(dropdownMenu.value, 'Bar');

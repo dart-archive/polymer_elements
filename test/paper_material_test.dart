@@ -51,8 +51,8 @@ main() async {
           expect(style.boxShadow, isNotNull);
           expect(style.boxShadow, isNot('none'));
 
-          if (lastStyle != null) expect(
-              style.boxShadow, isNot(lastStyle.boxShadow));
+          if (lastStyle !=
+              null) expect(style.boxShadow, isNot(lastStyle.boxShadow));
 
           lastStyle = style;
         });

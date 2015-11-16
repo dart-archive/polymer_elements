@@ -30,6 +30,4 @@ main() async {
       expect(listbox.getAttribute('role'), 'listbox');
     });
   });
-
-
 }

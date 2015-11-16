@@ -43,7 +43,7 @@ main() async {
       });
     });
   });
-  
+
   group('validation', () {
     test('elements are validated if they don\'t have a name', () {
       IronForm f = fixture('FormWithRequiredElements');
@@ -255,7 +255,6 @@ main() async {
       return done.future;
     });
 
-
     test('can do a custom submission in the presubmit', () {
       Completer done = new Completer();
       form = fixture('FormGet');
@@ -265,9 +264,13 @@ main() async {
       // Since we are not using the normal form submission, these events should
       // never be called.
       int formResponseHandler_callCount = 0;
-      form.on['iron-form-response'].take(1).listen((_) { formResponseHandler_callCount++;});
+      form.on['iron-form-response'].take(1).listen((_) {
+        formResponseHandler_callCount++;
+      });
       int formSubmitHandler_callCount = 0;
-      form.on['iron-form-submit'].take(1).listen((_) { formSubmitHandler_callCount++;});
+      form.on['iron-form-submit'].take(1).listen((_) {
+        formSubmitHandler_callCount++;
+      });
 
       form.on['iron-form-presubmit'].take(1).listen((Event event) {
         presubmitted = true;
@@ -289,7 +292,6 @@ main() async {
       return done.future;
     });
 
-
     test('can submit with method=get', () {
       var done = new Completer();
       form = fixture('FormGet');
@@ -301,7 +303,7 @@ main() async {
 
       form.on['iron-form-response'].take(1).listen((event) {
         expect(submitted, isTrue);
-        expect(convertToDart(event).detail.url,contains('zig=zag'));
+        expect(convertToDart(event).detail.url, contains('zig=zag'));
 
         var response = convertToDart(event).detail.response;
         expect(response, isNotNull);

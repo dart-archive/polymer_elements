@@ -40,8 +40,6 @@ main() async {
         // Wait for cooldown animation to complete.
         await wait(500);
         expect(activeSpinner.active, isTrue);
-
-
       });
     });
   });

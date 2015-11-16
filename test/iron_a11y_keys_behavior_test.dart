@@ -22,33 +22,33 @@ main() async {
       setUp(() {
         keys = fixture('BasicKeys');
       });
-  
+
       test('trigger the handler when the specified key is pressed', () {
         pressSpace(keys);
-  
+
         expect(keys.keyCount, 1);
       });
-  
+
       test('do not trigger the handler for non-specified keys', () {
         pressEnter(keys);
-  
+
         expect(keys.keyCount, 0);
       });
-  
+
       test('can have bindings added imperatively', () {
         keys.addOwnKeyBinding('enter', 'keyHandler');
-  
+
         pressEnter(keys);
         expect(keys.keyCount, 1);
-  
+
         pressSpace(keys);
         expect(keys.keyCount, 2);
       });
-  
+
       test('can remove imperatively added bindings', () {
         keys.addOwnKeyBinding('enter', 'keyHandler');
         keys.removeOwnKeyBindings();
-  
+
         pressEnter(keys);
         expect(keys.keyCount, 0);
 
@@ -70,7 +70,7 @@ main() async {
 
         return done;
       });
-  
+
       group('edge cases', () {
         test('knows that `spacebar` is the same as `space`', () {
           var event = new CustomEvent('keydown');
@@ -78,14 +78,14 @@ main() async {
           expect(keys.keyboardEventMatchesKeys(event, 'space'), true);
         });
       });
-  
+
       group('matching keyboard events to keys', () {
         test('can be done imperatively', () {
           var event = new CustomEvent('keydown');
           new JsObject.fromBrowserObject(event)['keyCode'] = 65;
           expect(keys.keyboardEventMatchesKeys(event, 'a'), true);
         });
-  
+
         test('can be done with a provided keyboardEvent', () {
           var event;
           pressSpace(keys);
@@ -95,7 +95,7 @@ main() async {
           expect(event.detail['keyboardEvent'], isNotNull);
           expect(keys.keyboardEventMatchesKeys(event.original, 'space'), true);
         });
-  
+
         test('can handle variations in arrow key names', () {
           var event = new CustomEvent('keydown');
           var jsEvent = new JsObject.fromBrowserObject(event);
@@ -106,12 +106,12 @@ main() async {
         });
       });
     });
-  
+
     group('combo keys', () {
       setUp(() {
         keys = fixture('ComboKeys');
       });
-  
+
       test('trigger the handler when the combo is pressed', () {
         var event = new CustomEvent('keydown');
         var jsEvent = new JsObject.fromBrowserObject(event);
@@ -121,36 +121,36 @@ main() async {
         jsEvent['keyCode'] = jsEvent['code'] = 65;
 
         keys.dispatchEvent(event);
-  
+
         expect(keys.keyCount, 1);
       });
     });
-  
+
     group('alternative event keys', () {
       setUp(() {
         keys = fixture('AlternativeEventKeys');
       });
-  
+
       test('trigger on the specified alternative keyboard event', () {
         keyDownOn(keys, 32);
-  
+
         expect(keys.keyCount, 0);
-  
+
         keyUpOn(keys, 32);
-  
+
         expect(keys.keyCount, 1);
       });
     });
-  
+
     group('behavior keys', () {
       setUp(() {
         keys = fixture('BehaviorKeys');
       });
-  
+
       test('bindings in other behaviors are transitive', () {
         pressEnter(keys);
         pressSpace(keys);
-  
+
         expect(keys.keyCount, 2);
       });
     });
@@ -177,7 +177,8 @@ main() async {
 }
 
 @behavior
-abstract class KeysTestBehavior implements PolymerMixin, PolymerBase, HtmlElement, IronA11yKeysBehavior {
+abstract class KeysTestBehavior
+    implements PolymerMixin, PolymerBase, HtmlElement, IronA11yKeysBehavior {
   @property
   int keyCount = 0;
 
@@ -197,7 +198,8 @@ abstract class KeysTestBehavior implements PolymerMixin, PolymerBase, HtmlElemen
 }
 
 @PolymerRegister('x-a11y-basic-keys')
-class XA11yBasicKeys extends PolymerElement with IronA11yKeysBehavior, KeysTestBehavior {
+class XA11yBasicKeys extends PolymerElement
+    with IronA11yKeysBehavior, KeysTestBehavior {
   XA11yBasicKeys.created() : super.created();
 
   ready() {
@@ -206,7 +208,8 @@ class XA11yBasicKeys extends PolymerElement with IronA11yKeysBehavior, KeysTestB
 }
 
 @PolymerRegister('x-a11y-combo-keys')
-class XA11yComboKeys extends PolymerElement with IronA11yKeysBehavior, KeysTestBehavior {
+class XA11yComboKeys extends PolymerElement
+    with IronA11yKeysBehavior, KeysTestBehavior {
   XA11yComboKeys.created() : super.created();
 
   ready() {
@@ -215,7 +218,8 @@ class XA11yComboKeys extends PolymerElement with IronA11yKeysBehavior, KeysTestB
 }
 
 @PolymerRegister('x-a11y-alternate-event-keys')
-class XA11yAlternateEventKeys extends PolymerElement with IronA11yKeysBehavior, KeysTestBehavior {
+class XA11yAlternateEventKeys extends PolymerElement
+    with IronA11yKeysBehavior, KeysTestBehavior {
   XA11yAlternateEventKeys.created() : super.created();
 
   ready() {
@@ -225,7 +229,7 @@ class XA11yAlternateEventKeys extends PolymerElement with IronA11yKeysBehavior, 
 
 @behavior
 abstract class XA11yBehavior implements KeysTestBehavior {
-  static ready(KeysTestBehavior instance)  {
+  static ready(KeysTestBehavior instance) {
     instance.addOwnKeyBinding('enter', 'keyHandler');
   }
 }

@@ -51,8 +51,7 @@ main() async {
     test('set bindValue to undefined', () {
       DomBind scope = document.getElementById('bind-to-object');
       scope['foo'] = null;
-      expect(scope.$['input'].bindValue, isNull,
-          reason: 'bindValue is falsy');
+      expect(scope.$['input'].bindValue, isNull, reason: 'bindValue is falsy');
       expect(scope.$['input'].value, isEmpty, reason: 'value is falsy');
     });
 

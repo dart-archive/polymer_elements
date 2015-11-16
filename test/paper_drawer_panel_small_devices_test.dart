@@ -16,7 +16,6 @@ main() async {
   await initWebComponents();
 
   group('on small devices', () {
-
     test('drawer is hidden by default', () async {
       PaperDrawerPanel f;
       Element panel, drawer, main;
@@ -70,7 +69,6 @@ main() async {
       expect(f.jsElement.callMethod('_isMainSelected'), isFalse);
       expect(drawerBoundingRect.left, 0);
       expect(drawerBoundingRect.width, 256);
-
     });
 
     test('right-drawer can be closed', () async {
@@ -89,9 +87,6 @@ main() async {
       CssStyleDeclaration mainStyle = main.getComputedStyle();
       expect(drawerBoundingRect.right, f.offsetWidth);
       expect(drawerBoundingRect.width, 256);
-
     });
-
   });
-
 }

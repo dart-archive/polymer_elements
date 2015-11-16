@@ -38,9 +38,9 @@ main() async {
         }
       });
     });
-    
+
     group('when holdDown is togggled', () {
-      setUp( () {
+      setUp(() {
         rippleContainer = fixture('TrivialRipple');
         ripple = rippleContainer.children.first;
       });
@@ -54,25 +54,23 @@ main() async {
         ripple.noink = true;
         ripple.holdDown = true;
         expect(ripple.ripples.length, 1);
-
       });
-
     });
 
-    group('when target is noink',  () {
-      setUp( () {
+    group('when target is noink', () {
+      setUp(() {
         rippleContainer = fixture('NoinkTarget');
         ripple = rippleContainer.children.first;
       });
 
-      test('tapping does not create a ripple',  () {
+      test('tapping does not create a ripple', () {
         expect(ripple.keyEventTarget, ripple);
         expect(ripple.ripples.length, 0);
         down(ripple);
         expect(ripple.ripples.length, 0);
       });
 
-      test('ripples can be manually created',  () {
+      test('ripples can be manually created', () {
         expect(ripple.ripples.length, 0);
         ripple.simulatedRipple();
         expect(ripple.ripples.length, 1);

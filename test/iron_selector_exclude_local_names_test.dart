@@ -35,8 +35,8 @@ main() async {
     test('items', () async {
       test1.jsElement['_excludedLocalNames']['span'] = 1;
       test2.jsElement['_excludedLocalNames']['div'] = 1;
-      test1.jsElement.callMethod('_updateItems',[]);
-      test2.jsElement.callMethod('_updateItems',[]);
+      test1.jsElement.callMethod('_updateItems', []);
+      test2.jsElement.callMethod('_updateItems', []);
 
       await wait(1);
 

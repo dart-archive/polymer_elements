@@ -53,7 +53,7 @@ main() async {
 
     test('deselection in a multi select menubar focuses deselected item',
         () async {
-          TestMenuBar menubar = fixture('multi');
+      TestMenuBar menubar = fixture('multi');
       menubar.selected = 0;
       tap(menubar.items[0]);
       // wait for async in _onFocus

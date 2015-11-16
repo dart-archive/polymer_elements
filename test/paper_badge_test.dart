@@ -84,8 +84,9 @@ main() async {
       return done.future;
     });
   });
-  
-  test('badge is positioned correctly when nested in a target element', () async {
+
+  test('badge is positioned correctly when nested in a target element',
+      () async {
     var f = fixture('nested');
     var badge = f.querySelector('paper-badge');
 

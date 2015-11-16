@@ -52,7 +52,6 @@ main() async {
     });
 
     group('x-resizer-parent', () {
-
       test('notify resizables from window', () {
         var listeners = [
           ListenForResize(testEl.$['parent']),
@@ -79,7 +78,7 @@ main() async {
           ListenForResize(testEl.$['shadow1c'].$['resizable']),
           ListenForResize(testEl.$['shadow1d'].$['resizable'])
         ];
-        
+
         return wait(1).then((_) {
           testEl.$['parent'].notifyResize();
           expect(pendingNotifications, 0);
@@ -128,11 +127,9 @@ main() async {
           RemoveListeners(listeners);
         });
       });
-
     });
 
     group('x-resizer-parent-filtered', () {
-
       test('notify resizables from window', () {
         var listeners = [
           ListenForResize(testEl.$['parentFiltered']),

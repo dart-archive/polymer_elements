@@ -16,7 +16,6 @@ main() async {
   await initWebComponents();
 
   group('positioning', () {
-
     test('drawer is positioned correctly', () async {
       Element f, drawer, main;
       f = fixture('left-drawer');
@@ -42,16 +41,14 @@ main() async {
 
       await wait(1);
       var drawerStyle = drawer.getComputedStyle();
-      expect(drawerStyle.right,'0px');
+      expect(drawerStyle.right, '0px');
 
       try {
-        expect(drawerStyle.left,'auto');
+        expect(drawerStyle.left, 'auto');
       } catch (e) {
         // Firefox
-        expect(drawerStyle.left,'${f.offsetWidth - drawer.offsetWidth}px');
+        expect(drawerStyle.left, '${f.offsetWidth - drawer.offsetWidth}px');
       }
-
     });
-
   });
 }

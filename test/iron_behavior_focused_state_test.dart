@@ -14,7 +14,7 @@ import 'common.dart';
 
 main() async {
   await initPolymer();
-  
+
   group('focused-state', () {
     TestControl focusTarget;
 
@@ -89,6 +89,5 @@ main() async {
       expect(nBlurEvents, greaterThan(0));
       expect(nFocusEvents, greaterThan(0));
     });
-
   });
 }

@@ -31,8 +31,10 @@ firebaseUrl(project, [path]) {
 fixtureLocation([data = const {}]) {
   var firebase =
       new JsObject(context['Firebase'], [firebaseUrl(firebaseTestProject)]);
-  return firebaseUrl(firebaseTestProject,
-      firebase.callMethod('push', [new JsObject.jsify(data)]).callMethod('key'));
+  return firebaseUrl(
+      firebaseTestProject,
+      firebase.callMethod('push', [new JsObject.jsify(data)])
+          .callMethod('key'));
 }
 
 removeLocation(location) {

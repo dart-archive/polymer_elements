@@ -54,11 +54,11 @@ main() async {
 
       tap(c1);
       await wait(1);
-      
+
       expect(c1.getAttribute('aria-checked'), equals('true'));
       expect(c1.checked, isTrue);
     });
-    
+
     test('checkbox can be validated', () {
       c1.required = true;
       expect(c1.validate(null), isFalse);

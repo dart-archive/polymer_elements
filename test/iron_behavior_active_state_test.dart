@@ -192,43 +192,35 @@ main() async {
 
     group('nested input inside button', () {
       test('space in light child input does not trigger a button click event',
-          () {
+          () async {
         var done = new Completer();
         var item = fixture('ButtonWithInput');
         var input = item.querySelector('#input');
 
         var callCount = 0;
-        item.on['click'].listen((_) {
+        item.on['click'].take(1).listen((_) {
           callCount++;
         });
 
         input.focus();
         pressSpace(input);
-        new Future.delayed(new Duration(milliseconds: 100)).then(() {
-          expect(callCount, 0);
-          done.complete();
-        });
-
-        return done.future;
+        await wait(100);
+        expect(callCount, 0);
       });
 
-      test('space in button triggers a button click event', () {
-        var done = new Completer();
+      test('space in button triggers a button click event', () async {
         var item = fixture('ButtonWithInput');
         var input = item.querySelector('#input');
 
         var callCount = 0;
-        item.on['click'].listen((_) {
+        item.on['click'].take(1).listen((_) {
           callCount++;
         });
 
         pressSpace(item);
 
-        new Future.delayed(new Duration(milliseconds: 100)).then(() {
-          expect(callCount, 1);
-          done.complete();
-        });
-        return done.future;
+        await wait(100);
+        expect(callCount, 1);
       });
     });
   });

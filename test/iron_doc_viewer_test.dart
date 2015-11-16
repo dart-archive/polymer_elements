@@ -14,8 +14,9 @@ main() async {
 
   var ELEMENT = {
     "is": "awesome-sauce",
-    "properties":
-        [{"name": "isAwesome", "type": "boolean", "desc": "Is it awesome?"},]
+    "properties": [
+      {"name": "isAwesome", "type": "boolean", "desc": "Is it awesome?"},
+    ]
   };
 
   group('<iron-doc-viewer>', () {

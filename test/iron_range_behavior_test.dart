@@ -73,7 +73,7 @@ main() async {
       await wait(1);
       expect(range.value, 5.1);
     });
-    
+
     test('odd values', () async {
       range.min = 1;
       range.max = 7;

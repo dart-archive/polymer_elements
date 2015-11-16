@@ -113,45 +113,60 @@ main() async {
       expect(
           input.inputElement.textarea.attributes.containsKey('aria-labelledby'),
           isTrue);
-      expect(input.inputElement.textarea.attributes['aria-labelledby'], equals(
-          Polymer.dom(input.jsElement['root']).querySelector('label').id));
+      expect(
+          input.inputElement.textarea.attributes['aria-labelledby'],
+          equals(
+              Polymer.dom(input.jsElement['root']).querySelector('label').id));
     });
 
     test('has aria-describedby for error message', () {
       PaperTextarea input = fixture('required');
       forceXIfStamp(input);
-      expect(input.inputElement.textarea.attributes
-          .containsKey('aria-describedby'), isTrue);
-      expect(input.inputElement.textarea.attributes['aria-describedby'], equals(
-          Polymer
+      expect(
+          input.inputElement.textarea.attributes
+              .containsKey('aria-describedby'),
+          isTrue);
+      expect(
+          input.inputElement.textarea.attributes['aria-describedby'],
+          equals(Polymer
               .dom(input.jsElement['root'])
-              .querySelector('paper-input-error').id));
+              .querySelector('paper-input-error')
+              .id));
     });
 
     test('has aria-describedby for character counter', () {
       PaperTextarea input = fixture('char-counter');
       forceXIfStamp(input);
-      expect(input.inputElement.textarea.attributes
-          .containsKey('aria-describedby'), isTrue);
-      expect(input.inputElement.textarea.attributes['aria-describedby'], equals(
-          Polymer
+      expect(
+          input.inputElement.textarea.attributes
+              .containsKey('aria-describedby'),
+          isTrue);
+      expect(
+          input.inputElement.textarea.attributes['aria-describedby'],
+          equals(Polymer
               .dom(input.jsElement['root'])
-              .querySelector('paper-input-char-counter').id));
+              .querySelector('paper-input-char-counter')
+              .id));
     });
 
     test('has aria-describedby for character counter and error', () {
       PaperTextarea input = fixture('required-char-counter');
       forceXIfStamp(input);
-      expect(input.inputElement.textarea.attributes
-          .containsKey('aria-describedby'), isTrue);
-      expect(input.inputElement.textarea.attributes['aria-describedby'], equals(
-          Polymer
+      expect(
+          input.inputElement.textarea.attributes
+              .containsKey('aria-describedby'),
+          isTrue);
+      expect(
+          input.inputElement.textarea.attributes['aria-describedby'],
+          equals(Polymer
                   .dom(input.jsElement['root'])
-                  .querySelector('paper-input-error').id +
+                  .querySelector('paper-input-error')
+                  .id +
               ' ' +
               Polymer
                   .dom(input.jsElement['root'])
-                  .querySelector('paper-input-char-counter').id));
+                  .querySelector('paper-input-char-counter')
+                  .id));
     });
   });
 }

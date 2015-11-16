@@ -127,8 +127,8 @@ fixture(String id) {
   container.children.clear();
 
   var elements = new List.from((document.importNode(
-      (querySelector('#$id') as TemplateElement).content,
-      true) as DocumentFragment).children);
+          (querySelector('#$id') as TemplateElement).content, true)
+      as DocumentFragment).children);
   for (var element in elements) {
     container.append(element);
   }
@@ -162,4 +162,3 @@ Future requestAnimationFrame() {
 }
 
 List keysOf(JsObject object) => context['Object'].callMethod('keys', [object]);
-

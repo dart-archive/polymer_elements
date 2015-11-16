@@ -19,8 +19,7 @@ import 'common.dart';
 main() async {
   await initPolymer();
 
-    group('basic', () {
-
+  group('basic', () {
     test('clicking dialog does not cancel the dialog', () {
       var done = new Completer();
       var dialog = fixture('basic');
@@ -38,13 +37,17 @@ main() async {
       return done.future;
     });
 
-    test('clicking dialog-dismiss button closes the dialog without confirmation', () {
+    test(
+        'clicking dialog-dismiss button closes the dialog without confirmation',
+        () {
       var done = new Completer();
       var dialog = fixture('basic');
       runAfterOpen(dialog, () {
         dialog.on['iron-overlay-closed'].take(1).listen((event) {
-          expect(event.detail['canceled'], isFalse, reason: 'dialog is not canceled');
-          expect(event.detail['confirmed'], isFalse, reason: 'dialog is not confirmed');
+          expect(event.detail['canceled'], isFalse,
+              reason: 'dialog is not canceled');
+          expect(event.detail['confirmed'], isFalse,
+              reason: 'dialog is not confirmed');
           done.complete();
         });
         Polymer.dom(dialog).querySelector('[dialog-dismiss]').click();
@@ -52,13 +55,16 @@ main() async {
       return done.future;
     });
 
-    test('clicking dialog-confirm button closes the dialog with confirmation', () {
+    test('clicking dialog-confirm button closes the dialog with confirmation',
+        () {
       var done = new Completer();
       var dialog = fixture('basic');
       runAfterOpen(dialog, () {
         dialog.on['iron-overlay-closed'].take(1).listen((event) {
-          expect(event.detail['canceled'], isFalse, reason: 'dialog is not canceled');
-          expect(event.detail['confirmed'], isTrue, reason: 'dialog is confirmed');
+          expect(event.detail['canceled'], isFalse,
+              reason: 'dialog is not canceled');
+          expect(event.detail['confirmed'], isTrue,
+              reason: 'dialog is confirmed');
           done.complete();
         });
         Polymer.dom(dialog).querySelector('[dialog-confirm]').click();
@@ -68,7 +74,8 @@ main() async {
     test('with-backdrop works', () {
       var dialog = fixture('backdrop');
       runAfterOpen(dialog, () {
-        expect(dialog.backdropElement.opened, isTrue, reason: 'backdrop is open');
+        expect(dialog.backdropElement.opened, isTrue,
+            reason: 'backdrop is open');
       });
     });
 
@@ -79,7 +86,8 @@ main() async {
 
     test('modal dialog has no-cancel-on-outside-click', () {
       var dialog = fixture('modal');
-      expect(dialog.noCancelOnOutsideClick, isTrue, reason: 'noCancelOnOutsideClick is true');
+      expect(dialog.noCancelOnOutsideClick, isTrue,
+          reason: 'noCancelOnOutsideClick is true');
     });
 
     test('clicking outside a modal dialog does not move focus from dialog', () {
@@ -88,7 +96,9 @@ main() async {
       runAfterOpen(dialog, () {
         dialog.backdropElement.click();
         wait(10).then((_) {
-          expect(document.activeElement, Polymer.dom(dialog).querySelector('[autofocus]'), reason: 'document.activeElement is the autofocused button');
+          expect(document.activeElement,
+              Polymer.dom(dialog).querySelector('[autofocus]'),
+              reason: 'document.activeElement is the autofocused button');
           done.complete();
         });
       });
@@ -109,31 +119,34 @@ main() async {
       });
       return done.future;
     });
-
   });
 
   group('a11y', () {
-
     test('dialog has role="dialog"', () {
       var dialog = fixture('basic');
-      expect(dialog.getAttribute('role'), 'dialog', reason: 'has role="dialog"');
+      expect(dialog.getAttribute('role'), 'dialog',
+          reason: 'has role="dialog"');
     });
 
     test('dialog has aria-modal=false', () {
       var dialog = fixture('basic');
-      expect(dialog.getAttribute('aria-modal'), 'false', reason: 'has aria-modal="false"');
+      expect(dialog.getAttribute('aria-modal'), 'false',
+          reason: 'has aria-modal="false"');
     });
 
     test('modal dialog has aria-modal=true', () {
       var dialog = fixture('modal');
-      expect(dialog.getAttribute('aria-modal'), 'true', reason: 'has aria-modal="true"');
+      expect(dialog.getAttribute('aria-modal'), 'true',
+          reason: 'has aria-modal="true"');
     });
 
     test('dialog with header has aria-labelledby', () {
       var dialog = fixture('header');
       var header = Polymer.dom(dialog).querySelector('h2');
-      expect(header.getAttribute('id'), isNotNull, reason: 'header has auto-generated id');
-      expect(dialog.getAttribute('aria-labelledby'), header.getAttribute('id'), reason: 'aria-labelledby is set to header id');
+      expect(header.getAttribute('id'), isNotNull,
+          reason: 'header has auto-generated id');
+      expect(dialog.getAttribute('aria-labelledby'), header.getAttribute('id'),
+          reason: 'aria-labelledby is set to header id');
     });
 
     test('dialog with lazily created header has aria-labelledby', () {
@@ -143,8 +156,11 @@ main() async {
       Polymer.dom(dialog).append(header);
       PolymerDom.flush();
       wait(10).then((_) {
-        expect(header.getAttribute('id'), isNotNull, reason: 'header has auto-generated id');
-        expect(dialog.getAttribute('aria-labelledby'), header.getAttribute('id'), reason: 'aria-labelledby is set to header id');
+        expect(header.getAttribute('id'), isNotNull,
+            reason: 'header has auto-generated id');
+        expect(
+            dialog.getAttribute('aria-labelledby'), header.getAttribute('id'),
+            reason: 'aria-labelledby is set to header id');
         done.complete();
       });
       return done.future;
@@ -153,10 +169,11 @@ main() async {
     test('dialog with header with id preserves id and has aria-labelledby', () {
       var dialog = fixture('header-with-id');
       var header = Polymer.dom(dialog).querySelector('h2');
-      expect(header.getAttribute('id'), 'header', reason: 'header has preset id');
-      expect(dialog.getAttribute('aria-labelledby'), 'header', reason: 'aria-labelledby is set to header id');
+      expect(header.getAttribute('id'), 'header',
+          reason: 'header has preset id');
+      expect(dialog.getAttribute('aria-labelledby'), 'header',
+          reason: 'aria-labelledby is set to header id');
     });
-
   });
 }
 

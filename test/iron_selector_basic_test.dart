@@ -115,7 +115,7 @@ main() async {
         sub.cancel();
       });
     });
-    
+
     group('dynamic selector', () {
       test('selects dynamically added child automatically', () async {
         var selector = document.createElement('iron-selector');

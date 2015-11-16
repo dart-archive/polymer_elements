@@ -14,7 +14,7 @@ import 'common.dart';
 
 main() async {
   await initPolymer();
-  
+
   group('PaperRippleBehavior', () {
     var ripple;
 
@@ -40,16 +40,15 @@ main() async {
       expect(ripple.hasRipple(), isTrue);
       up(ripple);
     });
-
   });
 }
 
 @PolymerRegister('test-ripple')
 class TestRipple extends PolymerElement
     with
-      IronA11yKeysBehavior,
-      IronButtonState,
-      IronControlState,
-      PaperRippleBehavior {
+        IronA11yKeysBehavior,
+        IronButtonState,
+        IronControlState,
+        PaperRippleBehavior {
   TestRipple.created() : super.created();
 }

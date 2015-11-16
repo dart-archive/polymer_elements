@@ -19,7 +19,7 @@ import 'common.dart';
 
 main() async {
   await initPolymer();
-  
+
   group('basic', () {
     TestRadioButton button;
 
@@ -39,7 +39,6 @@ main() async {
       expect(button.focused, isTrue);
       expect(button.hasRipple(), isTrue);
     });
-
   });
 }
 

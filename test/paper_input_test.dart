@@ -26,9 +26,8 @@ main() async {
         PaperInput input = fixture('placeholder');
         expect(input.inputElement.placeholder, equals(input.placeholder));
         expect(input.noLabelFloat, isFalse);
-        var floatingLabel = (input
-                .$$('paper-input-container') as PaperInputContainer)
-            .$$('.label-is-floating');
+        var floatingLabel = (input.$$('paper-input-container')
+            as PaperInputContainer).$$('.label-is-floating');
         expect(floatingLabel, isNotNull);
       });
 
@@ -164,8 +163,9 @@ main() async {
         forceXIfStamp(input);
         var inputElement = input.$['input'];
         expect(inputElement.attributes.containsKey('aria-describedby'), isTrue);
-        expect(inputElement.attributes['aria-describedby'], equals(
-            input.$$('paper-input-error').id +
+        expect(
+            inputElement.attributes['aria-describedby'],
+            equals(input.$$('paper-input-error').id +
                 ' ' +
                 input.$$('paper-input-char-counter').id));
       });

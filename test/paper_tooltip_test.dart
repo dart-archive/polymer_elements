@@ -81,7 +81,7 @@ main() async {
       expect(contentRect.left, equals((divRect.width - contentRect.width) / 2));
       expect(contentRect.top, equals(divRect.height + tooltip.offset));
     });
-    
+
     test('tooltip is positioned correctly (top)', () {
       DivElement f = fixture('basic');
       DivElement target = f.querySelector('#target');
@@ -105,11 +105,11 @@ main() async {
       // The target div width is 100, and the tooltip width is 70, and
       // it's centered. The height of the tooltip is 30, and the
       // tooltip is 14px above the target.
-      expect(contentRect.left, (100 - 70)/2);
+      expect(contentRect.left, (100 - 70) / 2);
       expect(contentRect.top, 0 - 30 - 14);
 
       // Also check the math, just in case.
-      expect(contentRect.left, (divRect.width - contentRect.width)/2);
+      expect(contentRect.left, (divRect.width - contentRect.width) / 2);
       expect(contentRect.top, 0 - contentRect.height - tooltip.offset);
     });
 
@@ -137,11 +137,11 @@ main() async {
       // The target div height is 20, the height of the tooltip is 20px, and
       // the tooltip is centered.
       expect(contentRect.left, 100 + 14);
-      expect(contentRect.top, (20 - 30)/2);
+      expect(contentRect.top, (20 - 30) / 2);
 
       // Also check the math, just in case.
       expect(contentRect.left, divRect.width + tooltip.offset);
-      expect(contentRect.top, (divRect.height - contentRect.height)/2);
+      expect(contentRect.top, (divRect.height - contentRect.height) / 2);
     });
 
     test('tooltip is positioned correctly (left)', () {
@@ -168,11 +168,11 @@ main() async {
       // The target div height is 20, the height of the tooltip is 20px, and
       // the tooltip is centered.
       expect(contentRect.left, 0 - 70 - 14);
-      expect(contentRect.top, (20 - 30)/2);
+      expect(contentRect.top, (20 - 30) / 2);
 
       // Also check the math, just in case.
       expect(contentRect.left, 0 - contentRect.width - tooltip.offset);
-      expect(contentRect.top, (divRect.height - contentRect.height)/2);
+      expect(contentRect.top, (divRect.height - contentRect.height) / 2);
     });
 
     test('tooltip is fitted correctly if out of bounds', () {
@@ -328,7 +328,7 @@ main() async {
       expect(tooltip.getAttribute('role'), equals('tooltip'));
     });
   });
-  
+
   // TODO(jakemac): investigate these
   //
   // a11ySuite('basic');
