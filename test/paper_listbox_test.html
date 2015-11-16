@@ -12,22 +12,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-    <title>paper-spinner tests</title>
+    <title>paper dropdown menu test</title>
 
     <script src="packages/web_components/webcomponents-lite.js"></script>
-    <link rel="x-dart-test" href="paper_spinner_test.dart">
-    <script src="packages/test/dart.js"></script>
+    <link rel="x-dart-test" href="paper_listbox_test.dart">
 
+    <script src="packages/test/dart.js"></script>
 </head>
 <body>
 
-<template id="PaperSpinner">
-    <paper-spinner></paper-spinner>
-</template>
-
-<template id="ActivePaperSpinner">
-    <paper-spinner active></paper-spinner>
-</template>
+    <template id="basic">
+        <paper-listbox selected="0">
+            <div>item 1</div>
+            <div>item 2</div>
+            <div>item 3</div>
+        </paper-listbox>
+    </template>
 
 </body>
 </html>

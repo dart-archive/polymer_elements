@@ -12,10 +12,15 @@ import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
 import 'fixtures/sample_content.dart';
+import 'dart:js';
 
 /// Used imports: [PaperToolbar], [SampleContent]
 main() async {
   await initPolymer();
+  final int Polymer_PaperScrollHeaderPanel_HEADER_STATE_EXPANDED = context['Polymer']['PaperScrollHeaderPanel']['HEADER_STATE_EXPANDED'];
+  final int Polymer_PaperScrollHeaderPanel_HEADER_STATE_HIDDEN = context['Polymer']['PaperScrollHeaderPanel']['HEADER_STATE_HIDDEN'];
+  final int Polymer_PaperScrollHeaderPanel_HEADER_STATE_CONDENSED = context['Polymer']['PaperScrollHeaderPanel']['HEADER_STATE_CONDENSED'];
+  final int Polymer_PaperScrollHeaderPanel_HEADER_STATE_INTERPOLATED = context['Polymer']['PaperScrollHeaderPanel']['HEADER_STATE_INTERPOLATED'];
 
   group('scroll', () {
     PaperScrollHeaderPanel scrollHeaderPanel;
@@ -52,7 +57,7 @@ main() async {
         var adjustments = 0;
         check([_]) {
           if (scrollHeaderPanel.headerState ==
-              scrollHeaderPanel.HEADER_STATE_CONDENSED) {
+              Polymer_PaperScrollHeaderPanel_HEADER_STATE_CONDENSED) {
             expect(adjustments, isNot(0));
             done.complete();
             return;
@@ -75,7 +80,7 @@ main() async {
 
         wait(100).then((_) {
           expect(scrollHeaderPanel.headerState,
-              scrollHeaderPanel.HEADER_STATE_CONDENSED);
+              Polymer_PaperScrollHeaderPanel_HEADER_STATE_CONDENSED);
           done.complete();
         });
       });

@@ -264,10 +264,10 @@ main() async {
 
       // Since we are not using the normal form submission, these events should
       // never be called.
-      var formResponseHandler = sinon.spy();
-      form.on['iron-form-response'].take(1).listen(formResponseHandler);
-      var formSubmitHandler = sinon.spy();
-      form.on['iron-form-submit'].take(1).listen(formSubmitHandler);
+      int formResponseHandler_callCount = 0;
+      form.on['iron-form-response'].take(1).listen((_) { formResponseHandler_callCount++;});
+      int formSubmitHandler_callCount = 0;
+      form.on['iron-form-submit'].take(1).listen((_) { formSubmitHandler_callCount++;});
 
       form.on['iron-form-presubmit'].take(1).listen((Event event) {
         presubmitted = true;
@@ -280,8 +280,8 @@ main() async {
 
       form.on['custom-form-submit'].take(1).listen((Event event) {
         expect(presubmitted, isTrue);
-        expect(formResponseHandler.callCount, 0);
-        expect(formSubmitHandler.callCount, 0);
+        expect(formResponseHandler_callCount, 0);
+        expect(formSubmitHandler_callCount, 0);
         done.complete();
       });
 

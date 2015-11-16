@@ -12,10 +12,15 @@ import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
 import 'fixtures/sample_content.dart';
+import 'dart:js';
 
 /// Used imports: [SampleContent]
 main() async {
   await initPolymer();
+  final int Polymer_PaperScrollHeaderPanel_HEADER_STATE_EXPANDED = context['Polymer']['PaperScrollHeaderPanel']['HEADER_STATE_EXPANDED'];
+  final int Polymer_PaperScrollHeaderPanel_HEADER_STATE_HIDDEN = context['Polymer']['PaperScrollHeaderPanel']['HEADER_STATE_HIDDEN'];
+  final int Polymer_PaperScrollHeaderPanel_HEADER_STATE_CONDENSED = context['Polymer']['PaperScrollHeaderPanel']['HEADER_STATE_CONDENSED'];
+  final int Polymer_PaperScrollHeaderPanel_HEADER_STATE_INTERPOLATED = context['Polymer']['PaperScrollHeaderPanel']['HEADER_STATE_INTERPOLATED'];
 
   group('`headerState`', () {
     PaperScrollHeaderPanel scrollHeaderPanel;
@@ -28,13 +33,13 @@ main() async {
 
     test('HEADER_STATE_EXPANDED', () {
       expect(scrollHeaderPanel.headerState,
-          scrollHeaderPanel.HEADER_STATE_EXPANDED);
+          Polymer_PaperScrollHeaderPanel_HEADER_STATE_EXPANDED);
 
       scrollHeaderPanel.scroller.scrollTop = 1;
 
       return wait(1).then((_) {
         expect(scrollHeaderPanel.headerState,
-            isNot(scrollHeaderPanel.HEADER_STATE_EXPANDED));
+            isNot(Polymer_PaperScrollHeaderPanel_HEADER_STATE_EXPANDED));
       });
     });
 
@@ -43,7 +48,7 @@ main() async {
 
       return wait(1).then((_) {
         expect(scrollHeaderPanel.headerState,
-            scrollHeaderPanel.HEADER_STATE_HIDDEN);
+            Polymer_PaperScrollHeaderPanel_HEADER_STATE_HIDDEN);
       });
     });
 
@@ -53,7 +58,7 @@ main() async {
 
       return wait(1).then((_) {
         expect(scrollHeaderPanel.headerState,
-            scrollHeaderPanel.HEADER_STATE_CONDENSED);
+            Polymer_PaperScrollHeaderPanel_HEADER_STATE_CONDENSED);
       });
     });
 
@@ -63,7 +68,7 @@ main() async {
 
       return wait(1).then((_) {
         expect(scrollHeaderPanel.headerState,
-            scrollHeaderPanel.HEADER_STATE_INTERPOLATED);
+            Polymer_PaperScrollHeaderPanel_HEADER_STATE_INTERPOLATED);
       });
     });
   });

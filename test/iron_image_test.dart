@@ -18,6 +18,10 @@ var rand = new Random();
 main() async {
   await initWebComponents();
 
+  randomImageUrl() {
+    return 'fixtures/polymer.svg?' + rand.nextDouble().toString();
+  }
+
   group('<iron-image>', () {
     randomImageUrl() {
       return 'fixtures/polymer.svg?' + rand.nextDouble().toString();

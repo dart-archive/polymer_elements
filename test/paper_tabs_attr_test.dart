@@ -10,6 +10,7 @@ import 'package:polymer_elements/paper_tab.dart';
 import 'package:web_components/web_components.dart';
 import 'package:test/test.dart';
 import 'common.dart';
+import 'package:polymer/polymer.dart' show PolymerDom;
 
 /**
  * Original tests:
@@ -31,6 +32,7 @@ main() async {
     });
 
     test('selected tab has iron-selected class', () {
+      PolymerDom.flush();
       expect(
           tabs.querySelector('[name=bar]').classes, contains('iron-selected'));
     });
@@ -51,6 +53,7 @@ main() async {
     });
 
     test('selected tab has iron-selected class', () {
+      PolymerDom.flush();
       expect(tab.classes.contains('iron-selected'), isTrue);
     });
   });
