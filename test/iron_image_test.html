@@ -16,6 +16,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script src="packages/web_components/webcomponents-lite.js"></script>
   <link rel="x-dart-test" href="iron_image_test.dart">
+
+  <style is="custom-style">
+    .fixed-width-container {
+      width: 500px;
+    }
+
+    .fixed-width-container iron-image {
+      width: 100%;
+      --iron-image-width: 100%;
+    }
+
+    .fixed-height-container {
+      height: 500px;
+    }
+
+    .fixed-height-container iron-image {
+      height: 100%;
+      --iron-image-height: 100%;
+    }
+  </style>
+
   <!--<script type="application/dart" src="iron_image_test.dart"></script>-->
   <!--<script src="packages/browser/dart.js"></script>-->
   <script src="packages/test/dart.js"></script>
@@ -24,5 +45,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template id="TrivialImage">
     <iron-image></iron-image>
   </template>
+
+  <template id="FixedWidthContainer">
+    <div class="fixed-width-container">
+      <iron-image></iron-image>
+    </div>
+  </template>
+
+  <template id="FixedHeightContainer">
+    <div class="fixed-height-container">
+      <iron-image></iron-image>
+    </div>
+  </template>
+
+
 </body>
 </html>

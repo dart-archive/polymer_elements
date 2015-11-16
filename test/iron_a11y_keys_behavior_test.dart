@@ -189,6 +189,11 @@ abstract class KeysTestBehavior implements PolymerMixin, PolymerBase, HtmlElemen
     set('keyCount', keyCount + 1);
     set('lastEvent', e);
   }
+
+  @reflectable
+  preventDefaultHandler(Event event) {
+    event.preventDefault();
+  }
 }
 
 @PolymerRegister('x-a11y-basic-keys')
@@ -232,5 +237,6 @@ class XA11yBehaviorKeys extends PolymerElement
 
   ready() {
     addOwnKeyBinding('space', 'keyHandler');
+    addOwnKeyBinding('enter', 'preventDefaultHandler');
   }
 }

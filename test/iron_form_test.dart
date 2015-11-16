@@ -13,6 +13,7 @@ import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
 import 'fixtures/simple_element.dart';
+import 'sinon/sinon.dart' as sinon;
 
 /// [SimpleElement] used.
 main() async {
@@ -151,6 +152,50 @@ main() async {
     });
   });
 
+  group('resetting', () {
+    test('form restores the default values', () {
+      Completer done = new Completer();
+      var form = fixture('FormForResetting');
+
+      expect(form._customElements.length, 1);
+      expect(form.elements.length, 3);
+
+      // Initial values.
+      var customElement = form.querySelector('simple-element');
+      var input = form.querySelector('input[name="foo"]');
+      var checkbox1 = form.querySelectorAll('input[type="checkbox"]')[0];
+      var checkbox2 = form.querySelectorAll('input[type="checkbox"]')[1];
+
+      expect(customElement.value, 'zag');
+      expect(input.value, 'bar');
+      expect(checkbox1.checked, isTrue);
+      expect(checkbox2.checked, isFalse);
+
+      // Change the values.
+      customElement.value = 'not zag';
+      input.value = 'not bar';
+      checkbox1.checked = false;
+      checkbox2.checked = true;
+      expect(customElement.value, 'not zag');
+      expect(input.value, 'not bar');
+      expect(checkbox1.checked, isFalse);
+      expect(checkbox2.checked, isTrue);
+
+      form.on['iron-form-reset'].take(1).listen((Event event) {
+        // Restored initial values.
+        expect(customElement.value, 'zag');
+        expect(input.value, 'bar');
+        expect(checkbox1.checked, isTrue);
+        expect(checkbox2.checked, isFalse);
+        done.complete();
+      });
+
+      form.reset();
+
+      return done.future;
+    });
+  });
+
   group('submitting', () {
     var form;
 
@@ -175,6 +220,76 @@ main() async {
       return done.future;
     });
 
+    test('can modify the request in the presubmit', () {
+      Completer done = new Completer();
+      form = fixture('FormGet');
+
+      var submitted = false;
+      var presubmitted = false;
+
+      form.on['iron-form-submit'].take(1).listen((_) {
+        submitted = true;
+      });
+
+      form.on['iron-form-presubmit'].take(1).listen((_) {
+        presubmitted = true;
+        form.request.params = {'batman': true};
+      });
+
+      form.on['iron-form-response'].take(1).listen((Event event) {
+        expect(submitted, isTrue);
+        expect(presubmitted, isTrue);
+
+        // We have changed the json parameters
+        expect(convertToDart(event).detail.url, contains('batman=true'));
+
+        var response = convertToDart(event).detail.response;
+        expect(response, isNotNull);
+        expect((response is JsObject), isTrue);
+        expect(response['success'], isTrue);
+        done.complete();
+      });
+
+      form.submit();
+      //server.respond();
+      return done.future;
+    });
+
+
+    test('can do a custom submission in the presubmit', () {
+      Completer done = new Completer();
+      form = fixture('FormGet');
+
+      var presubmitted = false;
+
+      // Since we are not using the normal form submission, these events should
+      // never be called.
+      var formResponseHandler = sinon.spy();
+      form.on['iron-form-response'].take(1).listen(formResponseHandler);
+      var formSubmitHandler = sinon.spy();
+      form.on['iron-form-submit'].take(1).listen(formSubmitHandler);
+
+      form.on['iron-form-presubmit'].take(1).listen((Event event) {
+        presubmitted = true;
+        event.preventDefault();
+
+        // Your custom submission logic could go here (like using Firebase).
+        // In this case, fire a custom event as a an example.
+        form.fire('custom-form-submit');
+      });
+
+      form.on['custom-form-submit'].take(1).listen((Event event) {
+        expect(presubmitted, isTrue);
+        expect(formResponseHandler.callCount, 0);
+        expect(formSubmitHandler.callCount, 0);
+        done.complete();
+      });
+
+      form.submit();
+      return done.future;
+    });
+
+
     test('can submit with method=get', () {
       var done = new Completer();
       form = fixture('FormGet');
@@ -186,6 +301,7 @@ main() async {
 
       form.on['iron-form-response'].take(1).listen((event) {
         expect(submitted, isTrue);
+        expect(convertToDart(event).detail.url,contains('zig=zag'));
 
         var response = convertToDart(event).detail.response;
         expect(response, isNotNull);

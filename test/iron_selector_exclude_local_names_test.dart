@@ -32,9 +32,13 @@ main() async {
       expect(test2.jsElement['_excludedLocalNames']['foo'], isNull);
     });
 
-    test('items', () {
+    test('items', () async {
       test1.jsElement['_excludedLocalNames']['span'] = 1;
       test2.jsElement['_excludedLocalNames']['div'] = 1;
+      test1.jsElement.callMethod('_updateItems',[]);
+      test2.jsElement.callMethod('_updateItems',[]);
+
+      await wait(1);
 
       var NOT_FOUND = -1;
       var items1 = test1.items.map((el) => el.localName);

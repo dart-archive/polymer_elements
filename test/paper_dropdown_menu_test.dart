@@ -5,7 +5,7 @@
 library polymer_elements.test.paper_dropdown_menu_test;
 
 import 'package:polymer_elements/paper_dropdown_menu.dart';
-import 'package:polymer_elements/paper_menu.dart';
+import 'package:polymer_elements/paper_listbox.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'package:web_components/web_components.dart';
 import 'package:test/test.dart';
@@ -16,7 +16,7 @@ main() async {
 
   group('<paper-dropdown-menu>', () {
     PaperDropdownMenu dropdownMenu;
-    PaperMenu content;
+    PaperListbox content;
 
     setUp(() {
       dropdownMenu = fixture('TrivialDropdownMenu');
@@ -71,6 +71,7 @@ main() async {
       });
 
       test('the input area shows the correct selection', () {
+        PolymerDom.flush();
         var secondItem = Polymer.dom(dropdownMenu).querySelectorAll('paper-item')[1];
         expect(dropdownMenu.selectedItem, secondItem);
       });
@@ -85,6 +86,7 @@ main() async {
       });
 
       test('an `iron-deselect` event clears the current selection', () {
+        PolymerDom.flush();
         menu.selected = null;
         expect(dropdownMenu.selectedItem, null);
       });
@@ -111,6 +113,8 @@ main() async {
 
       test('a required dropdown is invalid without a selection', () {
         PaperDropdownMenu dropdownMenu = fixture('TrivialDropdownMenu');
+        PolymerDom.flush();
+
         dropdownMenu.required = true;
 
         // no selection.

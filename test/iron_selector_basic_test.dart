@@ -10,6 +10,7 @@ import 'package:polymer_elements/iron_selector.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
+import 'dart:async';
 
 main() async {
   await initWebComponents();
@@ -53,7 +54,8 @@ main() async {
       s2 = fixture('basic');
     });
 
-    test('honors the attrForSelected attribute', () {
+    test('honors the attrForSelected attribute', () async {
+      await wait(1);
       expect(s2.attrForSelected, 'id');
       expect(s2.selected, 'item2');
       expect(s2.selectedItem, document.querySelector('#item2'));
@@ -102,10 +104,10 @@ main() async {
           changeCount++;
         });
 
-        s2.append(newItem);
+        Polymer.dom(s2).appendChild(newItem);
 
         await wait(1);
-        s2.children.remove(newItem);
+        Polymer.dom(s2).removeChild(newItem);
 
         await wait(1);
         expect(changeCount, 2);
