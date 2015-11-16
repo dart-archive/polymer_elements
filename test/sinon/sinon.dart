@@ -6,6 +6,7 @@ library polymer_elements.test.src.sinon;
 
 import 'dart:js';
 import 'package:web_components/web_components.dart';
+import 'dart:html';
 
 JsObject _Sinon = context['sinon'];
 
@@ -27,4 +28,16 @@ class Spy {
       jsObject.callMethod('calledWith', matchers);
 
   reset() => jsObject.callMethod('reset');
+
+  SpyCall getCall(int arg) => new SpyCall(jsObject.callMethod("getCall",[arg]));
+
+  EventListener get eventListener => (Event e) => (jsObject as JsFunction).apply([e]);
+}
+
+class SpyCall {
+  JsObject jsObject;
+
+  SpyCall(this.jsObject);
+
+  JsArray get args => jsObject["args"];
 }

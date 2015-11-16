@@ -23,7 +23,7 @@ main() async {
     });
 
     test('selected item has an appropriate className', () {
-      expect(listbox.selectedItem.classList, contains('iron-selected'));
+      expect(listbox.selectedItem.classes, contains('iron-selected'));
     });
 
     test('has listbox aria role', () {

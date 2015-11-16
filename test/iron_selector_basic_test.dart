@@ -104,7 +104,7 @@ main() async {
           changeCount++;
         });
 
-        Polymer.dom(s2).appendChild(newItem);
+        Polymer.dom(s2).append(newItem);
 
         await wait(1);
         Polymer.dom(s2).removeChild(newItem);

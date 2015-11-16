@@ -11,6 +11,7 @@ import 'package:polymer/polymer.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
+import 'sinon/sinon.dart' as sinon;
 
 main() async {
   await initPolymer();
@@ -171,6 +172,21 @@ main() async {
         await wait(1);
 
         expect(called, isFalse);
+      });
+    });
+
+    group('prevent default behavior of event', () {
+      setUp(() {
+        keys = fixture('BehaviorKeys');
+      });
+      test('defaultPrevented is correctly set', () {
+        var keySpy = sinon.spy();
+
+        document.addEventListener('keydown', keySpy.eventListener);
+
+        pressEnter(keys);
+
+        expect(keySpy.getCall(0).args[0].defaultPrevented,isTrue);
       });
     });
   });

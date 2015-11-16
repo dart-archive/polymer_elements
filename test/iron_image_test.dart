@@ -89,7 +89,7 @@ main() async {
         var containerRect = fixedWidthContainer.getBoundingClientRect();
         var ironImageRect = fixedWidthIronImage.getBoundingClientRect();
         var wrappedImageRect =
-            fixedWidthIronImage.$.img.getBoundingClientRect();
+            fixedWidthIronImage.$['img'].getBoundingClientRect();
 
         expect(containerRect.width, closeTo(500, 0.5));
         expect(ironImageRect.width, closeTo(500, 0.5));
@@ -110,7 +110,7 @@ main() async {
         var containerRect = fixedHeightContainer.getBoundingClientRect();
         var ironImageRect = fixedHeightIronImage.getBoundingClientRect();
         var wrappedImageRect =
-            fixedHeightIronImage.$.img.getBoundingClientRect();
+            fixedHeightIronImage.$['img'].getBoundingClientRect();
 
         expect(containerRect.height, closeTo(500, 0.5));
         expect(ironImageRect.height, closeTo(500, 0.5));

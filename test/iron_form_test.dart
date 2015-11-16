@@ -14,6 +14,8 @@ import 'package:web_components/web_components.dart';
 import 'common.dart';
 import 'fixtures/simple_element.dart';
 import 'sinon/sinon.dart' as sinon;
+import 'package:polymer_elements/iron_request.dart';
+
 
 /// [SimpleElement] used.
 main() async {
@@ -155,10 +157,10 @@ main() async {
   group('resetting', () {
     test('form restores the default values', () {
       Completer done = new Completer();
-      var form = fixture('FormForResetting');
+      IronForm form = fixture('FormForResetting');
 
-      expect(form._customElements.length, 1);
-      expect(form.elements.length, 3);
+      expect(form.jsElement["_customElements"]['length'], 1);
+      expect(form.jsElement["elements"]['length'], 3);
 
       // Initial values.
       var customElement = form.querySelector('simple-element');
@@ -236,12 +238,12 @@ main() async {
         form.request.params = {'batman': true};
       });
 
-      form.on['iron-form-response'].take(1).listen((Event event) {
+      form.on['iron-form-response'].take(1).listen((CustomEvent event) {
         expect(submitted, isTrue);
         expect(presubmitted, isTrue);
 
         // We have changed the json parameters
-        expect(convertToDart(event).detail.url, contains('batman=true'));
+        expect(convertToDart(event).detail, contains('batman=true'));
 
         var response = convertToDart(event).detail.response;
         expect(response, isNotNull);

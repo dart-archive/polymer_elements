@@ -102,7 +102,7 @@ main() async {
     test('should not fire the focus event', () {
       var nFocusEvents = 0;
 
-      lightDOM.on['focus'].take(1).listen(() {
+      lightDOM.on['focus'].take(1).listen((_) {
         nFocusEvents += 1;
       });
 

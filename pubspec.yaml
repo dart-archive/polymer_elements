@@ -5,7 +5,7 @@ description: Polymer polymer-elements for Dart
 homepage: https://github.com/dart-lang/polymer_elements
 dependencies:
   browser: ^0.10.0
-  polymer_interop: ^1.0.0-rc.1
+  polymer_interop: ^1.0.0-rc.5
   web_components: ^0.12.0
   reflectable: ^0.3.1
 dev_dependencies:
@@ -14,7 +14,7 @@ dev_dependencies:
   path: ^1.0.0
   yaml: ">=1.0.0 <3.0.0"
   test: ^0.12.0
-  polymer: ^1.0.0-rc.2
+  polymer: ^1.0.0-rc.6
 
 environment:
   sdk: '>=1.6.0 <2.0.0'

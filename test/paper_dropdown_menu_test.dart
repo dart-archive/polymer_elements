@@ -126,6 +126,8 @@ main() async {
 
       test('a required dropdown is valid with a selection', () {
         PaperDropdownMenu dropdownMenu = fixture('PreselectedDropdownMenu');
+        PolymerDom.flush();
+
         dropdownMenu.required = true;
 
         expect(dropdownMenu.validate(null), isTrue);
