@@ -13,7 +13,7 @@ dev_dependencies:
   html5lib: ">=0.11.0 <0.13.0"
   path: ^1.0.0
   yaml: ">=1.0.0 <3.0.0"
-  test: ^0.12.0
+  test: ^0.12.5+1
   polymer: ^1.0.0-rc.6
 
 environment:

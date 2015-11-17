@@ -17,7 +17,7 @@ main() async {
     var LEFT_ARROW = 37;
     var RIGHT_ARROW = 39;
 
-    test('group can have no selection', () {
+    test('group can have no selection', () async {
       PaperRadioGroup g = fixture('NoSelection');
       expect(g.selected, isNull);
       var items = g.items;
@@ -27,8 +27,9 @@ main() async {
       expect(items[2].checked, isFalse);
     });
 
-    test('group can have a selection', () {
+    test('group can have a selection', () async {
       PaperRadioGroup g = fixture('WithSelection');
+      await wait(0);
       expect(g.selected, isNotNull);
       var items = g.items;
       expect(items.length, equals(3));
@@ -40,6 +41,7 @@ main() async {
 
     test('right arrow advances the selection', () async {
       PaperRadioGroup g = fixture('WithSelection');
+      await wait(0);
       var items = g.items;
       expect(items[0].checked, isTrue);
       var completer = new Completer();
@@ -55,6 +57,7 @@ main() async {
 
     test('left arrow reverses the selection', () async {
       PaperRadioGroup g = fixture('WithSelection');
+      await wait(0);
       var items = g.items;
       expect(items[0].checked, isTrue);
       var completer = new Completer();
@@ -71,6 +74,7 @@ main() async {
 
     test('selection should skip disabled items', () async {
       PaperRadioGroup g = fixture('WithDisabled');
+      await wait(0);
       var items = g.items;
       expect(items[0].checked, isTrue);
       var completer = new Completer();
@@ -86,6 +90,7 @@ main() async {
 
     test('clicking should change the selection', () async {
       PaperRadioGroup g = fixture('WithSelection');
+      await wait(0);
       var items = g.items;
       expect(items[0].checked, isTrue);
       var completer = new Completer();
@@ -101,6 +106,7 @@ main() async {
 
     test('clicking the selected item should not deselect', () async {
       PaperRadioGroup g = fixture('WithSelection');
+      await wait(0);
       var items = g.items;
       expect(items[0].checked, isTrue);
       tap(items[0]);
@@ -117,6 +123,7 @@ main() async {
         'clicking the selected item should deselect if allow-empty-selection is set',
         () async {
       var g = fixture('WithSelection');
+      await wait(0);
       g.allowEmptySelection = true;
       var items = g.items;
 
