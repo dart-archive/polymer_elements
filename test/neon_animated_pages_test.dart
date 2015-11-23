@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.neon_animated_pages_test;
 
+import 'dart:async';
 import 'dart:html';
 import 'package:polymer/polymer.dart';
 import 'package:polymer_interop/polymer_interop.dart';
@@ -20,6 +21,7 @@ main() async {
     group('notify-resize', () {
       test('only a destination page receives a resize event', () async {
         NeonAnimatedPages animatedPages = fixture('notify-resize');
+        await new Future(() {});
         List<Element> resizables = Polymer.dom(animatedPages).children;
         Map receives = {};
         resizables.forEach((Element page) {

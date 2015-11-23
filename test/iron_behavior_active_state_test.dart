@@ -26,7 +26,7 @@ main() async {
       setUp(() {
         activeTarget = fixture('ToggleActiveState');
       });
-      
+
       group('when down', () {
         test('is pressed', () {
           down(activeTarget);

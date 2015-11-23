@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.iron_iconset_svg_test;
 
+import 'dart:async';
 import 'dart:html';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'package:polymer_elements/iron_iconset_svg.dart';
@@ -31,7 +32,8 @@ main() async {
         expect(meta.byKey('foo'), iconset);
       });
 
-      test('it does not have a size', () {
+      test('it does not have a size', () async {
+        await new Future(() {});
         var rect = iconset.getBoundingClientRect();
         expect(rect.width, 0);
         expect(rect.height, 0);
@@ -50,10 +52,11 @@ main() async {
       IronIconsetSvg iconset;
       var div;
 
-      setUp(() {
+      setUp(() async {
         var elements = fixture('StandardIconsetSvg');
         iconset = elements[0];
         div = elements[1];
+        await new Future(() {});
       });
 
       test('it does not have a size', () {

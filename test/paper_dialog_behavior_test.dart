@@ -19,7 +19,7 @@ import 'common.dart';
 main() async {
   await initPolymer();
 
-    group('basic', () {
+  group('basic', () {
 
     test('clicking dialog does not cancel the dialog', () {
       var done = new Completer();
@@ -129,8 +129,9 @@ main() async {
       expect(dialog.getAttribute('aria-modal'), 'true', reason: 'has aria-modal="true"');
     });
 
-    test('dialog with header has aria-labelledby', () {
+    test('dialog with header has aria-labelledby', () async {
       var dialog = fixture('header');
+      await new Future(() {});
       var header = Polymer.dom(dialog).querySelector('h2');
       expect(header.getAttribute('id'), isNotNull, reason: 'header has auto-generated id');
       expect(dialog.getAttribute('aria-labelledby'), header.getAttribute('id'), reason: 'aria-labelledby is set to header id');
@@ -150,8 +151,9 @@ main() async {
       return done.future;
     });
 
-    test('dialog with header with id preserves id and has aria-labelledby', () {
+    test('dialog with header with id preserves id and has aria-labelledby', () async {
       var dialog = fixture('header-with-id');
+      await new Future(() {});
       var header = Polymer.dom(dialog).querySelector('h2');
       expect(header.getAttribute('id'), 'header', reason: 'header has preset id');
       expect(dialog.getAttribute('aria-labelledby'), 'header', reason: 'aria-labelledby is set to header id');

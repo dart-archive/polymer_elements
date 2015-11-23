@@ -19,8 +19,9 @@ main() async {
     XLightResizable resizable;
 
     group('events across shadow boundaries', () {
-      setUp(() {
+      setUp(() async {
         resizable = fixture('ResizableAndShadowBoundaries');
+        await new Future(() {});
       });
 
       group('ancestor\'s iron-resize', () {

@@ -15,8 +15,9 @@ main() async {
 
   group('defaults', () {
     PaperRadioButton r1;
-    setUp(() {
+    setUp(() async {
       r1 = fixture('NoLabel');
+      await new Future(() {});
     });
     test('check button via click', () async {
       var completer = new Completer();
@@ -59,9 +60,10 @@ main() async {
     PaperRadioButton r1;
     PaperRadioButton r2;
 
-    setUp(() {
+    setUp(() async {
       r1 = fixture('NoLabel');
       r2 = fixture('WithLabel');
+      await new Future(() {});
     });
 
     test('has aria role "radio"', () {

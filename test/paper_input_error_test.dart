@@ -4,8 +4,9 @@
 @TestOn('browser')
 library polymer_elements.test.paper_input_error_test;
 
+import 'dart:async';
 import 'dart:html';
-import 'package:polymer/polymer.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'package:polymer_elements/iron_input.dart';
@@ -16,8 +17,9 @@ import 'common.dart';
 main() async {
   await initWebComponents();
   group('basic', () {
-    test('error message only appears when input is invalid', () {
+    test('error message only appears when input is invalid', () async {
       var container = fixture('auto-validate-numbers');
+      await new Future(() {});
       IronInput input = Polymer.dom(container).querySelector('#i');
       PaperInputError error = Polymer.dom(container).querySelector('#e');
       expect(error.getComputedStyle().visibility, equals('hidden'));

@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.gold_zip_input;
 
+import 'dart:async';
 import 'package:polymer_elements/gold_zip_input.dart';
 import 'package:polymer_elements/iron_input.dart';
 import 'package:web_components/web_components.dart';
@@ -86,8 +87,9 @@ main() async {
   });
 
   group('a11y', () {
-    test('has aria-labelledby', () {
+    test('has aria-labelledby', () async {
       GoldZipInput input = fixture('basic');
+      await new Future(() {});
       expect(input.inputElement.getAttribute('aria-labelledby'), isNotNull);
       expect(input.inputElement.getAttribute('aria-labelledby'),
           input.querySelector('label').id,

@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.paper_menu_test;
 
+import 'dart:async';
 import 'dart:html';
 import 'package:polymer_elements/paper_menu.dart';
 import 'package:web_components/web_components.dart';
@@ -15,16 +16,18 @@ main() async {
 
   group('<paper-menu>', () {
     PaperMenu menu;
-    setUp(() {
+    setUp(() async {
       menu = fixture('basic');
+      await new Future(() {});
     });
 
-    test('selected item is styled', () {
+    test('selected item is styled', () async {
       DivElement boldDiv = new DivElement();
       boldDiv.style.fontWeight = 'bold';
       document.body.append(boldDiv);
 
       menu.select('1');
+      await new Future(() {});
 
       expect(menu.selectedItems[0].getComputedStyle().fontWeight,
           boldDiv.getComputedStyle().fontWeight,

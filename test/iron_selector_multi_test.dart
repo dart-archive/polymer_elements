@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.iron_selector_multi_test;
 
+import 'dart:async';
 import 'dart:html';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'package:polymer_elements/iron_selector.dart';
@@ -17,8 +18,9 @@ main() async {
   group('multi', () {
     IronSelector s;
 
-    setUp(() {
+    setUp(() async {
       s = fixture('test');
+      await new Future(() {});
     });
 
     test('honors the multi attribute', () {
@@ -82,7 +84,7 @@ main() async {
       expect(selectEventCounter, 1);
       expect(deselectEventCounter, 1);
     });
-    
+
     test('fires selected-values-changed when selection changes', () {
       var selectedValuesChangedEventCounter = 0;
 

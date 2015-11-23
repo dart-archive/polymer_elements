@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.paper_input_container_test;
 
+import 'dart:async';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
@@ -20,28 +21,32 @@ main() async {
   await initWebComponents();
 
   group('label position', () {
-    test('label is visible by default', () {
+    test('label is visible by default', () async {
       PaperInputContainer container = fixture('basic');
+      await new Future(() {});
       expect(container.querySelector('#l').getComputedStyle().visibility,
           equals('visible'));
     });
 
-    test('label is floated if value is initialized to not null', () {
+    test('label is floated if value is initialized to not null', () async {
       PaperInputContainer container = fixture('has-value');
+      await new Future(() {});
       expect(
           getTransform(container.querySelector('#l')), isNot(equals('none')));
     });
 
     test(
         'label is invisible if no-label-float and value is initialized to not null',
-        () {
+        () async {
       PaperInputContainer container = fixture('no-float-has-value');
+      await new Future(() {});
       expect(container.querySelector('#l').getComputedStyle().visibility,
           equals('hidden'));
     });
 
-    test('label is floated if always-float-label is true', () {
+    test('label is floated if always-float-label is true', () async {
       PaperInputContainer container = fixture('always-float');
+      await new Future(() {});
       expect(
           getTransform(container.querySelector('#l')), isNot(equals('none')));
     });
@@ -50,6 +55,7 @@ main() async {
   group('focused styling', () {
     test('label is colored when input is focused and has value', () async {
       PaperInputContainer container = fixture('has-value');
+      await new Future(() {});
       var input = Polymer.dom(container).querySelector('#i');
       var inputContent = container.$$('.input-content');
       focus(input);
@@ -61,6 +67,7 @@ main() async {
     test('label is not colored when input is focused and has null value',
         () async {
       PaperInputContainer container = fixture('basic');
+      await new Future(() {});
       var input = Polymer.dom(container).querySelector('#i');
       var inputContent = container.$$('.input-content');
       focus(input);
@@ -70,6 +77,7 @@ main() async {
 
     test('underline is colored when input is focused', () async {
       PaperInputContainer container = fixture('basic');
+      await new Future(() {});
       var input = Polymer.dom(container).querySelector('#i');
       var line = container.$$('.underline');
       expect(line.classes.contains('is-highlighted'), isFalse);
@@ -81,8 +89,9 @@ main() async {
 
   group('validation', () {
     test('styled when the input is set to an invalid value with auto-validate',
-        () {
+        () async {
       PaperInputContainer container = fixture('auto-validate-numbers');
+      await new Future(() {});
       var input = Polymer.dom(container).querySelector('#i');
       var inputContent = container.$$('.input-content');
       var line = container.$$('.underline');
@@ -94,8 +103,9 @@ main() async {
 
     test(
         'styled when the input is set to an invalid value with auto-validate, with validator',
-        () {
+        () async {
       PaperInputContainer container = fixture('auto-validate-validator');
+      await new Future(() {});
       var input = Polymer.dom(container).querySelector('#i');
       var inputContent = container.$$('.input-content');
       var line = container.$$('.underline');
@@ -107,17 +117,19 @@ main() async {
 
     test(
         'styled when the input is set initially to an invalid value with auto-validate, with validator',
-        () {
+        () async {
       PaperInputContainer container =
           fixture('auto-validate-validator-has-invalid-value');
+          await new Future(() {});
       expect(container.invalid, isTrue);
       expect(container.$$('.underline').classes.contains('is-invalid'), isTrue);
     });
 
     test(
         'styled when the input is set to an invalid value with manual validation',
-        () {
+        () async {
       PaperInputContainer container = fixture('manual-validate-numbers');
+      await new Future(() {});
       IronInput input = Polymer.dom(container).querySelector('#i');
       var inputContent = container.$$('.input-content');
       var line = container.$$('.underline');

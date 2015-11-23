@@ -20,15 +20,17 @@ main() async {
 
   group('registration', () {
     IronForm f;
-    test('elements can be registered', () {
+    test('elements can be registered', () async {
       f = fixture('Basic');
+      await new Future(() {});
 
       expect(f.jsElement['_customElements']['length'], 1);
       expect(f.jsElement['elements']['length'], 1);
     });
 
-    test('elements can be unregistered', () {
+    test('elements can be unregistered', () async {
       f = fixture('Basic');
+      await new Future(() {});
       var element = f.querySelector('simple-element');
 
       expect(f.jsElement['_customElements']['length'], 1);
@@ -42,10 +44,11 @@ main() async {
       });
     });
   });
-  
+
   group('validation', () {
-    test('elements are validated if they don\'t have a name', () {
+    test('elements are validated if they don\'t have a name', () async {
       IronForm f = fixture('FormWithRequiredElements');
+      await new Future(() {});
       expect(f.jsElement['_customElements'].length, 1);
       expect(f.jsElement['elements']['length'], 1);
 
@@ -68,8 +71,9 @@ main() async {
       expect(context['Object'].callMethod('keys', [json]).length, 0);
     });
 
-    test('elements are validated if they have a name', () {
+    test('elements are validated if they have a name', () async {
       IronForm f = fixture('FormWithRequiredElements');
+      await new Future(() {});
       expect(f.jsElement['_customElements'].length, 1);
       expect(f.jsElement['elements']['length'], 1);
 
@@ -97,8 +101,9 @@ main() async {
 
   group('serializing', () {
     IronForm f;
-    test('serializes both custom and native elements', () {
+    test('serializes both custom and native elements', () async {
       f = fixture('Basic');
+      await new Future(() {});
 
       expect(f.jsElement['_customElements']['length'], 1);
       expect(f.jsElement['elements']['length'], 1);
@@ -109,8 +114,9 @@ main() async {
       expect(json['foo'], 'bar');
     });
 
-    test('serializes elements with duplicate names', () {
+    test('serializes elements with duplicate names', () async {
       f = fixture('Dupes');
+      await new Future(() {});
 
       expect(f.jsElement['_customElements']['length'], 3);
       expect(f.jsElement['elements']['length'], 2);

@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.paper_progress_test;
 
+import 'dart:async';
 import 'dart:html';
 import 'package:polymer_elements/paper_progress.dart';
 import 'package:web_components/web_components.dart';
@@ -103,8 +104,9 @@ main() async {
   group('transiting class', () {
     var progress;
 
-    setUp(() {
+    setUp(() async {
       progress = fixture('transitingProgress');
+      await new Future(() {});
     });
 
     test('progress bars', () {

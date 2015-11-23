@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.iron_selector_basic_test;
 
+import 'dart:async';
 import 'dart:html';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'package:polymer_elements/iron_selector.dart';
@@ -17,8 +18,9 @@ main() async {
   group('defaults', () {
     IronSelector s1;
 
-    setUp(() {
+    setUp(() async {
       s1 = fixture('defaults');
+      await new Future(() {});
     });
 
     test('to nothing selected', () {
@@ -49,8 +51,9 @@ main() async {
   group('basic', () {
     IronSelector s2;
 
-    setUp(() {
+    setUp(() async {
       s2 = fixture('basic');
+      await new Future(() {});
     });
 
     test('honors the attrForSelected attribute', () {
@@ -113,7 +116,7 @@ main() async {
         sub.cancel();
       });
     });
-    
+
     group('dynamic selector', () {
       test('selects dynamically added child automatically', () async {
         var selector = document.createElement('iron-selector');

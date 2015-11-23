@@ -18,8 +18,9 @@ main() async {
   group('activate event', () {
     IronSelector s;
 
-    setUp(() {
+    setUp(() async {
       s = fixture('test');
+      await new Future(() {});
     });
 
     test('activates on tap', () {
@@ -112,13 +113,13 @@ main() async {
       // shouldn't got selected since we preventDefault in iron-activate
       expect(s.selected, '0');
     });
-    
+
     test('activates after detach and re-attach', () {
       // Detach and re-attach
       var parent = s.parentNode;
       s.remove();
       parent.append(s);
-      
+
       // select Item 2
       s.children[2].dispatchEvent(new CustomEvent('tap', canBubble: true));
       expect(s.selected, 2);

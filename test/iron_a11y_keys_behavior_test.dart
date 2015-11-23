@@ -19,36 +19,38 @@ main() async {
     KeysTestBehavior keys;
 
     group('basic keys', () {
-      setUp(() {
+      setUp(() async {
         keys = fixture('BasicKeys');
+        await wait(1);
       });
-  
+
       test('trigger the handler when the specified key is pressed', () {
         pressSpace(keys);
-  
+
         expect(keys.keyCount, 1);
       });
-  
+
       test('do not trigger the handler for non-specified keys', () {
         pressEnter(keys);
-  
+
         expect(keys.keyCount, 0);
       });
-  
-      test('can have bindings added imperatively', () {
+
+      test('can have bindings added imperatively', () async {
         keys.addOwnKeyBinding('enter', 'keyHandler');
-  
+
+        await new Future(() {});
         pressEnter(keys);
         expect(keys.keyCount, 1);
-  
+
         pressSpace(keys);
         expect(keys.keyCount, 2);
       });
-  
+
       test('can remove imperatively added bindings', () {
         keys.addOwnKeyBinding('enter', 'keyHandler');
         keys.removeOwnKeyBindings();
-  
+
         pressEnter(keys);
         expect(keys.keyCount, 0);
 
@@ -70,7 +72,7 @@ main() async {
 
         return done;
       });
-  
+
       group('edge cases', () {
         test('knows that `spacebar` is the same as `space`', () {
           var event = new CustomEvent('keydown');
@@ -78,14 +80,14 @@ main() async {
           expect(keys.keyboardEventMatchesKeys(event, 'space'), true);
         });
       });
-  
+
       group('matching keyboard events to keys', () {
         test('can be done imperatively', () {
           var event = new CustomEvent('keydown');
           new JsObject.fromBrowserObject(event)['keyCode'] = 65;
           expect(keys.keyboardEventMatchesKeys(event, 'a'), true);
         });
-  
+
         test('can be done with a provided keyboardEvent', () {
           var event;
           pressSpace(keys);
@@ -95,7 +97,7 @@ main() async {
           expect(event.detail['keyboardEvent'], isNotNull);
           expect(keys.keyboardEventMatchesKeys(event.original, 'space'), true);
         });
-  
+
         test('can handle variations in arrow key names', () {
           var event = new CustomEvent('keydown');
           var jsEvent = new JsObject.fromBrowserObject(event);
@@ -106,13 +108,14 @@ main() async {
         });
       });
     });
-  
+
     group('combo keys', () {
-      setUp(() {
+      setUp(() async {
         keys = fixture('ComboKeys');
+        await wait(1);
       });
-  
-      test('trigger the handler when the combo is pressed', () {
+
+      test('trigger the handler when the combo is pressed', () async {
         var event = new CustomEvent('keydown');
         var jsEvent = new JsObject.fromBrowserObject(event);
 
@@ -121,43 +124,46 @@ main() async {
         jsEvent['keyCode'] = jsEvent['code'] = 65;
 
         keys.dispatchEvent(event);
-  
+
         expect(keys.keyCount, 1);
       });
     });
-  
+
     group('alternative event keys', () {
-      setUp(() {
+      setUp(() async {
         keys = fixture('AlternativeEventKeys');
+        await wait(1);
       });
-  
+
       test('trigger on the specified alternative keyboard event', () {
         keyDownOn(keys, 32);
-  
+
         expect(keys.keyCount, 0);
-  
+
         keyUpOn(keys, 32);
-  
+
         expect(keys.keyCount, 1);
       });
     });
-  
+
     group('behavior keys', () {
-      setUp(() {
+      setUp(() async {
         keys = fixture('BehaviorKeys');
+        await wait(1);
       });
-  
+
       test('bindings in other behaviors are transitive', () {
         pressEnter(keys);
         pressSpace(keys);
-  
+
         expect(keys.keyCount, 2);
       });
     });
 
     group('stopping propagation automatically', () {
-      setUp(() {
+      setUp(() async {
         keys = fixture('NonPropagatingKeys');
+        await wait(1);
       });
 
       test('does not propagate key events beyond the combo handler', () async {

@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.paper_progress_test;
 
+import 'dart:async';
 import 'dart:html';
 import 'package:polymer_elements/paper_item.dart';
 import 'package:polymer_elements/paper_submenu.dart';
@@ -27,8 +28,9 @@ main() async {
     IronCollapse collapse1, collapse2, collapse3;
     PaperItem trigger1, trigger2, trigger3;
 
-    setUp(() {
+    setUp(() async {
       menu = fixture('basic');
+      await new Future(() {});
 
       List subMenus = menu.querySelectorAll('paper-submenu');
 

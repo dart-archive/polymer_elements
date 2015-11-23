@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.gold_cc_ccv_input;
 
+import 'dart:async';
 import 'package:polymer_elements/gold_cc_cvc_input.dart';
 import 'package:polymer_elements/paper_input_error.dart';
 import 'package:polymer_interop/polymer_interop.dart';
@@ -20,7 +21,7 @@ main() async {
       expect(input.inputElement.maxLength, 3);
     });
 
-    test('max length for an amex cc is 4', () async {
+    test('max length for an amex cc is 4', () {
       GoldCcCvcInput input = fixture('amex');
 
       expect(input.inputElement.maxLength, 4);
@@ -93,15 +94,17 @@ main() async {
   });
 
   group('a11y', () {
-    test('has aria-labelledby', () {
+    test('has aria-labelledby', () async {
       GoldCcCvcInput input = fixture('basic');
+      await new Future(() {});
       expect(input.inputElement.getAttribute('aria-labelledby'), isNotNull);
       expect(input.inputElement.getAttribute('aria-labelledby'),
           input.querySelector('label').id,
           reason: 'aria-labelledby points to the label');
     });
-    test('required and error has aria-labelledby', () {
+    test('required and error has aria-labelledby', () async {
       GoldCcCvcInput input = fixture('required');
+      await new Future(() {});
       expect(input.inputElement.getAttribute('aria-labelledby'), isNotNull);
       expect(input.inputElement.getAttribute('aria-labelledby'),
           input.querySelector('label').id,

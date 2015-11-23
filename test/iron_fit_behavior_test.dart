@@ -31,8 +31,9 @@ main() async {
       expect(rect.left, 100, reason: 'left is unset');
     });
 
-    test('inline positioned element is not re-positioned', () {
+    test('inline positioned element is not re-positioned', () async {
       TestFit el = fixture('inline-positioned-xy');
+      await new Future(() {});
       var rect = el.getBoundingClientRect();
       // need to measure document.body here because mocha sets a min-width on
       // html,body, and the element is positioned wrt to that by css
@@ -55,8 +56,9 @@ main() async {
   });
 
   group('fit to window', () {
-    test('sized element is centered in viewport', () {
+    test('sized element is centered in viewport', () async {
       TestFit el = fixture('sized-xy');
+      await new Future(() {});
       var rect = el.getBoundingClientRect();
       expect(rect.left - (window.innerWidth - rect.right), closeTo(0, 5),
           reason: 'centered horizontally');

@@ -21,8 +21,9 @@ main() async {
   group('defaults', () {
     PaperToggleButton b1;
 
-    setUp(() {
+    setUp(() async {
       b1 = fixture('basic');
+      await new Future(() {});
     });
 
     test('check button via click', () {
@@ -70,8 +71,9 @@ main() async {
   group('a11y', () {
     PaperToggleButton b1;
 
-    setUp(() {
+    setUp(() async {
       b1 = fixture('basic');
+      await new Future(() {});
     });
 
     test('has aria role "button"', () {

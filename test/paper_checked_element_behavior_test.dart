@@ -25,8 +25,9 @@ main() async {
   group('PaperCheckedElementBehavior', () {
     TestChecked checked;
 
-    setUp(() {
+    setUp(() async {
       checked = fixture('basic');
+      await new Future(() {});
     });
 
     test('element checked when tapped to check', () {

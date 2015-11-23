@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.gold_phone_input;
 
+import 'dart:async';
 import 'package:polymer_elements/gold_phone_input.dart';
 import 'package:polymer_elements/iron_input.dart';
 import 'package:polymer_interop/polymer_interop.dart';
@@ -85,16 +86,18 @@ main() async {
   });
 
   group('a11y', () {
-    test('has aria-labelledby', () {
+    test('has aria-labelledby', () async {
       GoldPhoneInput input = fixture('basic');
+      await new Future(() {});
       expect(input.inputElement.getAttribute('aria-labelledby'), isNotNull);
       expect(input.inputElement.getAttribute('aria-labelledby'),
           input.querySelector('label').id,
           reason: 'aria-labelledby points to the label');
     });
 
-    test('required and error has aria-labelledby', () {
+    test('required and error has aria-labelledby', () async {
       GoldPhoneInput input = fixture('required');
+      await new Future(() {});
       expect(input.inputElement.getAttribute('aria-labelledby'), isNotNull);
       expect(input.inputElement.getAttribute('aria-labelledby'),
           input.querySelector('label').id,
