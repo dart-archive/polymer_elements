@@ -15,8 +15,9 @@ main() async {
 
   group('<paper-button>', () {
     PaperButton button;
-    setUp(() {
+    setUp(() async {
       button = fixture('TrivialButton');
+      await new Future(() {});
     });
 
     test('can be raised imperatively', () {

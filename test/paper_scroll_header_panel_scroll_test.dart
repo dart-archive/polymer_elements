@@ -29,8 +29,9 @@ main() async {
   group('scroll', () {
     PaperScrollHeaderPanel scrollHeaderPanel;
 
-    setUp(() {
+    setUp(() async {
       scrollHeaderPanel = fixture('trivialProgress');
+      await new Future(() {});
     });
 
     test('scroll smoothly', () {

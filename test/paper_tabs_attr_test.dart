@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.paper_tabs_attr_test;
 
+import 'dart:async';
 import 'dart:html';
 import 'package:polymer_elements/paper_tabs.dart';
 import 'package:polymer_elements/paper_tab.dart';
@@ -23,8 +24,9 @@ main() async {
   group('set the selected attribute', () {
     PaperTabs tabs;
 
-    setUp(() {
+    setUp(() async {
       tabs = fixture('basic');
+      await new Future(() {});
     });
 
     test('selected value', () {
@@ -42,8 +44,9 @@ main() async {
     PaperTabs tabs;
     PaperTab tab;
 
-    setUp(() {
+    setUp(() async {
       tabs = fixture('basic');
+      await new Future(() {});
       tab = tabs.querySelector('[name=zot]');
       tab.dispatchEvent(new CustomEvent('click', canBubble: true));
     });

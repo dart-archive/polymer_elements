@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.paper_toolbar_test;
 
+import 'dart:async';
 import 'dart:html';
 import 'package:polymer_elements/paper_toolbar.dart';
 import 'package:polymer_interop/polymer_interop.dart';
@@ -22,8 +23,9 @@ main() async {
   group('basic', () {
     PaperToolbar toolbar;
 
-    setUp(() {
+    setUp(() async {
       toolbar = fixture('basic');
+      await new Future(() {});
     });
 
     test('has expected medium-tall height', () {
@@ -75,14 +77,16 @@ main() async {
   });
 
   group('a11y', () {
-    test('has role="toolbar"', () {
+    test('has role="toolbar"', () async {
       PaperToolbar toolbar = fixture('basic');
+      await new Future(() {});
       expect(toolbar.getAttribute('role'), equals('toolbar'),
           reason: 'should have role="toolbar"');
     });
 
-    test('children with .title becomes the label', () {
+    test('children with .title becomes the label', () async {
       PaperToolbar toolbar = fixture('title');
+      await new Future(() {});
       expect(toolbar.getAttribute('aria-labelledby'), isNotNull,
           reason: 'should have aria-labelledby');
       expect(toolbar.getAttribute('aria-labelledby'),
@@ -90,16 +94,18 @@ main() async {
           reason: 'aria-labelledby should have the id of the .title element');
     });
 
-    test('existing ids on titles are preserved', () {
+    test('existing ids on titles are preserved', () async {
       PaperToolbar toolbar = fixture('title-with-id');
+      await new Future(() {});
       expect(toolbar.getAttribute('aria-labelledby'), isNotNull,
           reason: 'should have aria-labelledby');
       expect(toolbar.querySelector('.title').id, equals('title'),
           reason: 'id should be preserved');
     });
 
-    test('multiple children with .title becomes the label', () {
+    test('multiple children with .title becomes the label', () async {
       PaperToolbar toolbar = fixture('multiple-titles');
+      await new Future(() {});
 
       expect(toolbar.getAttribute('aria-labelledby'), isNotNull,
           reason: 'should have aria-labelledby');

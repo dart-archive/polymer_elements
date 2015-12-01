@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.marked_element_test;
 
+import 'dart:async';
 import 'dart:html';
 import 'package:polymer_elements/marked_element.dart';
 import 'package:test/test.dart';
@@ -45,10 +46,11 @@ main() async {
       DivElement proofElement;
       DivElement outputElement;
 
-      setUp(() {
+      setUp(() async {
         markedElement = fixture('CamelCaseHTML');
         proofElement = document.createElement('div');
         outputElement = document.getElementById('output');
+        await new Future(() {});
       });
 
       test('in code blocks', () {
@@ -72,10 +74,11 @@ main() async {
       DivElement proofElement;
       DivElement outputElement;
 
-      setUp(() {
+      setUp(() async {
         markedElement = fixture('BadHTML');
         proofElement = document.createElement('div');
         outputElement = document.getElementById('output');
+        await new Future(() {});
       });
 
       test('in code blocks', () {
@@ -105,9 +108,10 @@ main() async {
         var markedElement;
         var proofElement;
 
-        setUp(() {
+        setUp(() async {
           markedElement = fixture('CamelCaseHTMLWithoutChild');
           proofElement = document.createElement('div');
+          await new Future(() {});
         });
 
         test('in code blocks', () {
@@ -129,9 +133,10 @@ main() async {
         var markedElement;
         var proofElement;
 
-        setUp(() {
+        setUp(() async {
           markedElement = fixture('BadHTMLWithoutChild');
           proofElement = document.createElement('div');
+          await new Future(() {});
         });
 
         test('in code blocks', () {

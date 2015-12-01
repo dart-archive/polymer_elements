@@ -26,8 +26,9 @@ main() async {
   group('basic overlay tests', () {
     TestOverlay overlay;
 
-    setUp(() {
+    setUp(() async {
       overlay = fixture('basic');
+      await new Future(() {});
     });
 
     test('overlay starts hidden', () {
@@ -228,8 +229,9 @@ main() async {
   group('multiple overlays', () {
     List<TestOverlay> overlays;
 
-    setUp(() {
+    setUp(() async {
       overlays = fixture('multiple');
+      await new Future(() {});
     });
 
     test('new overlays appear on top', () {
@@ -250,8 +252,9 @@ main() async {
   group('overlays with backdrop', () {
     List<TestOverlay> overlays;
 
-    setUp(() {
+    setUp(() async {
       overlays = fixture('backdrop-multiple');
+      await new Future(() {});
     });
 
     test('backdrop appears behind the overlay', () {

@@ -17,8 +17,9 @@ main() async {
   group('defaults', () {
     PaperCheckbox c1;
 
-    setUp(() {
+    setUp(() async {
       c1 = fixture('NoLabel');
+      await new Future(() {});
     });
 
     test('check checkbox via click', () {

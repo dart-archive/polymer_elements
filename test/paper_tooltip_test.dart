@@ -27,8 +27,9 @@ main() async {
   }
 
   group('basic', () {
-    test('tooltip is shown when target is focused', () {
+    test('tooltip is shown when target is focused', () async {
       DivElement f = fixture('no-text');
+      await new Future(() {});
       DivElement target = f.querySelector('#target');
       PaperTooltip tooltip = f.querySelector('paper-tooltip');
 
@@ -39,8 +40,9 @@ main() async {
       expect(isHidden(actualTooltip), isTrue);
     });
 
-    test('tooltip is not shown if empty', () {
+    test('tooltip is not shown if empty', () async {
       HtmlElement f = fixture('basic');
+      await new Future(() {});
       DivElement target = f.querySelector('#target');
       PaperTooltip tooltip = f.querySelector('paper-tooltip');
 
@@ -51,8 +53,9 @@ main() async {
       expect(isHidden(actualTooltip), isFalse);
     });
 
-    test('tooltip is positioned correctly (bottom)', () {
+    test('tooltip is positioned correctly (bottom)', () async {
       HtmlElement f = fixture('basic');
+      await new Future(() {});
       DivElement target = f.querySelector('#target');
       PaperTooltip tooltip = f.querySelector('paper-tooltip');
 
@@ -82,8 +85,9 @@ main() async {
       expect(contentRect.top, equals(divRect.height + tooltip.offset));
     });
 
-    test('tooltip is positioned correctly (top)', () {
+    test('tooltip is positioned correctly (top)', () async {
       DivElement f = fixture('basic');
+      await new Future(() {});
       DivElement target = f.querySelector('#target');
       PaperTooltip tooltip = f.querySelector('paper-tooltip');
       tooltip.position = 'top';
@@ -105,16 +109,17 @@ main() async {
       // The target div width is 100, and the tooltip width is 70, and
       // it's centered. The height of the tooltip is 30, and the
       // tooltip is 14px above the target.
-      expect(contentRect.left, (100 - 70) / 2);
+      expect(contentRect.left, (100 - 70)/2);
       expect(contentRect.top, 0 - 30 - 14);
 
       // Also check the math, just in case.
-      expect(contentRect.left, (divRect.width - contentRect.width) / 2);
+      expect(contentRect.left, (divRect.width - contentRect.width)/2);
       expect(contentRect.top, 0 - contentRect.height - tooltip.offset);
     });
 
-    test('tooltip is positioned correctly (right)', () {
+    test('tooltip is positioned correctly (right)', () async {
       DivElement f = fixture('basic');
+      await new Future(() {});
       DivElement target = f.querySelector('#target');
       PaperTooltip tooltip = f.querySelector('paper-tooltip');
       tooltip.position = 'right';
@@ -137,15 +142,16 @@ main() async {
       // The target div height is 20, the height of the tooltip is 20px, and
       // the tooltip is centered.
       expect(contentRect.left, 100 + 14);
-      expect(contentRect.top, (20 - 30) / 2);
+      expect(contentRect.top, (20 - 30)/2);
 
       // Also check the math, just in case.
       expect(contentRect.left, divRect.width + tooltip.offset);
-      expect(contentRect.top, (divRect.height - contentRect.height) / 2);
+      expect(contentRect.top, (divRect.height - contentRect.height)/2);
     });
 
-    test('tooltip is positioned correctly (left)', () {
+    test('tooltip is positioned correctly (left)', () async {
       DivElement f = fixture('basic');
+      await new Future(() {});
       DivElement target = f.querySelector('#target');
       PaperTooltip tooltip = f.querySelector('paper-tooltip');
       tooltip.position = 'left';
@@ -168,15 +174,16 @@ main() async {
       // The target div height is 20, the height of the tooltip is 20px, and
       // the tooltip is centered.
       expect(contentRect.left, 0 - 70 - 14);
-      expect(contentRect.top, (20 - 30) / 2);
+      expect(contentRect.top, (20 - 30)/2);
 
       // Also check the math, just in case.
       expect(contentRect.left, 0 - contentRect.width - tooltip.offset);
-      expect(contentRect.top, (divRect.height - contentRect.height) / 2);
+      expect(contentRect.top, (divRect.height - contentRect.height)/2);
     });
 
-    test('tooltip is fitted correctly if out of bounds', () {
+    test('tooltip is fitted correctly if out of bounds', () async {
       DivElement f = fixture('fitted');
+      await new Future(() {});
       DivElement target = f.querySelector('#target');
       PaperTooltip tooltip = f.querySelector('paper-tooltip');
       target.style.top = '0px';
@@ -196,8 +203,10 @@ main() async {
       expect(contentRect.top, divRect.height + tooltip.offset);
     });
 
-    test('tooltip is positioned correctly after being dynamically set', () {
+    test('tooltip is positioned correctly after being dynamically set',
+        () async {
       HtmlElement f = fixture('dynamic');
+      await new Future(() {});
       DivElement target = f.querySelector('#target');
       PaperTooltip tooltip = f.querySelector('paper-tooltip');
 
@@ -231,10 +240,11 @@ main() async {
       expect(contentRect.top, equals(20 + 14));
     });
 
-    test('tooltip is hidden after target is blurred', () {
+    test('tooltip is hidden after target is blurred', () async {
       Completer done = new Completer();
 
       HtmlElement f = fixture('basic');
+      await new Future(() {});
       DivElement target = f.querySelector('#target');
       PaperTooltip tooltip = f.querySelector('paper-tooltip');
 
@@ -252,8 +262,9 @@ main() async {
       return done.future;
     });
 
-    test('tooltip unlistens to target on detach', () {
+    test('tooltip unlistens to target on detach', () async {
       HtmlElement f = fixture('basic');
+      await new Future(() {});
       DivElement target = f.querySelector('#target');
       PaperTooltip tooltip = f.querySelector('paper-tooltip');
 
@@ -279,10 +290,11 @@ main() async {
     PaperTooltip tooltip;
     HtmlElement target;
 
-    setUp(() {
+    setUp(() async {
       f = fixture('custom');
       target = f.$['button'];
       tooltip = f.$['buttonTooltip'];
+      await new Future(() {});
     });
 
     test('tooltip is shown when target is focused', () {
@@ -321,8 +333,9 @@ main() async {
   });
 
   group('a11y', () {
-    test('has aria role "tooltip"', () {
+    test('has aria role "tooltip"', () async {
       HtmlElement f = fixture('basic');
+      await new Future(() {});
       PaperTooltip tooltip = f.querySelector('paper-tooltip');
 
       expect(tooltip.getAttribute('role'), equals('tooltip'));

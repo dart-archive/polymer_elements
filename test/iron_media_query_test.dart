@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.iron_media_query_test;
 
+import 'dart:async';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'package:polymer_elements/iron_media_query.dart';
 import 'package:test/test.dart';
@@ -17,8 +18,9 @@ main() async {
     IronMediaQuery mq;
 
     group('set query with different values', () {
-      setUp(() {
+      setUp(() async {
         mq = fixture('basic');
+        await new Future(() {});
       });
 
       test('small min-width value', () {
@@ -61,6 +63,7 @@ main() async {
       });
 
       group('query does not activate on empty string or null', () {
+
         test('empty string', () {
           mq.mediaQuery = '';
           expect(mq.jsElement['_mq'], isNull);
@@ -70,6 +73,7 @@ main() async {
           mq.mediaQuery = null;
           expect(mq.jsElement['_mq'], isNull);
         });
+
       });
 
       test('media query destroys on detach', () {

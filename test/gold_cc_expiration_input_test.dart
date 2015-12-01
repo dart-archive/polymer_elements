@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.gold_cc_expiration_input;
 
+import 'dart:async';
 import 'package:polymer_elements/gold_cc_expiration_input.dart';
 import 'package:polymer_elements/date_input.dart';
 import 'package:polymer_elements/paper_input_error.dart';
@@ -112,8 +113,9 @@ main() async {
   });
 
   group('a11y', () {
-    test('has aria-labelledby', () {
+    test('has aria-labelledby', () async {
       GoldCcExpirationInput input = fixture('basic');
+      await new Future(() {});
       var month = input.querySelectorAll('input')[0];
       var year = input.querySelectorAll('input')[1];
       var label = input.querySelector('label').id;

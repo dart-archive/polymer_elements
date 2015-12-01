@@ -20,8 +20,9 @@ main() async {
     KeysTestBehavior keys;
 
     group('basic keys', () {
-      setUp(() {
+      setUp(() async {
         keys = fixture('BasicKeys');
+        await wait(1);
       });
 
       test('trigger the handler when the specified key is pressed', () {
@@ -36,9 +37,10 @@ main() async {
         expect(keys.keyCount, 0);
       });
 
-      test('can have bindings added imperatively', () {
+      test('can have bindings added imperatively', () async {
         keys.addOwnKeyBinding('enter', 'keyHandler');
 
+        await new Future(() {});
         pressEnter(keys);
         expect(keys.keyCount, 1);
 
@@ -109,11 +111,12 @@ main() async {
     });
 
     group('combo keys', () {
-      setUp(() {
+      setUp(() async {
         keys = fixture('ComboKeys');
+        await wait(1);
       });
 
-      test('trigger the handler when the combo is pressed', () {
+      test('trigger the handler when the combo is pressed', () async {
         var event = new CustomEvent('keydown');
         var jsEvent = new JsObject.fromBrowserObject(event);
 
@@ -128,8 +131,9 @@ main() async {
     });
 
     group('alternative event keys', () {
-      setUp(() {
+      setUp(() async {
         keys = fixture('AlternativeEventKeys');
+        await wait(1);
       });
 
       test('trigger on the specified alternative keyboard event', () {
@@ -144,8 +148,9 @@ main() async {
     });
 
     group('behavior keys', () {
-      setUp(() {
+      setUp(() async {
         keys = fixture('BehaviorKeys');
+        await wait(1);
       });
 
       test('bindings in other behaviors are transitive', () {
@@ -157,8 +162,9 @@ main() async {
     });
 
     group('stopping propagation automatically', () {
-      setUp(() {
+      setUp(() async {
         keys = fixture('NonPropagatingKeys');
+        await wait(1);
       });
 
       test('does not propagate key events beyond the combo handler', () async {
@@ -193,8 +199,7 @@ main() async {
 }
 
 @behavior
-abstract class KeysTestBehavior
-    implements PolymerMixin, PolymerBase, HtmlElement, IronA11yKeysBehavior {
+abstract class KeysTestBehavior implements PolymerMixin, PolymerBase, HtmlElement, IronA11yKeysBehavior {
   @property
   int keyCount = 0;
 
@@ -214,8 +219,7 @@ abstract class KeysTestBehavior
 }
 
 @PolymerRegister('x-a11y-basic-keys')
-class XA11yBasicKeys extends PolymerElement
-    with IronA11yKeysBehavior, KeysTestBehavior {
+class XA11yBasicKeys extends PolymerElement with IronA11yKeysBehavior, KeysTestBehavior {
   XA11yBasicKeys.created() : super.created();
 
   ready() {
@@ -224,8 +228,7 @@ class XA11yBasicKeys extends PolymerElement
 }
 
 @PolymerRegister('x-a11y-combo-keys')
-class XA11yComboKeys extends PolymerElement
-    with IronA11yKeysBehavior, KeysTestBehavior {
+class XA11yComboKeys extends PolymerElement with IronA11yKeysBehavior, KeysTestBehavior {
   XA11yComboKeys.created() : super.created();
 
   ready() {
@@ -234,8 +237,7 @@ class XA11yComboKeys extends PolymerElement
 }
 
 @PolymerRegister('x-a11y-alternate-event-keys')
-class XA11yAlternateEventKeys extends PolymerElement
-    with IronA11yKeysBehavior, KeysTestBehavior {
+class XA11yAlternateEventKeys extends PolymerElement with IronA11yKeysBehavior, KeysTestBehavior {
   XA11yAlternateEventKeys.created() : super.created();
 
   ready() {
@@ -245,7 +247,7 @@ class XA11yAlternateEventKeys extends PolymerElement
 
 @behavior
 abstract class XA11yBehavior implements KeysTestBehavior {
-  static ready(KeysTestBehavior instance) {
+  static ready(KeysTestBehavior instance)  {
     instance.addOwnKeyBinding('enter', 'keyHandler');
   }
 }

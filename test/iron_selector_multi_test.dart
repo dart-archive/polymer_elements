@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.iron_selector_multi_test;
 
+import 'dart:async';
 import 'dart:html';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'package:polymer_elements/iron_selector.dart';
@@ -18,9 +19,10 @@ main() async {
     IronSelector s;
     TemplateElement t;
 
-    setUp(() {
+    setUp(() async {
       s = fixture('test');
       t = Polymer.dom(s).querySelector('[is="dom-repeat"]');
+      await new Future(() {});
     });
 
     test('honors the multi attribute', () {
@@ -84,7 +86,7 @@ main() async {
       expect(selectEventCounter, 1);
       expect(deselectEventCounter, 1);
     });
-
+    
     test('fires selected-values-changed when selection changes', () {
       var selectedValuesChangedEventCounter = 0;
 
@@ -147,5 +149,6 @@ main() async {
       // selected should be the first value from the old array
       expect(s.selected, first);
     }); */
+
   });
 }

@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.paper_textarea_test;
 
+import 'dart:async';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
@@ -108,8 +109,9 @@ main() async {
   });
 
   group('a11y', () {
-    test('has aria-labelledby', () {
+    test('has aria-labelledby', () async {
       PaperTextarea input = fixture('label');
+      await new Future(() {});
       expect(
           input.inputElement.textarea.attributes.containsKey('aria-labelledby'),
           isTrue);

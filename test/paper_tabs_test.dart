@@ -4,8 +4,8 @@
 @TestOn('browser')
 library polymer_elements.test.paper_tabs_test;
 
-import 'dart:html';
 import 'dart:async';
+import 'dart:html';
 import 'package:polymer_elements/paper_tabs.dart';
 import 'package:polymer_elements/paper_tab.dart';
 import 'package:web_components/web_components.dart';
@@ -30,8 +30,9 @@ main() async {
   group('defaults', () {
     PaperTabs tabs;
 
-    setUp(() {
+    setUp(() async {
       tabs = fixture('basic');
+      await new Future(() {});
     });
 
     test('to nothing selected', () {
@@ -80,8 +81,9 @@ main() async {
   group('hidden tabs', () {
     PaperTabs tabs;
 
-    setUp(() {
+    setUp(() async {
       tabs = fixture('hiddenTabs');
+      await new Future(() {});
     });
 
     test('choose the correct bar position once made visible', () {
@@ -96,8 +98,9 @@ main() async {
     PaperTabs tabs;
     int index = 0;
 
-    setUp(() {
+    setUp(() async {
       tabs = fixture('basic');
+      await new Future(() {});
       tabs.selected = index.toString();
     });
 
@@ -122,8 +125,9 @@ main() async {
     PaperTab tab;
     int index = 1;
 
-    setUp(() {
+    setUp(() async {
       tabs = fixture('basic');
+      await new Future(() {});
       tab = tabs.querySelectorAll('paper-tab')[index];
       tab.dispatchEvent(new CustomEvent('click', canBubble: true));
     });

@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.paper_input_char_counter_test;
 
+import 'dart:async';
 import 'dart:html';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'package:test/test.dart';
@@ -19,16 +20,18 @@ main() async {
   await initWebComponents();
 
   group('basic', () {
-    test('character counter shows the value length', () {
+    test('character counter shows the value length', () async {
       PaperInputContainer container = fixture('counter');
+      await new Future(() {});
       InputElement input = Polymer.dom(container).querySelector('#i');
       PaperInputCharCounter counter =
           Polymer.dom(container).querySelector('#c');
       expect(counter.jsElement['_charCounterStr'], equals(input.value.length));
     });
 
-    test('character counter shows the value length with maxlength', () {
+    test('character counter shows the value length with maxlength', () async {
       PaperInputContainer container = fixture('counter-with-max');
+      await new Future(() {});
       InputElement input = Polymer.dom(container).querySelector('#i');
       PaperInputCharCounter counter =
           Polymer.dom(container).querySelector('#c');
@@ -36,8 +39,9 @@ main() async {
           equals("${input.value.length}/${input.maxLength}"));
     });
 
-    test('character counter shows the value length with maxlength', () {
+    test('character counter shows the value length with maxlength', () async {
       PaperTextarea input = fixture('textarea-with-max');
+      await new Future(() {});
       forceXIfStamp(input);
       PaperInputCharCounter counter = Polymer
           .dom(input.jsElement['root'])
@@ -49,8 +53,9 @@ main() async {
               '${input.inputElement.textarea.getAttribute('maxlength')}'));
     });
 
-    test('character counter counts new lines in textareas correctly', () {
+    test('character counter counts new lines in textareas correctly', () async {
       PaperTextarea input = fixture('textarea');
+      await new Future(() {});
       input.value = 'foo\nbar';
       forceXIfStamp(input);
       PaperInputCharCounter counter = Polymer

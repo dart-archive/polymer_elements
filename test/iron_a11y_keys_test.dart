@@ -20,12 +20,11 @@ main() async {
     IronA11yKeys keys;
 
     setUp(() {
-      keys = new IronA11yKeys();
-      document.body.innerHtml = '';
-      document.body.append(keys);
+      keys = fixture('basic');
     });
 
-    test('target is parentNode by default', () {
+    test('target is parentNode by default', () async {
+      await wait(1);
       expect(keys.target, keys.parentNode);
     });
 
@@ -44,7 +43,7 @@ main() async {
         return done.future;
       });
 
-      test('will not trigger events for non-specified keys', () {
+      test('will not trigger events for non-specified keys', () async {
         var keysPressedCount = 0;
 
         keys.keys = 'space';
@@ -53,13 +52,14 @@ main() async {
           keysPressedCount++;
         });
 
+        await new Future(() {});
         pressSpace(keys.parentNode);
         pressEnter(keys.parentNode);
 
         expect(keysPressedCount, 1);
       });
 
-      test('triggers events for space separated keys', () {
+      test('triggers events for space separated keys', () async {
         var keysPressed = '';
 
         keys.keys = 'a b c';
@@ -68,6 +68,7 @@ main() async {
           keysPressed += new JsObject.fromBrowserObject(event)['detail']['key'];
         });
 
+        await new Future(() {});
         pressAndReleaseKeyOn(keys.parentNode, 65);
         pressAndReleaseKeyOn(keys.parentNode, 66);
         pressAndReleaseKeyOn(keys.parentNode, 67);
@@ -77,7 +78,7 @@ main() async {
     });
 
     group('event listeners', () {
-      test('listeners are only active when element is in document', () {
+      test('listeners are only active when element is in document', () async {
         var keysPressedCount = 0;
         var parent = keys.parentNode;
 
@@ -87,6 +88,7 @@ main() async {
           keysPressedCount++;
         });
 
+        await new Future(() {});
         pressSpace(parent);
         expect(keysPressedCount, 1);
 

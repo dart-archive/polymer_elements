@@ -23,8 +23,9 @@ main() async {
     PaperToolbar toolbar;
     var content;
 
-    setUp(() {
+    setUp(() async {
       scrollHeaderPanel = fixture('trivialProgress');
+      await new Future(() {});
 
       toolbar = Polymer.dom(scrollHeaderPanel).querySelector('paper-toolbar');
       content = Polymer.dom(scrollHeaderPanel).querySelector('.content');

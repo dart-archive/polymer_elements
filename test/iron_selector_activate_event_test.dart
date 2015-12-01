@@ -18,8 +18,9 @@ main() async {
   group('activate event', () {
     IronSelector s;
 
-    setUp(() {
+    setUp(() async {
       s = fixture('test');
+      await new Future(() {});
     });
 
     test('activates on tap', () {

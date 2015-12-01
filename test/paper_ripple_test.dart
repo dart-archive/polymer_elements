@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.paper_ripple_test;
 
+import 'dart:async';
 import 'dart:html' hide Point;
 import 'package:polymer_elements/paper_ripple.dart';
 import 'package:test/test.dart';
@@ -19,8 +20,9 @@ main() async {
     PaperRipple ripple;
 
     group('when tapped', () {
-      setUp(() {
+      setUp(() async {
         rippleContainer = fixture('TrivialRipple');
+        await new Future(() {});
         ripple = rippleContainer.children.first;
       });
 
@@ -40,8 +42,9 @@ main() async {
     });
 
     group('when holdDown is togggled', () {
-      setUp(() {
+      setUp( () async {
         rippleContainer = fixture('TrivialRipple');
+        await new Future(() {});
         ripple = rippleContainer.children.first;
       });
 
@@ -54,23 +57,26 @@ main() async {
         ripple.noink = true;
         ripple.holdDown = true;
         expect(ripple.ripples.length, 1);
+
       });
+
     });
 
-    group('when target is noink', () {
-      setUp(() {
+    group('when target is noink',  () {
+      setUp(() async {
         rippleContainer = fixture('NoinkTarget');
+        await new Future(() {});
         ripple = rippleContainer.children.first;
       });
 
-      test('tapping does not create a ripple', () {
+      test('tapping does not create a ripple',  () {
         expect(ripple.keyEventTarget, ripple);
         expect(ripple.ripples.length, 0);
         down(ripple);
         expect(ripple.ripples.length, 0);
       });
 
-      test('ripples can be manually created', () {
+      test('ripples can be manually created',  () {
         expect(ripple.ripples.length, 0);
         ripple.simulatedRipple();
         expect(ripple.ripples.length, 1);
@@ -78,8 +84,9 @@ main() async {
     });
 
     group('with the `center` attribute set to true', () {
-      setUp(() {
+      setUp(() async {
         rippleContainer = fixture('CenteringRipple');
+        await new Future(() {});
         ripple = rippleContainer.children.first;
       });
 
@@ -101,8 +108,9 @@ main() async {
     });
 
     group('with the `recenters` attribute set to true', () {
-      setUp(() {
+      setUp(() async {
         rippleContainer = fixture('RecenteringRipple');
+        await new Future(() {});
         ripple = rippleContainer.children.first;
         mouseEvent = fakeMouseEvent(ripple, 10, 10);
       });

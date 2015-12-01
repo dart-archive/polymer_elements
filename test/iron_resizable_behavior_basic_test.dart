@@ -2,13 +2,12 @@
 library polymer_elements.test.iron_resizable_behavior_basic_test;
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:html';
-import 'dart:js';
-import 'package:polymer_interop/polymer_interop.dart';
+
 import 'package:polymer/polymer.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:test/test.dart';
-import 'package:web_components/web_components.dart';
+
 import 'common.dart';
 import 'fixtures/iron_resizable_elements.dart';
 
@@ -46,13 +45,14 @@ main() async {
   group('iron-resizable-behavior', () {
     TestElement testEl;
 
-    setUp(() {
+    setUp(() async {
       pendingNotifications = 0;
       testEl = fixture('TestElement');
+      await new Future(() {});
     });
 
     group('x-resizer-parent', () {
-      test('notify resizables from window', () {
+      test('notify resizables from window', () async {
         var listeners = [
           ListenForResize(testEl.$['parent']),
           ListenForResize(testEl.$['child1a']),
@@ -61,13 +61,12 @@ main() async {
           ListenForResize(testEl.$['shadow1d'].$['resizable'])
         ];
 
-        return wait(1).then((_) {
-          window.dispatchEvent(new CustomEvent('resize', canBubble: false));
+        await wait(1);
 
-          expect(pendingNotifications, 0);
+        window.dispatchEvent(new CustomEvent('resize', canBubble: false));
+        expect(pendingNotifications, 0);
 
-          RemoveListeners(listeners);
-        });
+        RemoveListeners(listeners);
       });
 
       test('notify resizables from parent', () {

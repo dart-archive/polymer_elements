@@ -4,6 +4,7 @@
 @TestOn('browser')
 library polymer_elements.test.paper_dropdown_menu_test;
 
+import 'dart:async';
 import 'package:polymer_elements/paper_dropdown_menu.dart';
 import 'package:polymer_elements/paper_listbox.dart';
 import 'package:polymer_interop/polymer_interop.dart';
@@ -66,8 +67,9 @@ main() async {
     });
 
     group('when a value is preselected', () {
-      setUp(() {
+      setUp(() async {
         dropdownMenu = fixture('PreselectedDropdownMenu');
+        await new Future(() {});
       });
 
       test('the input area shows the correct selection', () {
@@ -77,7 +79,7 @@ main() async {
         expect(dropdownMenu.selectedItem, secondItem);
       });
     });
-
+    
     group('deselecting', () {
       var menu;
 
@@ -112,10 +114,11 @@ main() async {
         expect(dropdownMenu.value, 'Bar');
       });
 
-      test('a required dropdown is invalid without a selection', () {
+      test('a required dropdown is invalid without a selection', () async {
         PaperDropdownMenu dropdownMenu = fixture('TrivialDropdownMenu');
         PolymerDom.flush();
 
+        await new Future(() {});
         dropdownMenu.required = true;
 
         // no selection.
@@ -124,8 +127,9 @@ main() async {
         expect(dropdownMenu.value, isNull);
       });
 
-      test('a required dropdown is valid with a selection', () {
+      test('a required dropdown is valid with a selection', () async {
         PaperDropdownMenu dropdownMenu = fixture('PreselectedDropdownMenu');
+        await new Future(() {});
         PolymerDom.flush();
 
         dropdownMenu.required = true;
