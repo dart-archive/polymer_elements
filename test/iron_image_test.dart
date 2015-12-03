@@ -67,24 +67,22 @@ main() async {
     });
   });
 
-  group('--iron-image-width, --iron-image-height', () {
+  group('--iron-image-width', () {
     var fixedWidthContainer;
     var fixedWidthIronImage;
-    var fixedHeightContainer;
-    var fixedHeightIronImage;
 
     setUp(() {
       fixedWidthContainer = fixture('FixedWidthContainer');
       fixedWidthIronImage = fixedWidthContainer.querySelector('iron-image');
-      fixedHeightContainer = fixture('FixedHeightContainer');
-      fixedHeightIronImage = fixedHeightContainer.querySelector('iron-image');
     });
 
-    test('100% width image fills container', () {
+    test('100% width image fills container', ()  {
       Completer done = new Completer();
-      fixedWidthIronImage.$['img'].on['load'].take(1).listen((Event e) {
+      fixedWidthIronImage.$['img'].on['load'].take(1).listen((Event e) async {
         //fixedWidthIronImage.$.img.removeEventListener('load', onLoadedChanged);
         Polymer.updateStyles();
+
+        await wait(1);
 
         var containerRect = fixedWidthContainer.getBoundingClientRect();
         var ironImageRect = fixedWidthIronImage.getBoundingClientRect();
@@ -102,6 +100,19 @@ main() async {
       return done.future;
     });
 
+
+  });
+
+  group('--iron-image-height', () {
+    var fixedHeightContainer;
+    var fixedHeightIronImage;
+
+    setUp(() {
+      fixedHeightContainer = fixture('FixedHeightContainer');
+      fixedHeightIronImage = fixedHeightContainer.querySelector('iron-image');
+    });
+
+   
     test('100% height image fills container', () {
       Completer done = new Completer();
       fixedHeightIronImage.$['img'].on['load'].take(1).listen((Event e) {
@@ -110,7 +121,7 @@ main() async {
         var containerRect = fixedHeightContainer.getBoundingClientRect();
         var ironImageRect = fixedHeightIronImage.getBoundingClientRect();
         var wrappedImageRect =
-            fixedHeightIronImage.$['img'].getBoundingClientRect();
+        fixedHeightIronImage.$['img'].getBoundingClientRect();
 
         expect(containerRect.height, closeTo(500, 0.5));
         expect(ironImageRect.height, closeTo(500, 0.5));
