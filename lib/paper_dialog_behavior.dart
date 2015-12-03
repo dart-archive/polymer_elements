@@ -11,9 +11,12 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_overlay_behavior.dart';
 import 'iron_fit_behavior.dart';
 import 'iron_resizable_behavior.dart';
-import 'paper_styles.dart';
+import 'iron_flex_layout.dart';
+import 'default_theme.dart';
+import 'typography.dart';
+import 'shadow.dart';
 
-/// Use `Polymer.PaperDialogBehavior` and `paper-dialog-common.css` to implement a Material Design
+/// Use `Polymer.PaperDialogBehavior` and `paper-dialog-shared-styles.html` to implement a Material Design
 /// dialog.
 ///
 /// For example, if `<paper-dialog-impl>` implements this behavior:
@@ -27,7 +30,7 @@ import 'paper_styles.dart';
 ///         </div>
 ///     </paper-dialog-impl>
 ///
-/// `paper-dialog-common.css` provide styles for a header, content area, and an action area for buttons.
+/// `paper-dialog-shared-styles.html` provide styles for a header, content area, and an action area for buttons.
 /// Use the `<h2>` tag for the header and the `buttons` class for the action area. You can use the
 /// `paper-dialog-scrollable` element (in its own repository) if you need a scrolling content area.
 ///

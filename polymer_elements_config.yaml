@@ -248,6 +248,7 @@ files_to_generate:
   - paper-checkbox/paper-checkbox.html
   - paper-dialog/paper-dialog.html
   - paper-dialog-behavior/paper-dialog-behavior.html
+  - paper-dialog-behavior/paper-dialog-shared-styles.html
   - paper-dialog-scrollable/paper-dialog-scrollable.html
   - paper-drawer-panel/paper-drawer-panel.html
   - paper-dropdown-menu/paper-dropdown-menu.html
