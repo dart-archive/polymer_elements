@@ -78,11 +78,9 @@ main() async {
 
     test('100% width image fills container', ()  {
       Completer done = new Completer();
-      fixedWidthIronImage.$['img'].on['load'].take(1).listen((Event e) async {
+      fixedWidthIronImage.$['img'].on['load'].take(1).listen((Event e) {
         //fixedWidthIronImage.$.img.removeEventListener('load', onLoadedChanged);
         Polymer.updateStyles();
-
-        await wait(1);
 
         var containerRect = fixedWidthContainer.getBoundingClientRect();
         var ironImageRect = fixedWidthIronImage.getBoundingClientRect();
@@ -112,7 +110,7 @@ main() async {
       fixedHeightIronImage = fixedHeightContainer.querySelector('iron-image');
     });
 
-   
+
     test('100% height image fills container', () {
       Completer done = new Completer();
       fixedHeightIronImage.$['img'].on['load'].take(1).listen((Event e) {
