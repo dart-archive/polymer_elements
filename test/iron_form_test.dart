@@ -180,7 +180,7 @@ main() async {
       expect(checkbox2.checked, isFalse);
 
       // Change the values.
-      customElement.value = 'not zag';
+      customElement.set("value", 'not zag');
       input.value = 'not bar';
       checkbox1.checked = false;
       checkbox2.checked = true;
@@ -249,7 +249,8 @@ main() async {
         expect(presubmitted, isTrue);
 
         // We have changed the json parameters
-        expect(convertToDart(event).detail, contains('batman=true'));
+        var url = convertToDart(event).detail.xhr['responseURL'];
+        expect(url, contains('batman=true'));
 
         var response = convertToDart(event).detail.response;
         expect(response, isNotNull);
@@ -311,7 +312,8 @@ main() async {
 
       form.on['iron-form-response'].take(1).listen((event) {
         expect(submitted, isTrue);
-        expect(convertToDart(event).detail.url, contains('zig=zag'));
+        var url = convertToDart(event).detail.xhr['responseURL'];
+        expect(url, contains('zig=zag'));
 
         var response = convertToDart(event).detail.response;
         expect(response, isNotNull);
