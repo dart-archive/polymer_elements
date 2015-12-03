@@ -22,7 +22,8 @@ main() async {
       listbox = fixture('basic');
     });
 
-    test('selected item has an appropriate className', () {
+    test('selected item has an appropriate className', () async {
+      await wait(1);
       expect(listbox.selectedItem.classes, contains('iron-selected'));
     });
 
