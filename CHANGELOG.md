@@ -1,3 +1,7 @@
+## 1.0.0-rc.4
+
+Update to allow reflectable 0.4.x.
+
 ## 1.0.0-rc.3
 
 Update the elements and resolve multiple outstanding issues.
@@ -18,7 +22,7 @@ Update the elements to the following versions:
   - neon-elements 1.0.0
   - molecules 1.0.0
   - google-web-components 1.0.1
-  
+
 Also fixed generated mixins for elements with deeply nested behaviors.
 
 ## 1.0.0-rc.1
