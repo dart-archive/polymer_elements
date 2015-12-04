@@ -325,7 +325,6 @@ files_to_load:
 deletion_patterns:
   - metadata\.html$
   - index\.html$
-  - bower\.json$
   - demo\.html$
   - demos$
   - demo$
@@ -333,3 +332,5 @@ deletion_patterns:
   - ^polymer$
   - ^webcomponentsjs$
   - .gitignore$
+  - .travis.yml$
+  - CONTRIBUTING\.md$
