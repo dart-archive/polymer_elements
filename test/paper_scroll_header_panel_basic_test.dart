@@ -53,7 +53,7 @@ main() async {
       scrollHeaderPanel.condensedHeaderHeight = 50;
       scrollHeaderPanel.scroller.scrollTop = 300;
 
-      return wait(1).then((_) {
+      return wait(100).then((_) {
         expect(top1, isNot(toolbar.getBoundingClientRect().top));
       });
     });

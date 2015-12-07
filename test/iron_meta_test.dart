@@ -138,9 +138,8 @@ main() async {
         expect(registeredValue, secondValue);
       });
     });
-    
-    group('singleton', () {
 
+    group('singleton', () {
       test('only one ironmeta created', () {
         var ironMeta = context['Polymer']['IronMeta'];
         var first = ironMeta.callMethod('getIronMeta');

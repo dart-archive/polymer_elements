@@ -48,6 +48,20 @@ main() async {
         expect(mq.queryMatches, true);
       });
 
+      group('`full` attribute', () {
+        test('media features without wrapping parentheses no longer match', () {
+          mq.full = true;
+          mq.mediaQuery = 'min-width: 1px';
+          expect(mq.queryMatches, isFalse);
+        });
+
+        test('media queries with both types and features match', () {
+          mq.full = true;
+          mq.mediaQuery = 'all and (min-width: 1px)';
+          expect(mq.queryMatches, isTrue);
+        });
+      });
+
       group('query does not activate on empty string or null', () {
 
         test('empty string', () {

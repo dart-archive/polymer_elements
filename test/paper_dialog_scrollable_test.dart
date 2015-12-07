@@ -80,7 +80,8 @@ main() async {
           container.querySelector('paper-dialog-scrollable');
 
       wait(10).then((_) {
-        runAfterScroll(scrollable.scrollTarget,
+        runAfterScroll(
+            scrollable.scrollTarget,
             scrollable.scrollTarget.scrollHeight -
                 scrollable.scrollTarget.offsetHeight, () {
           var content = scrollable.getComputedStyle('::after').content;

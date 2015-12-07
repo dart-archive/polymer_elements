@@ -11,9 +11,9 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_control_state.dart';
 import 'iron_button_state.dart';
 import 'iron_a11y_keys_behavior.dart';
+import 'paper_ripple_behavior.dart';
 import 'iron_flex_layout/classes/iron_flex_layout.dart';
 import 'iron_flex_layout.dart';
-import 'paper_ripple.dart';
 
 /// `paper-tab` is styled to look like a tab.  It should be used in conjunction with
 /// `paper-tabs`.
@@ -35,12 +35,9 @@ import 'paper_ripple.dart';
 /// `--paper-tab-ink` | Ink color | `--paper-yellow-a100`
 /// `--paper-tab` | Mixin applied to the tab | `{}`
 /// `--paper-tab-content` | Mixin applied to the tab content | `{}`
+/// `--paper-tab-content-unselected` | Mixin applied to the tab content when the tab is not selected | `{}`
 @CustomElementProxy('paper-tab')
-class PaperTab extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, IronButtonState {
+class PaperTab extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, IronButtonState, PaperRippleBehavior {
   PaperTab.created() : super.created();
   factory PaperTab() => new Element.tag('paper-tab');
-
-  /// If true, ink ripple effect is disabled.
-  bool get noink => jsElement[r'noink'];
-  set noink(bool value) { jsElement[r'noink'] = value; }
 }

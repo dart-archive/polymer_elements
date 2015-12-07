@@ -18,7 +18,7 @@ import 'common.dart';
 
 main() async {
   await initPolymer();
-  
+
   group('basic', () {
     TestButton button;
 

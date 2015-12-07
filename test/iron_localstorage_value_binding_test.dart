@@ -38,8 +38,9 @@ main() async {
     test('set value', () {
       var newValue = new JsObject.jsify({'foo': 'zot'});
       xtest['value'] = newValue;
-      xtest[r'$']['localstorage'].jsElement.callMethod(
-          'flushDebouncer', ['save']);
+      xtest[r'$']['localstorage']
+          .jsElement
+          .callMethod('flushDebouncer', ['save']);
       var v = window.localStorage[xtest[r'$']['localstorage'].name];
       v = JSON.decode(v);
       expect(v['foo'], newValue['foo']);

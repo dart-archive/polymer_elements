@@ -8,9 +8,12 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
-import 'color.dart';
 import 'iron_flex_layout.dart';
+import 'color.dart';
+import 'paper_spinner_styles.dart';
 
+/// Material design: [Progress & activity](https://www.google.com/design/spec/components/progress-activity.html)
+///
 /// Element providing material design circular spinner.
 ///
 ///     <paper-spinner active></paper-spinner>

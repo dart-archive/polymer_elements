@@ -160,4 +160,24 @@ main() async {
       return done;
     });
   });
+
+  group('noink attribute', () {
+    PaperTabs tabs;
+
+    setUp(() {
+      tabs = fixture('basic');
+    });
+
+    test('noink attribute propagates to all descendant tabs', () {
+      tabs.noink = true;
+      tabs.querySelectorAll('paper-tab').forEach((PaperTab tab) {
+        expect(tab.noink, isTrue);
+      });
+
+      tabs.noink = false;
+      tabs.querySelectorAll('paper-tab').forEach((PaperTab tab) {
+        expect(tab.noink, isFalse);
+      });
+    });
+  });
 }

@@ -9,7 +9,7 @@ import 'package:polymer_elements/iron_fit_behavior.dart';
 import 'package:polymer_elements/iron_overlay_behavior.dart';
 import 'package:polymer_elements/iron_resizable_behavior.dart';
 import 'package:polymer_elements/paper_dialog_behavior.dart';
-import 'package:polymer_elements/paper_styles.dart';
+import 'package:polymer_elements/paper_dialog_shared_styles.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'package:polymer/polymer.dart';
 import 'package:test/test.dart';

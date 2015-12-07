@@ -20,7 +20,7 @@ import 'iron_jsonp_library.dart';
 ///       mapsAPI.addEventListener('api-load', function(e) {
 ///         // this.api === google.maps
 ///       });
-///     <script>
+///     </script>
 ///
 /// Any number of components can use `<google-maps-api>` elements, and the library will only be loaded once.
 @CustomElementProxy('google-maps-api')

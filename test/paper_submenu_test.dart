@@ -115,7 +115,8 @@ main() async {
 
       expect(item1.getComputedStyle().fontWeight,
           equals(normalDiv.getComputedStyle().fontWeight),
-          reason: 'if not selected, submenu item font weight should be "normal"');
+          reason:
+              'if not selected, submenu item font weight should be "normal"');
 
       tap(item1);
 

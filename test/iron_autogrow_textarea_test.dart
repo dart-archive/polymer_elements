@@ -56,7 +56,7 @@ main() async {
 
       autogrow.bindValue = 'batman\nand\nrobin';
       var finalHeight = autogrow.offsetHeight;
-      expect(finalHeight , greaterThan(initialHeight));
+      expect(finalHeight, greaterThan(initialHeight));
 
       autogrow.bindValue = null;
       expect(autogrow.offsetHeight, initialHeight);
@@ -115,6 +115,6 @@ main() async {
         input.bindValue = 'batman';
         expect(input.validate(), isTrue);
       });
-    }); 
+    });
   });
 }

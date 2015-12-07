@@ -24,7 +24,8 @@ main() async {
         expect(pages.selected, 'page0');
       });
 
-      test('selected item', () {
+      test('selected item', () async {
+        await wait(1);
         expect(pages.selectedItem, pages.items[0]);
       });
 

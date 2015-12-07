@@ -22,7 +22,7 @@ import 'iron_jsonp_library.dart';
 ///       api.addEventListener('js-api-load', function(e) {
 ///         console.log('API loaded', gapi);
 ///       });
-///     < /script>
+///     </script>
 @CustomElementProxy('google-js-api')
 class GoogleJsApi extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronJsonpLibraryBehavior {
   GoogleJsApi.created() : super.created();

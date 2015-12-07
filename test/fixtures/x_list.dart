@@ -22,7 +22,7 @@ class XList extends PolymerElement {
 
   @property
   int listHeight = 300;
-  
+
   @property
   bool pre = false;
 

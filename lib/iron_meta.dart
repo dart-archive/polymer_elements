@@ -31,7 +31,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 /// Now I can access that element (and it's metadata) from any iron-meta instance
 /// via the byKey method, e.g.
 ///
-///     meta.byKey('info').getAttribute('value').
+///     meta.byKey('info').getAttribute('value');
 ///
 /// Pure imperative form would be like:
 ///
@@ -103,7 +103,7 @@ class IronMeta extends HtmlElement with CustomElementProxyMixin, PolymerBase {
 /// Now I can access that element (and it's metadata) from any iron-meta instance
 /// via the byKey method, e.g.
 ///
-///     meta.byKey('info').getAttribute('value').
+///     meta.byKey('info').getAttribute('value');
 ///
 /// Pure imperative form would be like:
 ///

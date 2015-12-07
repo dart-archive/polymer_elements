@@ -11,7 +11,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_material.dart';
 import 'iron_flex_layout.dart';
 
-/// Material Design: <a href="http://www.google.com/design/spec/components/cards.html">Cards</a>
+/// Material design: [Cards](https://www.google.com/design/spec/components/cards.html)
 ///
 /// `paper-card` is a container with a drop shadow.
 ///
@@ -52,6 +52,11 @@ import 'iron_flex_layout.dart';
 class PaperCard extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   PaperCard.created() : super.created();
   factory PaperCard() => new Element.tag('paper-card');
+
+  /// Read-only property used to pass down the `animatedShadow` value to
+  /// the underlying paper-material style (since they have different names).
+  bool get animated => jsElement[r'animated'];
+  set animated(bool value) { jsElement[r'animated'] = value; }
 
   /// Set this to true to animate the card shadow when setting a new
   /// `z` value.

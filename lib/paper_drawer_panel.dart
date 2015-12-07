@@ -8,9 +8,12 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
+import 'iron_resizable_behavior.dart';
 import 'iron_media_query.dart';
 import 'iron_selector.dart';
 
+/// Material design: [Navigation drawer](https://www.google.com/design/spec/patterns/navigation-drawer.html)
+///
 /// `paper-drawer-panel` contains a drawer panel and a main panel.  The drawer
 /// and the main panel are side-by-side with drawer on the left.  When the browser
 /// window size is smaller than the `responsiveWidth`, `paper-drawer-panel`
@@ -73,7 +76,7 @@ import 'iron_selector.dart';
 ///       <div main> Main panel... </div>
 ///     </paper-drawer-panel>
 ///
-/// Styling `paper-drawer-panel`
+/// ### Styling
 ///
 /// To change the main container:
 ///
@@ -98,8 +101,27 @@ import 'iron_selector.dart';
 ///         background-color: white;
 ///       };
 ///     }
+///
+/// To customize the scrim:
+///
+///     paper-drawer-panel {
+///       --paper-drawer-panel-scrim: {
+///         background-color: red;
+///       };
+///     }
+///
+/// The following custom properties and mixins are available for styling:
+///
+/// Custom property | Description | Default
+/// ----------------|-------------|----------
+/// `--paper-drawer-panel-scrim-opacity` | Scrim opacity | 1
+/// `--paper-drawer-panel-drawer-container` | Mixin applied to drawer container | {}
+/// `--paper-drawer-panel-left-drawer-container` | Mixin applied to container when it's in the left side | {}
+/// `--paper-drawer-panel-main-container` | Mixin applied to main container | {}
+/// `--paper-drawer-panel-right-drawer-container` | Mixin applied to container when it's in the right side | {}
+/// `--paper-drawer-panel-scrim` | Mixin applied to scrim | {}
 @CustomElementProxy('paper-drawer-panel')
-class PaperDrawerPanel extends HtmlElement with CustomElementProxyMixin, PolymerBase {
+class PaperDrawerPanel extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronResizableBehavior {
   PaperDrawerPanel.created() : super.created();
   factory PaperDrawerPanel() => new Element.tag('paper-drawer-panel');
 
@@ -108,7 +130,7 @@ class PaperDrawerPanel extends HtmlElement with CustomElementProxyMixin, Polymer
   String get defaultSelected => jsElement[r'defaultSelected'];
   set defaultSelected(String value) { jsElement[r'defaultSelected'] = value; }
 
-  /// If true, swipe from the edge is disable.
+  /// If true, swipe from the edge is disabled.
   bool get disableEdgeSwipe => jsElement[r'disableEdgeSwipe'];
   set disableEdgeSwipe(bool value) { jsElement[r'disableEdgeSwipe'] = value; }
 

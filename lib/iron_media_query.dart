@@ -21,6 +21,11 @@ class IronMediaQuery extends HtmlElement with CustomElementProxyMixin, PolymerBa
   IronMediaQuery.created() : super.created();
   factory IronMediaQuery() => new Element.tag('iron-media-query');
 
+  /// If true, the query attribute is assumed to be a complete media query
+  /// string rather than a single media feature.
+  bool get full => jsElement[r'full'];
+  set full(bool value) { jsElement[r'full'] = value; }
+
   /// The CSS media query to evaluate.
   String get mediaQuery => jsElement[r'query'];
   set mediaQuery(String value) { jsElement[r'query'] = value; }

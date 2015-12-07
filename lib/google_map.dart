@@ -59,6 +59,11 @@ class GoogleMap extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   /// Use to specify additional options we do not expose as
   /// properties.
   /// Ex: `<google-map additional-map-options='{"mapTypeId":"satellite"}'>`
+  ///
+  /// Note, you can't use API enums like `google.maps.ControlPosition.TOP_RIGHT`
+  /// when using this property as an HTML attribute. Instead, use the actual
+  /// value (e.g. `3`) or set `.additionalMapOptions` in JS rather than using
+  /// the attribute.
   get additionalMapOptions => jsElement[r'additionalMapOptions'];
   set additionalMapOptions(value) { jsElement[r'additionalMapOptions'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 

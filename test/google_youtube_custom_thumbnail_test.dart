@@ -28,7 +28,8 @@ main() async {
         // For sanity when running tests :P
         googleYouTube.mute();
         expect(googleYouTube.querySelector('img').getComputedStyle().display,
-            'none', reason: 'thumbnail <img> is no longer present.');
+            'none',
+            reason: 'thumbnail <img> is no longer present.');
 
         expect(googleYouTube.querySelector('iframe'), isNotNull,
             reason: 'YouTube embed <iframe> is present.');

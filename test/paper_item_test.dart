@@ -22,17 +22,18 @@ main() async {
     });
 
     test('item has role="listitem"', () {
-      expect(item.getAttribute('role'), equals('listitem'),
+      expect(item.attributes['role'], equals('option'),
           reason: 'should have role="item"');
     });
 
     test('icon item has role="listitem"', () {
-      expect(iconItem.getAttribute('role'), equals('listitem'),
-          reason: 'should have role="item"');
+      expect(iconItem.getAttribute('role'), equals('option'),
+      reason: 'should have role="item"');
     });
 
     // TODO(jakemac): Investigate these
     // a11ySuite('item');
     // a11ySuite('iconItem');
   });
+
 }

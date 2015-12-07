@@ -156,10 +156,9 @@ main() async {
         overlay.on['iron-overlay-canceled'].first.then((event) {
           event.preventDefault();
         });
-        var listener =
-          overlay.on['iron-overlay-closed'].listen((event) {
-            throw 'iron-overlay-closed should not fire';
-          });
+        var listener = overlay.on['iron-overlay-closed'].listen((event) {
+          throw 'iron-overlay-closed should not fire';
+        });
         fireEvent('click', null, document);
         wait(10).then((_) {
           listener.cancel();
@@ -175,9 +174,7 @@ main() async {
         overlay.on['iron-overlay-canceled'].first.then((event) {
           done.complete();
         });
-        fireEvent('keydown', {
-          'keyCode': 27
-        }, document);
+        fireEvent('keydown', {'keyCode': 27}, document);
       });
     });
 
@@ -346,7 +343,7 @@ main() async {
       return wait(1).then((_) {
         overlay.close();
         expect(overlay.getAttribute('aria-hidden'), 'true',
-          reason: 'overlay has aria-hidden="true"');
+            reason: 'overlay has aria-hidden="true"');
       });
     });
   });

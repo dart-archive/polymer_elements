@@ -56,6 +56,11 @@ class IronComponentPage extends HtmlElement with CustomElementProxyMixin, Polyme
   String get docSrc => jsElement[r'docSrc'];
   set docSrc(String value) { jsElement[r'docSrc'] = value; }
 
+  /// The scroll mode for the page. For details about the modes,
+  /// see the mode property in paper-header-panel.
+  String get scrollMode => jsElement[r'scrollMode'];
+  set scrollMode(String value) { jsElement[r'scrollMode'] = value; }
+
   /// The URL to an import that declares (or transitively imports) the
   /// elements that you wish to see documented.
   ///

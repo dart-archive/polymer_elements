@@ -139,4 +139,10 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   /// changes. Can be called manually to handle e.g. page resizes.
   drawChart() =>
       jsElement.callMethod('drawChart', []);
+
+  /// Returns the chart serialized as an image URI.
+  ///
+  /// Call this after the chart is drawn (google-chart-render event).
+  String getImageURI() =>
+      jsElement.callMethod('getImageURI', []);
 }

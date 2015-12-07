@@ -58,7 +58,7 @@ main() async {
       input.on['blur'].first.then((event) {
         expect(input.focused, isFalse, reason: 'input is blurred');
         expect(error.getComputedStyle().visibility, isNot('hidden'),
-        reason: 'error is not visibility:hidden');
+            reason: 'error is not visibility:hidden');
       });
       focus(input);
       blur(input);

@@ -1,3 +1,16 @@
+## 1.0.0-rc.5
+
+Update the elements to the following versions:
+
+ - `paper-dialog-behavior` 1.1.0
+ - `paper-dialog` 1.0.3
+ - `paper-header-panel` 1.1.2
+ - `paper-elements` 1.0.6
+
+New component:
+
+ - `paper-listbox`
+
 ## 1.0.0-rc.4
 
 Update to allow reflectable 0.4.x.

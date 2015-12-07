@@ -97,6 +97,18 @@ main() async {
           reason: 'height is less than or equal to viewport height');
     });
 
+    test(
+        'scrolling element with offscreen container is constrained to viewport height',
+        () {
+      var container = fixture('offscreen-container');
+      var el = Polymer.dom(container).querySelector('.el');
+      makeScrolling(el);
+      el.refit();
+      var rect = el.getBoundingClientRect();
+      expect(rect.height, lessThanOrEqualTo(window.innerHeight),
+          reason: 'height is less than or equal to viewport height');
+    });
+
     test('scrolling element with max-height is centered in viewport', () {
       TestFit el = fixture('sized-x');
       el.classes.add('with-max-height');

@@ -14,11 +14,13 @@ import 'iron_fit_behavior.dart';
 import 'iron_resizable_behavior.dart';
 import 'neon_animation_runner_behavior.dart';
 import 'neon_animatable_behavior.dart';
-import 'paper_styles.dart';
+import 'paper_dialog_shared_styles.dart';
 
+/// Material design: [Dialogs](https://www.google.com/design/spec/components/dialogs.html)
+///
 /// `<paper-dialog>` is a dialog with Material Design styling and optional animations when it is
 /// opened or closed. It provides styles for a header, content area, and an action area for buttons.
-/// You can use the `<paper-dialog-scrollable` element (in its own repository) if you need a scrolling
+/// You can use the `<paper-dialog-scrollable>` element (in its own repository) if you need a scrolling
 /// content area. See `Polymer.PaperDialogBehavior` for specifics.
 ///
 /// For example, the following code implements a dialog with a header, scrolling content area and

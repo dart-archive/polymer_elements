@@ -11,7 +11,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_form_element_behavior.dart';
 import 'iron_validatable_behavior.dart';
 import 'iron_control_state.dart';
-import 'iron_flex_layout/classes/iron_flex_layout.dart';
+import 'iron_flex_layout.dart';
 
 /// `iron-autogrow-textarea` is an element containing a textarea that grows in height as more
 /// lines of input are entered. Unless an explicit height or the `maxRows` property is set, it will
@@ -43,8 +43,8 @@ class IronAutogrowTextarea extends HtmlElement with CustomElementProxyMixin, Pol
   set autofocus(bool value) { jsElement[r'autofocus'] = value; }
 
   /// Use this property instead of `value` for two-way data binding.
-  String get bindValue => jsElement[r'bindValue'];
-  set bindValue(String value) { jsElement[r'bindValue'] = value; }
+  get bindValue => jsElement[r'bindValue'];
+  set bindValue(value) { jsElement[r'bindValue'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Bound to the textarea's `inputmode` attribute.
   String get inputmode => jsElement[r'inputmode'];

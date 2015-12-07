@@ -51,7 +51,7 @@ import 'iron_flex_layout.dart';
 ///       <div class="fit">content fits 100% below the header</div>
 ///     </paper-header-panel>
 ///
-/// Modes
+/// ### Modes
 ///
 /// Controls header and scrolling behavior. Options are `standard`, `seamed`, `waterfall`, `waterfall-tall`, `scroll` and
 /// `cover`. Default is `standard`.
@@ -73,7 +73,7 @@ import 'iron_flex_layout.dart';
 ///     </paper-header-panel>
 ///
 ///
-/// Styling header panel:
+/// ### Styling
 ///
 /// To change the shadow that shows up underneath the header:
 ///
@@ -87,7 +87,7 @@ import 'iron_flex_layout.dart';
 ///
 /// To change the panel container in different modes:
 ///
-///     paper-slider {
+///     paper-header-panel {
 ///       --paper-header-panel-standard-container: {
 ///         border: 1px solid gray;
 ///       };
@@ -112,6 +112,19 @@ import 'iron_flex_layout.dart';
 ///         border: 1px solid gray;
 ///       };
 ///     }
+///
+/// The following custom properties and mixins are available for styling:
+///
+/// Custom property | Description | Default
+/// ----------------|-------------|----------
+/// `--paper-header-panel` | Mixin applied to the element | `{}`
+/// `--paper-header-panel-body` | Mixin applied to the element's body (i.e. everything below the toolbar) | `{}`
+/// `--paper-header-panel-scroll-container` | Mixin applied to the container when in scroll mode | `{}`
+/// `--paper-header-panel-cover-container` | Mixin applied to the container when in cover mode | `{}`
+/// `--paper-header-panel-standard-container` | Mixin applied to the container when in standard mode | `{}`
+/// `--paper-header-panel-seamed-container` | Mixin applied to the container when in seamed mode | `{}`
+/// `--paper-header-panel-waterfall-container` | Mixin applied to the container when in waterfall mode | `{}`
+/// `--paper-header-panel-waterfall-tall-container` | Mixin applied to the container when in tall waterfall mode | `{}`
 @CustomElementProxy('paper-header-panel')
 class PaperHeaderPanel extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   PaperHeaderPanel.created() : super.created();
@@ -149,7 +162,7 @@ class PaperHeaderPanel extends HtmlElement with CustomElementProxyMixin, Polymer
   ///
   ///     <paper-header-panel mode="cover">
   ///       <paper-toolbar class="tall">
-  ///         <core-icon-button icon="menu"></core-icon-button>
+  ///         <paper-icon-button icon="menu"></paper-icon-button>
   ///       </paper-toolbar>
   ///       <div class="content"></div>
   ///     </paper-header-panel>

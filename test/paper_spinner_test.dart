@@ -15,8 +15,10 @@ main() async {
   group('<paper-spinner>', () {
     group('an accessible paper spinner', () {
       PaperSpinner spinner;
+      PaperSpinner activeSpinner;
       setUp(() {
         spinner = fixture('PaperSpinner');
+        activeSpinner = fixture('ActivePaperSpinner');
       });
       test('adds an ARIA label when `alt` is supplied', () {
         var ALT_TEXT = 'Loading the next gif...';
@@ -26,6 +28,18 @@ main() async {
       test('hides from ARIA when inactive', () {
         spinner.active = false;
         expect(spinner.attributes['aria-hidden'], equals('true'));
+      });
+
+      test('toggle during cooldown', () async {
+        activeSpinner.active = false;
+
+        // Set active to true before cooldown animation completes.
+        await wait(100);
+        activeSpinner.active = true;
+
+        // Wait for cooldown animation to complete.
+        await wait(500);
+        expect(activeSpinner.active, isTrue);
       });
     });
   });

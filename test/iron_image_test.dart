@@ -10,11 +10,17 @@ import 'package:polymer_elements/iron_image.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
+import 'package:polymer/polymer.dart';
+import 'dart:html';
 
 var rand = new Random();
 
 main() async {
   await initWebComponents();
+
+  randomImageUrl() {
+    return 'fixtures/polymer.svg?' + rand.nextDouble().toString();
+  }
 
   group('<iron-image>', () {
     randomImageUrl() {
@@ -58,6 +64,72 @@ main() async {
         image.src = randomImageUrl();
         return done.future;
       });
+    });
+  });
+
+  group('--iron-image-width', () {
+    var fixedWidthContainer;
+    var fixedWidthIronImage;
+
+    setUp(() {
+      fixedWidthContainer = fixture('FixedWidthContainer');
+      fixedWidthIronImage = fixedWidthContainer.querySelector('iron-image');
+    });
+
+    test('100% width image fills container', ()  {
+      Completer done = new Completer();
+      fixedWidthIronImage.$['img'].on['load'].take(1).listen((Event e) {
+        //fixedWidthIronImage.$.img.removeEventListener('load', onLoadedChanged);
+        Polymer.updateStyles();
+
+        var containerRect = fixedWidthContainer.getBoundingClientRect();
+        var ironImageRect = fixedWidthIronImage.getBoundingClientRect();
+        var wrappedImageRect =
+            fixedWidthIronImage.$['img'].getBoundingClientRect();
+
+        expect(containerRect.width, closeTo(500, 0.5));
+        expect(ironImageRect.width, closeTo(500, 0.5));
+        expect(wrappedImageRect.width, closeTo(500, 0.5));
+
+        done.complete();
+      });
+
+      fixedWidthIronImage.src = randomImageUrl();
+      return done.future;
+    });
+
+
+  });
+
+  group('--iron-image-height', () {
+    var fixedHeightContainer;
+    var fixedHeightIronImage;
+
+    setUp(() {
+      fixedHeightContainer = fixture('FixedHeightContainer');
+      fixedHeightIronImage = fixedHeightContainer.querySelector('iron-image');
+    });
+
+
+    test('100% height image fills container', () {
+      Completer done = new Completer();
+      fixedHeightIronImage.$['img'].on['load'].take(1).listen((Event e) {
+        Polymer.updateStyles();
+
+        var containerRect = fixedHeightContainer.getBoundingClientRect();
+        var ironImageRect = fixedHeightIronImage.getBoundingClientRect();
+        var wrappedImageRect =
+        fixedHeightIronImage.$['img'].getBoundingClientRect();
+
+        expect(containerRect.height, closeTo(500, 0.5));
+        expect(ironImageRect.height, closeTo(500, 0.5));
+        expect(wrappedImageRect.height, closeTo(500, 0.5));
+
+        done.complete();
+      });
+
+      fixedHeightIronImage.src = randomImageUrl();
+      return done.future;
     });
   });
 }

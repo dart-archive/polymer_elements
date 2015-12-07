@@ -47,8 +47,9 @@ main() async {
           .dom(input.jsElement['root'])
           .querySelector('paper-input-char-counter');
       expect(counter, isNotNull);
-      expect(counter.jsElement['_charCounterStr'], equals(
-          '${input.value.length}/' +
+      expect(
+          counter.jsElement['_charCounterStr'],
+          equals('${input.value.length}/' +
               '${input.inputElement.textarea.getAttribute('maxlength')}'));
     });
 
