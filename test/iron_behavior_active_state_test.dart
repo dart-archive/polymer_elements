@@ -11,6 +11,7 @@ import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'fixtures/iron_behavior_elements.dart';
 import 'common.dart';
+import 'package:polymer_elements/paper_input.dart';
 
 main() async {
   await initPolymer();
@@ -194,7 +195,7 @@ main() async {
       test('space in light child input does not trigger a button click event',
           () async {
         var done = new Completer();
-        var item = fixture('ButtonWithInput');
+        var item = fixture('ButtonWithNativeInput');
         var input = item.querySelector('#input');
 
         var callCount = 0;
@@ -209,7 +210,7 @@ main() async {
       });
 
       test('space in button triggers a button click event', () async {
-        var item = fixture('ButtonWithInput');
+        var item = fixture('ButtonWithNativeInput');
         var input = item.querySelector('#input');
 
         var callCount = 0;
@@ -220,6 +221,37 @@ main() async {
         pressSpace(item);
 
         await wait(100);
+        expect(callCount, 1);
+      });
+    });
+
+    group('nested paper-input inside button', () {
+      test('space in light child input does not trigger a button click event', () async {
+        var item = fixture('ButtonWithPaperInput');
+        var input = item.querySelector('#input');
+
+        var callCount = 0;
+        item.on['click'].take(1).listen((_) {
+          callCount++;
+        });
+
+        input.focus();
+        pressSpace(input);
+        await wait(0);
+        expect(callCount, 0);
+      });
+
+      test('space in button triggers a button click event', () async {
+        var item = fixture('ButtonWithPaperInput');
+        var input = item.querySelector('#input');
+
+        var callCount = 0;
+        item.on['click'].take(1).listen((_) {
+          callCount++;
+        });
+
+        pressSpace(item);
+        await wait(0);
         expect(callCount, 1);
       });
     });
