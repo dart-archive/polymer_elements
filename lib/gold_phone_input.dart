@@ -10,11 +10,13 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_input_behavior.dart';
 import 'iron_control_state.dart';
+import 'iron_a11y_keys_behavior.dart';
 import 'iron_form_element_behavior.dart';
 import 'paper_input_container.dart';
 import 'paper_input_error.dart';
+import 'typography.dart';
 import 'iron_input.dart';
-import 'iron_flex_layout/classes/iron_flex_layout.dart';
+import 'iron_flex_layout.dart';
 
 /// `<gold-phone-input>` is a single-line text field with Material Design styling
 /// for entering a phone number.
@@ -49,8 +51,10 @@ import 'iron_flex_layout/classes/iron_flex_layout.dart';
 ///
 /// See `Polymer.PaperInputContainer` for a list of custom properties used to
 /// style this element.
+///
+/// `--gold-phone-input-country-code` | Mixin applied to the country code span
 @CustomElementProxy('gold-phone-input')
-class GoldPhoneInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, PaperInputBehavior, IronFormElementBehavior {
+class GoldPhoneInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, PaperInputBehavior, IronFormElementBehavior {
   GoldPhoneInput.created() : super.created();
   factory GoldPhoneInput() => new Element.tag('gold-phone-input');
 

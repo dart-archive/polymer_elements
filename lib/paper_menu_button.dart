@@ -17,6 +17,8 @@ import 'neon_animation/animations/fade_in_animation.dart';
 import 'neon_animation/animations/fade_out_animation.dart';
 import 'paper_menu_button_animations.dart';
 
+/// Material design: [Dropdown buttons](https://www.google.com/design/spec/components/buttons.html#buttons-dropdown-buttons)
+///
 /// `paper-menu-button` allows one to compose a designated "trigger" element with
 /// another element that represents "content", to create a dropdown menu that
 /// displays the "content" when the "trigger" is clicked.
@@ -50,6 +52,7 @@ import 'paper_menu_button_animations.dart';
 /// `--paper-menu-button` | Mixin applied to the paper-menu-button | `{}`
 /// `--paper-menu-button-disabled` | Mixin applied to the paper-menu-button when disabled | `{}`
 /// `--paper-menu-button-dropdown` | Mixin applied to the paper-menu-button dropdown | `{}`
+/// `--paper-menu-button-content` | Mixin applied to the paper-menu-button content | `{}`
 @CustomElementProxy('paper-menu-button')
 class PaperMenuButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronControlState {
   PaperMenuButton.created() : super.created();

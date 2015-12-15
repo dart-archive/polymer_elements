@@ -12,7 +12,7 @@ import 'iron_menu_behavior.dart';
 import 'iron_multi_selectable.dart';
 import 'iron_selectable.dart';
 import 'iron_a11y_keys_behavior.dart';
-import 'paper_styles.dart';
+import 'default_theme.dart';
 
 /// Material design: [Menus](https://www.google.com/design/spec/components/menus.html)
 ///

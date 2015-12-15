@@ -11,7 +11,10 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_control_state.dart';
 import 'iron_menu_behavior.dart';
 import 'iron_collapse.dart';
-import 'paper_styles.dart';
+import 'iron_flex_layout.dart';
+import 'default_theme.dart';
+import 'color.dart';
+import 'paper_menu_shared_styles.dart';
 
 /// `<paper-submenu>` is a nested menu inside of a parent `<paper-menu>`. It
 /// consists of a trigger that expands or collapses another `<paper-menu>`:
@@ -64,4 +67,8 @@ class PaperSubmenu extends HtmlElement with CustomElementProxyMixin, PolymerBase
   /// Expand the submenu content.
   open() =>
       jsElement.callMethod('open', []);
+
+  /// Toggle the submenu.
+  toggle() =>
+      jsElement.callMethod('toggle', []);
 }

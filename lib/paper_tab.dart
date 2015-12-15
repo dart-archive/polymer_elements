@@ -12,7 +12,6 @@ import 'iron_control_state.dart';
 import 'iron_button_state.dart';
 import 'iron_a11y_keys_behavior.dart';
 import 'paper_ripple_behavior.dart';
-import 'iron_flex_layout/classes/iron_flex_layout.dart';
 import 'iron_flex_layout.dart';
 
 /// `paper-tab` is styled to look like a tab.  It should be used in conjunction with

@@ -49,10 +49,16 @@ class IronCollapse extends HtmlElement with CustomElementProxyMixin, PolymerBase
   bool get horizontal => jsElement[r'horizontal'];
   set horizontal(bool value) { jsElement[r'horizontal'] = value; }
 
+  /// Set noAnimation to true to disable animations
+  bool get noAnimation => jsElement[r'noAnimation'];
+  set noAnimation(bool value) { jsElement[r'noAnimation'] = value; }
+
   /// Set opened to true to show the collapse element and to false to hide it.
   bool get opened => jsElement[r'opened'];
   set opened(bool value) { jsElement[r'opened'] = value; }
 
+  /// enableTransition() is deprecated, but left over so it doesn't break existing code.
+  /// Please use `noAnimation` property instead.
   enableTransition(enabled) =>
       jsElement.callMethod('enableTransition', [enabled]);
 

@@ -8,15 +8,18 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
+import 'paper_item_behavior.dart';
 import 'iron_control_state.dart';
 import 'iron_button_state.dart';
 import 'iron_a11y_keys_behavior.dart';
-import 'paper_styles.dart';
+import 'iron_flex_layout.dart';
+import 'default_theme.dart';
+import 'color.dart';
 import 'paper_item_shared_styles.dart';
 
 /// Material design: [Lists](https://www.google.com/design/spec/components/lists.html)
 ///
-/// `<paper-item>` is a non-interactive list item. By default, it is a horizontal flexbox.
+/// `<paper-item>` is an interactive list item. By default, it is a horizontal flexbox.
 ///
 ///     <paper-item>Item</paper-item>
 ///
@@ -46,7 +49,6 @@ import 'paper_item_shared_styles.dart';
 /// `--paper-item-focused`        | Mixin applied to focused paper-items         | `{}`
 /// `--paper-item-focused-before` | Mixin applied to :before focused paper-items | `{}`
 ///
-///
 /// ### Accessibility
 ///
 /// This element has `role="listitem"` by default. Depending on usage, it may be more appropriate to set
@@ -59,7 +61,7 @@ import 'paper_item_shared_styles.dart';
 ///       <paper-checkbox></paper-checkbox>
 ///     </paper-item>
 @CustomElementProxy('paper-item')
-class PaperItem extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, IronButtonState {
+class PaperItem extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, IronButtonState, PaperItemBehavior {
   PaperItem.created() : super.created();
   factory PaperItem() => new Element.tag('paper-item');
 }

@@ -58,6 +58,7 @@ import 'paper_ripple.dart';
 /// `--paper-icon-button-ink-color` | Selected/focus ripple color | `--primary-text-color`
 /// `--paper-icon-button` | Mixin for a button | `{}`
 /// `--paper-icon-button-disabled` | Mixin for a disabled button | `{}`
+/// `--paper-icon-button-hover` | Mixin for button on hover | `{}`
 @CustomElementProxy('paper-icon-button')
 class PaperIconButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperRippleBehavior, PaperInkyFocusBehavior {
   PaperIconButton.created() : super.created();

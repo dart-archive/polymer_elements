@@ -10,12 +10,13 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_input_behavior.dart';
 import 'iron_control_state.dart';
+import 'iron_a11y_keys_behavior.dart';
 import 'iron_form_element_behavior.dart';
 import 'paper_input_container.dart';
 import 'paper_input_error.dart';
 import 'iron_input.dart';
 import 'iron_icon.dart';
-import 'iron_flex_layout/classes/iron_flex_layout.dart';
+import 'iron_flex_layout.dart';
 
 /// `gold-cc-cvc-input` is a single-line text field with Material Design styling
 /// for entering a credit card's CVC (Card Verification Code). It supports both
@@ -51,7 +52,7 @@ import 'iron_flex_layout/classes/iron_flex_layout.dart';
 /// See `Polymer.PaperInputContainer` for a list of custom properties used to
 /// style this element.
 @CustomElementProxy('gold-cc-cvc-input')
-class GoldCcCvcInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, PaperInputBehavior, IronFormElementBehavior {
+class GoldCcCvcInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, PaperInputBehavior, IronFormElementBehavior {
   GoldCcCvcInput.created() : super.created();
   factory GoldCcCvcInput() => new Element.tag('gold-cc-cvc-input');
 
