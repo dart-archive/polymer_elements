@@ -167,6 +167,8 @@ files_to_generate:
   - iron-selector/iron-selector.html
   - iron-signals/iron-signals.html
   - iron-test-helpers/iron-test-helpers.html
+  - iron-test-helpers/mock-interactions.html 
+  - iron-test-helpers/test-helpers.html 
   - iron-validatable-behavior/iron-validatable-behavior.html
   - iron-validator-behavior/iron-validator-behavior.html
 
