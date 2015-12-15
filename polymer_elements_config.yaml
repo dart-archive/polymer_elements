@@ -272,7 +272,9 @@ files_to_generate:
   - paper-item/paper-item-body.html
   - paper-item/paper-item-shared-styles.html
   - paper-material/paper-material.html
+  - paper-material/paper-material-shared-styles.html
   - paper-menu/paper-menu.html
+  - paper-menu/paper-menu-shared-styles.html
   - paper-listbox/paper-listbox.html
   - paper-menu/paper-submenu.html
   - paper-menu-button/paper-menu-button.html
