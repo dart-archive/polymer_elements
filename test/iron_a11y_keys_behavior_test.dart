@@ -335,7 +335,7 @@ class XA11yBehaviorKeys extends PolymerElement
   }
 }
 
-@PolymerRegister('x-a11y-behavior-keys')
+@PolymerRegister('x-a11y-prevent-keys')
 class XA11yPreventKeys extends PolymerElement
 with IronA11yKeysBehavior, KeysTestBehavior, XA11yBehavior {
   XA11yPreventKeys.created() : super.created();
