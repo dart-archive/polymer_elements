@@ -43,6 +43,7 @@ main() async {
       var dialog = fixture('basic');
       runAfterOpen(dialog, () {
         dialog.on['iron-overlay-closed'].take(1).listen((event) {
+          event = convertToDart(event);
           expect(event.detail['canceled'], isFalse, reason: 'dialog is not canceled');
           expect(event.detail['confirmed'], isFalse, reason: 'dialog is not confirmed');
           done.complete();
@@ -57,6 +58,7 @@ main() async {
       var dialog = fixture('basic');
       runAfterOpen(dialog, () {
         dialog.on['iron-overlay-closed'].take(1).listen((event) {
+          event = convertToDart(event);
           expect(event.detail['canceled'], isFalse, reason: 'dialog is not canceled');
           expect(event.detail['confirmed'], isTrue, reason: 'dialog is confirmed');
           done.complete();

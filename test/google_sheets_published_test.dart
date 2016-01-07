@@ -6,6 +6,7 @@ library polymer_elements.test.google_sheets_published_test;
 
 import 'dart:async';
 import 'package:polymer_elements/google_sheets.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
@@ -27,6 +28,7 @@ main() async {
               'google-signin-aware should not be created for a published sheet');
 
       sheet.on['google-sheet-data'].take(1).listen((e) {
+        e = convertToDart(e);
         if (e.detail['type'] == 'tab') {
           expect(sheet.tab['title'], 'Locations',
               reason: 'Published spreadsheet title is not correct.');
