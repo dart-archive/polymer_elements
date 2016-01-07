@@ -1,3 +1,7 @@
+## 1.0.0-rc.6
+
+Update to work with polymer_interop v1.0.0-rc.8.
+
 ## 1.0.0-rc.5
 
 Update the elements to the following versions:

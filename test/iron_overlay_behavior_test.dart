@@ -141,6 +141,7 @@ main() async {
       var done = new Completer();
       runAfterOpen(overlay, () {
         overlay.on['iron-overlay-closed'].first.then((event) {
+          event = convertToDart(event);
           expect(event.detail['canceled'], isTrue,
               reason: 'overlay is canceled');
           done.complete();
@@ -182,6 +183,7 @@ main() async {
       var done = new Completer();
       runAfterOpen(overlay, () {
         overlay.on['iron-overlay-closed'].take(1).listen((event) {
+          event = convertToDart(event);
           expect(event.detail['canceled'], isTrue,
               reason: 'overlay is canceled');
           done.complete();

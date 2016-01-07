@@ -6,6 +6,7 @@ library polymer_elements.test.google_chart_test;
 
 import 'dart:async';
 import 'package:polymer_elements/google_chart.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
@@ -23,6 +24,7 @@ main() async {
     test('fires google-chart-render event for initial load', () {
       var done = new Completer();
       chart.on['google-chart-render'].take(1).listen((event) {
+        event = convertToDart(event);
         expect(event.detail, isNotNull);
         done.complete();
       });
@@ -32,6 +34,7 @@ main() async {
     test('fires google-chart-render event for drawChart call', () {
       var done = new Completer();
       chart.on['google-chart-render'].take(1).listen((event) {
+        event = convertToDart(event);
         expect(event.detail, isNotNull);
         done.complete();
       });

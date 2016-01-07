@@ -1,5 +1,5 @@
 name: polymer_elements
-version: 1.0.0-rc.5
+version: 1.0.0-rc.6
 author: Polymer.dart Authors <web-ui-dev@dartlang.org>
 description: Polymer polymer-elements for Dart
 homepage: https://github.com/dart-lang/polymer_elements
@@ -12,54 +12,135 @@ dev_dependencies:
   html5lib: ">=0.11.0 <0.13.0"
   path: ^1.0.0
   polymer: ^1.0.0-rc.6
-  reflectable: ">=0.3.1 <0.5.0"
   test: ^0.12.5+1
   yaml: ">=1.0.0 <3.0.0"
 
 environment:
   sdk: '>=1.6.0 <2.0.0'
 transformers:
-- web_components:
-    $include: test/*_test.html
-- reflectable:
-    $include: test/*_test.dart
+- polymer:
     entry_points:
-    - test/iron_a11y_keys_behavior_test.dart
-    - test/iron_behavior_active_state_test.dart
-    - test/iron_behavior_disabled_state_test.dart
-    - test/iron_behavior_focused_state_test.dart
-    - test/iron_checked_element_behavior_test.dart
-    - test/iron_fit_behavior_test.dart
-    - test/iron_form_test.dart
-    - test/iron_input_test.dart
-    - test/iron_list_basic_test.dart
-    - test/iron_list_different_heights_test.dart
-    - test/iron_list_dynamic_item_size_test.dart
-    - test/iron_list_hidden_test.dart
-    - test/iron_list_mutations_test.dart
-    - test/iron_list_physical_count_test.dart
-    - test/iron_list_selection_test.dart
-    - test/iron_localstorage_basic_test.dart
-    - test/iron_menu_behavior_test.dart
-    - test/iron_menubar_behavior_test.dart
-    - test/iron_overlay_behavior_test.dart
-    - test/iron_range_behavior_test.dart
-    - test/iron_resizable_behavior_basic_test.dart
-    - test/iron_resizable_behavior_test.dart
-    - test/iron_selector_content_test.dart
-    - test/iron_selector_template_repeat_test.dart
-    - test/iron_validatable_behavior_test.dart
-    - test/iron_validator_behavior_test.dart
-    - test/neon_animated_pages_test.dart
-    - test/paper_button_behavior_test.dart
-    - test/paper_checked_element_behavior_test.dart
-    - test/paper_radio_button_behavior_test.dart
-    - test/paper_dialog_behavior_test.dart
-    - test/paper_ripple_behavior_test.dart
-    - test/paper_scroll_header_panel_basic_test.dart
-    - test/paper_scroll_header_panel_header_state_test.dart
-    - test/paper_scroll_header_panel_scroll_test.dart
-    - test/paper_tooltip_test.dart
+    - test/firebase_auth_test.html
+    - test/firebase_collection_test.html
+    - test/gold_cc_ccv_input_test.html
+    - test/gold_cc_expiration_input_test.html
+    - test/gold_cc_input_test.html
+    - test/gold_email_input_test.html
+    - test/gold_phone_input_test.html
+    - test/gold_zip_input_test.html
+    - test/google_calendar_list_basic_test.html
+    - test/google_chart_test.html
+    - test/google_hangout_button_test.html
+    - test/google_map_basic_test.html
+    - test/google_map_markers_add_remove_test.html
+    - test/google_map_markers_basic_test.html
+    - test/google_map_update_pos_test.html
+    - test/google_sheets_private_test.html
+    - test/google_sheets_published_test.html
+    - test/google_sheets_test.html
+    - test/google_url_shortener_test.html
+    - test/google_youtube_basic_test.html
+    - test/google_youtube_custom_thumbnail_test.html
+    - test/iron_a11y_announcer_test.html
+    - test/iron_a11y_keys_behavior_test.html
+    - test/iron_a11y_keys_test.html
+    - test/iron_ajax_test.html
+    - test/iron_autogrow_textarea_test.html
+    - test/iron_behavior_active_state_test.html
+    - test/iron_behavior_disabled_state_test.html
+    - test/iron_behavior_focused_state_test.html
+    - test/iron_checked_element_behavior_test.html
+    - test/iron_collapse_test.html
+    - test/iron_component_page_test.html
+    - test/iron_doc_viewer_test.html
+    - test/iron_dropdown_test.html
+    - test/iron_fit_behavior_test.html
+    - test/iron_form_test.html
+    - test/iron_icon_test.html
+    - test/iron_iconset_svg_test.html
+    - test/iron_iconset_test.html
+    - test/iron_image_test.html
+    - test/iron_input_test.html
+    - test/iron_jsonp_library_test.html
+    - test/iron_list_basic_test.html
+    - test/iron_list_different_heights_test.html
+    - test/iron_list_dynamic_item_size_test.html
+    - test/iron_list_hidden_test.html
+    - test/iron_list_mutations_test.html
+    - test/iron_list_physical_count_test.html
+    - test/iron_list_selection_test.html
+    - test/iron_localstorage_basic_test.html
+    - test/iron_localstorage_raw_test.html
+    - test/iron_localstorage_value_binding_test.html
+    - test/iron_media_query_test.html
+    - test/iron_menu_behavior_test.html
+    - test/iron_menubar_behavior_test.html
+    - test/iron_meta_basic_test.html
+    - test/iron_meta_test.html
+    - test/iron_overlay_behavior_test.html
+    - test/iron_pages_attr_for_selected_test.html
+    - test/iron_pages_basic_test.html
+    - test/iron_range_behavior_test.html
+    - test/iron_request_test.html
+    - test/iron_resizable_behavior_basic_test.html
+    - test/iron_resizable_behavior_test.html
+    - test/iron_selector_activate_event_test.html
+    - test/iron_selector_basic_test.html
+    - test/iron_selector_content_test.html
+    - test/iron_selector_exclude_local_names_test.html
+    - test/iron_selector_multi_test.html
+    - test/iron_selector_next_previous_test.html
+    - test/iron_selector_selected_attribute_test.html
+    - test/iron_selector_template_repeat_test.html
+    - test/iron_validatable_behavior_test.html
+    - test/iron_validator_behavior_test.html
+    - test/marked_element_test.html
+    - test/neon_animated_pages_test.html
+    - test/paper_badge_test.html
+    - test/paper_button_behavior_test.html
+    - test/paper_button_test.html
+    - test/paper_card_test.html
+    - test/paper_checkbox_test.html
+    - test/paper_checked_element_behavior_test.html
+    - test/paper_dialog_behavior_test.html
+    - test/paper_dialog_scrollable_test.html
+    - test/paper_dialog_test.html
+    - test/paper_drawer_panel_positioning_test.html
+    - test/paper_drawer_panel_small_devices_test.html
+    - test/paper_dropdown_menu_test.html
+    - test/paper_fab_a11y_test.html
+    - test/paper_fab_basic_test.html
+    - test/paper_header_panel_basic_test.html
+    - test/paper_icon_button_a11y_test.html
+    - test/paper_icon_button_basic_test.html
+    - test/paper_input_char_counter_test.html
+    - test/paper_input_container_test.html
+    - test/paper_input_error_test.html
+    - test/paper_input_test.html
+    - test/paper_item_test.html
+    - test/paper_listbox_test.html
+    - test/paper_material_test.html
+    - test/paper_menu_button_test.html
+    - test/paper_menu_test.html
+    - test/paper_progress_test.html
+    - test/paper_radio_button_basic_test.html
+    - test/paper_radio_button_behavior_test.html
+    - test/paper_radio_group_basic_test.html
+    - test/paper_ripple_behavior_test.html
+    - test/paper_ripple_test.html
+    - test/paper_scroll_header_panel_basic_test.html
+    - test/paper_scroll_header_panel_header_state_test.html
+    - test/paper_scroll_header_panel_scroll_test.html
+    - test/paper_slider_test.html
+    - test/paper_spinner_test.html
+    - test/paper_submenu_test.html
+    - test/paper_tabs_attr_test.html
+    - test/paper_tabs_test.html
+    - test/paper_textarea_test.html
+    - test/paper_toggle_button_test.html
+    - test/paper_toolbar_test.html
+    - test/paper_tooltip_test.html
+    $include: test/**_test{.*,}.{dart,html}
 - test/pub_serve:
     $include: test/**_test{.*,}.dart
 

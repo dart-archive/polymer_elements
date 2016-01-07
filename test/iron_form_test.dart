@@ -244,15 +244,16 @@ main() async {
         form.request.params = {'batman': true};
       });
 
-      form.on['iron-form-response'].take(1).listen((CustomEvent event) {
+      form.on['iron-form-response'].take(1).listen((event) {
+        event = convertToDart(event);
         expect(submitted, isTrue);
         expect(presubmitted, isTrue);
 
         // We have changed the json parameters
-        var url = convertToDart(event).detail.xhr['responseURL'];
+        var url = event.detail.xhr['responseURL'];
         expect(url, contains('batman=true'));
 
-        var response = convertToDart(event).detail.response;
+        var response = event.detail.response;
         expect(response, isNotNull);
         expect((response is JsObject), isTrue);
         expect(response['success'], isTrue);

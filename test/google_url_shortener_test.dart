@@ -6,6 +6,7 @@ library polymer_elements.test.google_url_shortener_test;
 
 import 'dart:async';
 import 'package:polymer_elements/google_url_shortener.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
@@ -22,6 +23,7 @@ main() async {
     test('fires google-url-shortener-ready event', () {
       var done = new Completer();
       shortener.on['google-url-shortener-ready'].take(1).listen((event) {
+        event = convertToDart(event);
         expect(event.detail, isNotNull);
         done.complete();
       });
@@ -36,6 +38,7 @@ main() async {
     test('fires google-url-shorten event for shorten call', () {
       var done = new Completer();
       shortener.on['google-url-shorten'].take(1).listen((event) {
+        event = convertToDart(event);
         var detail = event.detail;
         expect(detail, isNotNull);
         expect(detail['shortUrl'], isNotNull);
@@ -48,6 +51,7 @@ main() async {
     test('fires google-url-shorten-error event for bad URL', () {
       var done = new Completer();
       shortener.on['google-url-shorten-error'].take(1).listen((event) {
+        event = convertToDart(event);
         var detail = event.detail;
         expect(detail, isNotNull);
         expect(detail['error'], isNotNull);
