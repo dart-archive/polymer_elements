@@ -11,7 +11,7 @@ dev_dependencies:
   custom_element_apigen: ^0.2.1+1
   html5lib: ">=0.11.0 <0.13.0"
   path: ^1.0.0
-  polymer: ^1.0.0-rc.6
+  polymer: ^1.0.0-rc.11
   test: ^0.12.5+1
   yaml: ">=1.0.0 <3.0.0"
 
