@@ -65,29 +65,29 @@ property.
         on-tap="_togglePrivate">{{_privateToggleLabel}}</paper-button>
     </nav>
 
-    <section id="properties" class="card" hidden$="{{_noneToShow(_showPrivate,_properties)}}">
-      <header><a href="#properties" class="deeplink">Properties</a></header>
+    <section id="[[_formatAnchor(prefix,'properties')]]" class="card" hidden$="{{_noneToShow(_showPrivate,_properties)}}">
+      <header><a href="#[[_formatAnchor(prefix,'properties')]]" class="deeplink">Properties</a></header>
       <template is="dom-repeat" items="{{_properties}}" hidden$="{{!_properties.length}}">
-        <iron-doc-property descriptor="{{item}}"></iron-doc-property>
+        <iron-doc-property anchor-id="[[_formatAnchor(prefix,'property',item.name)]]" descriptor="{{item}}"></iron-doc-property>
       </template>
     </section>
 
-    <section id="methods" class="card"  hidden$="{{_noneToShow(_showPrivate,_methods)}}">
-      <header><a href="#methods" class="deeplink">Methods</a></header>
+    <section id="[[_formatAnchor(prefix,'methods')]]" class="card"  hidden$="{{_noneToShow(_showPrivate,_methods)}}">
+      <header><a href="#[[_formatAnchor(prefix,'methods')]]" class="deeplink">Methods</a></header>
       <template is="dom-repeat" items="{{_methods}}">
-        <iron-doc-property descriptor="{{item}}"></iron-doc-property>
+        <iron-doc-property anchor-id="[[_formatAnchor(prefix,'method',item.name)]]" descriptor="{{item}}"></iron-doc-property>
       </template>
     </section>
 
-    <section id="events" class="card" hidden$="{{_noneToShow(_showPrivate,_events)}}">
-      <header><a href="#events" class="deeplink">Events</a></header>
+    <section id="[[_formatAnchor(prefix,'events')]]" class="card" hidden$="{{_noneToShow(_showPrivate,_events)}}">
+      <header><a href="#[[_formatAnchor(prefix,'events')]" class="deeplink">Events</a></header>
       <template is="dom-repeat" items="{{_events}}">
-        <iron-doc-property descriptor="{{item}}"></iron-doc-property>
+        <iron-doc-property anchor-id="[[_formatAnchor(prefix,'event',item.name)]]" descriptor="{{item}}"></iron-doc-property>
       </template>
     </section>
 
-    <section id="behaviors" class="card" hidden$="{{_hideBehaviors(_behaviors)}}">
-      <header><a href="#behaviors" class="deeplink">Behaviors</a></header>
+    <section id="[[_formatAnchor(prefix,'behaviors')]]" class="card" hidden$="{{_hideBehaviors(_behaviors)}}">
+      <header><a href="#[[_formatAnchor(prefix,'behaviors')]]" class="deeplink">Behaviors</a></header>
       <template is="dom-repeat" items="{{_behaviors}}">
         <p on-click="_broadcastBehavior">{{item}}</p>
       </template>
@@ -112,6 +112,16 @@ property.
           descriptor: {
             type: Object,
             observer: '_descriptorChanged',
+          },
+
+          /**
+           * Prefix for fragment identifiers used in anchors.
+           * For static routing `iron-component-page` can
+           * set this to a string identifying the current component.
+           */
+          prefix: {
+            type: String,
+            value: ''
           },
 
           /** Whether private properties should be hidden or shown. */
@@ -192,6 +202,25 @@ property.
           this.toggleAttribute('abstract', this.descriptor.abstract);
         },
 
+        /**
+         * Scrolls to the currently selected anchor, as identified
+         * by the URL hash. Whichever element or script is in charge
+         * of routing should call this method on initial page load and
+         * on hashchange events.
+         */
+        scrollToAnchor: function(hash) {
+          // ToDo: handle linking to private members
+          if (hash && hash.length > 1) {
+            // ensure all dom-repeats have rendered.
+            Polymer.dom.flush();
+            var anchorId = window.location.hash.slice(1);
+            var elementToFocus = this.$$('[anchor-id="' + anchorId + '"]');
+            if (elementToFocus) {
+              elementToFocus.scrollIntoView();
+            }
+          }
+        },
+
         _collapsedChanged: function() {
           this._collapseToggleLabel = this._collapsed ? 'expand' : 'collapse';
 
@@ -220,6 +249,11 @@ property.
             if (showPrivate || !items[i].private) return false;
           }
           return true;
+        },
+
+        _formatAnchor: function(prefix, type, membername) {
+          var suffix = membername ? '-' + membername : '';
+          return prefix + type + suffix;
         },
 
         _hideBehaviors: function(behaviors) {

@@ -24,7 +24,7 @@ Give it a hydrolysis `PropertyDescriptor` (via `descriptor`), and watch it go!
 
     <div id="transitionMask">
       <div id="signature">
-        <a id="{{descriptor.name}}" href$="#{{descriptor.name}}" class="name deeplink">{{descriptor.name}}</a><span class="params">(<span>{{_paramText}}</span>)</span>
+        <a id="[[anchorId]]" href$="#[[anchorId]]" class="name deeplink">{{descriptor.name}}</a><span class="params">(<span>{{_paramText}}</span>)</span>
         <span class="return" hidden$="{{!descriptor.return}}">➙ <span class="type">{{descriptor.return.type}}</span></span>
       </div>
       <div id="details">
@@ -88,6 +88,15 @@ Give it a hydrolysis `PropertyDescriptor` (via `descriptor`), and watch it go!
             value:    false,
             observer: '_collapsedChanged',
           },
+
+          /**
+           * Unique anchor ID for deep-linking.
+           *
+           */
+          anchorId: {
+            type: String,
+            reflectToAttribute: true
+          }
         },
 
         listeners: {
@@ -204,3 +213,4 @@ Give it a hydrolysis `PropertyDescriptor` (via `descriptor`), and watch it go!
     })();
   </script>
 </dom-module>
+

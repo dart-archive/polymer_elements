@@ -128,6 +128,7 @@ files_to_generate:
   - iron-icons/iron-icons.html
   - iron-icons/maps-icons.html
   - iron-icons/notification-icons.html
+  - iron-icons/places-icons.html
   - iron-icons/social-icons.html
   - iron-iconset/iron-iconset.html
   - iron-iconset-svg/iron-iconset-svg.html
@@ -167,8 +168,8 @@ files_to_generate:
   - iron-selector/iron-selector.html
   - iron-signals/iron-signals.html
   - iron-test-helpers/iron-test-helpers.html
-  - iron-test-helpers/mock-interactions.html 
-  - iron-test-helpers/test-helpers.html 
+  - iron-test-helpers/mock-interactions.html
+  - iron-test-helpers/test-helpers.html
   - iron-validatable-behavior/iron-validatable-behavior.html
   - iron-validator-behavior/iron-validator-behavior.html
 

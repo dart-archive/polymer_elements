@@ -10,7 +10,6 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_flex_layout.dart';
 import 'default_theme.dart';
-import 'color.dart';
 import 'typography.dart';
 
 /// Use `<paper-item-body>` in a `<paper-item>` or `<paper-icon-item>` to make two- or

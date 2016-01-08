@@ -19,7 +19,6 @@ import 'paper_menu_button.dart';
 import 'paper_ripple.dart';
 import 'iron_icons.dart';
 import 'iron_icon.dart';
-import 'iron_selectable.dart';
 
 /// Material design: [Dropdown menus](https://www.google.com/design/spec/components/buttons.html#buttons-dropdown-buttons)
 ///

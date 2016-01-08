@@ -35,11 +35,6 @@ abstract class PaperInputBehavior implements CustomElementProxyMixin, IronContro
   bool get alwaysFloatLabel => jsElement[r'alwaysFloatLabel'];
   set alwaysFloatLabel(bool value) { jsElement[r'alwaysFloatLabel'] = value; }
 
-  /// Set to true to auto-validate the input value. Bind this to the `<paper-input-container>`'s
-  /// `autoValidate` property.
-  bool get autoValidate => jsElement[r'autoValidate'];
-  set autoValidate(bool value) { jsElement[r'autoValidate'] = value; }
-
   /// Bind this to the `<input is="iron-input">`'s `autocapitalize` property.
   String get autocapitalize => jsElement[r'autocapitalize'];
   set autocapitalize(String value) { jsElement[r'autocapitalize'] = value; }
@@ -59,6 +54,11 @@ abstract class PaperInputBehavior implements CustomElementProxyMixin, IronContro
   /// Bind this to the `<input is="iron-input">`'s `autosave` property, used with type=search.
   String get autosave => jsElement[r'autosave'];
   set autosave(String value) { jsElement[r'autosave'] = value; }
+
+  /// Set to true to auto-validate the input value. Bind this to the `<paper-input-container>`'s
+  /// `autoValidate` property.
+  bool get autoValidate => jsElement[r'autoValidate'];
+  set autoValidate(bool value) { jsElement[r'autoValidate'] = value; }
 
   /// Set to true to show a character counter.
   bool get charCounter => jsElement[r'charCounter'];
@@ -83,6 +83,9 @@ abstract class PaperInputBehavior implements CustomElementProxyMixin, IronContro
 
   /// Returns true if the value is invalid. Bind this to both the `<paper-input-container>`'s
   /// and the input's `invalid` property.
+  ///
+  /// If `autoValidate` is true, the `invalid` attribute is managed automatically,
+  /// which can clobber attempts to manage it manually.
   bool get invalid => jsElement[r'invalid'];
   set invalid(bool value) { jsElement[r'invalid'] = value; }
 
