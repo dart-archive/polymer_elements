@@ -68,7 +68,7 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   String get contentType => jsElement[r'contentType'];
   set contentType(String value) { jsElement[r'contentType'] = value; }
 
-  /// Length of time in milliseconds to debounce multiple requests.
+  /// Length of time in milliseconds to debounce multiple automatically generated requests.
   num get debounceDuration => jsElement[r'debounceDuration'];
   set debounceDuration(num value) { jsElement[r'debounceDuration'] = value; }
 
@@ -106,24 +106,35 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   get headers => jsElement[r'headers'];
   set headers(value) { jsElement[r'headers'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
-  /// Will be set to the most recent error that resulted from a request
-  /// that originated from this iron-ajax element.
+  /// Prefix to be stripped from a JSON response before parsing it.
+  ///
+  /// In order to prevent an attack using CSRF with Array responses
+  /// (http://haacked.com/archive/2008/11/20/anatomy-of-a-subtle-json-vulnerability.aspx/)
+  /// many backends will mitigate this by prefixing all JSON response bodies
+  /// with a string that would be nonsensical to a JavaScript parser.
+  String get jsonPrefix => jsElement[r'jsonPrefix'];
+  set jsonPrefix(String value) { jsElement[r'jsonPrefix'] = value; }
+
+  /// lastRequest's error, if any.
   get lastError => jsElement[r'lastError'];
   set lastError(value) { jsElement[r'lastError'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
-  /// Will be set to the most recent request made by this iron-ajax element.
+  /// The most recent request made by this iron-ajax element.
   get lastRequest => jsElement[r'lastRequest'];
   set lastRequest(value) { jsElement[r'lastRequest'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
-  /// Will be set to the most recent response received by a request
-  /// that originated from this iron-ajax element. The type of the response
-  /// is determined by the value of `handleAs` at the time that the request
-  /// was generated.
+  /// lastRequest's response.
+  ///
+  /// Note that lastResponse and lastError are set when lastRequest finishes,
+  /// so if loading is true, then lastResponse and lastError will correspond
+  /// to the result of the previous request.
+  ///
+  /// The type of the response is determined by the value of `handleAs` at
+  /// the time that the request was generated.
   get lastResponse => jsElement[r'lastResponse'];
   set lastResponse(value) { jsElement[r'lastResponse'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
-  /// Will be set to true if there is at least one in-flight request
-  /// associated with this iron-ajax element.
+  /// True while lastRequest is in flight.
   bool get loading => jsElement[r'loading'];
   set loading(bool value) { jsElement[r'loading'] = value; }
 
@@ -156,6 +167,10 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   /// to true unless You Know What You Are Doing™.
   bool get sync => jsElement[r'sync'];
   set sync(bool value) { jsElement[r'sync'] = value; }
+
+  /// Set the timeout flag on the request.
+  num get timeout => jsElement[r'timeout'];
+  set timeout(num value) { jsElement[r'timeout'] = value; }
 
   /// The URL target of the request.
   String get url => jsElement[r'url'];

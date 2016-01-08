@@ -28,6 +28,11 @@ class IronRequest extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   get completes => jsElement[r'completes'];
   set completes(value) { jsElement[r'completes'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
+  /// Errored will be true if the browser fired an error event from the
+  /// XHR object (mainly network errors).
+  bool get errored => jsElement[r'errored'];
+  set errored(bool value) { jsElement[r'errored'] = value; }
+
   /// An object that contains progress information emitted by the XHR if
   /// available.
   get progress => jsElement[r'progress'];
@@ -46,11 +51,17 @@ class IronRequest extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   String get statusText => jsElement[r'statusText'];
   set statusText(String value) { jsElement[r'statusText'] = value; }
 
-  /// Succeeded is true if the request succeeded. The request succeeded if the
-  /// status code is greater-than-or-equal-to 200, and less-than 300. Also,
-  /// the status code 0 is accepted as a success even though the outcome may
-  /// be ambiguous.
+  /// Succeeded is true if the request succeeded. The request succeeded if it
+  /// loaded without error, wasn't aborted, and the status code is ≥ 200, and
+  /// < 300, or if the status code is 0.
+  ///
+  /// The status code 0 is accepted as a success because some schemes - e.g.
+  /// file:// - don't provide status codes.
   bool get succeeded => jsElement[r'succeeded'];
+
+  /// TimedOut will be true if the XHR threw a timeout event.
+  bool get timedOut => jsElement[r'timedOut'];
+  set timedOut(bool value) { jsElement[r'timedOut'] = value; }
 
   /// A reference to the XMLHttpRequest instance used to generate the
   /// network request.
@@ -76,6 +87,7 @@ class IronRequest extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   ///         headers HTTP request headers.
   ///         handleAs The response type. Default is 'text'.
   ///         withCredentials Whether or not to send credentials on the request. Default is false.
+  ///       timeout: (Number|undefined)
   send(options) =>
       jsElement.callMethod('send', [options]);
 }
