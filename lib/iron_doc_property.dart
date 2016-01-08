@@ -9,7 +9,7 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'marked_element.dart';
-import 'typography.dart';
+import 'iron_doc_property_styles.dart';
 
 /// Renders documentation describing a specific property of an element.
 ///

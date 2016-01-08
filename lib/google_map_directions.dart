@@ -22,8 +22,8 @@ import 'google_maps_api.dart';
 ///       <google-map-directions map="{{map}}"
 ///           start-address="San Francisco"
 ///           end-address="Mountain View"
-///           travel-mode="TRANSIT"
-///           waypoints="[{location: 'Palo Alto'}, {location: 'San Mateo'}]"></google-map-directions>
+///           travel-mode="BICYCLING"
+///           waypoints='[{"location": "Palo Alto"}, {"location": "San Mateo"}]'></google-map-directions>
 ///       <google-map map="{{map}}" latitude="37.779"
 ///                   longitude="-122.3892"></google-map>
 ///     </template>

@@ -190,10 +190,6 @@ class PaperDrawerPanel extends HtmlElement with CustomElementProxyMixin, Polymer
   String get selected => jsElement[r'selected'];
   set selected(String value) { jsElement[r'selected'] = value; }
 
-  /// Whether the transition is enabled.
-  bool get transition => jsElement[r'transition'];
-  set transition(bool value) { jsElement[r'transition'] = value; }
-
   /// Closes the drawer.
   closeDrawer() =>
       jsElement.callMethod('closeDrawer', []);

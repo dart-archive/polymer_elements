@@ -8,3 +8,5 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
+import 'mock_interactions.dart';
+import 'test_helpers.dart';

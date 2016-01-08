@@ -8,10 +8,7 @@
   "private": true,
   "dependencies": {
     "iron-ajax": "polymerelements/iron-ajax#1.0.4",
-    "iron-elements": "polymerelements/iron-elements#1.0.4",
-    "paper-dialog-behavior": "polymerelements/paper-dialog-behavior#1.1.0",
-    "paper-dialog": "polymerelements/paper-dialog#1.0.3",
-    "paper-header-panel": "polymerelements/paper-header-panel#1.1.2",
+    "iron-elements": "polymerelements/iron-elements#1.0.7",
     "paper-elements": "polymerelements/paper-elements#1.0.6",
     "gold-elements": "polymerelements/gold-elements#1.0.1",
     "neon-elements": "polymerelements/neon-elements#1.0.0",

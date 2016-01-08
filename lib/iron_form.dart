@@ -10,7 +10,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_ajax.dart';
 
-/// ``<iron-form>` is an HTML `<form>` element that can validate and submit any custom
+/// `<iron-form>` is an HTML `<form>` element that can validate and submit any custom
 /// elements that implement `Polymer.IronFormElementBehavior`, as well as any
 /// native HTML elements.
 ///
@@ -43,12 +43,14 @@ import 'iron_ajax.dart';
 /// event and do your own custom submission:
 ///
 ///   Example of modifying the request, but still using the build-in form submission:
+///
 ///     form.addEventListener('iron-form-presubmit', function() {
 ///       this.request.method = 'put';
 ///       this.request.params = someCustomParams;
 ///     });
 ///
 ///   Example of bypassing the build-in form submission:
+///
 ///     form.addEventListener('iron-form-presubmit', function(event) {
 ///       event.preventDefault();
 ///       var firebase = new Firebase(form.getAttribute('action'));

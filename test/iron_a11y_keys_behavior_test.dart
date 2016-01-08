@@ -31,6 +31,17 @@ main() async {
         expect(keys.keyCount, 1);
       });
 
+      test('trigger the handler when the specified key is pressed together with a modifier', () async {
+        CustomEvent event = new CustomEvent('keydown');
+        var e = new JsObject.fromBrowserObject(event);
+        e['ctrlKey'] = true;
+        e['keyCode'] = 32;
+        e["code"] = 32;
+        keys.dispatchEvent(event);
+        await wait(0);
+        expect(keys.keyCount, 1);
+      });
+
       test('do not trigger the handler for non-specified keys', () {
         pressEnter(keys);
 
@@ -40,7 +51,8 @@ main() async {
       test('can have bindings added imperatively', () async {
         keys.addOwnKeyBinding('enter', 'keyHandler');
 
-        await new Future(() {});
+        await new Future(() {
+        });
         pressEnter(keys);
         expect(keys.keyCount, 1);
 
@@ -79,6 +91,24 @@ main() async {
           var event = new CustomEvent('keydown');
           new JsObject.fromBrowserObject(event)['key'] = 'spacebar';
           expect(keys.keyboardEventMatchesKeys(event, 'space'), true);
+        });
+
+        test('handles `+`', () {
+          var event = new CustomEvent('keydown');
+          new JsObject.fromBrowserObject(event)['key'] = '+';
+          expect(keys.keyboardEventMatchesKeys(event, '+'), isTrue);
+        });
+
+        test('handles `:`', () {
+          var event = new CustomEvent('keydown');
+          new JsObject.fromBrowserObject(event)['key'] = ':';
+          expect(keys.keyboardEventMatchesKeys(event, ':'), isTrue);
+        });
+
+        test('handles ` ` (space)', () {
+          var event = new CustomEvent('keydown');
+          new JsObject.fromBrowserObject(event)['key'] = ' ';
+          expect(keys.keyboardEventMatchesKeys(event, 'space'), isTrue);
         });
       });
 
@@ -128,6 +158,30 @@ main() async {
 
         expect(keys.keyCount, 1);
       });
+
+      test('trigger also bindings without modifiers', () {
+        var event = new CustomEvent('keydown');
+        var jsEvent = new JsObject.fromBrowserObject(event);
+        // Combo `shift+enter`.
+        jsEvent['shiftKey'] = true;
+        jsEvent['keyCode'] = jsEvent['code'] = 13;
+        keys.dispatchEvent(event);
+        expect(keys.keyCount, 2);
+      });
+
+      test('give precendence to combos with modifiers', () {
+        sinon.Spy enterSpy = sinon.spy(keys.jsElement, 'keyHandler2');
+        sinon.Spy shiftEnterSpy = sinon.spy(keys.jsElement, 'keyHandler');
+        var event = new CustomEvent('keydown');
+        var jsEvent = new JsObject.fromBrowserObject(event);
+        // Combo `shift+enter`.
+        jsEvent['shiftKey'] = true;
+        jsEvent['keyCode'] = jsEvent['code'] = 13;
+        keys.dispatchEvent(event);
+        expect(enterSpy.called, isTrue);
+        expect(shiftEnterSpy.called, isTrue);
+        expect(enterSpy.calledAfter(shiftEnterSpy), isTrue);
+      });
     });
 
     group('alternative event keys', () {
@@ -155,10 +209,9 @@ main() async {
 
       test('bindings in other behaviors are transitive', () {
         pressEnter(keys);
-        pressSpace(keys);
 
         expect(keys.keyCount, 2);
-      },skip:"skipped because original-js test fails");
+      });
     });
 
     group('stopping propagation automatically', () {
@@ -183,16 +236,26 @@ main() async {
 
     group('prevent default behavior of event', () {
       setUp(() {
-        keys = fixture('BehaviorKeys');
+        keys = fixture('PreventKeys');
       });
       test('defaultPrevented is correctly set', () {
-        var keySpy = sinon.spy();
-
-        document.addEventListener('keydown', keySpy.eventListener);
-
         pressEnter(keys);
+        expect(keys.lastEvent.defaultPrevented, isTrue);
+      });
 
-        expect(keySpy.getCall(0).args[0].defaultPrevented,isTrue);
+      test('only 1 handler is invoked', () {
+        sinon.Spy aSpy = sinon.spy(keys.jsElement, 'keyHandler');
+        sinon.Spy shiftASpy = sinon.spy(keys.jsElement, 'preventDefaultHandler');
+        var event = new CustomEvent('keydown', cancelable:true);
+        var jsEvent = new JsObject.fromBrowserObject(event);
+        // Combo `shift+a`.
+        jsEvent['shiftKey'] = true;
+        jsEvent['keyCode'] = jsEvent['code'] = 65;
+        keys.dispatchEvent(event);
+
+        expect(keys.keyCount, 1);
+        expect(shiftASpy.called, isTrue);
+        expect(aSpy.called, isFalse);
       });
     });
   });
@@ -212,9 +275,18 @@ abstract class KeysTestBehavior implements PolymerMixin, PolymerBase, HtmlElemen
     set('lastEvent', e);
   }
 
+  // Same as _keyHandler, used to distinguish who's called before who.
+  @reflectable
+  keyHandler2(event) {
+    set("keyCount" , keyCount +1);
+    set("lastEvent", event);
+  }
+
   @reflectable
   preventDefaultHandler(Event event) {
     event.preventDefault();
+    set("keyCount" , keyCount +1);
+    set("lastEvent", event);
   }
 }
 
@@ -232,6 +304,7 @@ class XA11yComboKeys extends PolymerElement with IronA11yKeysBehavior, KeysTestB
   XA11yComboKeys.created() : super.created();
 
   ready() {
+    addOwnKeyBinding('enter', 'keyHandler2');
     addOwnKeyBinding('ctrl+shift+a', 'keyHandler');
   }
 }
@@ -258,7 +331,17 @@ class XA11yBehaviorKeys extends PolymerElement
   XA11yBehaviorKeys.created() : super.created();
 
   ready() {
-    addOwnKeyBinding('space', 'keyHandler');
-    addOwnKeyBinding('enter', 'preventDefaultHandler');
+    addOwnKeyBinding('enter', 'keyHandler');
+  }
+}
+
+@PolymerRegister('x-a11y-prevent-keys')
+class XA11yPreventKeys extends PolymerElement
+with IronA11yKeysBehavior, KeysTestBehavior, XA11yBehavior {
+  XA11yPreventKeys.created() : super.created();
+
+  ready() {
+    addOwnKeyBinding('space a', 'keyHandler');
+    addOwnKeyBinding('enter shift+a', 'preventDefaultHandler');
   }
 }

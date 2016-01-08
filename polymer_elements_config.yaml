@@ -167,6 +167,8 @@ files_to_generate:
   - iron-selector/iron-selector.html
   - iron-signals/iron-signals.html
   - iron-test-helpers/iron-test-helpers.html
+  - iron-test-helpers/mock-interactions.html 
+  - iron-test-helpers/test-helpers.html 
   - iron-validatable-behavior/iron-validatable-behavior.html
   - iron-validator-behavior/iron-validator-behavior.html
 
@@ -268,10 +270,13 @@ files_to_generate:
   - paper-input/paper-textarea.html
   - paper-item/paper-icon-item.html
   - paper-item/paper-item.html
+  - paper-item/paper-item-behavior.html
   - paper-item/paper-item-body.html
   - paper-item/paper-item-shared-styles.html
   - paper-material/paper-material.html
+  - paper-material/paper-material-shared-styles.html
   - paper-menu/paper-menu.html
+  - paper-menu/paper-menu-shared-styles.html
   - paper-listbox/paper-listbox.html
   - paper-menu/paper-submenu.html
   - paper-menu-button/paper-menu-button.html
@@ -285,6 +290,7 @@ files_to_generate:
   - paper-scroll-header-panel/paper-scroll-header-panel.html
   - paper-slider/paper-slider.html
   - paper-spinner/paper-spinner.html
+  - paper-spinner/paper-spinner-behavior.html
   - paper-spinner/paper-spinner-styles.html
   - paper-styles/color.html
   - paper-styles/default-theme.html

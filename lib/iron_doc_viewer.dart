@@ -9,12 +9,13 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'marked_element.dart';
-import 'typography.dart';
-import 'shadow.dart';
-import 'color.dart';
 import 'paper_button.dart';
+import 'color.dart';
+import 'shadow.dart';
+import 'typography.dart';
 import 'prism_highlighter.dart';
 import 'iron_doc_property.dart';
+import 'iron_doc_viewer_styles.dart';
 
 /// Renders documentation describing an element's API.
 ///

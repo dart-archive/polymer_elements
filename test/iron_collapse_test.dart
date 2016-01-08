@@ -15,15 +15,19 @@ main() async {
 
   group('basic', () {
     IronCollapse collapse;
-    var delay = new Duration(milliseconds: 750);
     var collapseHeight;
 
     setUp(() {
       collapse = fixture('basic');
+      collapseHeight = collapse.getComputedStyle().height;
     });
 
     test('opened attribute', () {
       expect(collapse.opened, true);
+    });
+
+    test('animated by default', () {
+      expect(!collapse.noAnimation,isTrue,reason: '`noAnimation` is falsy');
     });
 
     test('horizontal attribute', () {
@@ -31,40 +35,62 @@ main() async {
     });
 
     test('default opened height', () {
-      return new Future.delayed(delay, () {
-        // store height
-        collapseHeight = collapse.getComputedStyle().height;
-        // verify height not 0px
-        expect(collapseHeight, isNot('0px'));
-      });
+      expect(collapse.style.height, 'auto');
     });
 
-    test('set opened to false', () {
+    test('set opened to false triggers animation', () async {
       collapse.opened = false;
-      return new Future.delayed(delay, () {
-        var h = collapse.getComputedStyle().height;
-        // verify height is 0px
-        expect(h, '0px');
-      });
+      // Animation got enabled.
+      expect(collapse.style.transitionDuration, isNot('0s'));
+      await collapse.on['transitionend'].first;
+      expect(collapse.style.transitionDuration, '0s');
     });
 
-    test('set opened to true', () {
-      collapse.opened = true;
-      return new Future.delayed(delay, () {
-        var h = collapse.getComputedStyle().height;
-        // verify height
-        expect(h, collapseHeight);
-      });
+    test('enableTransition(false) disables animations', () {
+      collapse.enableTransition(false);
+      expect(collapse.noAnimation, isTrue,reason:'`noAnimation` is true');
+      // trying to animate the size update
+      collapse.updateSize('0px', true);
+      // Animation immediately disabled.
+      expect(collapse.style.height, '0px');
     });
+
+    test('set opened to false, then to true', () async {
+      // this listener will be triggered twice (every time `opened` changes)
+
+      // Trigger 1st toggle.
+      collapse.opened = false;
+      // Size should be immediately set.
+      expect(collapse.style.height, '0px');
+
+      await for (var _ in collapse.on['transitionend']) {
+
+        if (collapse.opened) {
+          // Check finalSize after animation is done.
+          expect(collapse.style.height, 'auto');
+          break;
+        } else {
+          // Check if size is still 0px.
+          expect(collapse.style.height, '0px');
+          // Trigger 2nd toggle.
+          collapse.opened = true;
+          // Size should be immediately set.
+          expect(collapse.style.height, collapseHeight);
+        }
+      }
+    });
+
   });
 
-  group('horizontal', () {
+  group('horizontal', ()
+  {
     IronCollapse collapse;
-    var delay = 500;
-    var width;
+    var collapseWidth;
 
     setUp(() {
       collapse = fixture('horizontal');
+      collapseWidth = collapse.getComputedStyle().width;
+
     });
 
     test('opened attribute', () {
@@ -75,28 +101,34 @@ main() async {
       expect(collapse.horizontal, true);
     });
 
-    test('default opened width', () async {
-      await wait(delay);
-      // store height
-      width = collapse.getComputedStyle().width;
-      // verify height not 0px
-      expect(width, isNot('0px'));
+    test('default opened width', () {
+      expect(collapse.style.width, 'auto');
     });
 
-    test('set opened to false', () async {
+    test('set opened to false, then to true', () async {
+      // this listener will be triggered twice (every time `opened` changes)
+
+      // Trigger 1st toggle.
       collapse.opened = false;
-      await wait(delay);
-      var w = collapse.getComputedStyle().width;
-      // verify height is 0px
-      expect(w, '0px');
-    });
+      // Size should be immediately set.
+      expect(collapse.style.width, '0px');
 
-    test('set opened to true', () async {
-      collapse.opened = true;
-      await wait(delay);
-      var w = collapse.getComputedStyle().width;
-      // verify height
-      expect(w, width);
+      await for (var _ in collapse.on['transitionend']) {
+
+        if (collapse.opened) {
+          // Check finalSize after animation is done.
+          expect(collapse.style.width, 'auto');
+          break;
+        } else {
+          // Check if size is still 0px.
+          expect(collapse.style.width, '0px');
+          // Trigger 2nd toggle.
+          collapse.opened = true;
+          // Size should be immediately set.
+          expect(collapse.style.width, collapseWidth);
+        }
+      }
+
     });
   });
 }
