@@ -110,7 +110,9 @@ files_to_generate:
   - iron-demo-helpers/demo-snippet.html
   - iron-demo-helpers/demo-pages-shared-styles.html
   - iron-doc-viewer/iron-doc-viewer.html
+  - iron-doc-viewer/iron-doc-viewer-styles.html
   - iron-doc-viewer/iron-doc-property.html
+  - iron-doc-viewer/iron-doc-property-styles.html
   - iron-dropdown/iron-dropdown.html:
       omit_imports:
         - iron-dropdown-scroll-manager.html
