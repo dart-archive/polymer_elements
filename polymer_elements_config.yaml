@@ -107,6 +107,8 @@ files_to_generate:
   - iron-checked-element-behavior/iron-checked-element-behavior.html
   - iron-collapse/iron-collapse.html
   - iron-component-page/iron-component-page.html
+  - iron-demo-helpers/demo-snippet.html
+  - iron-demo-helpers/demo-pages-shared-styles.html
   - iron-doc-viewer/iron-doc-viewer.html
   - iron-doc-viewer/iron-doc-property.html
   - iron-dropdown/iron-dropdown.html:
