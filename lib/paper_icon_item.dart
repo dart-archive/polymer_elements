@@ -9,13 +9,11 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_item_behavior.dart';
-import 'iron_control_state.dart';
 import 'iron_button_state.dart';
 import 'iron_a11y_keys_behavior.dart';
+import 'iron_control_state.dart';
 import 'iron_flex_layout.dart';
 import 'typography.dart';
-import 'color.dart';
-import 'default_theme.dart';
 import 'paper_item_shared_styles.dart';
 
 /// `<paper-icon-item>` is a convenience element to make an item with icon. It is an interactive list
@@ -47,7 +45,7 @@ import 'paper_item_shared_styles.dart';
 /// `--paper-item-focused`        | Mixin applied to focused paper-items         | `{}`
 /// `--paper-item-focused-before` | Mixin applied to :before focused paper-items | `{}`
 @CustomElementProxy('paper-icon-item')
-class PaperIconItem extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, IronButtonState, PaperItemBehavior {
+class PaperIconItem extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperItemBehavior {
   PaperIconItem.created() : super.created();
   factory PaperIconItem() => new Element.tag('paper-icon-item');
 }

@@ -43,7 +43,9 @@ class IronInput extends InputElement with CustomElementProxyMixin, PolymerBase, 
   IronInput.created() : super.created();
   factory IronInput() => new Element.tag('input', 'iron-input');
 
-  /// Regular expression to match valid input characters.
+  /// Regular expression expressing a set of characters to enforce the validity of input characters.
+  /// The recommended value should follow this format: `[a-ZA-Z0-9.+-!;:]` that list the characters
+  /// allowed as input.
   String get allowedPattern => jsElement[r'allowedPattern'];
   set allowedPattern(String value) { jsElement[r'allowedPattern'] = value; }
 
@@ -52,8 +54,8 @@ class IronInput extends InputElement with CustomElementProxyMixin, PolymerBase, 
   set bindValue(String value) { jsElement[r'bindValue'] = value; }
 
   /// Set to true to prevent the user from entering invalid input. The new input characters are
-  /// matched with `allowedPattern` if it is set, otherwise it will use the `pattern` attribute if
-  /// set, or the `type` attribute (only supported for `type=number`).
+  /// matched with `allowedPattern` if it is set, otherwise it will use the `type` attribute (only
+  /// supported for `type=number`).
   bool get preventInvalidInput => jsElement[r'preventInvalidInput'];
   set preventInvalidInput(bool value) { jsElement[r'preventInvalidInput'] = value; }
 

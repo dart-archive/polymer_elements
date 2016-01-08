@@ -17,6 +17,7 @@ import 'paper_ripple_behavior.dart';
 import 'iron_checked_element_behavior.dart';
 import 'iron_form_element_behavior.dart';
 import 'iron_validatable_behavior.dart';
+import 'iron_flex_layout.dart';
 import 'color.dart';
 import 'default_theme.dart';
 import 'paper_ripple.dart';
@@ -47,6 +48,7 @@ import 'paper_ripple.dart';
 /// `--paper-toggle-button-checked-bar` | Mixin applied to the slider when the input is checked | `{}`
 /// `--paper-toggle-button-checked-button` | Mixin applied to the slider button when the input is checked | `{}`
 /// `--paper-toggle-button-label-color` | Label color | `--primary-text-color`
+/// `--paper-toggle-button-label-spacing` | Spacing between the label and the button | `8px`
 @CustomElementProxy('paper-toggle-button')
 class PaperToggleButton extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperRippleBehavior, PaperInkyFocusBehavior, IronFormElementBehavior, IronValidatableBehavior, IronCheckedElementBehavior, PaperCheckedElementBehavior {
   PaperToggleButton.created() : super.created();

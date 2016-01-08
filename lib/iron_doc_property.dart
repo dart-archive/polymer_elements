@@ -19,6 +19,10 @@ class IronDocProperty extends HtmlElement with CustomElementProxyMixin, PolymerB
   IronDocProperty.created() : super.created();
   factory IronDocProperty() => new Element.tag('iron-doc-property');
 
+  /// Unique anchor ID for deep-linking.
+  String get anchorId => jsElement[r'anchorId'];
+  set anchorId(String value) { jsElement[r'anchorId'] = value; }
+
   /// Whether the property should show a one-liner, or full summary.
   ///
   /// Note that this property _is_ reflected as an attribute, but we perform

@@ -8,11 +8,11 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
-import 'iron_control_state.dart';
 import 'iron_button_state.dart';
 import 'iron_a11y_keys_behavior.dart';
+import 'iron_control_state.dart';
 
 
 @BehaviorProxy(const ['Polymer', 'PaperItemBehavior'])
-abstract class PaperItemBehavior implements CustomElementProxyMixin, IronControlState, IronButtonState {
+abstract class PaperItemBehavior implements CustomElementProxyMixin, IronButtonState, IronControlState {
 }

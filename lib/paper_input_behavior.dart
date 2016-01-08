@@ -83,6 +83,9 @@ abstract class PaperInputBehavior implements CustomElementProxyMixin, IronContro
 
   /// Returns true if the value is invalid. Bind this to both the `<paper-input-container>`'s
   /// and the input's `invalid` property.
+  ///
+  /// If `autoValidate` is true, the `invalid` attribute is managed automatically,
+  /// which can clobber attempts to manage it manually.
   bool get invalid => jsElement[r'invalid'];
   set invalid(bool value) { jsElement[r'invalid'] = value; }
 
