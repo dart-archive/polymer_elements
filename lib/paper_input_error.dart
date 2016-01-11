@@ -9,7 +9,8 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_input_addon_behavior.dart';
-import 'paper_styles.dart';
+import 'color.dart';
+import 'typography.dart';
 
 /// `<paper-input-error>` is an error message for use with `<paper-input-container>`. The error is
 /// displayed when the `<paper-input-container>` is `invalid`.

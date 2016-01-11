@@ -10,7 +10,10 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_validatable_behavior.dart';
 import 'iron_input.dart';
-import 'iron_flex_layout/classes/iron_flex_layout.dart';
+import 'iron_flex_layout.dart';
+import 'paper_input_container.dart';
+import 'default_theme.dart';
+import 'typography.dart';
 import 'date_validator.dart';
 
 

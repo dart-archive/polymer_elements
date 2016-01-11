@@ -15,7 +15,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 ///
 /// Value is saved as json by default.
 ///
-/// ###Usage:
+/// ### Usage:
 ///
 /// `ls-sample` will automatically save changes to its value.
 ///
@@ -49,10 +49,11 @@ import 'package:polymer_interop/polymer_interop.dart';
 ///       });
 ///     </script>
 ///
-/// ###Tech notes:
+/// ### Tech notes:
 ///
 /// * `value.*` is observed, and saved on modifications. You must use
-/// property notification methods to modify value for changes to be observed.
+///     path change notifification methods such as `set()` to modify value
+///     for changes to be observed.
 ///
 /// * Set `auto-save-disabled` to prevent automatic saving.
 ///
@@ -99,7 +100,7 @@ class IronLocalstorage extends HtmlElement with CustomElementProxyMixin, Polymer
       jsElement.callMethod('reload', []);
 
   /// Saves the value to localStorage. Call to save if autoSaveDisabled is set.
-  /// If `value` is null, deletes localStorage.
+  /// If `value` is null or undefined, deletes localStorage.
   save() =>
       jsElement.callMethod('save', []);
 }

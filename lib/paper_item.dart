@@ -8,15 +8,16 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
-import 'iron_control_state.dart';
+import 'paper_item_behavior.dart';
 import 'iron_button_state.dart';
 import 'iron_a11y_keys_behavior.dart';
-import 'paper_styles.dart';
+import 'iron_control_state.dart';
+import 'iron_flex_layout.dart';
 import 'paper_item_shared_styles.dart';
 
 /// Material design: [Lists](https://www.google.com/design/spec/components/lists.html)
 ///
-/// `<paper-item>` is a non-interactive list item. By default, it is a horizontal flexbox.
+/// `<paper-item>` is an interactive list item. By default, it is a horizontal flexbox.
 ///
 ///     <paper-item>Item</paper-item>
 ///
@@ -35,17 +36,16 @@ import 'paper_item_shared_styles.dart';
 ///
 /// The following custom properties and mixins are available for styling:
 ///
-/// Custom property               | Description                                    | Default
-/// ------------------------------|------------------------------------------------|----------
-/// `--paper-item-min-height`     | Minimum height of the item                     | `48px`
-/// `--paper-item`                | Mixin applied to the item                      | `{}`
-/// `--paper-item-selected-weight`| The font weight of a selected item             | `bold`
-/// `--paper-item-selected`       | Mixin applied to selected paper-items                | `{}`
-/// `--paper-item-disabled-color` | The color for disabled paper-items             | `--disabled-text-color`
+/// Custom property               | Description                                  | Default
+/// ------------------------------|----------------------------------------------|----------
+/// `--paper-item-min-height`     | Minimum height of the item                   | `48px`
+/// `--paper-item`                | Mixin applied to the item                    | `{}`
+/// `--paper-item-selected-weight`| The font weight of a selected item           | `bold`
+/// `--paper-item-selected`       | Mixin applied to selected paper-items        | `{}`
+/// `--paper-item-disabled-color` | The color for disabled paper-items           | `--disabled-text-color`
 /// `--paper-item-disabled`       | Mixin applied to disabled paper-items        | `{}`
 /// `--paper-item-focused`        | Mixin applied to focused paper-items         | `{}`
 /// `--paper-item-focused-before` | Mixin applied to :before focused paper-items | `{}`
-///
 ///
 /// ### Accessibility
 ///
@@ -59,7 +59,7 @@ import 'paper_item_shared_styles.dart';
 ///       <paper-checkbox></paper-checkbox>
 ///     </paper-item>
 @CustomElementProxy('paper-item')
-class PaperItem extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, IronButtonState {
+class PaperItem extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperItemBehavior {
   PaperItem.created() : super.created();
   factory PaperItem() => new Element.tag('paper-item');
 }

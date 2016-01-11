@@ -9,7 +9,7 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_input_addon_behavior.dart';
-import 'paper_styles.dart';
+import 'typography.dart';
 
 /// `<paper-input-char-counter>` is a character counter for use with `<paper-input-container>`. It
 /// shows the number of characters entered in the input and the max length if it is specified.

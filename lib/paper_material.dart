@@ -9,6 +9,7 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'shadow.dart';
+import 'paper_material_shared_styles.dart';
 
 /// Material design: [Cards](https://www.google.com/design/spec/components/cards.html)
 ///

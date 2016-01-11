@@ -50,6 +50,7 @@ import 'color.dart';
 /// `--paper-checkbox-label-color` | Label color | `--primary-text-color`
 /// `--paper-checkbox-label-spacing` | Spacing between the label and the checkbox | `8px`
 /// `--paper-checkbox-error-color` | Checkbox color when invalid | `--google-red-500`
+/// `--paper-checkbox-size` | Size of the checkbox | `18px`
 @CustomElementProxy('paper-checkbox')
 class PaperCheckbox extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperRippleBehavior, PaperInkyFocusBehavior, IronFormElementBehavior, IronValidatableBehavior, IronCheckedElementBehavior, PaperCheckedElementBehavior {
   PaperCheckbox.created() : super.created();

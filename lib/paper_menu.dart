@@ -12,8 +12,13 @@ import 'iron_menu_behavior.dart';
 import 'iron_multi_selectable.dart';
 import 'iron_selectable.dart';
 import 'iron_a11y_keys_behavior.dart';
-import 'paper_styles.dart';
+import 'iron_flex_layout.dart';
+import 'default_theme.dart';
+import 'color.dart';
+import 'paper_menu_shared_styles.dart';
 
+/// Material design: [Menus](https://www.google.com/design/spec/components/menus.html)
+///
 /// `<paper-menu>` implements an accessible menu control with Material Design styling. The focused item
 /// is highlighted, and the selected item has bolded text.
 ///
@@ -30,7 +35,7 @@ import 'paper_styles.dart';
 ///     </paper-menu>
 ///
 /// Make a multi-select menu with the `multi` attribute. Items in a multi-select menu can be deselected,
-/// and multiple item can be selected.
+/// and multiple items can be selected.
 ///
 ///     <paper-menu multi>
 ///       <paper-item>Item 1</paper-item>
@@ -44,7 +49,7 @@ import 'paper_styles.dart';
 /// Custom property | Description | Default
 /// ----------------|-------------|----------
 /// `--paper-menu-background-color`   | Menu background color                                            | `--primary-background-color`
-/// `--paper-menu-color`               | Menu foreground color                                            | `--primary-text-color`
+/// `--paper-menu-color`              | Menu foreground color                                            | `--primary-text-color`
 /// `--paper-menu-disabled-color`     | Foreground color for a disabled item                             | `--disabled-text-color`
 /// `--paper-menu`                    | Mixin applied to the menu                                        | `{}`
 /// `--paper-menu-selected-item`      | Mixin applied to the selected item                               | `{}`

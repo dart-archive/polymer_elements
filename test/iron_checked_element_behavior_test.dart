@@ -54,9 +54,9 @@ main() async {
       expect(c.invalid, isFalse);
     });
 
-    test('has a default value of "on" when checked', () {
+    test('has a default value of "on", always', () {
       SimpleCheckbox c = fixture('basic');
-      expect(c.value, '');
+      expect(c.value, 'on');
 
       c.checked = true;
       expect(c.value, 'on');
@@ -69,6 +69,34 @@ main() async {
       c.checked = true;
       expect(c.value, 'batman');
     });
+
+    test('value returns "on" when no explicit value is specified', () {
+      var c = fixture('basic');
+
+      expect(c.value, 'on', reason:'returns "on"');
+    });
+
+    test('value returns the value when an explicit value is set', () {
+      var c = fixture('basic');
+
+      c.value = 'abc';
+      expect(c.value, 'abc', reason:'returns "abc"');
+
+      c.value = '123';
+      expect(c.value, '123', reason:'returns "123"');
+    });
+
+    test('value returns "on" when value is set to undefined', () {
+      var c = fixture('basic');
+
+      c.value = 'abc';
+      expect(c.value, 'abc', reason:'returns "abc"');
+
+      c.value = null; // TODO: DART PORT : null == undefined in JS ?
+      expect(c.value, 'on', reason:'returns "on"');
+    });
+
+
   });
 
   group('a11y', () {

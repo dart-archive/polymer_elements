@@ -10,6 +10,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_input_behavior.dart';
 import 'iron_control_state.dart';
+import 'iron_a11y_keys_behavior.dart';
 import 'iron_form_element_behavior.dart';
 import 'paper_input_container.dart';
 import 'paper_input_error.dart';
@@ -43,7 +44,7 @@ import 'date_input.dart';
 /// See `Polymer.PaperInputContainer` for a list of custom properties used to
 /// style this element.
 @CustomElementProxy('gold-cc-expiration-input')
-class GoldCcExpirationInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, PaperInputBehavior, IronFormElementBehavior {
+class GoldCcExpirationInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, PaperInputBehavior, IronFormElementBehavior {
   GoldCcExpirationInput.created() : super.created();
   factory GoldCcExpirationInput() => new Element.tag('gold-cc-expiration-input');
 

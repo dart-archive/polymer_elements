@@ -8,9 +8,9 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
-import 'iron_control_state.dart';
 import 'iron_button_state.dart';
 import 'iron_a11y_keys_behavior.dart';
+import 'iron_control_state.dart';
 import 'iron_form_element_behavior.dart';
 import 'iron_validatable_behavior.dart';
 import 'default_theme.dart';
@@ -19,7 +19,6 @@ import 'paper_menu_button.dart';
 import 'paper_ripple.dart';
 import 'iron_icons.dart';
 import 'iron_icon.dart';
-import 'iron_selectable.dart';
 
 /// Material design: [Dropdown menus](https://www.google.com/design/spec/components/buttons.html#buttons-dropdown-buttons)
 ///
@@ -65,7 +64,7 @@ import 'iron_selectable.dart';
 /// style mixins and custom properties to style the internal input and menu button
 /// respectively.
 @CustomElementProxy('paper-dropdown-menu')
-class PaperDropdownMenu extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, IronButtonState, IronFormElementBehavior, IronValidatableBehavior {
+class PaperDropdownMenu extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, IronFormElementBehavior, IronValidatableBehavior {
   PaperDropdownMenu.created() : super.created();
   factory PaperDropdownMenu() => new Element.tag('paper-dropdown-menu');
 
@@ -76,6 +75,11 @@ class PaperDropdownMenu extends HtmlElement with CustomElementProxyMixin, Polyme
 
   /// The content element that is contained by the dropdown menu, if any.
   get contentElement => jsElement[r'contentElement'];
+
+  /// The orientation against which to align the menu dropdown
+  /// horizontally relative to the dropdown trigger.
+  String get horizontalAlign => jsElement[r'horizontalAlign'];
+  set horizontalAlign(String value) { jsElement[r'horizontalAlign'] = value; }
 
   get keyBindings => jsElement[r'keyBindings'];
   set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
@@ -119,6 +123,11 @@ class PaperDropdownMenu extends HtmlElement with CustomElementProxyMixin, Polyme
   /// as `selectedItemLabel`.
   String get value => jsElement[r'value'];
   set value(String value) { jsElement[r'value'] = value; }
+
+  /// The orientation against which to align the menu dropdown
+  /// vertically relative to the dropdown trigger.
+  String get verticalAlign => jsElement[r'verticalAlign'];
+  set verticalAlign(String value) { jsElement[r'verticalAlign'] = value; }
 
   /// Hide the dropdown content.
   close() =>

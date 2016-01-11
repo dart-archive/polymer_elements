@@ -8,19 +8,20 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
+import 'paper_spinner_behavior.dart';
 import 'iron_flex_layout.dart';
 import 'color.dart';
 import 'paper_spinner_styles.dart';
 
 /// Material design: [Progress & activity](https://www.google.com/design/spec/components/progress-activity.html)
 ///
-/// Element providing material design circular spinner.
+/// Element providing a multiple color material design circular spinner.
 ///
 ///     <paper-spinner active></paper-spinner>
 ///
 /// The default spinner cycles between four layers of colors; by default they are
-/// blue, red, yellow and green. It can be customized so that it uses one color only
-/// by setting all the layer colors to the same value.
+/// blue, red, yellow and green. It can be customized to cycle between four different
+/// colors. Use <paper-spinner-lite> for single color spinners.
 ///
 /// ### Accessibility
 ///
@@ -42,20 +43,7 @@ import 'paper_spinner_styles.dart';
 /// `--paper-spinner-layer-3-color` | Color of the third spinner rotation | `--google-yellow-500`
 /// `--paper-spinner-layer-4-color` | Color of the fourth spinner rotation | `--google-green-500`
 @CustomElementProxy('paper-spinner')
-class PaperSpinner extends HtmlElement with CustomElementProxyMixin, PolymerBase {
+class PaperSpinner extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperSpinnerBehavior {
   PaperSpinner.created() : super.created();
   factory PaperSpinner() => new Element.tag('paper-spinner');
-
-  /// Displays the spinner.
-  bool get active => jsElement[r'active'];
-  set active(bool value) { jsElement[r'active'] = value; }
-
-  /// Alternative text content for accessibility support.
-  /// If alt is present, it will add an aria-label whose content matches alt when active.
-  /// If alt is not present, it will default to 'loading' as the alt value.
-  String get alt => jsElement[r'alt'];
-  set alt(String value) { jsElement[r'alt'] = value; }
-
-  reset() =>
-      jsElement.callMethod('reset', []);
 }

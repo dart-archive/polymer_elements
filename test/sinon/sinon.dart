@@ -20,6 +20,8 @@ get matchAny => _Sinon['match']['any'];
 class Spy {
   JsObject jsObject;
 
+  get called => jsObject["called"];
+
   Spy(this.jsObject);
 
   bool get calledOnce => jsObject['calledOnce'];
@@ -32,6 +34,8 @@ class Spy {
   SpyCall getCall(int arg) => new SpyCall(jsObject.callMethod("getCall",[arg]));
 
   EventListener get eventListener => (Event e) => (jsObject as JsFunction).apply([e]);
+
+  bool calledAfter(Spy otherSpy) => jsObject.callMethod("calledAfter", [otherSpy.jsObject]);
 }
 
 class SpyCall {

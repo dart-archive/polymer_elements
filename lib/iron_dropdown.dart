@@ -69,8 +69,17 @@ class IronDropdown extends HtmlElement with CustomElementProxyMixin, PolymerBase
   set horizontalAlign(String value) { jsElement[r'horizontalAlign'] = value; }
 
   /// A pixel value that will be added to the position calculated for the
-  /// given `horizontalAlign`. Use a negative value to offset to the
-  /// left, or a positive value to offset to the right.
+  /// given `horizontalAlign`, in the direction of alignment. You can think
+  /// of it as increasing or decreasing the distance to the side of the
+  /// screen given by `horizontalAlign`.
+  ///
+  /// If `horizontalAlign` is "left", this offset will increase or decrease
+  /// the distance to the left side of the screen: a negative offset will
+  /// move the dropdown to the left; a positive one, to the right.
+  ///
+  /// Conversely if `horizontalAlign` is "right", this offset will increase
+  /// or decrease the distance to the right side of the screen: a negative
+  /// offset will move the dropdown to the right; a positive one, to the left.
   num get horizontalOffset => jsElement[r'horizontalOffset'];
   set horizontalOffset(num value) { jsElement[r'horizontalOffset'] = value; }
 
@@ -95,8 +104,17 @@ class IronDropdown extends HtmlElement with CustomElementProxyMixin, PolymerBase
   set verticalAlign(String value) { jsElement[r'verticalAlign'] = value; }
 
   /// A pixel value that will be added to the position calculated for the
-  /// given `verticalAlign`. Use a negative value to offset towards the
-  /// top, or a positive value to offset towards the bottom.
+  /// given `verticalAlign`, in the direction of alignment. You can think
+  /// of it as increasing or decreasing the distance to the side of the
+  /// screen given by `verticalAlign`.
+  ///
+  /// If `verticalAlign` is "top", this offset will increase or decrease
+  /// the distance to the top side of the screen: a negative offset will
+  /// move the dropdown upwards; a positive one, downwards.
+  ///
+  /// Conversely if `verticalAlign` is "bottom", this offset will increase
+  /// or decrease the distance to the bottom side of the screen: a negative
+  /// offset will move the dropdown downwards; a positive one, upwards.
   num get verticalOffset => jsElement[r'verticalOffset'];
   set verticalOffset(num value) { jsElement[r'verticalOffset'] = value; }
 }

@@ -15,7 +15,6 @@ import 'iron_multi_selectable.dart';
 import 'iron_selectable.dart';
 import 'iron_a11y_keys_behavior.dart';
 import 'iron_flex_layout.dart';
-import 'iron_flex_layout/classes/iron_flex_layout.dart';
 import 'iron_icon.dart';
 import 'paper_icon_button.dart';
 import 'color.dart';
@@ -61,26 +60,8 @@ import 'paper_tab.dart';
 ///
 /// Example:
 ///
-///     <paper-tabs selected="0">
-///       <paper-tab link>
-///         <a href="#link1" class="horizontal center-center layout">TAB ONE</a>
-///       </paper-tab>
-///       <paper-tab link>
-///         <a href="#link2" class="horizontal center-center layout">TAB TWO</a>
-///       </paper-tab>
-///       <paper-tab link>
-///         <a href="#link3" class="horizontal center-center layout">TAB THREE</a>
-///       </paper-tab>
-///     </paper-tabs>
-///
-/// ### Styling
-///
-/// The following custom properties and mixins are available for styling:
-///
-/// Custom property | Description | Default
-/// ----------------|-------------|----------
-/// `--paper-tabs-selection-bar-color` | Color for the selection bar | `--paper-yellow-a100`
-/// `--paper-tabs` | Mixin applied to the tabs | `{}`
+///     <style is="custom-style">
+///       .link {
 @CustomElementProxy('paper-tabs')
 class PaperTabs extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronResizableBehavior, IronSelectableBehavior, IronMultiSelectableBehavior, IronA11yKeysBehavior, IronMenuBehavior, IronMenubarBehavior {
   PaperTabs.created() : super.created();
@@ -102,15 +83,15 @@ class PaperTabs extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   bool get noBar => jsElement[r'noBar'];
   set noBar(bool value) { jsElement[r'noBar'] = value; }
 
+  /// If true, the slide effect for the bottom bar is disabled.
+  bool get noSlide => jsElement[r'noSlide'];
+  set noSlide(bool value) { jsElement[r'noSlide'] = value; }
+
   /// If true, ink ripple effect is disabled. When this property is changed,
   /// all descendant `<paper-tab>` elements have their `noink` property
   /// changed to the new value as well.
   bool get noink => jsElement[r'noink'];
   set noink(bool value) { jsElement[r'noink'] = value; }
-
-  /// If true, the slide effect for the bottom bar is disabled.
-  bool get noSlide => jsElement[r'noSlide'];
-  set noSlide(bool value) { jsElement[r'noSlide'] = value; }
 
   /// If true, tabs are scrollable and the tab width is based on the label width.
   bool get scrollable => jsElement[r'scrollable'];

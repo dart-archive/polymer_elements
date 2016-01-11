@@ -36,6 +36,11 @@ class GoogleFeeds extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   List get feeds => jsElement[r'feeds'];
   set feeds(List value) { jsElement[r'feeds'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
 
+  /// Format the data is returned. json(default)|xml|mixed
+  /// Only applies for one feed.
+  String get format => jsElement[r'format'];
+  set format(String value) { jsElement[r'format'] = value; }
+
   /// True if feeds API is loading an item
   bool get loading => jsElement[r'loading'];
   set loading(bool value) { jsElement[r'loading'] = value; }

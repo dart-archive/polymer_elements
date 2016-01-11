@@ -25,10 +25,10 @@ abstract class PaperRippleBehavior implements CustomElementProxyMixin {
 
   /// Ensures this element contains a ripple effect. For startup efficiency
   /// the ripple effect is dynamically on demand when needed.
-  /// [opt_triggeringEvent]: (optional) event that triggered the
+  /// [optTriggeringEvent]: (optional) event that triggered the
   ///     ripple.
-  ensureRipple(opt_triggeringEvent) =>
-      jsElement.callMethod('ensureRipple', [opt_triggeringEvent]);
+  ensureRipple(optTriggeringEvent) =>
+      jsElement.callMethod('ensureRipple', [optTriggeringEvent]);
 
   /// Returns the `<paper-ripple>` element used by this element to create
   /// ripple effects. The element's ripple is created on demand, when

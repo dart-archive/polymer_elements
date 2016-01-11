@@ -9,13 +9,15 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'hydrolysis_analyzer.dart';
-import 'iron_doc_viewer.dart';
-import 'iron_icons.dart';
 import 'iron_ajax.dart';
+import 'iron_doc_viewer.dart';
+import 'iron_flex_layout.dart';
+import 'iron_icons.dart';
 import 'iron_selector.dart';
 import 'paper_header_panel.dart';
+import 'color.dart';
+import 'typography.dart';
 import 'paper_toolbar.dart';
-import 'paper_styles.dart';
 
 /// Loads Polymer element and behavior documentation using
 /// [Hydrolysis](https://github.com/PolymerLabs/hydrolysis) and renders a complete
@@ -34,6 +36,11 @@ class IronComponentPage extends HtmlElement with CustomElementProxyMixin, Polyme
   /// detection.
   String get base => jsElement[r'base'];
   set base(String value) { jsElement[r'base'] = value; }
+
+  /// Toggle flag to be used when this element is being displayed in the
+  /// Polymer Elements catalog.
+  bool get catalog => jsElement[r'catalog'];
+  set catalog(bool value) { jsElement[r'catalog'] = value; }
 
   /// The Hydrolysis behavior descriptors that have been loaded.
   List get docBehaviors => jsElement[r'docBehaviors'];
@@ -92,9 +99,6 @@ class IronComponentPage extends HtmlElement with CustomElementProxyMixin, Polyme
   /// The current view. Can be `docs` or `demo`.
   String get view => jsElement[r'view'];
   set view(String value) { jsElement[r'view'] = value; }
-
-  bool get enableCustomStyleProperties => jsElement[r'enableCustomStyleProperties'];
-  set enableCustomStyleProperties(bool value) { jsElement[r'enableCustomStyleProperties'] = value; }
 
   /// Renders this element into static HTML for offline use.
   ///

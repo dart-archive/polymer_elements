@@ -11,10 +11,11 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_form_element_behavior.dart';
 import 'paper_input_behavior.dart';
 import 'iron_control_state.dart';
+import 'iron_a11y_keys_behavior.dart';
 import 'iron_input.dart';
+import 'paper_input_char_counter.dart';
 import 'paper_input_container.dart';
 import 'paper_input_error.dart';
-import 'paper_input_char_counter.dart';
 
 /// Material design: [Text fields](https://www.google.com/design/spec/components/text-fields.html)
 ///
@@ -48,12 +49,17 @@ import 'paper_input_char_counter.dart';
 ///
 /// See `Polymer.PaperInputBehavior` for more API docs.
 ///
+/// ### Focus
+///
+/// To focus a paper-input, you can call the native `focus()` method as long as the
+/// paper input has a tab index.
+///
 /// ### Styling
 ///
 /// See `Polymer.PaperInputContainer` for a list of custom properties used to
 /// style this element.
 @CustomElementProxy('paper-input')
-class PaperInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronFormElementBehavior, IronControlState, PaperInputBehavior, IronControlState {
+class PaperInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronFormElementBehavior, IronControlState, IronA11yKeysBehavior, PaperInputBehavior {
   PaperInput.created() : super.created();
   factory PaperInput() => new Element.tag('paper-input');
 }
