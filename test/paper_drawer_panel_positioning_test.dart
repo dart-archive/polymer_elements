@@ -17,10 +17,11 @@ main() async {
 
   group('positioning', () {
     test('drawer is positioned correctly', () async {
-      Element f, drawer, main;
+      PaperDrawerPanel f;
+      Element drawer, main;
       f = fixture('left-drawer');
-      drawer = f.querySelector('#drawer');
-      main = f.querySelector('#main');
+      drawer = f.$$('#drawer');
+      main = f.$$('#main');
 
       await wait(1);
       var drawerStyle = drawer.getComputedStyle();
@@ -34,10 +35,11 @@ main() async {
     });
 
     test('right-drawer is positioned correctly', () async {
-      Element f, drawer, main;
+      PaperDrawerPanel f;
+      Element drawer, main;
       f = fixture('right-drawer');
-      drawer = f.querySelector('#drawer');
-      main = f.querySelector('#main');
+      drawer = f.$$('#drawer');
+      main = f.$$('#main');
 
       await wait(1);
       var drawerStyle = drawer.getComputedStyle();

@@ -19,21 +19,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <!--<script type="application/dart" src="paper_checkbox_test.dart"></script>-->
     <!--<script src="packages/browser/dart.js"></script>-->
     <script src="packages/test/dart.js"></script>
+
+    <style is="custom-style">
+      paper-checkbox.giant {
+        --paper-checkbox-size: 50px;
+      }
+      paper-checkbox.tiny {
+        --paper-checkbox-size: 5px;
+      }
+    </style>
 </head>
 
 <body>
+  <template id="NoLabel">
+    <paper-checkbox id="check1"></paper-checkbox>
+  </template>
 
-    <template id="NoLabel">
-        <paper-checkbox id="check1"></paper-checkbox>
-    </template>
+  <template id="WithLabel">
+    <paper-checkbox id="check2">Batman</paper-checkbox>
+  </template>
 
-    <template id="WithLabel">
-        <paper-checkbox id="check2">Batman</paper-checkbox>
-    </template>
+  <template id="AriaLabel">
+    <paper-checkbox id="check3" aria-label="Batman">Robin</paper-checkbox>
+  </template>
 
-    <template id="AriaLabel">
-        <paper-checkbox id="check3" aria-label="Batman">Robin</paper-checkbox>
-    </template>
-
+  <template id="WithDifferentSizes">
+    <paper-checkbox></paper-checkbox>
+    <paper-checkbox class="giant"></paper-checkbox>
+    <paper-checkbox class="tiny"></paper-checkbox>
+  </template>
 </body>
 </html>

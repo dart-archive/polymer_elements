@@ -64,6 +64,23 @@ main() async {
       });
     });
 
+    // TODO(jakemac): update this once we can actually spy on requests
+    group('when url isn\'t set yet', () {
+      test('we don\'t fire any automatic requests', () {
+        ajax = fixture('BlankUrl');
+
+        return wait(1).then((_) {
+          // Explicitly asking for the request to fire works.
+          ajax.generateRequest();
+
+          // Explicitly setting url to '' works too.
+          ajax = fixture('BlankUrl');
+          ajax.url = '';
+          return wait(1);
+        });
+      });
+    });
+
     group('when properties are changed', () {
       test('generates simple-request elements that reflect the change', () {
         var done = new Completer();
@@ -104,6 +121,25 @@ main() async {
         expect(ajax.generateRequest() is IronRequest, isTrue);
       });
 
+      test('correctly adds params to a URL that already has some', () {
+        ajax.url += '?a=b';
+        ajax.params = {'c': 'd'};
+        expect(ajax.requestUrl,
+            'fixtures/responds_to_get_with_json.json?a=b&c=d');
+      });
+
+      test('encodes params properly', () {
+        ajax.params = {'a b,c': 'd e f'};
+
+        expect(ajax.queryString, 'a%20b%2Cc=d%20e%20f');
+      });
+
+      test('encodes array params properly', () {
+        ajax.params = {'a b': ['c','d e', 'f']};
+
+        expect(ajax.queryString, 'a%20b=c&a%20b=d%20e&a%20b=f');
+      });
+
       test('reflects the loading state in the `loading` property', () {
         IronRequest request = ajax.generateRequest();
 
@@ -118,30 +154,36 @@ main() async {
     });
 
     group('when there are multiple requests', () {
-      var requests;
+      List<IronRequest> requests;
+      IronAjax echoAjax;
+      Future allRequestsDone;
 
       setUp(() {
+        echoAjax = fixture('GetEcho');
         requests = <IronRequest>[];
 
         for (var i = 0; i < 3; ++i) {
+          echoAjax.params = {'order': i + 1};
           requests.add(ajax.generateRequest());
         }
+        allRequestsDone =
+            Future.wait(requests.map((r) => jsPromiseToFuture(r.completes)));
       });
 
       test('holds all requests in the `activeRequests` Array', () async {
         expect(requests, ajax.activeRequests);
-        var futures =
-            requests.map((request) => jsPromiseToFuture(request.completes));
-        await Future.wait(futures);
       });
 
       test('empties `activeRequests` when requests are completed', () async {
-        var futures =
-            requests.map((request) => jsPromiseToFuture(request.completes));
-        await Future.wait(futures);
+        expect(ajax.activeRequests.length, 3);
+        await allRequestsDone;
         await wait(1);
         expect(ajax.activeRequests.length, 0);
       });
+
+      // TODO(jakemac): add 'avoids race conditions with last response' and
+      // '`loading` is true while the last one is loading' tests once we can
+      // mock server responses.
     });
 
     group('when params are changed', () {
@@ -179,9 +221,14 @@ main() async {
 
       test('automatically generates new requests', () {
         var done = new Completer();
-        ajax.on['request'].take(1).listen((_) {
-          done.complete();
+        ajax.on['request'].take(1).listen((_) async {
+          await ajax.on['response'].first;
+          ajax.on['request'].take(1).listen((_) {
+            done.complete();
+          });
+          ajax.set('params.foo', 'xyz');
         });
+        ajax.params = {'foo': 'bar'};
         return done.future;
       });
 
@@ -193,7 +240,7 @@ main() async {
         ajax.url = null;
         ajax.handleAs = 'text';
 
-        return new Future(() {});
+        return wait(1);
       });
 
       test('deduplicates multiple changes to a single request', () {
@@ -389,7 +436,7 @@ main() async {
     });
 
     group('when a request fails', () {
-      test('the error event has useful details', () {
+      test('we give an error with useful details', () {
         var done = new Completer();
 
         ajax.on['error'].take(1).listen((event) {
@@ -408,22 +455,39 @@ main() async {
         var request = ajax.generateRequest();
 
         return done.future;
+      }, skip: 'https://github.com/dart-lang/polymer_elements/issues/14');
+
+      test('we give a useful error even when the domain doesn\'t resolve', () async {
+        ajax.url = 'http://nonexistant.example.com/';
+        var eventFired = false;
+        ajax.on['error'].take(1).listen((event) {
+          event = convertToDart(event);
+          expect(event.detail['request'], isNotNull);
+          expect(event.detail['error'], isNotNull);
+          eventFired = true;
+        });
+        var request = ajax.generateRequest();
+        return jsPromiseToFuture(request.completes).then((_) {
+          throw 'Expected the request to fail!';
+        }, onError: (error) {
+          expect(request.succeeded, isFalse);
+          expect(error, isNotNull);
+          return wait(100);
+        }).then((_) {
+          expect(eventFired, isTrue);
+          expect(ajax.lastError, isNotNull);
+        });
       });
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/14');
+    });
 
     group('when handleAs parameter is `json`', () {
-      test('response type is string', () {
-        var done = new Completer();
+      test('response type is string', () async {
         ajax.url = 'fixtures/responds_to_get_with_json.json';
         ajax.handleAs = 'json';
 
         request = ajax.generateRequest();
-        jsPromiseToFuture(request.completes).then((_) {
-          expect(ajax.lastResponse, isNotNull);
-          done.complete();
-        });
-
-        return done.future;
+        await jsPromiseToFuture(request.completes);
+        expect(ajax.lastResponse, isNotNull);
       });
 
       test('fails when getting invalid json data', () {
@@ -497,6 +561,35 @@ main() async {
               matches(r'^application\/xml(;.*)?$'));
           expect(ajax.lastResponse['data'],
               matches(r'<foo\s*><bar\s+name="baz"\s*\/><\/foo\s*>'));
+        });
+      });
+    });
+
+    group('when setting timeout', () {
+      test('it is present in the request xhr object',  () {
+        ajax.url = 'responds_to_get_with_json.json';
+        ajax.timeout = 5000; // 5 Seconds
+
+        request = ajax.generateRequest();
+        expect(request.xhr['timeout'], 5000); // 5 Seconds
+      });
+
+      test('it fails once that timeout is reached',  () {
+        var ajax = fixture('Delay');
+        ajax.timeout = 1; // 1 Millisecond
+
+        request = ajax.generateRequest();
+        return jsPromiseToFuture(request.completes).then((_) {
+          throw 'Expected the request to throw an error.';
+        }, onError: (_) {
+          expect(request.succeeded, isFalse);
+          expect(request.xhr['status'], 0);
+          expect(request.timedOut, isTrue);
+          return wait(1);
+        }).then((_) {
+          expect(ajax.loading, isFalse);
+          expect(ajax.lastResponse, isNull);
+          expect(ajax.lastError, isNotNull);
         });
       });
     });

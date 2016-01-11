@@ -53,6 +53,6 @@ class IronLabel extends HtmlElement with CustomElementProxyMixin, PolymerBase {
 
   /// An ID reference to another element that needs to be
   /// labelled by this `iron-label` element.
-  String get for => jsElement[r'for'];
-  set for(String value) { jsElement[r'for'] = value; }
+  String get labelFor => jsElement[r'for'];
+  set labelFor(String value) { jsElement[r'for'] = value; }
 }

@@ -31,6 +31,7 @@ main() async {
           expect(request.response, isNotNull);
         });
       });
+
       test('sets async to true by default', () {
         request.send(new JsObject.jsify(successfulRequestOptions));
         expect(request.xhr['status'], 0);
@@ -38,6 +39,7 @@ main() async {
           expect(request.xhr['status'], 200);
         });
       });
+
       test('can be aborted', () {
         request.send(new JsObject.jsify(successfulRequestOptions));
         request.abort();
@@ -47,6 +49,7 @@ main() async {
           expect(request.response, isNull);
         });
       });
+
       test('default responseType is text', () {
         request.send(new JsObject.jsify(successfulRequestOptions));
         return jsPromiseToFuture(request.completes).then((_) {
@@ -55,6 +58,18 @@ main() async {
           throw 'Response was not a Object';
         });
       });
+
+      test('default responseType of text is not applied, when async is false',
+            () async {
+        var options = new Map.from(successfulRequestOptions);
+        options['async'] = false;
+
+        request.send(new JsObject.jsify(options));
+
+        await jsPromiseToFuture(request.completes);
+        expect(request.xhr['responseType'], isNull);
+      }, skip: 'Failing due to setting timeout on non-async request?');
+
       test('responseType can be configured via handleAs option', () {
         var options = new Map.from(successfulRequestOptions);
         options['handleAs'] = 'json';
@@ -65,6 +80,36 @@ main() async {
           throw 'Response was not type Object';
         });
       });
+
+      test('setting jsonPrefix correctly strips it from the response', () {
+        var options = {
+          'url': 'fixtures/responds_to_get_with_prefixed_json.json',
+          'handleAs': 'json',
+          'jsonPrefix': '])}while(1);</x>'
+        };
+
+        request.send(new JsObject.jsify(options));
+
+        return jsPromiseToFuture(request.completes).then((_) {
+          expect(request.response['success'], true);
+        });
+      });
+
+      test('responseType cannot be configured via handleAs option, '
+          'when async is false', () {
+        var options = new Map.from(successfulRequestOptions);
+        options['handleAs'] = 'json';
+        options['async'] = false;
+
+        request.send(new JsObject.jsify(options));
+
+        return jsPromiseToFuture(request.completes).then((_) {
+          expect(request.response is String, isTrue);
+        });
+      }, skip: 'Failing due to setting timeout on non-async request?');
+
+      // TODO(jakemac): Port the 'headers are sent up' and
+      // 'headers are deduped by lowercasing' tests once we can mock the server.
     });
 
     // TODO(jakemac): Tests for various status codes. We will need to mock out

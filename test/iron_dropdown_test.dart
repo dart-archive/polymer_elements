@@ -44,17 +44,16 @@ main() async {
         });
       });
 
-      test('hides dropdown content when outside is clicked', () {
+      test('hides dropdown content when outside is clicked', () async {
         var done = new Completer();
         dropdown.open();
-        new Future(() {
-          expect(elementIsVisible(content), isTrue);
-          downAndUp(document.body, () {
-            new Future.delayed(new Duration(milliseconds: 100), () {
-              expect(elementIsVisible(content), isFalse);
-              done.complete();
-            });
-          });
+        await wait(1);
+        expect(elementIsVisible(content), isTrue);
+        await wait(1);
+        downAndUp(document.body, () async {
+          await wait(100);
+          expect(elementIsVisible(content), isFalse);
+          done.complete();
         });
         return done.future;
       });
@@ -101,14 +100,14 @@ main() async {
         dropdown = fixture('NonLockingDropdown');
       });
 
-      test('can be disabled with `allowOutsideScroll`', () {
+      test('can be disabled with `allowOutsideScroll`', () async {
         dropdown.open();
-
+        await wait(1);
         expect(
             context['Polymer']['IronDropdownScrollManager']
                 .callMethod('elementIsScrollLocked', [document.body]),
             false);
-      }, skip: 'https://github.com/dart-lang/polymer_elements/issues/83');
+      });
     });
 
     group('aligned dropdown', () {
@@ -147,23 +146,120 @@ main() async {
         });
       });
 
-      group('with an offset', () {
-        test('is offset by the offset value when open', () {
-          var dropdownRect;
-          var offsetDropdownRect;
+      group('when align is left/top, with an offset', () {
+        var dropdownRect;
+        var offsetDropdownRect;
+        var dropdown;
+
+        setUp(() {
+          var parent = fixture('OffsetDropdownTopLeft');
+          dropdown = parent.querySelector('iron-dropdown');
+        });
+
+        test('can be offset towards the bottom right', () async {
           dropdown.opened = true;
-          return wait(1).then((_) {
-            dropdownRect = dropdown.getBoundingClientRect();
-            dropdown.verticalOffset = 10;
-            dropdown.horizontalOffset = -10;
+          await wait(1);
+          dropdownRect = dropdown.getBoundingClientRect();
+          dropdown.verticalOffset = 10;
+          dropdown.horizontalOffset = 10;
+          offsetDropdownRect = dropdown.getBoundingClientRect();
+          // verticalAlign is top, so a positive offset moves down.
+          expect(dropdownRect.top + 10, closeTo(offsetDropdownRect.top, 0.1));
+          // horizontalAlign is left, so a positive offset moves to the right.
+          expect(dropdownRect.left + 10, closeTo(offsetDropdownRect.left, 0.1));
+        });
 
-            offsetDropdownRect = dropdown.getBoundingClientRect();
+        test('can be offset towards the top left', () async {
+          dropdown.opened = true;
 
-            expect(dropdownRect.top, offsetDropdownRect.top - 10,
-                reason: 'vertical offset should adjust');
-            expect(dropdownRect.left, offsetDropdownRect.left - 10,
-                reason: 'horizontal offset should adjust');
-          });
+          await wait(1);
+          dropdownRect = dropdown.getBoundingClientRect();
+
+          dropdown.verticalOffset = -10;
+          dropdown.horizontalOffset = -10;
+          offsetDropdownRect = dropdown.getBoundingClientRect();
+
+          // verticalAlign is top, so a negative offset moves up.
+          expect(dropdownRect.top - 10, closeTo(offsetDropdownRect.top, 0.1));
+          // horizontalAlign is left, so a negative offset moves to the left.
+          expect(dropdownRect.left - 10, closeTo(offsetDropdownRect.left, 0.1));
+        });
+
+      });
+
+      group('when align is right/bottom, with an offset', () {
+        var dropdownRect;
+        var offsetDropdownRect;
+        var dropdown;
+
+        setUp(() {
+          var parent = fixture('OffsetDropdownBottomRight');
+          dropdown = parent.querySelector('iron-dropdown');
+        });
+
+        test('can be offset towards the top left', () async {
+          dropdown.opened = true;
+
+          await wait(1);
+          dropdownRect = dropdown.getBoundingClientRect();
+
+          dropdown.verticalOffset = 10;
+          dropdown.horizontalOffset = 10;
+          offsetDropdownRect = dropdown.getBoundingClientRect();
+
+          // verticalAlign is bottom, so a positive offset moves up.
+          expect(dropdownRect.bottom - 10, closeTo(offsetDropdownRect.bottom, 0.1));
+          // horizontalAlign is right, so a positive offset moves to the left.
+          expect(dropdownRect.right - 10, closeTo(offsetDropdownRect.right, 0.1));
+        });
+
+        test('can be offset towards the bottom right', () async {
+          dropdown.opened = true;
+
+          await wait(1);
+          dropdownRect = dropdown.getBoundingClientRect();
+
+          dropdown.verticalOffset = -10;
+          dropdown.horizontalOffset = -10;
+          offsetDropdownRect = dropdown.getBoundingClientRect();
+
+          // verticalAlign is bottom, so a negative offset moves down.
+          expect(dropdownRect.bottom + 10, closeTo(offsetDropdownRect.bottom, 0.1));
+          // horizontalAlign is right, so a positive offset moves to the right.
+          expect(dropdownRect.right + 10, closeTo(offsetDropdownRect.right, 0.1));
+        });
+      });
+
+      group('RTL', () {
+        var dropdown;
+        var dropdownRect;
+
+        test('with horizontalAlign=left', () async {
+          var parent = fixture('RTLDropdownLeft');
+          dropdown = parent.querySelector('iron-dropdown');
+          dropdown.open();
+
+          await wait(1);
+          // In RTL, if `horizontalAlign` is "left", that's the same as
+          // being right-aligned in LTR. So the dropdown should be in the top
+          // right corner.
+          dropdownRect = dropdown.getBoundingClientRect();
+          expect(dropdownRect.top, 0);
+          expect(dropdownRect.right, 100);
+        });
+
+        test('with horizontalAlign=right', () async {
+          var parent = fixture('RTLDropdownRight');
+          dropdown = parent.querySelector('iron-dropdown');
+          dropdown.open();
+
+          await wait(1);
+          // In RTL, if `horizontalAlign` is "right", that's the same as
+          // being left-aligned in LTR. So the dropdown should be in the top
+          // left corner.
+          dropdownRect = dropdown.getBoundingClientRect();
+          expect(dropdownRect.top, 0);
+          expect(dropdownRect.left, 0);
         });
       });
     });

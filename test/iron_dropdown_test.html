@@ -19,6 +19,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!--<script type="application/dart" src="iron_dropdown_test.dart"></script>-->
   <!--<script src="packages/browser/dart.js"></script>-->
   <script src="packages/test/dart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
 </head>
 <body>
 
@@ -29,8 +35,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <template id="NonLockingDropdown">
-    <iron-dropdown>
-      <div class="dropdown-content" allow-outside-scroll>I don't lock scroll!</div>
+    <iron-dropdown allow-outside-scroll>
+      <div class="dropdown-content">I don't lock scroll!</div>
     </iron-dropdown>
   </template>
 
@@ -42,12 +48,45 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </div>
   </template>
 
+  <!-- Absolutely position the dropdown so that it has enough space to move around -->
+  <template id="OffsetDropdownTopLeft">
+    <div style="display: block; position: absolute; top: 40px; left: 40px; width: 100px; height: 100px;">
+      <iron-dropdown>
+        <div class="dropdown-content">Hello!</div>
+      </iron-dropdown>
+    </div>
+  </template>
+
+  <template id="OffsetDropdownBottomRight">
+    <div style="display: block; position: absolute; top: 40px; left: 40px; width: 100px; height: 100px;">
+      <iron-dropdown horizontal-align="right" vertical-align="bottom">
+        <div class="dropdown-content">Hello!</div>
+      </iron-dropdown>
+    </div>
+  </template>
+
   <template id="FocusableContentDropdown">
     <iron-dropdown>
       <div class="dropdown-content" tabindex="0">
         <div class="subcontent" tabindex="0"></div>
       </div>
     </iron-dropdown>
+  </template>
+
+  <template id="RTLDropdownLeft">
+    <div dir="rtl" style="display: block; position: relative; width: 100px; height: 100px;">
+      <iron-dropdown>
+        <div class="dropdown-content">Hello!</div>
+      </iron-dropdown>
+    </div>
+  </template>
+
+  <template id="RTLDropdownRight">
+    <div dir="rtl" style="display: block; position: relative; width: 100px; height: 100px;">
+      <iron-dropdown horizontal-align="right">
+        <div class="dropdown-content">Hello!</div>
+      </iron-dropdown>
+    </div>
   </template>
 </body>
 </html>

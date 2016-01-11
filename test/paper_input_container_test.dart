@@ -120,7 +120,7 @@ main() async {
         () async {
       PaperInputContainer container =
           fixture('auto-validate-validator-has-invalid-value');
-          await new Future(() {});
+      await new Future(() {});
       expect(container.invalid, isTrue);
       expect(container.$$('.underline').classes.contains('is-invalid'), isTrue);
     });
@@ -138,6 +138,35 @@ main() async {
       expect(container.invalid, isTrue);
       expect(inputContent.classes.contains('is-invalid'), isTrue);
       expect(line.classes.contains('is-invalid'), isTrue);
+    });
+
+    test('label is floated correctly with a prefix', () async {
+      var container = fixture('prefix');
+      var label = Polymer.dom(container).querySelector('#l');
+      var input = Polymer.dom(container).querySelector('#i');
+
+      // Label is initially visible.
+      expect(label.getComputedStyle().visibility, 'visible',
+          reason: 'label has visibility:visible');
+
+      // After entering text, the label floats, and it is not indented.
+      input.bindValue = 'foobar';
+      await wait(1);
+      expect(getTransform(label), isNot('none'), reason: 'label has transform');
+      expect(label.getBoundingClientRect().left,
+          container.getBoundingClientRect().left);
+    });
+
+    test('label is floated correctly with a prefix and prefilled value',
+        () async {
+      var container = fixture('prefix-has-value');
+      var label = Polymer.dom(container).querySelector('#l');
+
+      // The label floats, and it is not indented.
+      await wait(1);
+      expect(getTransform(label), isNot('none'), reason: 'label has transform');
+      expect(label.getBoundingClientRect().left,
+          container.getBoundingClientRect().left);
     });
   });
 }

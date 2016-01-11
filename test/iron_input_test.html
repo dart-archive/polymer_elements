@@ -35,20 +35,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <template id="prevent-invalid-input">
-    <input is="iron-input" prevent-invalid-input pattern="[0-9]">
+    <input is="iron-input" prevent-invalid-input allowed-pattern="[0-9]">
+  </template>
+
+  <template id="prevent-invalid-input-with-pattern">
+    <input is="iron-input" prevent-invalid-input pattern="[a-zA-Z]{3}[0-9]*">
   </template>
 
   <template id="prevent-invalid-input-has-value">
-    <input is="iron-input" prevent-invalid-input pattern="[0-9]*" value="foobar">
+    <input is="iron-input" prevent-invalid-input allowed-pattern="[0-9]*" value="foobar">
   </template>
 
   <template id="prevent-invalid-input-has-bind-value">
-    <input is="iron-input" prevent-invalid-input pattern="[0-9]*" bind-value="foobar">
+    <input is="iron-input" prevent-invalid-input allowed-pattern="[0-9]*" bind-value="foobar">
+  </template>
+
+  <template id="automatically-prevent-invalid-input-if-allowed-pattern">
+    <input is="iron-input" allowed-pattern="[0-9]">
+  </template>
+
+  <template id="no-validator">
+    <input is="iron-input" pattern="[a-zA-Z]{3}[0-9]*">
   </template>
 
   <template id="has-validator">
     <letters-only></letters-only>
-    <input is="iron-input" validator="letters-only" pattern="[0-9]*">
+    <input is="iron-input" validator="letters-only" allowed-pattern="[0-9]*">
   </template>
 
   <template is="dom-bind" id="bind-to-object">

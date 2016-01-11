@@ -1,0 +1,72 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>iron-swipeable-container</title>
+
+  <script src="packages/web_components/webcomponents-lite.js"></script>
+  <link rel="x-dart-test" href="iron_swipeable_container_test.dart">
+  <!-- <script type="application/dart" src="iron_swipeable_container_test.dart"></script> -->
+  <!-- <script src="packages/browser/dart.js"></script> -->
+  <script src="packages/test/dart.js"></script>
+
+  <style>
+    div {
+      width: 100px;
+      height: 100px;
+      background-color: blue;
+    }
+  </style>
+<body>
+
+  <dom-module id="test-element">
+    <style>
+      :host {
+        display: inline-block;
+      }
+
+      .item {
+        width: 100px;
+        height: 20px;
+        background-color: red;
+      }
+
+    </style>
+    <template>
+      <div class="item"></div>
+    </template>
+  </dom-module>
+
+  <template id="basic">
+    <iron-swipeable-container>
+      <div id="native">Hello</div>
+      <test-element id="custom"></test-element>
+    </iron-swipeable-container>
+  </template>
+
+  <template id="child-no-swipe">
+    <iron-swipeable-container>
+      <div id="native" class="disable-swipe">Hello</div>
+      <test-element id="custom" class="disable-swipe"></test-element>
+    </iron-swipeable-container>
+  </template>
+
+  <template id="no-swipe">
+    <iron-swipeable-container disabled>
+      <div id="native">Hello</div>
+      <test-element id="custom"></test-element>
+    </iron-swipeable-container>
+  </template>
+
+</body>
+</html>

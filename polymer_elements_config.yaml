@@ -139,6 +139,9 @@ files_to_generate:
   - iron-image/iron-image.html
   - iron-input/iron-input.html
   - iron-jsonp-library/iron-jsonp-library.html
+  - iron-label/iron-label.html:
+      name_substitutions:
+        for: labelFor
   - iron-list/iron-list.html:
       omit_imports:
         - templatizer.html # Part of `polymer_interop.dart`
@@ -156,6 +159,9 @@ files_to_generate:
       omit_imports:
         - iron-overlay-manager.html
   - iron-pages/iron-pages.html
+  - iron-page-url/iron-page-url.html:
+      name_substitutions:
+        query: queryString
   - iron-range-behavior/iron-range-behavior.html:
       type_overrides:
         IronRangeBehavior:
@@ -171,6 +177,7 @@ files_to_generate:
   - iron-selector/iron-selection.html
   - iron-selector/iron-selector.html
   - iron-signals/iron-signals.html
+  - iron-swipeable-container/iron-swipeable-container.html
   - iron-test-helpers/iron-test-helpers.html
   - iron-test-helpers/mock-interactions.html
   - iron-test-helpers/test-helpers.html

@@ -26,6 +26,8 @@ class Spy {
 
   bool get calledOnce => jsObject['calledOnce'];
 
+  int get callCount => jsObject['callCount'];
+
   bool calledWith(List<JsObject> matchers) =>
       jsObject.callMethod('calledWith', matchers);
 

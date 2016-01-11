@@ -25,33 +25,40 @@ main() async {
     setUp(() {
       container = fixture('trivialList');
       list = container.list;
+      list.items = buildDataSet(200);
     });
 
-    test('increase pool size', () {
-      list.items = buildDataSet(1000);
-      return new Future(() {}).then((_) {
-        var lastItem = getLastItemFromList(list);
-        var lastItemHeight = lastItem.offsetHeight;
-        var expectedFinalItem = (list.offsetHeight / lastItemHeight).floor();
-        expect(lastItemHeight, 2);
-        expect(getLastItemFromList(list).text, expectedFinalItem.toString());
-      });
+    test('increase pool size', () async {
+      await wait(100);
+      var lastItem = getLastItemFromList(list);
+      var lastItemHeight = lastItem.offsetHeight;
+      var expectedFinalItem = (container.listHeight / lastItemHeight).floor();
+      expect(lastItemHeight, 2);
+      expect(getLastItemFromList(list).text, expectedFinalItem.toString());
+    });
+  });
+
+  group('iron-resize', () {
+    IronList list;
+    XList container;
+
+    setUp(() {
+      container = fixture('trivialListSmall');
+      list = container.list;
+      list.items = buildDataSet(200);
     });
 
     test('increase pool size on resize', () async {
-      list.items = buildDataSet(1000);
-
       await wait(1);
-      // change the height of the list
-      container.set('listHeight', 500);
       // resize
       list.fire('iron-resize');
 
-      await wait(1);
+      await wait(100);
       var lastItem = getLastItemFromList(list);
       var lastItemHeight = lastItem.offsetHeight;
-      int expectedFinalItem = (list.offsetHeight / lastItemHeight).round();
+      int expectedFinalItem = (container.listHeight / lastItemHeight).round();
 
+      expect(list.offsetHeight, container.listHeight);
       expect(lastItemHeight, 2);
       expect(getLastItemFromList(list).text, '$expectedFinalItem');
     });

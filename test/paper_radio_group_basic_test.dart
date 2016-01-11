@@ -120,7 +120,9 @@ main() async {
       expect(items[2].checked, isFalse);
     });
 
-    test('clicking the selected item should deselect if allow-empty-selection is set', () async {
+    test(
+        'clicking the selected item should deselect if allow-empty-selection is set',
+        () async {
       var g = fixture('WithSelection');
       await new Future(() {});
       g.allowEmptySelection = true;
@@ -136,6 +138,38 @@ main() async {
       expect(items[0].checked, false);
       expect(items[1].checked, false);
       expect(items[2].checked, false);
+    });
+
+    test('arrow keys cause iron-activate events', () async {
+      var done = new Completer();
+      var g = fixture('WithSelection');
+
+      // Needs to be async since the underlying iron-selector uses observeNodes.
+      await wait(1);
+      g.items[0].focus();
+
+      var i = 0;
+      g.on['iron-activate'].listen((_) {
+        switch (i++) {
+          case 0:
+            pressAndReleaseKeyOn(g, 38);
+            break;
+
+          case 1:
+            pressAndReleaseKeyOn(g, 39);
+            break;
+
+          case 2:
+            pressAndReleaseKeyOn(g, 40);
+            break;
+
+          default:
+            done.complete();
+        }
+      });
+
+      pressAndReleaseKeyOn(g, 37);
+      return done.future;
     });
   });
 }

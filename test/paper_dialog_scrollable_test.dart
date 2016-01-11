@@ -6,6 +6,7 @@ library polymer_elements.test.paper_dialog_scrollable_test;
 
 import 'dart:async';
 import 'dart:html';
+import 'package:polymer_elements/iron_flex_layout.dart';
 import 'package:polymer_elements/paper_dialog_scrollable.dart';
 import 'package:web_components/web_components.dart';
 import 'package:test/test.dart';

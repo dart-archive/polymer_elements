@@ -25,10 +25,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <body>
 
 <template id="basic">
-    <paper-input-container>
-        <label id="l">label</label>
-        <input id="i">
-    </paper-input-container>
+  <paper-input-container>
+    <label id="l">label</label>
+    <input id="i">
+  </paper-input-container>
+</template>
+
+<template id="prefix">
+  <paper-input-container>
+    <div prefix>$</div>
+    <label id="l">label</label>
+    <input is="iron-input" id="i">
+  </paper-input-container>
+</template>
+
+<template id="prefix-has-value">
+  <paper-input-container>
+    <div prefix>$</div>
+    <label id="l">label</label>
+    <input is="iron-input" id="i" value="foo">
+  </paper-input-container>
 </template>
 
 <template id="has-value">

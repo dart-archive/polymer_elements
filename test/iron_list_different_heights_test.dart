@@ -45,11 +45,13 @@ main() async {
       ]);
 
       list.on['scroll'].first.then((_) {
-        expect(isFullOfItems(list), isTrue);
+        list.debounce('scroll', () {
+          expect(isFullOfItems(list), isTrue);
+        });
       });
 
       var done = new Completer();
-      simulateScroll({'list': list, 'contribution': 15, 'target': 100000}, (_) {
+      simulateScroll({'list': list, 'contribution': 20, 'target': 100000}, (_) {
         done.complete();
       });
 
@@ -67,7 +69,9 @@ main() async {
 
       await wait(1);
       list.on['scroll'].first.then((_) {
-        expect(isFullOfItems(list), isTrue);
+        list.debounce('scroll', () {
+          expect(isFullOfItems(list), isTrue);
+        });
       });
 
       var done = new Completer();
@@ -103,7 +107,9 @@ main() async {
 
       await wait(1);
       list.on['scroll'].first.then((_) {
-        expect(isFullOfItems(list), isTrue);
+        list.debounce('scroll', () {
+          expect(isFullOfItems(list), isTrue);
+        });
       });
 
       var done = new Completer();

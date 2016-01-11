@@ -19,11 +19,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!--<script type="application/dart" src="iron_list_physical_count_test.dart"></script>-->
   <!--<script src="packages/browser/dart.js"></script>-->
   <script src="packages/test/dart.js"></script>
-  <link rel="import" href="packages/polymer_elements/paper_styles_nodart.html">
 </head>
 <body>
   <template id="trivialList">
-    <x-list item-height="2" list-height="300"></x-list>
+    <x-list list-height="100" item-height="2"></x-list>
+  </template>
+
+  <template id="trivialListSmall">
+    <x-list list-height="2" item-height="2"></x-list>
   </template>
 </body>
 </html>

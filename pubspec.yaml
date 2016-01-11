@@ -52,16 +52,20 @@ transformers:
     - test/iron_checked_element_behavior_test.html
     - test/iron_collapse_test.html
     - test/iron_component_page_test.html
+    - test/iron_demo_helpers_test.html
     - test/iron_doc_viewer_test.html
     - test/iron_dropdown_test.html
     - test/iron_fit_behavior_test.html
     - test/iron_form_test.html
+    - test/iron_form_element_behavior_test.html
     - test/iron_icon_test.html
     - test/iron_iconset_svg_test.html
     - test/iron_iconset_test.html
     - test/iron_image_test.html
     - test/iron_input_test.html
     - test/iron_jsonp_library_test.html
+    - test/iron_label_basic_test.html
+    - test/iron_label_events_test.html
     - test/iron_list_basic_test.html
     - test/iron_list_different_heights_test.html
     - test/iron_list_dynamic_item_size_test.html
@@ -80,6 +84,8 @@ transformers:
     - test/iron_overlay_behavior_test.html
     - test/iron_pages_attr_for_selected_test.html
     - test/iron_pages_basic_test.html
+    - test/iron_page_url_basic_test.html
+    # - test/iron_page_url_initialization_test.html # TODO(jakemac): implement
     - test/iron_range_behavior_test.html
     - test/iron_request_test.html
     - test/iron_resizable_behavior_basic_test.html
@@ -92,6 +98,7 @@ transformers:
     - test/iron_selector_next_previous_test.html
     - test/iron_selector_selected_attribute_test.html
     - test/iron_selector_template_repeat_test.html
+    - test/iron_swipeable_container_test.html
     - test/iron_validatable_behavior_test.html
     - test/iron_validator_behavior_test.html
     - test/marked_element_test.html

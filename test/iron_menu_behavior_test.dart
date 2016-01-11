@@ -70,5 +70,33 @@ main() async {
             reason: 'document.activeElement is last activated item');
       });
     });
+
+      test('keyboard events should not bubble', () async {
+        var menu = fixture('nested');
+        var keyCounter = 0;
+
+        menu.addEventListener('keydown', (event) {
+          if (menu.keyboardEventMatchesKeys(event, 'esc')) {
+            keyCounter++;
+          }
+          if (menu.keyboardEventMatchesKeys(event, 'up')) {
+            keyCounter++;
+          }
+          if (menu.keyboardEventMatchesKeys(event, 'down')) {
+            keyCounter++;
+          }
+        });
+
+        // up
+        keyDownOn(menu.children.first, 38);
+        // down
+        keyDownOn(menu.children.first, 40);
+        // esc
+        keyDownOn(menu.children.first, 27);
+
+        await wait(200);
+        expect(menu.children.first.tagName, 'TEST-MENU');
+        expect(keyCounter, 0);
+      });
   });
 }

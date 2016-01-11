@@ -70,7 +70,6 @@ main() async {
       });
 
       test('tapping does not create a ripple',  () {
-        expect(ripple.keyEventTarget, ripple);
         expect(ripple.ripples.length, 0);
         down(ripple);
         expect(ripple.ripples.length, 0);

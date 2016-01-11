@@ -40,6 +40,8 @@ main() async {
       expect(scrollHeaderPanel.scroller, isNotNull);
       expect(scrollHeaderPanel.keepCondensedHeader, false);
       expect(scrollHeaderPanel.keepCondensedHeader, false);
+
+      scrollHeaderPanel.measureHeaderHeight();
       expect(scrollHeaderPanel.headerHeight, toolbar.offsetHeight);
       expect(scrollHeaderPanel.condensedHeaderHeight,
           (toolbar.offsetHeight * 1 / 3).round());

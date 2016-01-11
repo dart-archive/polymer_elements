@@ -22,14 +22,61 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 <body>
 
-<dom-module id="test-ripple">
+  <dom-module id="test-ripple">
     <template>
     </template>
-</dom-module>
+  </dom-module>
 
-<template id="basic">
+  <dom-module id="sd-ripple">
+    <template>
+      <style>
+        :host {
+          display: block;
+          width: 200px;
+        }
+        #separate, #wrapper {
+          height: 50px;
+        }
+        #separate {
+          background: blue;
+        }
+        #wrapper {
+          background: red;
+        }
+        #wrapper > ::content  #source {
+          height: 25px;
+          width: 50px;
+          background: green;
+        }
+      </style>
+      <div id="separate">
+        <div id="target">
+          Internal Text Node
+        </div>
+      </div>
+      <div id="wrapper">
+        <content id="content"></content>
+      </div>
+    </template>
+  </dom-module>
+
+  <template id="basic">
     <test-ripple></test-ripple>
-</template>
+  </template>
+
+  <template id="ShadowBasic">
+    <sd-ripple></sd-ripple>
+  </template>
+
+  <template id="ShadowText">
+    <sd-ripple>Howdy!</sd-ripple>
+  </template>
+
+  <template id="ShadowElement">
+    <sd-ripple>
+      <div id="source">source!</div>
+    </sd-ripple>
+  </template>
 
 </body>
 </html>

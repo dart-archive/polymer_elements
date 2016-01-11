@@ -55,6 +55,26 @@ main() async {
       expect(scope.$['input'].value, isEmpty, reason: 'value is falsy');
     });
 
+    test('can validate using a complex regex', () {
+      var input = fixture('no-validator');
+      input.value = '123';
+      input.validate();
+      expect(input.invalid, isTrue, reason: 'input is invalid');
+      input.value = 'foo';
+      input.validate();
+      expect(input.invalid, isFalse, reason: 'input is valid');
+      input.value = 'foo123';
+      input.validate();
+      expect(input.invalid, isFalse, reason: 'input is valid');
+    });
+
+    test('set bindValue to false', () {
+      var scope = document.getElementById('bind-to-object');
+      scope['foo'] = false;
+      expect(scope.$['input'].jsElement['bindValue'], isFalse);
+      expect(scope.$['input'].value, 'false');
+    });
+
     test('validator used instead of constraints api if provided', () {
       IronInput input = fixture('has-validator')[1];
       input.value = '123';
@@ -70,6 +90,50 @@ main() async {
       input.value = '123foo';
       input.jsElement.callMethod('_onInput');
       expect(input.bindValue, '123');
+    });
+
+    test('inputs can be validated', () {
+      var input = fixture('prevent-invalid-input-with-pattern');
+      input.value = '123';
+      input.jsElement.callMethod('_onInput');
+      expect(input.bindValue, '123');
+      input.validate();
+      expect(input.invalid, isTrue, reason: 'input is invalid');
+
+      input.value = 'foo';
+      input.jsElement.callMethod('_onInput');
+      expect(input.bindValue, 'foo');
+      input.validate();
+      expect(input.invalid, isFalse, reason: 'input is valid');
+
+      input.value = 'foo123';
+      input.jsElement.callMethod('_onInput');
+      expect(input.bindValue, 'foo123');
+      input.validate();
+      expect(input.invalid, isFalse, reason: 'input is valid');
+    });
+
+    test('prevent invalid input works automatically when allowed pattern is set', () {
+      var input = fixture('automatically-prevent-invalid-input-if-allowed-pattern');
+      input.value = '123';
+      input.jsElement.callMethod('_onInput');
+      expect(input.bindValue, '123');
+
+      input.value = '123foo';
+      input.jsElement.callMethod('_onInput');
+      expect(input.bindValue, '123');
+
+      input.allowedPattern = '';
+      input.value = '#123foo BAR!';
+      input.jsElement.callMethod('_onInput');
+      expect(input.bindValue, '#123foo BAR!');
+
+      input.allowedPattern = '[a-zA-Z]';
+      input.value = 'foo';
+      input.jsElement.callMethod('_onInput');
+      input.value = 'bar123';
+      input.jsElement.callMethod('_onInput');
+      expect(input.bindValue, 'foo');
     });
   });
 }

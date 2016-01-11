@@ -171,5 +171,15 @@ main() async {
 
       return done;
     });
+
+    test('max markers', () async {
+      slider.min = 0;
+      slider.max = 100;
+      slider.snaps = true;
+      slider.step = 4;
+      slider.maxMarkers = 10;
+      await wait(1);
+      expect(slider.markers.length, 10);
+    });
   });
 }

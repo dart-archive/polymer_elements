@@ -20,8 +20,8 @@ main() async {
       PaperDrawerPanel f;
       Element panel, drawer, main;
       f = fixture('left-drawer');
-      drawer = f.querySelector('#drawer');
-      main = f.querySelector('#main');
+      drawer = f.$$('#drawer');
+      main = f.$$('#main');
 
       f.set('forceNarrow', true);
       f.jsElement.callMethod('_forceNarrowChanged');
@@ -38,8 +38,8 @@ main() async {
       PaperDrawerPanel f;
       Element panel, drawer, main;
       f = fixture('right-drawer');
-      drawer = f.querySelector('#drawer');
-      main = f.querySelector('#main');
+      drawer = f.$$('#drawer');
+      main = f.$$('#main');
 
       f.set('forceNarrow', true);
       f.jsElement.callMethod('_forceNarrowChanged');
@@ -55,8 +55,8 @@ main() async {
       PaperDrawerPanel f;
       Element panel, drawer, main;
       f = fixture('left-drawer');
-      drawer = f.querySelector('#drawer');
-      main = f.querySelector('#main');
+      drawer = f.$$('#drawer');
+      main = f.$$('#main');
 
       f.set('forceNarrow', true);
       f.jsElement.callMethod('_forceNarrowChanged');
@@ -75,8 +75,8 @@ main() async {
       PaperDrawerPanel f;
       Element panel, drawer, main;
       f = fixture('right-drawer');
-      drawer = f.querySelector('#drawer');
-      main = f.querySelector('#main');
+      drawer = f.$$('#drawer');
+      main = f.$$('#main');
 
       f.set('forceNarrow', true);
       f.jsElement.callMethod('_forceNarrowChanged');

@@ -4,11 +4,14 @@
 @TestOn('browser')
 library polymer_elements.test.paper_input_test;
 
+import 'dart:html';
+
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'package:polymer_elements/paper_input.dart';
 import 'package:polymer_elements/paper_input_char_counter.dart';
 import 'package:polymer_elements/paper_input_container.dart';
+
 import 'common.dart';
 
 main() async {
@@ -168,6 +171,15 @@ main() async {
             equals(input.$$('paper-input-error').id +
                 ' ' +
                 input.$$('paper-input-char-counter').id));
+      });
+
+      test('focus an input with tabindex', () async {
+        var input = fixture('has-tabindex');
+        await wait(1);
+        focus(input);
+        await wait(1);
+        expect(input.shadowRoot != null ? input.shadowRoot.activeElement :
+            document.activeElement, input.jsElement['_focusableElement']);
       });
     });
   });

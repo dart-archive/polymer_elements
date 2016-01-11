@@ -31,7 +31,12 @@ main() async {
 
     setUp(() async {
       scrollHeaderPanel = fixture('trivialProgress');
+      scrollHeaderPanel.measureHeaderHeight();
       await new Future(() {});
+    });
+
+    tearDown(() {
+      scrollHeaderPanel.scroll(0, null);
     });
 
     test('scroll smoothly', () {
@@ -55,7 +60,6 @@ main() async {
 
     test('condense smoothly', () {
       var done = new Completer();
-      scrollHeaderPanel.condenses = true;
 
       wait(1).then((_) {
         var destination = 100;
@@ -76,20 +80,13 @@ main() async {
       return done.future;
     });
 
-    test('condense immediately', () {
-      var done = new Completer();
-      scrollHeaderPanel.condenses = true;
+    test('condense immediately', () async {
+      await wait(1);
+      scrollHeaderPanel.condense(false);
+      await wait(100);
 
-      wait(1).then((_) {
-        scrollHeaderPanel.condense(false);
-
-        wait(100).then((_) {
-          expect(scrollHeaderPanel.headerState,
-              Polymer_PaperScrollHeaderPanel_HEADER_STATE_CONDENSED);
-          done.complete();
-        });
-      });
-      return done.future;
+      expect(scrollHeaderPanel.headerState,
+          Polymer_PaperScrollHeaderPanel_HEADER_STATE_CONDENSED);
     });
 
     test('scroll to top smoothly', () {

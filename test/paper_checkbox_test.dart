@@ -76,6 +76,25 @@ main() async {
       c1.checked = true;
       expect(c1.validate(null), isTrue);
     });
+
+    test('checkbox can check sizes', () {
+      var c2 = fixture('WithDifferentSizes');
+      var normal = c2[0].getBoundingClientRect();
+      var giant = c2[1].getBoundingClientRect();
+      var tiny = c2[2].getBoundingClientRect();
+
+      expect(5, lessThanOrEqualTo(tiny.height));
+      expect(tiny.height, lessThan(normal.height));
+      expect(normal.height, lessThan(giant.height));
+      // Dart Note: upped to `60` from `50`
+      expect(giant.height, lessThanOrEqualTo(60));
+
+      expect(5, lessThanOrEqualTo(tiny.width));
+      expect(tiny.width, lessThan(normal.width));
+      expect(normal.width, lessThan(giant.width));
+      // Dart Note: upped to `60` from `50`
+      expect(giant.width, lessThanOrEqualTo(60));
+    });
   });
 
   group('a11y', () {

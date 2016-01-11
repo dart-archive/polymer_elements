@@ -7,6 +7,8 @@ library polymer_elements.test.paper_badge_test;
 import 'dart:async';
 import 'dart:html';
 import 'package:polymer_elements/paper_badge.dart';
+import 'package:polymer_elements/iron_icon.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'package:web_components/web_components.dart';
 import 'package:test/test.dart';
 import 'common.dart';
@@ -19,33 +21,30 @@ main() async {
       DivElement f = fixture('basic');
       await new Future(() {});
       PaperBadge badge = f.querySelector('paper-badge');
-      HtmlElement actualbadge = badge.querySelector('#badge');
-      expect(actualbadge.text, equals("1"));
+      HtmlElement actualbadge =
+          new PolymerDom(badge.root).querySelector('.badge');
       expect(badge.target.getAttribute('id'), 'target');
       badge.updatePosition();
 
-      Completer done = new Completer();
+      await wait(1);
+      expect(actualbadge.text.trim(), '1');
 
-      wait(1).then((_) {
-        Rectangle divRect = f.querySelector('#target').getBoundingClientRect();
-        expect(divRect.width, equals(100));
-        expect(divRect.height, equals(20));
+      Rectangle divRect = f.querySelector('#target').getBoundingClientRect();
+      expect(divRect.width, equals(100));
+      expect(divRect.height, equals(20));
 
-        Rectangle contentRect = badge.getBoundingClientRect();
-        expect(contentRect.width, equals(22));
-        expect(contentRect.height, equals(22));
-        // The target div is 100 x 20, and the badge is centered on the
-        // top right corner.
-        expect(contentRect.left, equals(100 - 11));
-        expect(contentRect.top, equals(0 - 11));
-        // Also check the math, just in case.
-        expect(contentRect.left, equals(divRect.width - 11));
-        expect(contentRect.top, equals(divRect.top - 11));
-        done.complete();
-      });
-
-      return done.future;
+      Rectangle contentRect = badge.getBoundingClientRect();
+      expect(contentRect.width, equals(20));
+      expect(contentRect.height, equals(20));
+      // The target div is 100 x 20, and the badge is centered on the
+      // top right corner.
+      expect(contentRect.left, equals(100 - 10));
+      expect(contentRect.top, equals(0 - 10));
+      // Also check the math, just in case.
+      expect(contentRect.left, equals(divRect.width - 10));
+      expect(contentRect.top, equals(divRect.top - 10));
     });
+
     test('badge is positioned correctly after being dynamically set', () async {
       DivElement f = fixture('dynamic');
       await new Future(() {});
@@ -64,21 +63,20 @@ main() async {
       badge.updatePosition();
 
       await wait(1);
-      Rectangle divRect =
-          f.querySelector('#target').getBoundingClientRect();
+      Rectangle divRect = f.querySelector('#target').getBoundingClientRect();
       expect(divRect.width, equals(100));
       expect(divRect.height, equals(20));
 
       contentRect = badge.getBoundingClientRect();
-      expect(contentRect.width, equals(22));
-      expect(contentRect.height, equals(22));
+      expect(contentRect.width, equals(20));
+      expect(contentRect.height, equals(20));
       // The target div is 100 x 20, and the badge is centered on the
       // top right corner.
-      expect(contentRect.left, equals(100 - 11));
-      expect(contentRect.top, equals(0 - 11));
+      expect(contentRect.left, equals(100 - 10));
+      expect(contentRect.top, equals(0 - 10));
       // Also check the math, just in case.
-      expect(contentRect.left, equals(divRect.width - 11));
-      expect(contentRect.top, equals(divRect.top - 11));
+      expect(contentRect.left, equals(divRect.width - 10));
+      expect(contentRect.top, equals(divRect.top - 10));
     });
   });
 
@@ -98,17 +96,29 @@ main() async {
     expect(divRect.height, 20);
 
     var contentRect = badge.getBoundingClientRect();
-    expect(contentRect.width, 22);
-    expect(contentRect.height, 22);
+    expect(contentRect.width, 20);
+    expect(contentRect.height, 20);
 
     // The target div is 100 x 20, and the badge is centered on the
     // top right corner.
-    expect(contentRect.left, 100 - 11);
-    expect(contentRect.top, 0 - 11);
+    expect(contentRect.left, 100 - 10);
+    expect(contentRect.top, 0 - 10);
 
     // Also check the math, just in case.
-    expect(contentRect.left, divRect.width - 11);
-    expect(contentRect.top, divRect.top - 11);
+    expect(contentRect.left, divRect.width - 10);
+    expect(contentRect.top, divRect.top - 10);
+  });
+
+  test('badge displays icons correctly', () async {
+    var f = fixture('icon-badge');
+    var badge = f.querySelector('paper-badge');
+
+    await wait(1);
+    var icon =
+        new PolymerDom(badge.root).querySelector('iron-icon') as IronIcon;
+    expect(icon, isNotNull);
+    expect(icon.icon, badge.icon);
+    expect(badge.getAttribute('aria-label'), badge.label);
   });
 
   group('badge is inside a custom element', () {
@@ -117,25 +127,26 @@ main() async {
       await new Future(() {});
 
       PaperBadge badge = f.querySelector('paper-badge');
-      HtmlElement actualbadge = badge.querySelector('#badge');
-      expect(actualbadge.text, equals("1"));
+      HtmlElement actualbadge =
+          new PolymerDom(badge.root).querySelector('.badge');
       badge.updatePosition();
 
       await wait(1);
+      expect(actualbadge.text.trim(), '1');
       Rectangle divRect = f.querySelector("#button").getBoundingClientRect();
       expect(divRect.width, equals(100));
       expect(divRect.height, equals(20));
 
       Rectangle contentRect = badge.getBoundingClientRect();
-      expect(contentRect.width, equals(22));
-      expect(contentRect.height, equals(22));
+      expect(contentRect.width, equals(20));
+      expect(contentRect.height, equals(20));
       // The target div is 100 x 20, and the badge is centered on the
       // top right corner.
-      expect(contentRect.left, equals(100 - 11));
-      expect(contentRect.top, equals(0 - 11));
+      expect(contentRect.left, equals(100 - 10));
+      expect(contentRect.top, equals(0 - 10));
       // Also check the math, just in case.
-      expect(contentRect.left, equals(divRect.width - 11));
-      expect(contentRect.top, equals(divRect.top - 11));
+      expect(contentRect.left, equals(divRect.width - 10));
+      expect(contentRect.top, equals(divRect.top - 10));
     });
   });
 }

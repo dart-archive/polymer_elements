@@ -82,7 +82,7 @@ isFullOfItems(IronList list) {
   // IE 10 & 11 doesn't render propertly :(
   var badPixels = 0;
   while (y < listHeight) {
-    item = document.elementFromPoint((listRect.left + 1).floor(), y.floor())
+    item = document.elementFromPoint((listRect.left + 100).floor(), y.floor())
         as HtmlElement;
     if (item.parentNode != null &&
         new JsObject.fromBrowserObject(item.parentNode)['_templateInstance'] ==

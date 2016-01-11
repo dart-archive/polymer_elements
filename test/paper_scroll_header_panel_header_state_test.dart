@@ -33,13 +33,15 @@ main() async {
     setUp(() {
       scrollHeaderPanel = fixture('trivialProgress');
       toolbar = Polymer.dom(scrollHeaderPanel).querySelector('paper-toolbar');
+      scrollHeaderPanel.measureHeaderHeight();
+      scrollHeaderPanel.scroll(0, null);
     });
 
     test('HEADER_STATE_EXPANDED', () {
       expect(scrollHeaderPanel.headerState,
           Polymer_PaperScrollHeaderPanel_HEADER_STATE_EXPANDED);
 
-      scrollHeaderPanel.scroller.scrollTop = 1;
+      scrollHeaderPanel.scroll(1, null);
 
       return wait(1).then((_) {
         expect(scrollHeaderPanel.headerState,
@@ -48,32 +50,28 @@ main() async {
     });
 
     test('HEADER_STATE_HIDDEN', () {
-      scrollHeaderPanel.scroller.scrollTop = toolbar.offsetHeight * 2;
+      scrollHeaderPanel.scroll(toolbar.offsetHeight + 1, null);
 
-      return wait(1).then((_) {
-        expect(scrollHeaderPanel.headerState,
-            Polymer_PaperScrollHeaderPanel_HEADER_STATE_HIDDEN);
-      });
+      expect(scrollHeaderPanel.headerState,
+          Polymer_PaperScrollHeaderPanel_HEADER_STATE_HIDDEN);
     });
 
     test('HEADER_STATE_CONDENSED', () {
-      scrollHeaderPanel.jsElement['_prevScrollTop'] = toolbar.offsetHeight * 10;
-      scrollHeaderPanel.scroller.scrollTop = toolbar.offsetHeight * 5;
+      scrollHeaderPanel.scroll(
+          toolbar.offsetHeight - scrollHeaderPanel.condensedHeaderHeight, null);
 
-      return wait(1).then((_) {
+      return wait(100).then((_) {
         expect(scrollHeaderPanel.headerState,
             Polymer_PaperScrollHeaderPanel_HEADER_STATE_CONDENSED);
       });
     });
 
-    test('HEADER_STATE_INTERPOLATED', () {
-      scrollHeaderPanel.scroller.scrollTop =
-          (toolbar.offsetHeight * 0.5).round();
+    test('HEADER_STATE_INTERPOLATED', () async {
+      scrollHeaderPanel.scroll(1, null);
 
-      return wait(1).then((_) {
-        expect(scrollHeaderPanel.headerState,
-            Polymer_PaperScrollHeaderPanel_HEADER_STATE_INTERPOLATED);
-      });
+      await wait(1);
+      expect(scrollHeaderPanel.headerState,
+          Polymer_PaperScrollHeaderPanel_HEADER_STATE_INTERPOLATED);
     });
   });
 }

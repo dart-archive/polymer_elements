@@ -48,6 +48,7 @@ main() async {
       storage.flushDebouncer('save');
       var v = window.localStorage[storage.name];
       expect(v, isNull);
+      // Dart Note: We have no undefined so those tests are not ported.
     });
 
     test('event iron-localstorage-load', () {

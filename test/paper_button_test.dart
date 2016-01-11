@@ -34,6 +34,19 @@ main() async {
       });
     });
 
+    test('can be unraised after being raised imperatively', () async {
+      button.raised = true;
+      expect(button.attributes.containsKey('raised'), true);
+
+      await wait(1);
+      expect(button.elevation, 1);
+
+      button.raised = false;
+      expect(button.attributes.containsKey('raised'), false);
+      await wait(1);
+      expect(button.elevation, 0);
+    });
+
     test('can be disabled imperatively', () {
       button.disabled = true;
       expect(button.getAttribute('aria-disabled'), equals('true'));

@@ -31,7 +31,8 @@ main() async {
         expect(keys.keyCount, 1);
       });
 
-      test('trigger the handler when the specified key is pressed together with a modifier', () async {
+      test('trigger the handler when the specified key is pressed together '
+          'with a modifier', () async {
         CustomEvent event = new CustomEvent('keydown');
         var e = new JsObject.fromBrowserObject(event);
         e['ctrlKey'] = true;

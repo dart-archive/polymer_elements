@@ -30,7 +30,7 @@ class Point {
   }
 }
 
-Point middleOfNode(Node node) => new Point.fromJsObject(
+Point middleOfNode(node) => new Point.fromJsObject(
     _MockInteractionsJs.callMethod('middleOfNode', [node]));
 
 Point topLeftOfNode(Node node) => new Point.fromJsObject(
@@ -72,7 +72,7 @@ void downAndUp(Node target, [Function callback]) {
   _MockInteractionsJs.callMethod('downAndUp', [target, cb]);
 }
 
-void track(Node target, int dx, int dy, int steps) {
+void track(Node target, int dx, int dy, [int steps]) {
   _MockInteractionsJs.callMethod('track', [target, dx, dy, steps]);
 }
 
@@ -122,8 +122,10 @@ fixture(String id) {
   var container = document.querySelector('#testContainer');
   if (container == null) {
     container = new Element.html('<div id="testContainer"></div>');
-    document.body.append(container);
+  } else {
+    container.remove();
   }
+
   container.children.clear();
 
   var elements = new List.from((document.importNode(
@@ -132,6 +134,9 @@ fixture(String id) {
   for (var element in elements) {
     container.append(element);
   }
+
+  // Do this last so that all elements get appended at once.
+  document.body.append(container);
   return elements.length == 1 ? elements[0] : elements;
 }
 

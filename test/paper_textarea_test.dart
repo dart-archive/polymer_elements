@@ -5,12 +5,15 @@
 library polymer_elements.test.paper_textarea_test;
 
 import 'dart:async';
+import 'dart:html';
+
 import 'package:polymer_interop/polymer_interop.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'package:polymer_elements/paper_textarea.dart';
 import 'package:polymer_elements/paper_input_container.dart';
 import 'package:polymer_elements/iron_autogrow_textarea.dart';
+
 import 'common.dart';
 
 main() async {
@@ -105,6 +108,15 @@ main() async {
       focus(input.inputElement.textarea);
       expect(nFocusEvents >= 1, isTrue);
       expect(nBlurEvents >= 1, isTrue);
+    });
+
+    test('focus a textarea with tabindex', () async {
+      var input = fixture('has-tabindex');
+      await wait(1);
+      expect(document.activeElement, isNot(input.jsElement['_focusableElement']));
+      focus(input);
+      await wait(1);
+      expect(document.activeElement, input.shadowRoot != null ? input : input.jsElement['_focusableElement']);
     });
   });
 

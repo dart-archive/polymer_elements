@@ -173,5 +173,15 @@ main() async {
       expect(trigger3.getComputedStyle().fontWeight,
           normalDiv.getComputedStyle().fontWeight);
     });
+
+    test('focus a submenu should redirect focus to the trigger', () async {
+      focus(sub1);
+      await wait(1);
+      expect(
+          sub1.shadowRoot != null
+              ? sub1.shadowRoot.activeElement
+              : document.activeElement,
+          sub1.jsElement['__trigger']);
+    });
   });
 }

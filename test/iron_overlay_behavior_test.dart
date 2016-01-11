@@ -5,10 +5,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:html';
 import 'dart:js';
+
 import 'package:polymer_interop/polymer_interop.dart';
 import 'package:polymer/polymer.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
+
 import 'common.dart';
 import 'fixtures/test_overlay.dart';
 
@@ -19,6 +21,8 @@ runAfterOpen(overlay, cb) {
   });
   overlay.open();
 }
+
+final JsObject _IronOverlayManager = context['Polymer']['IronOverlayManager'];
 
 main() async {
   await initPolymer();
@@ -37,13 +41,24 @@ main() async {
           reason: 'overlay starts hidden');
     });
 
-    test('overlay open by default', () {
+    test('overlay open by default', () async {
       overlay = fixture('opened');
-      runAfterOpen(overlay, () {
-        expect(overlay.opened, isTrue, reason: 'overlay starts opened');
-        expect(overlay.getComputedStyle().display, isNot('none'),
-            reason: 'overlay starts showing');
-      });
+      await overlay.on['iron-overlay-opened'].first;
+      expect(overlay.opened, isTrue, reason: 'overlay starts opened');
+      expect(overlay.getComputedStyle().display, isNot('none'),
+          reason: 'overlay starts showing');
+    });
+
+    test('overlay positioned & sized properly', () async {
+      overlay = fixture('opened');
+      await overlay.on['iron-overlay-opened'].first;
+      var s = overlay.getComputedStyle();
+      expect(double.parse(s.left.replaceFirst('px', '')),
+          (window.innerWidth - overlay.offsetWidth) / 2,
+          reason: 'centered horizontally');
+      expect(double.parse(s.top.replaceFirst('px', '')),
+          (window.innerHeight - overlay.offsetHeight) / 2,
+          reason: 'centered vertically');
     });
 
     test('overlay open/close events', () {
@@ -132,7 +147,7 @@ main() async {
         overlay.on['iron-overlay-canceled'].first.then((_) {
           done.complete();
         });
-        fireEvent('click', null, document);
+        tap(document.body);
       });
       return done.future;
     });
@@ -146,7 +161,7 @@ main() async {
               reason: 'overlay is canceled');
           done.complete();
         });
-        fireEvent('click', null, document);
+        tap(document.body);
       });
       return done.future;
     });
@@ -160,7 +175,7 @@ main() async {
         var listener = overlay.on['iron-overlay-closed'].listen((event) {
           throw 'iron-overlay-closed should not fire';
         });
-        fireEvent('click', null, document);
+        tap(document.body);
         wait(10).then((_) {
           listener.cancel();
           done.complete();
@@ -202,7 +217,7 @@ main() async {
           if (done.isCompleted) return;
           done.completeError('iron-overlay-closed should not fire');
         });
-        fireEvent('click', null, document);
+        tap(document.body);
         wait(10).then((_) {
           done.complete();
         });
@@ -246,6 +261,79 @@ main() async {
               reason: 'overlays[1] has higher z-index than overlays[0]');
           done.complete();
         });
+      });
+      return done.future;
+    });
+
+    test('ESC closes only one opened overlay', () {
+      var done = new Completer();
+      runAfterOpen(overlays[0], () {
+        runAfterOpen(overlays[1], () {
+          // keydown is sync, keyup async (but no need to wait for it).
+          pressAndReleaseKeyOn(document.body, 27);
+          // Ideally overlays[1] should be closed and overlays[0] still open,
+          // but in this test env overlays[0]._onCaptureKeydown gets called before
+          // overlays[1]._onCaptureKeydown.
+          // TODO investigate if this is because of CustomEvents in
+          var opened0 = overlays[0].opened && !overlays[1].opened;
+          var opened1 = !overlays[0].opened && overlays[1].opened;
+          expect(opened0 || opened1, isTrue,
+              reason: 'only one overlay is still opened');
+          done.complete();
+        });
+      });
+      return done.future;
+    });
+  });
+
+  group('z-ordering', () {
+    var overlays;
+    var originalMinimumZ;
+
+    setUp(() {
+      overlays = fixture('multiple');
+      originalMinimumZ = _IronOverlayManager['_minimumZ'];
+    });
+
+    tearDown(() {
+      _IronOverlayManager['_minimumZ'] = originalMinimumZ;
+    });
+
+    // for iframes
+    test('default z-index is greater than 100', () {
+      var done = new Completer();
+      runAfterOpen(overlays[0], () {
+        var styleZ = int.parse(overlays[0].getComputedStyle().zIndex);
+        expect(styleZ, greaterThan(100),
+            reason: 'overlays[0] z-index is <= 100');
+        done.complete();
+      });
+      return done.future;
+    });
+
+    test('ensureMinimumZ() effects z-index', () {
+      var done = new Completer();
+      _IronOverlayManager.callMethod('ensureMinimumZ', [1000]);
+
+      runAfterOpen(overlays[0], () {
+        var styleZ = int.parse(overlays[0].getComputedStyle().zIndex);
+        expect(styleZ, greaterThan(1000),
+            reason: 'overlays[0] z-index is <= 1000');
+        done.complete();
+      });
+      return done.future;
+    });
+
+    test('ensureMinimumZ() never decreases the minimum z-index', () {
+      var done = new Completer();
+      _IronOverlayManager.callMethod('ensureMinimumZ', [1000]);
+      _IronOverlayManager.callMethod('ensureMinimumZ', [500]);
+
+      runAfterOpen(overlays[0], () {
+        var styleZ = int.parse(overlays[0].getComputedStyle().zIndex);
+        expect(styleZ, greaterThan(1000),
+            reason: 'overlays[0] z-index is <= 1000');
+        done.complete();
       });
       return done.future;
     });

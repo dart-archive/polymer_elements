@@ -1,6 +1,11 @@
 ## 1.0.0-rc.6
 
-Update to work with polymer_interop v1.0.0-rc.8.
+* Update to work with polymer_interop v1.0.0-rc.8.
+* Update the elements to the latest versions, and add new elements.
+  * New element `iron-label`.
+  * New element `demo-snippet`.
+  * New element `iron-page-url` (beta release, expect changes).
+  * New element `iron-swipeable-container`.
 
 ## 1.0.0-rc.5
 
