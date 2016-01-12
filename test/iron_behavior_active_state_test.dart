@@ -5,13 +5,16 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:html';
 import 'dart:js';
+
+import 'package:polymer_elements/paper_input.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'package:polymer/polymer.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
-import 'fixtures/iron_behavior_elements.dart';
+
 import 'common.dart';
-import 'package:polymer_elements/paper_input.dart';
+import 'fixtures/iron_behavior_elements.dart';
+import 'sinon/sinon.dart' as sinon;
 
 main() async {
   await initPolymer();
@@ -245,14 +248,13 @@ main() async {
         var item = fixture('ButtonWithPaperInput');
         var input = item.querySelector('#input');
 
-        var callCount = 0;
-        item.on['click'].take(1).listen((_) {
-          callCount++;
-        });
+        var itemClickHandler = sinon.spy();
+        item.addEventListener('click', itemClickHandler.eventListener);
 
         pressSpace(item);
         await wait(0);
-        expect(callCount, 1);
+        await wait(0);
+        expect(itemClickHandler.callCount, 1);
       });
     });
   });

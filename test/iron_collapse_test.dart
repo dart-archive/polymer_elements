@@ -27,7 +27,8 @@ main() async {
     });
 
     test('animated by default', () {
-      expect(!collapse.noAnimation,isTrue,reason: '`noAnimation` is falsy');
+      expect(collapse.noAnimation, isNot(true),
+          reason: '`noAnimation` is falsy');
     });
 
     test('horizontal attribute', () {
@@ -44,7 +45,7 @@ main() async {
       expect(collapse.style.transitionDuration, isNot('0s'));
       await collapse.on['transitionend'].first;
       expect(collapse.style.transitionDuration, '0s');
-    });
+    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/116');
 
     test('enableTransition(false) disables animations', () {
       collapse.enableTransition(false);
@@ -78,7 +79,7 @@ main() async {
           expect(collapse.style.height, collapseHeight);
         }
       }
-    });
+    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/116');
 
   });
 
@@ -129,6 +130,6 @@ main() async {
         }
       }
 
-    });
+    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/116');
   });
 }

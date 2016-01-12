@@ -13,6 +13,10 @@ import 'common.dart';
 import 'sinon/sinon.dart' as sinon;
 import 'fixtures/tooltip_button.dart';
 
+approximatelyEquals(value) {
+  return closeTo(value, .1);
+}
+
 /**
  * Original tests:
  * https://github.com/PolymerElements/paper-tooltip/tree/master/test
@@ -66,23 +70,25 @@ main() async {
       expect(isHidden(actualTooltip), isFalse);
 
       Rectangle divRect = target.getBoundingClientRect();
-      expect(divRect.width, equals(100));
-      expect(divRect.height, equals(20));
+      expect(divRect.width, approximatelyEquals(100));
+      expect(divRect.height, approximatelyEquals(20));
 
       Rectangle contentRect = tooltip.getBoundingClientRect();
-      expect(contentRect.width, equals(70));
-      expect(contentRect.height, equals(30));
+      expect(contentRect.width, approximatelyEquals(70));
+      expect(contentRect.height, approximatelyEquals(30));
 
       // The target div width is 100, and the tooltip width is 70, and
       // it's centered. The height of the target div is 20, and the
       // tooltip is 14px below.
 
-      expect(contentRect.left, equals((100 - 70) / 2));
-      expect(contentRect.top, equals(20 + 14));
+      expect(contentRect.left, approximatelyEquals((100 - 70) / 2));
+      expect(contentRect.top, approximatelyEquals(20 + 14));
 
       // Also check the math, just in case.
-      expect(contentRect.left, equals((divRect.width - contentRect.width) / 2));
-      expect(contentRect.top, equals(divRect.height + tooltip.offset));
+      expect(contentRect.left,
+          approximatelyEquals((divRect.width - contentRect.width) / 2));
+      expect(contentRect.top,
+          approximatelyEquals(divRect.height + tooltip.offset));
     });
 
     test('tooltip is positioned correctly (top)', () async {
@@ -99,22 +105,24 @@ main() async {
       expect(isHidden(actualTooltip), isFalse);
 
       var divRect = target.getBoundingClientRect();
-      expect(divRect.width, 100);
-      expect(divRect.height, 20);
+      expect(divRect.width, approximatelyEquals(100));
+      expect(divRect.height, approximatelyEquals(20));
 
       var contentRect = tooltip.getBoundingClientRect();
-      expect(contentRect.width, 70);
-      expect(contentRect.height, 30);
+      expect(contentRect.width, approximatelyEquals(70));
+      expect(contentRect.height, approximatelyEquals(30));
 
       // The target div width is 100, and the tooltip width is 70, and
       // it's centered. The height of the tooltip is 30, and the
       // tooltip is 14px above the target.
-      expect(contentRect.left, (100 - 70)/2);
-      expect(contentRect.top, 0 - 30 - 14);
+      expect(contentRect.left, approximatelyEquals((100 - 70) / 2));
+      expect(contentRect.top, approximatelyEquals(0 - 30 - 14));
 
       // Also check the math, just in case.
-      expect(contentRect.left, (divRect.width - contentRect.width)/2);
-      expect(contentRect.top, 0 - contentRect.height - tooltip.offset);
+      expect(contentRect.left,
+          approximatelyEquals((divRect.width - contentRect.width) / 2));
+      expect(contentRect.top,
+          approximatelyEquals(0 - contentRect.height - tooltip.offset));
     });
 
     test('tooltip is positioned correctly (right)', () async {
@@ -131,22 +139,24 @@ main() async {
       expect(isHidden(actualTooltip), isFalse);
 
       var divRect = target.getBoundingClientRect();
-      expect(divRect.width, 100);
-      expect(divRect.height, 20);
+      expect(divRect.width, approximatelyEquals(100));
+      expect(divRect.height, approximatelyEquals(20));
 
       var contentRect = tooltip.getBoundingClientRect();
-      expect(contentRect.width, 70);
-      expect(contentRect.height, 30);
+      expect(contentRect.width, approximatelyEquals(70));
+      expect(contentRect.height, approximatelyEquals(30));
 
       // The target div width is 100, and the tooltip is 14px to the right.
       // The target div height is 20, the height of the tooltip is 20px, and
       // the tooltip is centered.
-      expect(contentRect.left, 100 + 14);
-      expect(contentRect.top, (20 - 30)/2);
+      expect(contentRect.left, approximatelyEquals(100 + 14));
+      expect(contentRect.top, approximatelyEquals((20 - 30) / 2));
 
       // Also check the math, just in case.
-      expect(contentRect.left, divRect.width + tooltip.offset);
-      expect(contentRect.top, (divRect.height - contentRect.height)/2);
+      expect(contentRect.left,
+          approximatelyEquals(divRect.width + tooltip.offset));
+      expect(contentRect.top,
+          approximatelyEquals((divRect.height - contentRect.height) / 2));
     });
 
     test('tooltip is positioned correctly (left)', () async {
@@ -163,22 +173,24 @@ main() async {
       expect(isHidden(actualTooltip), isFalse);
 
       var divRect = target.getBoundingClientRect();
-      expect(divRect.width, 100);
-      expect(divRect.height, 20);
+      expect(divRect.width, approximatelyEquals(100));
+      expect(divRect.height, approximatelyEquals(20));
 
       var contentRect = tooltip.getBoundingClientRect();
-      expect(contentRect.width, 70);
-      expect(contentRect.height, 30);
+      expect(contentRect.width, approximatelyEquals(70));
+      expect(contentRect.height, approximatelyEquals(30));
 
       // The tooltip width is 70px, and the tooltip is 14px to the left of the target.
       // The target div height is 20, the height of the tooltip is 20px, and
       // the tooltip is centered.
-      expect(contentRect.left, 0 - 70 - 14);
-      expect(contentRect.top, (20 - 30)/2);
+      expect(contentRect.left, approximatelyEquals(0 - 70 - 14));
+      expect(contentRect.top, approximatelyEquals((20 - 30) / 2));
 
       // Also check the math, just in case.
-      expect(contentRect.left, 0 - contentRect.width - tooltip.offset);
-      expect(contentRect.top, (divRect.height - contentRect.height)/2);
+      expect(contentRect.left,
+          approximatelyEquals(0 - contentRect.width - tooltip.offset));
+      expect(contentRect.top,
+          approximatelyEquals((divRect.height - contentRect.height) / 2));
     });
 
     test('tooltip is fitted correctly if out of bounds', () async {
@@ -199,8 +211,9 @@ main() async {
       var divRect = target.getBoundingClientRect();
 
       // Should be fitted on the left side.
-      expect(contentRect.left, 0);
-      expect(contentRect.top, divRect.height + tooltip.offset);
+      expect(contentRect.left, approximatelyEquals(0));
+      expect(contentRect.top,
+          approximatelyEquals(divRect.height + tooltip.offset));
     });
 
     test('tooltip is positioned correctly after being dynamically set',
@@ -222,7 +235,7 @@ main() async {
       expect(isHidden(actualTooltip), isFalse);
 
       Rectangle contentRect = tooltip.getBoundingClientRect();
-      expect(contentRect.left, isNot((100 - 70) / 2));
+      expect(contentRect.left, isNot(approximatelyEquals((100 - 70) / 2)));
 
       tooltip.forId = 'target';
 
@@ -236,15 +249,13 @@ main() async {
       // it's centered. The height of the target div is 20, and the
       // tooltip is 14px below.
       contentRect = tooltip.getBoundingClientRect();
-      expect(contentRect.left, equals((100 - 70) / 2));
-      expect(contentRect.top, equals(20 + 14));
+      expect(contentRect.left, approximatelyEquals((100 - 70) / 2));
+      expect(contentRect.top, approximatelyEquals(20 + 14));
     });
 
     test('tooltip is hidden after target is blurred', () async {
-      Completer done = new Completer();
-
       HtmlElement f = fixture('basic');
-      await new Future(() {});
+      await wait(1);
       DivElement target = f.querySelector('#target');
       PaperTooltip tooltip = f.querySelector('paper-tooltip');
 
@@ -253,13 +264,12 @@ main() async {
       focus(target);
       expect(isHidden(actualTooltip), isFalse);
 
-      tooltip.on['neon-animation-finish'].take(1).listen((_) {
-        expect(isHidden(actualTooltip), isTrue);
-        done.complete();
-      });
       blur(target);
-
-      return done.future;
+      
+      // Dart Note: `neon-animation-finished` event wasn't consistently firing
+      // so we are just using a delay instead.
+      await wait(100);
+      expect(isHidden(actualTooltip), isTrue);
     });
 
     test('tooltip unlistens to target on detach', () async {
@@ -313,22 +323,24 @@ main() async {
       expect(isHidden(actualTooltip), isFalse);
 
       Rectangle divRect = target.getBoundingClientRect();
-      expect(divRect.width, equals(100));
-      expect(divRect.height, equals(20));
+      expect(divRect.width, approximatelyEquals(100));
+      expect(divRect.height, approximatelyEquals(20));
 
       Rectangle contentRect = tooltip.getBoundingClientRect();
-      expect(contentRect.width, equals(30));
-      expect(contentRect.height, equals(30));
+      expect(contentRect.width, approximatelyEquals(30));
+      expect(contentRect.height, approximatelyEquals(30));
 
       // The target div width is 100, and the tooltip width is 70, and
       // it's centered. The height of the target div is 20, and the
       // tooltip is 14px below.
-      expect(contentRect.left, equals((100 - 30) / 2));
-      expect(contentRect.top, equals(20 + 14));
+      expect(contentRect.left, approximatelyEquals((100 - 30) / 2));
+      expect(contentRect.top, approximatelyEquals(20 + 14));
 
       // Also check the math, just in case.
-      expect(contentRect.left, equals((divRect.width - contentRect.width) / 2));
-      expect(contentRect.top, equals(divRect.height + tooltip.offset));
+      expect(contentRect.left,
+          approximatelyEquals((divRect.width - contentRect.width) / 2));
+      expect(contentRect.top,
+          approximatelyEquals(divRect.height + tooltip.offset));
     });
   });
 

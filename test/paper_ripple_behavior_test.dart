@@ -5,6 +5,7 @@
 library polymer_elements.test.paper_ripple_behavior_test;
 
 import 'dart:html';
+import 'dart:js';
 
 import 'package:test/test.dart';
 import 'package:polymer_elements/iron_a11y_keys_behavior.dart';
@@ -129,8 +130,12 @@ main() async {
 
         getTextLocation(ripple) {
           // build a Range to get the BCR of a given text node
-          var r = document.createRange();
-          r.selectNode(Polymer.dom(ripple.$['content']).getDistributedNodes()[0]);
+          // Dart Note: must use js version of `document.createRange()` since
+          // the dart and js versions aren't compatible in dart2js.
+          var r = new JsObject.fromBrowserObject(document)
+              .callMethod('createRange');
+          r.callMethod('selectNode',
+              [Polymer.dom(ripple.$['content']).getDistributedNodes()[0]]);
           return middleOfNode(r);
         }
 

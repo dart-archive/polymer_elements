@@ -14,10 +14,13 @@ dev_dependencies:
   polymer: ^1.0.0-rc.11
   test: ^0.12.5+1
   yaml: ">=1.0.0 <3.0.0"
+  # index_page: ^0.0.1
 
 environment:
   sdk: '>=1.6.0 <2.0.0'
 transformers:
+# - index_page:
+#     $include: test/**.html
 - polymer:
     entry_points:
     - test/firebase_auth_test.html
@@ -145,6 +148,7 @@ transformers:
     - test/paper_tabs_test.html
     - test/paper_textarea_test.html
     - test/paper_toggle_button_test.html
+    - test/paper_toast_test.html
     - test/paper_toolbar_test.html
     - test/paper_tooltip_test.html
     $include: test/**_test{.*,}.{dart,html}
