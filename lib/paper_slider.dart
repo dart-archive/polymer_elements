@@ -8,18 +8,17 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
+import 'iron_a11y_keys_behavior.dart';
 import 'iron_form_element_behavior.dart';
 import 'paper_inky_focus_behavior.dart';
 import 'iron_button_state.dart';
-import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
 import 'paper_ripple_behavior.dart';
 import 'iron_range_behavior.dart';
 import 'iron_flex_layout.dart';
-import 'color.dart';
-import 'paper_progress.dart';
 import 'paper_input.dart';
-import 'paper_ripple.dart';
+import 'paper_progress.dart';
+import 'color.dart';
 
 /// Material design: [Sliders](https://www.google.com/design/spec/components/sliders.html)
 ///
@@ -48,17 +47,18 @@ import 'paper_ripple.dart';
 /// `--paper-slider-active-color` | The progress bar color | `--google-blue-700`
 /// `--paper-slider-secondary-color` | The secondary progress bar color | `--google-blue-300`
 /// `--paper-slider-knob-color` | The knob color | `--google-blue-700`
-/// `--paper-slider-disabled-knob-color` | The disabled knob color | `--google-grey-500`
+/// `--paper-slider-disabled-knob-color` | The disabled knob color | `--paper-grey-400`
 /// `--paper-slider-pin-color` | The pin color | `--google-blue-700`
 /// `--paper-slider-font-color` | The pin's text color | `#fff`
-/// `--paper-slider-disabled-active-color` | The disabled progress bar color | `--google-grey-500`
-/// `--paper-slider-disabled-secondary-color` | The disabled secondary progress bar color | `--google-grey-300`
+/// `--paper-slider-disabled-active-color` | The disabled progress bar color | `--paper-grey-400`
+/// `--paper-slider-disabled-secondary-color` | The disabled secondary progress bar color | `--paper-grey-400`
 /// `--paper-slider-knob-start-color` | The fill color of the knob at the far left | `transparent`
-/// `--paper-slider-knob-start-border-color` | The border color of the knob at the far left | `#c8c8c8`
-/// `--paper-slider-pin-start-color` | The color of the pin at the far left | `#c8c8c8`
+/// `--paper-slider-knob-start-border-color` | The border color of the knob at the far left | `--paper-grey-400`
+/// `--paper-slider-pin-start-color` | The color of the pin at the far left | `--paper-grey-400`
 /// `--paper-slider-height` | Height of the progress bar | `2px`
+/// `--paper-slider-input` | Mixin applied to the input in editable mode | `{}`
 @CustomElementProxy('paper-slider')
-class PaperSlider extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronFormElementBehavior, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperRippleBehavior, PaperInkyFocusBehavior, IronRangeBehavior {
+class PaperSlider extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronFormElementBehavior, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperRippleBehavior, PaperInkyFocusBehavior, IronRangeBehavior {
   PaperSlider.created() : super.created();
   factory PaperSlider() => new Element.tag('paper-slider');
 

@@ -44,6 +44,15 @@ main() async {
         expect(keys.keyCount, 1);
       });
 
+      test('handles special character @', () {
+        var event = new CustomEvent('keydown');
+        var e = new JsObject.fromBrowserObject(event);
+        e['key'] = '@';
+        keys.dispatchEvent(event);
+        expect(keys.keyCount, 1);
+      });
+
+
       test('do not trigger the handler for non-specified keys', () {
         pressEnter(keys);
 
@@ -300,6 +309,7 @@ class XA11yBasicKeys extends PolymerElement
 
   ready() {
     addOwnKeyBinding('space', 'keyHandler');
+    addOwnKeyBinding('@', 'keyHandler');
   }
 }
 

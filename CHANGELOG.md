@@ -1,3 +1,8 @@
+## 1.0.0-rc.7
+
+* Update elements to latest version, fixes paper-menu issue
+  [#117](https://github.com/dart-lang/polymer_elements/issues/117).
+
 ## 1.0.0-rc.6
 
 * Update to work with polymer_interop v1.0.0-rc.8.
