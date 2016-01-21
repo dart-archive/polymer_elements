@@ -221,7 +221,7 @@ main() async {
         pressEnter(keys);
 
         expect(keys.keyCount, 2);
-      }, skip: 'Doesn`t work using addOwnKeyBindings');
+      });
     });
 
     group('stopping propagation automatically', () {
@@ -307,10 +307,11 @@ class XA11yBasicKeys extends PolymerElement
     with IronA11yKeysBehavior, KeysTestBehavior {
   XA11yBasicKeys.created() : super.created();
 
-  ready() {
-    addOwnKeyBinding('space', 'keyHandler');
-    addOwnKeyBinding('@', 'keyHandler');
-  }
+  @reflectable
+  static Map<String, String> keyBindings = {
+    'space': 'keyHandler',
+    '@': 'keyHandler'
+  };
 }
 
 @PolymerRegister('x-a11y-combo-keys')
@@ -318,10 +319,11 @@ class XA11yComboKeys extends PolymerElement
     with IronA11yKeysBehavior, KeysTestBehavior {
   XA11yComboKeys.created() : super.created();
 
-  ready() {
-    addOwnKeyBinding('enter', 'keyHandler2');
-    addOwnKeyBinding('ctrl+shift+a shift+enter', 'keyHandler');
-  }
+  @reflectable
+  static Map<String, String> keyBindings = {
+      'enter': 'keyHandler2',
+      'ctrl+shift+a shift+enter': 'keyHandler'
+  };
 }
 
 @PolymerRegister('x-a11y-alternate-event-keys')
@@ -329,16 +331,19 @@ class XA11yAlternateEventKeys extends PolymerElement
     with IronA11yKeysBehavior, KeysTestBehavior {
   XA11yAlternateEventKeys.created() : super.created();
 
-  ready() {
-    addOwnKeyBinding('space:keyup', 'keyHandler');
-  }
+  @reflectable
+  static Map<String, String> keyBindings = {
+    'space:keyup': 'keyHandler',
+  };
 }
 
 @behavior
 abstract class XA11yBehavior implements KeysTestBehavior {
-  static ready(KeysTestBehavior instance) {
-    instance.addOwnKeyBinding('enter', 'keyHandler');
-  }
+
+  @reflectable
+  static Map<String, String> keyBindings = {
+    'enter': 'keyHandler',
+  };
 }
 
 @PolymerRegister('x-a11y-behavior-keys')
@@ -346,9 +351,10 @@ class XA11yBehaviorKeys extends PolymerElement
     with IronA11yKeysBehavior, KeysTestBehavior, XA11yBehavior {
   XA11yBehaviorKeys.created() : super.created();
 
-  ready() {
-    addOwnKeyBinding('enter', 'keyHandler');
-  }
+  @reflectable
+  static Map<String, String> keyBindings = {
+    'enter': 'keyHandler',
+  };
 }
 
 @PolymerRegister('x-a11y-prevent-keys')
@@ -356,8 +362,9 @@ class XA11yPreventKeys extends PolymerElement
     with IronA11yKeysBehavior, KeysTestBehavior, XA11yBehavior {
   XA11yPreventKeys.created() : super.created();
 
-  ready() {
-    addOwnKeyBinding('space a', 'keyHandler');
-    addOwnKeyBinding('enter shift+a', 'preventDefaultHandler');
-  }
+  @reflectable
+  static Map<String, String> keyBindings = {
+    'space a': 'keyHandler',
+    'enter shift+a': 'preventDefaultHandler',
+  };
 }

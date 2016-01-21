@@ -96,7 +96,9 @@ files_to_generate:
       name_substitutions:
           created: create
   - iron-a11y-keys/iron-a11y-keys.html
-  - iron-a11y-keys-behavior/iron-a11y-keys-behavior.html
+  - iron-a11y-keys-behavior/iron-a11y-keys-behavior.html:
+      name_substitutions:
+        keyBindings: instanceKeyBindings
   - iron-ajax/iron-ajax.html
   - iron-ajax/iron-request.html:
       omit_imports:
