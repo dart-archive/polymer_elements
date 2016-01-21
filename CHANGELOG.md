@@ -1,3 +1,9 @@
+## 1.0.0-rc.8
+
+* The `keyBindings` instance property from `IronA11yKeysBehavior` has been
+  renamed to `instanceKeyBindings` so it doesn't conflict with the static
+  `keyBindings` field.
+
 ## 1.0.0-rc.7
 
 * Update elements to latest version, fixes paper-menu issue
