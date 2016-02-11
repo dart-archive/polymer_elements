@@ -88,13 +88,17 @@ class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase
   /// provider-specific login parameters can be specified via attribute (JSON)/property,
   /// or via the `params` argument to the `login` function.
   ///
+  /// If your `provider` is `custom` you must pass a Firebase Auth token as
+  /// `params.token`. You can also optionally pass an auth token as `params.token` for
+  /// providers `facebook`, `google`, `github` and `twitter` to login headlessly.
+  ///
   /// If the login is successful, the `login` event is fired, with `e.detail.user`
   /// containing the authenticated user object from Firebase.
   ///
   /// If login fails, the `error` event is fired, with `e.detail` containing error
   /// information supplied from Firebase.
   ///
-  /// If the browswer supports `navigator.onLine` network status reporting and the
+  /// If the browser supports `navigator.onLine` network status reporting and the
   /// network is currently offline, the login attempt will be queued until the network
   /// is restored.
   /// [params]: (optional)

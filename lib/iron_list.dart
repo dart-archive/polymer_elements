@@ -9,6 +9,8 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_resizable_behavior.dart';
+import 'iron_a11y_keys_behavior.dart';
+import 'iron_scroll_target_behavior.dart';
 
 /// `iron-list` displays a virtual, 'infinite' list. The template inside
 /// the iron-list element represents the DOM to create for each list item.
@@ -31,12 +33,14 @@ import 'iron_resizable_behavior.dart';
 ///
 /// List item templates should bind to template models of the following structure:
 ///
-///     {
-///       index: 0,     // data index for this item
-///       item: {       // user data corresponding to items[index]
-///         /* user item data  */
-///       }
-///     }
+/// ```js
+/// {
+///   index: 0,        // index in the item array
+///   selected: false, // true if the current item is selected
+///   tabIndex: -1,    // a dynamically generated tabIndex for focus management
+///   item: {}         // user data corresponding to items[index]
+/// }
+/// ```
 ///
 /// Alternatively, you can change the property name used as data index by changing the
 /// `indexAs` property. The `as` property defines the name of the variable to add to the binding
@@ -63,16 +67,33 @@ import 'iron_resizable_behavior.dart';
 ///   <iron-list items="[[data]]" as="item">
 ///     <template>
 ///       <div>
-///         Name: <span>[[item.name]]</span>
+///         Name: [[item.name]]
 ///       </div>
 ///     </template>
 ///   </iron-list>
 /// </template>
 /// ```
 ///
+/// ### Accessibility
+///
+/// `iron-list` automatically manages the focus state for the items. It also provides
+/// a `tabIndex` property within the template scope that can be used for keyboard navigation.
+/// For example, users can press the up and down keys to move to previous and next
+/// items in the list:
+///
+/// ```html
+/// <iron-list items="[[data]]" as="item">
+///   <template>
+///     <div tabindex$="[[tabIndex]]">
+///       Name: [[item.name]]
+///     </div>
+///   </template>
+/// </iron-list>
+/// ```
+///
 /// ### Styling
 ///
-/// Use the `--iron-list-items-container` mixin to style the container of items, e.g.
+/// You can use the `--iron-list-items-container` mixin to style the container of items:
 ///
 /// ```css
 /// iron-list {
@@ -90,7 +111,7 @@ import 'iron_resizable_behavior.dart';
 /// By default, elements such as `iron-pages`, `paper-tabs` or `paper-dialog` will trigger
 /// this event automatically. If you hide the list manually (e.g. you use `display: none`)
 /// you might want to implement `IronResizableBehavior` or fire this event manually right
-/// after the list became visible again. e.g.
+/// after the list became visible again. For example:
 ///
 /// ```js
 /// document.querySelector('iron-list').fire('iron-resize');
@@ -108,7 +129,7 @@ import 'iron_resizable_behavior.dart';
 /// so you can bring a page at the time. The page could contain 500 items, and iron-list
 /// will only render 20.
 @CustomElementProxy('iron-list')
-class IronList extends HtmlElement with CustomElementProxyMixin, PolymerBase, Templatizer, IronResizableBehavior {
+class IronList extends HtmlElement with CustomElementProxyMixin, PolymerBase, Templatizer, IronResizableBehavior, IronA11yKeysBehavior, IronScrollTargetBehavior {
   IronList.created() : super.created();
   factory IronList() => new Element.tag('iron-list');
 
@@ -130,6 +151,13 @@ class IronList extends HtmlElement with CustomElementProxyMixin, PolymerBase, Te
   /// to stamp and that that each template instance should bind to.
   List get items => jsElement[r'items'];
   set items(List value) { jsElement[r'items'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
+
+  get keyBindings => jsElement[r'keyBindings'];
+  set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+
+  /// Gets the index of the last visible item in the viewport.
+  num get lastVisibleIndex => jsElement[r'lastVisibleIndex'];
+  set lastVisibleIndex(num value) { jsElement[r'lastVisibleIndex'] = value; }
 
   /// When `true`, multiple items may be selected at once (in this case,
   /// `selected` is an array of currently selected items).  When `false`,

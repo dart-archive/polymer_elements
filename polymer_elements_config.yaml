@@ -170,6 +170,8 @@ files_to_generate:
           value:
             type: any
   - iron-resizable-behavior/iron-resizable-behavior.html
+  - iron-scroll-target-behavior/iron-scroll-target-behavior.html
+  - iron-scroll-threshold/iron-scroll-threshold.html
   - iron-selector/iron-multi-selectable.html
   - iron-selector/iron-selectable.html:
       type_overrides:
@@ -318,11 +320,7 @@ files_to_generate:
   - paper-styles/classes/shadow-layout.html
   - paper-styles/classes/typography.html
   - paper-tabs/paper-tab.html
-  - paper-tabs/paper-tabs.html:
-      type_overrides:
-        PaperTabs:
-          selected:
-            type: any
+  - paper-tabs/paper-tabs.html
   - paper-tabs/paper-tabs-icons.html
   - paper-toast/paper-toast.html
   - paper-toggle-button/paper-toggle-button.html

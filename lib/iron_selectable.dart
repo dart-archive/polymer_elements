@@ -50,13 +50,26 @@ abstract class IronSelectableBehavior implements CustomElementProxyMixin {
   get selectedItem => jsElement[r'selectedItem'];
   set selectedItem(value) { jsElement[r'selectedItem'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
+  /// Force a synchronous update of the `items` property.
+  ///
+  /// NOTE: Consider listening for the `iron-items-changed` event to respond to
+  /// updates to the set of selectable items after updates to the DOM list and
+  /// selection state have been made.
+  ///
+  /// WARNING: If you are using this method, you should probably consider an
+  /// alternate approach. Synchronously querying for items is potentially
+  /// slow for many use cases. The `items` property will update asynchronously
+  /// on its own to reflect selectable items in the DOM.
+  forceSynchronousItemUpdate() =>
+      jsElement.callMethod('forceSynchronousItemUpdate', []);
+
   /// Returns the index of the given item.
   indexOf(item) =>
       jsElement.callMethod('indexOf', [item]);
 
   /// Selects the given value.
   /// [value]: the value to select.
-  select(String value) =>
+  select(value) =>
       jsElement.callMethod('select', [value]);
 
   /// Selects the next item.

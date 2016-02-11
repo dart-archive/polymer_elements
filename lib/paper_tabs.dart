@@ -36,7 +36,7 @@ import 'paper_tab.dart';
 ///       <paper-tab>TAB 3</paper-tab>
 ///     </paper-tabs>
 ///
-/// See <a href="#paper-tab">paper-tab</a> for more information about
+/// See <a href="?active=paper-tab">paper-tab</a> for more information about
 /// `paper-tab`.
 ///
 /// A common usage for `paper-tabs` is to use it along with `iron-pages` to switch
@@ -99,8 +99,4 @@ class PaperTabs extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
 
   String get selectable => jsElement[r'selectable'];
   set selectable(String value) { jsElement[r'selectable'] = value; }
-
-  /// Gets or sets the selected element. The default is to use the index of the item.
-  get selected => jsElement[r'selected'];
-  set selected(value) { jsElement[r'selected'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 }

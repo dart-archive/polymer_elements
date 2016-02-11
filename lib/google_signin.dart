@@ -10,7 +10,6 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'google_signin_aware.dart';
 import 'iron_icon.dart';
-import 'iron_icons.dart';
 import 'roboto.dart';
 import 'google_js_api.dart';
 import 'paper_ripple.dart';

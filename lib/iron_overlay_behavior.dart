@@ -92,7 +92,4 @@ abstract class IronOverlayBehavior implements CustomElementProxyMixin, IronFitBe
   /// Toggle the opened state of the overlay.
   toggle() =>
       jsElement.callMethod('toggle', []);
-
-  registered() =>
-      jsElement.callMethod('registered', []);
 }

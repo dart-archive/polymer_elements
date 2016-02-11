@@ -8,6 +8,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
+import 'iron_resizable_behavior.dart';
 
 /// `iron-collapse` creates a collapsible block of content.  By default, the content
 /// will be collapsed.  Use `opened` or `toggle()` to show/hide the content.
@@ -41,9 +42,11 @@ import 'package:polymer_interop/polymer_interop.dart';
 ///       </div>
 ///     </iron-collapse>
 @CustomElementProxy('iron-collapse')
-class IronCollapse extends HtmlElement with CustomElementProxyMixin, PolymerBase {
+class IronCollapse extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronResizableBehavior {
   IronCollapse.created() : super.created();
   factory IronCollapse() => new Element.tag('iron-collapse');
+
+  get dimension => jsElement[r'dimension'];
 
   /// If true, the orientation is horizontal; otherwise is vertical.
   bool get horizontal => jsElement[r'horizontal'];

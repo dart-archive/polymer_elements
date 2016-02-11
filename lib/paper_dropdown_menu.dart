@@ -76,6 +76,10 @@ class PaperDropdownMenu extends HtmlElement with CustomElementProxyMixin, Polyme
   /// The content element that is contained by the dropdown menu, if any.
   get contentElement => jsElement[r'contentElement'];
 
+  /// The error message to display when invalid.
+  String get errorMessage => jsElement[r'errorMessage'];
+  set errorMessage(String value) { jsElement[r'errorMessage'] = value; }
+
   /// The orientation against which to align the menu dropdown
   /// horizontally relative to the dropdown trigger.
   String get horizontalAlign => jsElement[r'horizontalAlign'];

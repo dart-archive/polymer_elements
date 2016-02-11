@@ -66,6 +66,18 @@ class MarkedElement extends HtmlElement with CustomElementProxyMixin, PolymerBas
 
   get outputElement => jsElement[r'outputElement'];
 
+  /// Conform to obscure parts of markdown.pl as much as possible. Don't fix any of the original markdown bugs or poor behavior.
+  bool get pedantic => jsElement[r'pedantic'];
+  set pedantic(bool value) { jsElement[r'pedantic'] = value; }
+
+  /// Sanitize the output. Ignore any HTML that has been input.
+  bool get sanitize => jsElement[r'sanitize'];
+  set sanitize(bool value) { jsElement[r'sanitize'] = value; }
+
+  /// Use "smart" typographic punctuation for things like quotes and dashes.
+  bool get smartypants => jsElement[r'smartypants'];
+  set smartypants(bool value) { jsElement[r'smartypants'] = value; }
+
   /// Renders `markdown` into this element's DOM.
   ///
   /// This is automatically called whenever the `markdown` property is changed.
@@ -75,4 +87,8 @@ class MarkedElement extends HtmlElement with CustomElementProxyMixin, PolymerBas
   /// constructed (or updating that markdown).
   render() =>
       jsElement.callMethod('render', []);
+
+  /// Unindents the markdown source that will be rendered.
+  unindent(text) =>
+      jsElement.callMethod('unindent', [text]);
 }

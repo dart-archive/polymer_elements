@@ -62,7 +62,7 @@ import 'shadow.dart';
 @BehaviorProxy(const ['Polymer', 'PaperDialogBehavior'])
 abstract class PaperDialogBehavior implements CustomElementProxyMixin, IronOverlayBehavior {
 
-  /// If `modal` is true, this implies `no-cancel-on-outside-click` and `with-backdrop`.
+  /// If `modal` is true, this implies `no-cancel-on-outside-click`, `no-cancel-on-esc-key` and `with-backdrop`.
   bool get modal => jsElement[r'modal'];
   set modal(bool value) { jsElement[r'modal'] = value; }
 }
