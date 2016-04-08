@@ -357,4 +357,5 @@ deletion_patterns:
   - ^webcomponentsjs$
   - .gitignore$
   - .travis.yml$
+  - .github
   - CONTRIBUTING\.md$
