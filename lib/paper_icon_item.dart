@@ -37,6 +37,7 @@ import 'paper_item_shared_styles.dart';
 /// Custom property               | Description                                    | Default
 /// ------------------------------|------------------------------------------------|----------
 /// `--paper-item-icon-width`     | Width of the icon area                         | `56px`
+/// `--paper-item-icon`           | Mixin applied to the icon area                 | `{}`
 /// `--paper-icon-item`           | Mixin applied to the item                      | `{}`
 /// `--paper-item-selected-weight`| The font weight of a selected item             | `bold`
 /// `--paper-item-selected`       | Mixin applied to selected paper-items                | `{}`

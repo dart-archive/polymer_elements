@@ -57,8 +57,6 @@ import 'shadow.dart';
 ///
 /// If `modal` is set, the element will set `aria-modal` and prevent the focus from exiting the element.
 /// It will also ensure that focus remains in the dialog.
-///
-/// The `aria-labelledby` attribute will be set to the header element, if one exists.
 @BehaviorProxy(const ['Polymer', 'PaperDialogBehavior'])
 abstract class PaperDialogBehavior implements CustomElementProxyMixin, IronOverlayBehavior {
 

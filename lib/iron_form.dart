@@ -112,4 +112,7 @@ class IronForm extends FormElement with CustomElementProxyMixin, PolymerBase {
   /// Validates all the required elements (custom and native) in the form.
   bool validate() =>
       jsElement.callMethod('validate', []);
+
+  registered() =>
+      jsElement.callMethod('registered', []);
 }

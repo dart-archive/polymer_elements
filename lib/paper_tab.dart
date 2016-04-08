@@ -42,4 +42,9 @@ import 'iron_flex_layout.dart';
 class PaperTab extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, IronButtonState, PaperRippleBehavior {
   PaperTab.created() : super.created();
   factory PaperTab() => new Element.tag('paper-tab');
+
+  /// If true, the tab will forward keyboard clicks (enter/space) to
+  /// the first anchor element found in its descendants
+  bool get link => jsElement[r'link'];
+  set link(bool value) { jsElement[r'link'] = value; }
 }

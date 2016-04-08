@@ -46,8 +46,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     properties: {
 
       /**
-       * If you want to use the attribute value of an element for `selected` instead of the index,
-       * set this to the name of the attribute.
+       * If you want to use an attribute value or property of an element for
+       * `selected` instead of the index, set this to the name of the attribute
+       * or property. Hyphenated values are converted to camel case when used to
+       * look up the property of a selectable element. Camel cased values are
+       * *not* converted to hyphenated values for attribute lookup. It's
+       * recommended that you provide the hyphenated form of the name so that
+       * selection works in both cases. (Use `attr-or-property-name` instead of
+       * `attrOrPropertyName`.)
        */
       attrForSelected: {
         type: String,
@@ -136,7 +142,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
 
     observers: [
-      '_updateSelected(attrForSelected, selected)'
+      '_updateAttrForSelected(attrForSelected)',
+      '_updateSelected(selected)'
     ],
 
     created: function() {
@@ -148,7 +155,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this._observer = this._observeItems(this);
       this._updateItems();
       if (!this._shouldUpdateSelection) {
-        this._updateSelected(this.attrForSelected,this.selected)
+        this._updateSelected();
       }
       this._addListener(this.activateEvent);
     },
@@ -241,6 +248,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this._setItems(nodes);
     },
 
+    _updateAttrForSelected: function() {
+      if (this._shouldUpdateSelection) {
+        this.selected = this._indexToValue(this.indexOf(this.selectedItem));        
+      }
+    },
+
     _updateSelected: function() {
       this._selectSelected(this.selected);
     },
@@ -281,7 +294,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
 
     _valueForItem: function(item) {
-      var propValue = item[this.attrForSelected];
+      var propValue = item[Polymer.CaseMap.dashToCamelCase(this.attrForSelected)];
       return propValue != undefined ? propValue : item.getAttribute(this.attrForSelected);
     },
 
@@ -310,7 +323,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
 
         // Let other interested parties know about the change so that
-        // we don't have to recreate mutation observers everywher.
+        // we don't have to recreate mutation observers everywhere.
         this.fire('iron-items-changed', mutations, {
           bubbles: false,
           cancelable: false

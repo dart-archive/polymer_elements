@@ -27,6 +27,14 @@ subject to an additional IP rights grant found at https://polymer.github.io/PATE
 
 The standard set of [YouTube player events](https://developers.google.com/youtube/iframe_api_reference#Events) are exposed, as well as methods for playing, pausing, seeking to a specific time, and loading a new video.
 
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--google-youtube-container`  | Mixin applied to the container div | `{}`
+`--google-youtube-thumbnail`  | Mixin for the video thumbnail      | `{}`
+`--google-youtube-iframe`     | Mixin for the embeded iframe       | `{}`
+
+
 @demo
 -->
 <dom-module id="google-youtube">
@@ -50,16 +58,22 @@ The standard set of [YouTube player events](https://developers.google.com/youtub
       width: 100%;
       height: 100%;
     }
+    
+    iframe {
+      @apply(--google-youtube-iframe);
+    }
 
     #container {
       max-width: 100%;
       max-height: 100%;
+      @apply(--google-youtube-container);
     }
 
     #thumbnail {
       width: 100%;
       height: 100%;
       cursor: pointer;
+      @apply(--google-youtube-thumbnail);
     }
   </style>
 
@@ -67,14 +81,16 @@ The standard set of [YouTube player events](https://developers.google.com/youtub
     <div id="container" style$="{{_computeContainerStyle(width, height)}}">
       <template is="dom-if" if="{{thumbnail}}">
         <img id="thumbnail"
-           src$="{{thumbnail}}"
-           title="YouTube video thumbnail."
-           alt="YouTube video thumbnail."
-           on-tap="_handleThumbnailTap">
+             src$="{{thumbnail}}"
+             title="YouTube video thumbnail."
+             alt="YouTube video thumbnail."
+             on-tap="_handleThumbnailTap">
       </template>
 
       <template is="dom-if" if="{{!thumbnail}}">
-        <google-youtube-api on-api-load="_apiLoad"></google-youtube-api>
+        <template is="dom-if" if="{{videoId}}">
+          <google-youtube-api on-api-load="_apiLoad"></google-youtube-api>
+        </template>
       </template>
 
       <!-- Use this._playsupportedLocalStorage as the value, since this.playsupported is set to
@@ -123,12 +139,15 @@ The standard set of [YouTube player events](https://developers.google.com/youtub
      * to load a new video into the player (if `this.autoplay` is set to `1` and `playsupported` is true)
      * or cue a new video otherwise.
      *
+     * The underlying YouTube embed will not be added to the page unless this
+     * value is set.
+     *
      * You can [search for videos programmatically](https://developers.google.com/youtube/v3/docs/search/list)
      * using the YouTube Data API, or just hardcode known video ids to display on your page.
      */
       videoId: {
         type: String,
-        value: 'mN7IAaRdi_k',
+        value: '',
         observer: '_videoIdChanged'
       },
 

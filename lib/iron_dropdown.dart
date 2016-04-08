@@ -117,4 +117,14 @@ class IronDropdown extends HtmlElement with CustomElementProxyMixin, PolymerBase
   /// offset will move the dropdown downwards; a positive one, upwards.
   num get verticalOffset => jsElement[r'verticalOffset'];
   set verticalOffset(num value) { jsElement[r'verticalOffset'] = value; }
+
+  /// Useful to call this after the element, the window, or the `fitInfo`
+  /// element has been resized. Will maintain the scroll position.
+  refit() =>
+      jsElement.callMethod('refit', []);
+
+  /// Resets the target element's position and size constraints, and clear
+  /// the memoized data.
+  resetFit() =>
+      jsElement.callMethod('resetFit', []);
 }

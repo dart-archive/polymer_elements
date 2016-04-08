@@ -25,6 +25,13 @@ import 'google_youtube_api.dart';
 /// `google-youtube` supports all of the [embedded player parameters](https://developers.google.com/youtube/player_parameters). Each can be set as an attribute on `google-youtube`.
 ///
 /// The standard set of [YouTube player events](https://developers.google.com/youtube/iframe_api_reference#Events) are exposed, as well as methods for playing, pausing, seeking to a specific time, and loading a new video.
+///
+///
+/// Custom property | Description | Default
+/// ----------------|-------------|----------
+/// `--google-youtube-container`  | Mixin applied to the container div | `{}`
+/// `--google-youtube-thumbnail`  | Mixin for the video thumbnail      | `{}`
+/// `--google-youtube-iframe`     | Mixin for the embeded iframe       | `{}`
 @CustomElementProxy('google-youtube')
 class GoogleYoutube extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleYoutube.created() : super.created();
@@ -147,6 +154,9 @@ class GoogleYoutube extends HtmlElement with CustomElementProxyMixin, PolymerBas
   /// Sets the id of the video to play. Changing this attribute will trigger a call
   /// to load a new video into the player (if `this.autoplay` is set to `1` and `playsupported` is true)
   /// or cue a new video otherwise.
+  ///
+  /// The underlying YouTube embed will not be added to the page unless this
+  /// value is set.
   ///
   /// You can [search for videos programmatically](https://developers.google.com/youtube/v3/docs/search/list)
   /// using the YouTube Data API, or just hardcode known video ids to display on your page.

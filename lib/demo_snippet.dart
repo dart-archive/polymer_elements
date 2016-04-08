@@ -8,10 +8,12 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
-import 'prism_highlighter.dart';
+import 'iron_icons.dart';
 import 'marked_element.dart';
+import 'paper_icon_button.dart';
 import 'color.dart';
 import 'shadow.dart';
+import 'prism_highlighter.dart';
 
 /// `demo-snippet` is a helper element that displays the source of a code snippet and
 /// its rendered demo. It can be used for both native elements and

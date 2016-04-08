@@ -16,7 +16,6 @@ import 'paper_ripple_behavior.dart';
 import 'iron_flex_layout.dart';
 import 'iron_icon.dart';
 import 'paper_material_shared_styles.dart';
-import 'paper_ripple.dart';
 import 'color.dart';
 import 'default_theme.dart';
 
@@ -62,6 +61,11 @@ class PaperFab extends HtmlElement with CustomElementProxyMixin, PolymerBase, Ir
   /// the src property should not be.
   String get icon => jsElement[r'icon'];
   set icon(String value) { jsElement[r'icon'] = value; }
+
+  /// The label displayed in the badge. The label is centered, and ideally
+  /// should have very few characters.
+  String get label => jsElement[r'label'];
+  set label(String value) { jsElement[r'label'] = value; }
 
   /// Set this to true to style this is a "mini" FAB.
   bool get mini => jsElement[r'mini'];
