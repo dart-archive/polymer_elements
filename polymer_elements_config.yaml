@@ -150,7 +150,9 @@ files_to_generate:
   - iron-list/iron-list.html:
       omit_imports:
         - templatizer.html # Part of `polymer_interop.dart`
-  - iron-location/iron-location.html
+  - iron-location/iron-location.html:
+      name_substitutions:
+        query: locationQuery
   - iron-location/iron-query-params.html
   - iron-localstorage/iron-localstorage.html
   - iron-media-query/iron-media-query.html:

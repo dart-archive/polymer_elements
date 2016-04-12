@@ -65,8 +65,8 @@ class IronLocation extends HtmlElement with CustomElementProxyMixin, PolymerBase
   set path(String value) { jsElement[r'path'] = value; }
 
   /// The query string portion of the URL.
-  String get query => jsElement[r'query'];
-  set query(String value) { jsElement[r'query'] = value; }
+  String get locationQuery => jsElement[r'query'];
+  set locationQuery(String value) { jsElement[r'query'] = value; }
 
   /// A regexp that defines the set of URLs that should be considered part
   /// of this web app.
