@@ -20,6 +20,9 @@ environment:
 transformers:
 - polymer:
     entry_points:
+    - test/carbon_location_test.html
+    - test/carbon_route_converter_test.html
+    - test/carbon_route_test.html
     - test/firebase_auth_test.html
     - test/firebase_collection_test.html
     - test/gold_cc_ccv_input_test.html
