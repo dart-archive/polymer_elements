@@ -13,9 +13,22 @@ JsObject _Sinon = context['sinon'];
 Spy spy([JsObject object, String methodName]) =>
     new Spy(_Sinon.callMethod('spy', [object, methodName]));
 
+
 match(Map options) => _Sinon.callMethod('match', [new JsObject.jsify(options)]);
 
 get matchAny => _Sinon['match']['any'];
+
+class Stub {
+  int calls=0;
+
+  void call([_]) {
+    calls++;
+  }
+
+  bool get calledOnce => calls==1;
+
+}
+
 
 class Spy {
   JsObject jsObject;
@@ -38,6 +51,7 @@ class Spy {
   EventListener get eventListener => (Event e) => (jsObject as JsFunction).apply([e]);
 
   bool calledAfter(Spy otherSpy) => jsObject.callMethod("calledAfter", [otherSpy.jsObject]);
+
 }
 
 class SpyCall {
