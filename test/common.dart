@@ -91,8 +91,8 @@ void keyUpOn(Node target, int keyCode) {
   _MockInteractionsJs.callMethod('keyUpOn', [target, keyCode]);
 }
 
-void pressAndReleaseKeyOn(Node target, int keyCode) {
-  _MockInteractionsJs.callMethod('pressAndReleaseKeyOn', [target, keyCode]);
+void pressAndReleaseKeyOn(Node target, int keyCode,[List modifiers=const [],String name]) {
+  _MockInteractionsJs.callMethod('pressAndReleaseKeyOn', [target, keyCode,modifiers,name]);
 }
 
 void pressEnter(Node target) {

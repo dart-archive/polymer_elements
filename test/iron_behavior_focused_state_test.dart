@@ -11,6 +11,7 @@ import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'fixtures/iron_behavior_elements.dart';
 import 'common.dart';
+import 'sinon/sinon.dart';
 
 main() async {
   await initPolymer();
@@ -53,12 +54,13 @@ main() async {
     });
 
     group('when the focused state is disabled', () {
-      setUp(() {
-        focusTarget.disabled = true;
-      });
+      test('will not be focusable', () async {
+        Spy blurSpy = spy(focusTarget.jsElement, 'blur');
 
-      test('will not be focusable', () {
+        focus(focusTarget);
+        focusTarget.disabled = true;
         expect(focusTarget.getAttribute('tabindex'), '-1');
+        expect(blurSpy.called, true);
       });
     });
   });
