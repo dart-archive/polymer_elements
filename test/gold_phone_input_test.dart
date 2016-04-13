@@ -22,6 +22,12 @@ main() async {
       expect(input.value, equals('123-111-2222'));
     });
 
+    test('setting the value to undefined resets it to the empty string', () {
+      var input = fixture('basic');
+      input.value = null;
+      expect(input.value, '');
+    });
+
     test('invalid input is not ok', () {
       GoldPhoneInput input = fixture('required');
       input.value = '1234';
@@ -52,22 +58,28 @@ main() async {
           reason: 'error is visibility:hidden');
     });
 
-    test('empty required input shows error on blur', () {
+    test('empty required input shows error on blur', () async {
       GoldPhoneInput input = fixture('required');
       forceXIfStamp(input);
+      await new Future(() {});
 
-      var error = input.querySelector('paper-input-error');
-      expect(error, isNotNull);
-      expect(error.getComputedStyle().visibility, 'hidden',
-          reason: 'error should be visibility:hidden');
+      var container = Polymer.dom(input.root).querySelector('paper-input-container');
+      var error = Polymer.dom(input.root).querySelector('paper-input-error');
+      expect(error, isNotNull, reason: 'paper-input-error exists');
+      expect(error
+                 .getComputedStyle()
+                 .visibility, 'hidden', reason: 'error is visibility:hidden');
+      expect(container.invalid, isFalse);
 
-      var done = input.on['blur'].first.then((event) {
-        expect(input.focused, isFalse, reason: 'input is blurred');
-        expect(error.getComputedStyle().visibility, isNot('hidden'),
-            reason: 'error is not visibility:hidden');
-      });
-      focus(input.inputElement);
-      blur(input.inputElement);
+      focus(input);
+      blur(input);
+      await new Future(() {});
+
+      expect(!input.focused, isTrue, reason: 'input is blurred');
+      expect(error
+                 .getComputedStyle()
+                 .visibility,isNot('hidden'), reason: 'error is not visibility:hidden');
+      expect(container.invalid, isTrue);
     });
 
     test('caret position is preserved', () {
@@ -104,4 +116,134 @@ main() async {
           reason: 'aria-labelledby points to the label');
     });
   });
+
+
+  group('caret position is preserved', ()
+  {
+    var input, ironInput;
+
+    pretendToTypeACharacter(input, text, caret) {
+      // When typing a character in an input, the browser natively advances
+      // the caret from its original location.
+      ironInput.value = text;
+      ironInput.selectionStart = ironInput.selectionEnd = caret + 1;
+
+      // Since imperatively setting the input value does not fire an event.
+      // The user typing the value would, so manually fire the update.
+      input.value = text;
+    }
+
+    pretendToDeleteACharacter(input, text, caret) {
+      // When typing a character in an input, the browser natively moves back
+      // the caret from its original location.
+      ironInput.value = text;
+      ironInput.selectionStart = ironInput.selectionEnd = caret - 1;
+
+      // Since imperatively setting the input value does not fire an event.
+      // The user typing the value would, so manually fire the update.
+      input.value = text;
+    }
+
+    setUp(() {
+      input = fixture('basic');
+      ironInput = Polymer.dom(input.root).querySelector('input[is="iron-input"]');
+    });
+
+    test('001-0: adding a character after the 1', () {
+      input.value = '001-0';
+
+      var caret = 3;
+      pretendToTypeACharacter(input, '0012-0', caret);
+      expect(input.value, '001-20');
+
+      // The cursor advaces by the one character you typed, and the one dash.
+      expect(ironInput.selectionStart, caret + 2, reason: 'selectionStart is preserved');
+      expect(ironInput.selectionEnd, caret + 2, reason: 'selectionEnd is preserved');
+    });
+
+    test('000-1: adding a character after the 1', () {
+      input.value = '000-1';
+
+      var caret = 5;
+      pretendToTypeACharacter(input, '000-12', caret);
+      expect(input.value, '000-12');
+
+      // The cursor just advances by the one character you typed.
+      expect(ironInput.selectionStart, caret + 1, reason: 'selectionStart is preserved');
+      expect(ironInput.selectionEnd, caret + 1, reason: 'selectionEnd is preserved');
+    });
+
+    test('000-001: adding a character after the 1', () {
+      input.value = '000-001';
+
+      var caret = 7;
+      pretendToTypeACharacter(input, '000-0012', caret);
+      expect(input.value, '000-001-2');
+
+      // The cursor advaces by the one character you typed, and the one new dash.
+      expect(ironInput.selectionStart, caret + 2, reason: 'selectionStart is preserved');
+      expect(ironInput.selectionEnd, caret + 2, reason: 'selectionEnd is preserved');
+    });
+
+    test('000-000-0001: adding a character after the 1', () {
+      input.value = '000-000-0001';
+
+      var caret = 12;
+      pretendToTypeACharacter(input, '000-000-00012', caret);
+      expect(input.value, '00000000012');
+
+      // The cursor advaces by the one character you typed, but you lose 2 dashes
+      expect(ironInput.selectionStart, caret - 1, reason: 'selectionStart is preserved');
+      expect(ironInput.selectionEnd, caret - 1, reason: 'selectionEnd is preserved');
+    });
+
+    test('001-20: removing the 2', () {
+      input.value = '001-20';
+
+      var caret = 5;
+      pretendToDeleteACharacter(input, '001-0', caret);
+      expect(input.value, '001-0');
+
+      // The cursor goes back by the one character you deleted.
+      expect(ironInput.selectionStart, caret - 1, reason: 'selectionStart is preserved');
+      expect(ironInput.selectionEnd, caret - 1, reason: 'selectionEnd is preserved');
+    });
+
+    test('000-12: removing the 2', () {
+      input.value = '000-12';
+
+      var caret = 5;
+      pretendToDeleteACharacter(input, '000-1', caret);
+      expect(input.value, '000-1');
+
+      // The cursor goes back by the one character you deleted.
+      expect(ironInput.selectionStart, caret - 1, reason: 'selectionStart is preserved');
+      expect(ironInput.selectionEnd, caret - 1, reason: 'selectionEnd is preserved');
+    });
+
+    test('000-001-2: removing the 2', () {
+      input.value = '000-001-2';
+
+      var caret = 9;
+      pretendToDeleteACharacter(input, '000-001-', caret);
+      expect(input.value, '000-001');
+
+      // The cursor goes back by the one character you deleted, and the one dash.
+      expect(ironInput.selectionStart, caret - 2, reason: 'selectionStart is preserved');
+      expect(ironInput.selectionEnd, caret - 2, reason: 'selectionEnd is preserved');
+    });
+
+    test('00000000012: removing the 2', () {
+      input.value = '00000000012';
+
+      var caret = 11;
+      pretendToDeleteACharacter(input, '0000000001', caret);
+      expect(input.value, '000-000-0001');
+
+      // The cursor goes back by the one character you deleted, but gains two dashes.
+      expect(ironInput.selectionStart, caret + 1, reason: 'selectionStart is preserved');
+      expect(ironInput.selectionEnd, caret + 1, reason: 'selectionEnd is preserved');
+    });
+  });
+
 }

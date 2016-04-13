@@ -86,8 +86,8 @@ main() async {
     test('value is updated correctly ', () {
       GoldCcExpirationInput input = fixture('basic');
 
-      (input.querySelector('.paper-input-input') as DateInput).month = '11';
-      (input.querySelector('.paper-input-input') as DateInput).year = '15';
+      (input.$$('.paper-input-input') as DateInput).month = '11';
+      (input.$$('.paper-input-input') as DateInput).year = '15';
       expect(input.value, equals('11/15'));
     });
 
@@ -116,8 +116,9 @@ main() async {
     test('has aria-labelledby', () async {
       GoldCcExpirationInput input = fixture('basic');
       await new Future(() {});
-      var month = input.querySelectorAll('input')[0];
-      var year = input.querySelectorAll('input')[1];
+      var dateInput = input.$$('.paper-input-input');
+      var month = dateInput.$$('input:nth-of-type(1)');
+      var year = dateInput.$$('input:nth-of-type(2)');
       var label = input.querySelector('label').id;
 
       expect(month, isNotNull);
