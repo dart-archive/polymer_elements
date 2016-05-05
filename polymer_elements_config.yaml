@@ -123,6 +123,7 @@ files_to_generate:
         - iron-dropdown-scroll-manager.html
   - iron-fit-behavior/iron-fit-behavior.html
   - iron-flex-layout/iron-flex-layout.html
+  - iron-flex-layout/iron-flex-layout-classes.html
   - iron-flex-layout/classes/iron-flex-layout.html
   - iron-flex-layout/classes/iron-shadow-flex-layout.html
   - iron-form/iron-form.html
@@ -226,6 +227,12 @@ files_to_generate:
       omit_imports:
         - web-animations.html
   - neon-animation/animations/scale-up-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/slide-from-bottom-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/slide-from-top-animation.html:
       omit_imports:
         - web-animations.html
   - neon-animation/animations/slide-down-animation.html:
