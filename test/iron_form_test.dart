@@ -13,8 +13,12 @@ import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
 import 'fixtures/simple_element.dart';
+import 'fixtures/element_with_nested_input.dart';
+import 'fixtures/element_with_nested_form_element.dart';
 import 'sinon/sinon.dart' as sinon;
 import 'package:polymer_elements/iron_request.dart';
+import 'package:polymer_elements/paper_input.dart';
+import 'package:polymer_elements/paper_textarea.dart';
 
 
 /// [SimpleElement] used.
@@ -49,58 +53,94 @@ main() async {
   });
 
   group('validation', () {
-    test('elements are validated if they don\'t have a name', () async {
-      IronForm f = fixture('FormWithRequiredElements');
+    test('custom elements are validated if they don\'t have a name', () async {
+      IronForm f = fixture('FormWithRequiredCustomElements');
       await new Future(() {});
       expect(f.jsElement['_customElements'].length, 1);
-      expect(f.jsElement['elements']['length'], 1);
+
 
       SimpleElement simpleElement = f.jsElement['_customElements'][0];
-      InputElement input = f.jsElement['elements'][0];
 
       expect(f.validate(), isFalse);
       expect(simpleElement.invalid, isTrue);
-      expect(input.validity.valid, isFalse);
 
       simpleElement.value = 'batman';
-      input.value = 'robin';
 
       expect(f.validate(), isTrue);
       expect(simpleElement.invalid, isFalse);
-      expect(input.validity.valid, isTrue);
 
       // Since the elements don't have names, they don't get serialized.
       var json = f.serialize();
       expect(context['Object'].callMethod('keys', [json]).length, 0);
     });
 
-    test('elements are validated if they have a name', () async {
+    test('native elements are validated if they don\'t have a name', () {
       IronForm f = fixture('FormWithRequiredElements');
-      await new Future(() {});
-      expect(f.jsElement['_customElements'].length, 1);
       expect(f.jsElement['elements']['length'], 1);
 
-      SimpleElement simpleElement = f.jsElement['_customElements'][0];
       InputElement input = f.jsElement['elements'][0];
-      simpleElement.name = 'zig';
-      input.name = 'zag';
+
+      expect(input.name, isEmpty);
 
       expect(f.validate(), isFalse);
-      expect(simpleElement.invalid, isTrue);
       expect(input.validity.valid, isFalse);
 
-      simpleElement.value = 'batman';
       input.value = 'robin';
 
       expect(f.validate(), isTrue);
+      expect(input.validity.valid, isTrue);
+
+      // Since the elements don't have names, they don't get serialized.
+      var json = f.serialize();
+      expect(context['Object']
+                 .callMethod('keys', [json])
+                 .length, 0);
+    });
+
+    test('custom elements are validated if they have a name', () async {
+      IronForm f = fixture('FormWithRequiredCustomElements');
+      await new Future(() {});
+      expect(f.jsElement['_customElements'].length, 1);
+
+      SimpleElement simpleElement = f.jsElement['_customElements'][0];
+      simpleElement.name = 'zig';
+
+      expect(f.validate(), isFalse);
+      expect(simpleElement.invalid, isTrue);
+
+      simpleElement.value = 'batman';
+
+      expect(f.validate(), isTrue);
       expect(simpleElement.invalid, isFalse);
+
+      // The elements have names, so they're serialized.
+      var json = f.serialize();
+      expect(context['Object'].callMethod('keys', [json]).length, 1);
+    });
+
+    test('native elements are validated if they have a name', () async {
+      IronForm f = fixture('FormWithRequiredElements');
+      await new Future(() {});
+      expect(f.jsElement['elements']['length'], 1);
+
+      InputElement input = f.jsElement['elements'][0];
+      input.name = 'zag';
+
+      expect(f.validate(), isFalse);
+      expect(input.validity.valid, isFalse);
+
+      input.value = 'robin';
+
+      expect(f.validate(), isTrue);
       expect(input.validity.valid, isTrue);
 
       // The elements have names, so they're serialized.
       var json = f.serialize();
-      expect(context['Object'].callMethod('keys', [json]).length, 2);
+      expect(context['Object'].callMethod('keys', [json]).length, 1);
     });
   });
+
+
 
   group('serializing', () {
     IronForm f;
@@ -148,6 +188,24 @@ main() async {
       expect(json['foo'][1], 'bar3');
     });
 
+    test('serializes a native select element with or without multiple selection', () {
+      IronForm f = fixture('NativeSelect');
+
+      expect(f.jsElement['_customElements']['length'], 0);
+      expect(f.jsElement['elements']['length'], 2);
+
+      var json = f.serialize();
+      expect(context["Object"].callMethod('keys', [json])["length"], 2);
+
+      // Single selection.
+      expect(json['cheese'], 'yes');
+
+      // Multiple selection.
+      expect(json['numbers'].length, 2);
+      expect(json['numbers'][0], 'one');
+      expect(json['numbers'][1], 'three');
+    });
+
     test('does not serialize disabled elements', () {
       f = fixture('Disabled');
 
@@ -158,36 +216,66 @@ main() async {
       expect(keysOf(json).length, 1);
       expect(json['foo'], 'bar1');
     });
+
+    test('nested elements are only serialized once', () {
+      IronForm f = fixture('NestedDupes');
+
+      expect(f.jsElement['_customElements']['length'], 3);
+
+      var json = f.serialize();
+      expect(context["Object"].callMethod('keys', [json])["length"], 2);
+      expect(json['foo'], 'bar');
+      expect(json['zig'], 'zag');
+    });
+
+
+    test('nested elements can be submitted if parents aren\'t submittable', () {
+      IronForm f = fixture('NestedSubmittable');
+
+      var json = f.serialize();
+      expect(context["Object"].callMethod('keys', [json])["length"], 1);
+      expect(json['foo'], 'bar');
+    });
   });
 
   group('resetting', () {
-    test('form restores the default values', () {
+    test('form restores the default values if changes were made', () {
       Completer done = new Completer();
       IronForm form = fixture('FormForResetting');
 
-      expect(form.jsElement["_customElements"]['length'], 1);
-      expect(form.jsElement["elements"]['length'], 3);
-
-      // Initial values.
-      var customElement = form.querySelector('simple-element');
+       // Initial values.
+      SimpleElement customElement = form.querySelector('simple-element');
       var input = form.querySelector('input[name="foo"]');
       var checkbox1 = form.querySelectorAll('input[type="checkbox"]')[0];
       var checkbox2 = form.querySelectorAll('input[type="checkbox"]')[1];
+      PaperInput paperInput = form.querySelector('paper-input');
+      PaperTextarea paperTextarea = form.querySelector('paper-textarea');
 
       expect(customElement.value, 'zag');
       expect(input.value, 'bar');
       expect(checkbox1.checked, isTrue);
       expect(checkbox2.checked, isFalse);
+      expect(paperInput.value, 'zug');
+      expect(paperInput.inputElement.value, 'zug');
+      expect(paperTextarea.value, 'zog');
+      expect(paperTextarea.inputElement.textarea.value, 'zog');
 
       // Change the values.
       customElement.set("value", 'not zag');
       input.value = 'not bar';
       checkbox1.checked = false;
       checkbox2.checked = true;
+      paperInput.value = 'not zug';
+      paperTextarea.value = 'not zog';
+
       expect(customElement.value, 'not zag');
       expect(input.value, 'not bar');
       expect(checkbox1.checked, isFalse);
       expect(checkbox2.checked, isTrue);
+      expect(paperInput.value, 'not zug');
+      expect(paperInput.inputElement.value, 'not zug');
+      expect(paperTextarea.value, 'not zog');
+      expect(paperTextarea.inputElement.textarea.value, 'not zog');
 
       form.on['iron-form-reset'].take(1).listen((Event event) {
         // Restored initial values.
@@ -195,6 +283,69 @@ main() async {
         expect(input.value, 'bar');
         expect(checkbox1.checked, isTrue);
         expect(checkbox2.checked, isFalse);
+        expect(paperInput.value, 'zug');
+        expect(paperInput.inputElement.value, 'zug');
+        expect(paperTextarea.value, 'zog');
+        expect(paperTextarea.inputElement.textarea.value, 'zog');
+        done.complete();
+      });
+
+      form.reset();
+
+      return done.future;
+    });
+
+    test('form restores the default values if no changes were made', () {
+      Completer done = new Completer();
+      IronForm form = fixture('FormForResetting');
+
+      // Initial values.
+      SimpleElement customElement = form.querySelector('simple-element');
+      var input = form.querySelector('input[name="foo"]');
+      var checkbox1 = form.querySelectorAll('input[type="checkbox"]')[0];
+      var checkbox2 = form.querySelectorAll('input[type="checkbox"]')[1];
+      PaperInput paperInput = form.querySelector('paper-input');
+      PaperTextarea paperTextarea = form.querySelector('paper-textarea');
+
+      expect(customElement.value, 'zag');
+      expect(input.value, 'bar');
+      expect(checkbox1.checked, isTrue);
+      expect(checkbox2.checked, isFalse);
+      expect(paperInput.value, 'zug');
+      expect(paperInput.inputElement.value, 'zug');
+      expect(paperTextarea.value, 'zog');
+      expect(paperTextarea.inputElement.textarea.value, 'zog');
+
+      form.on['iron-form-reset'].take(1).listen((Event event) {
+        // Restored initial values.
+        expect(customElement.value, 'zag');
+        expect(input.value, 'bar');
+        expect(checkbox1.checked, isTrue);
+        expect(checkbox2.checked, isFalse);
+        expect(paperInput.value, 'zug');
+        expect(paperInput.inputElement.value, 'zug');
+        expect(paperTextarea.value, 'zog');
+        expect(paperTextarea.inputElement.textarea.value, 'zog');
+        done.complete();
+      });
+
+      form.reset();
+
+      return done.future;
+    });
+
+    test('validation messages are cleared', () {
+      Completer done = new Completer();
+      var form = fixture('FormWithRequiredCustomElements');
+
+      SimpleElement customElement = form.querySelector('simple-element');
+
+      expect(form.validate(), isFalse);
+      expect(customElement.invalid, isTrue);
+
+      form.on['iron-form-reset'].take(1).listen((Event event){
+        // Cleared validation messages.
+        expect(customElement.invalid, isFalse);
         done.complete();
       });
 
