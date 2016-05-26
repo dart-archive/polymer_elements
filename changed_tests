@@ -23,16 +23,18 @@ OK lib/src/iron-collapse/test/nested.html
 OK lib/src/iron-dropdown/test/iron-dropdown-scroll-manager.html
 OK lib/src/iron-dropdown/test/iron-dropdown.html
 OK lib/src/iron-fit-behavior/test/iron-fit-behavior.html
+OK lib/src/iron-form/test/basic.html
+OK lib/src/iron-form/test/element-with-nested-form-element.html
+OK lib/src/iron-form/test/element-with-nested-input.html
+OK lib/src/iron-form/test/simple-element.html
+OK lib/src/iron-icon/test/iron-icon.html
 
 
 
 lib/src/iron-flex-layout/test/iron-flex-layout-classes.html
 lib/src/iron-flex-layout/test/iron-flex-layout.html
-lib/src/iron-form/test/basic.html
-lib/src/iron-form/test/element-with-nested-form-element.html
-lib/src/iron-form/test/element-with-nested-input.html
-lib/src/iron-form/test/simple-element.html
-lib/src/iron-icon/test/iron-icon.html
+
+
 lib/src/iron-image/test/iron-image.html
 lib/src/iron-input/test/disabled-input.html
 lib/src/iron-input/test/iron-input.html
