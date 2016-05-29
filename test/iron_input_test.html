@@ -63,8 +63,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <input is="iron-input" validator="letters-only" allowed-pattern="[0-9]*">
   </template>
 
+  <template id="native-and-custom-validator">
+      <letters-only></letters-only>
+      <input is="iron-input" validator="letters-only" pattern="[a-c]*">
+  </template>
+
   <template is="dom-bind" id="bind-to-object">
     <input is="iron-input" id="input" bind-value="{{foo}}">
+  </template>
+
+  <template id="disabled-input">
+      <disabled-input></disabled-input>
   </template>
 </body>
 </html>
