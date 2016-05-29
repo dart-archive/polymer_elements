@@ -28,6 +28,7 @@ OK lib/src/iron-form/test/element-with-nested-form-element.html
 OK lib/src/iron-form/test/element-with-nested-input.html
 OK lib/src/iron-form/test/simple-element.html
 OK lib/src/iron-icon/test/iron-icon.html
+OK lib/src/iron-image/test/iron-image.html
 
 
 
@@ -35,7 +36,6 @@ lib/src/iron-flex-layout/test/iron-flex-layout-classes.html
 lib/src/iron-flex-layout/test/iron-flex-layout.html
 
 
-lib/src/iron-image/test/iron-image.html
 lib/src/iron-input/test/disabled-input.html
 lib/src/iron-input/test/iron-input.html
 lib/src/iron-list/test/basic.html
