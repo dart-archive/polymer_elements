@@ -8,34 +8,40 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS
 -->
 <dom-module id="x-list">
-
-  <style>
-    :host {
-    @apply(--layout-fit);
-    @apply(--layout-vertical);
-
-      display: block;
-    }
-
-    .item {
-      color: white;
-    }
-
-    .item:nth-child(odd) {
-      background-color: green;
-    }
-
-    .item:nth-child(even) {
-      background-color: red;
-    }
-  </style>
-
   <template>
+
+    <style>
+      :host {
+        @apply(--layout-fit);
+        @apply(--layout-vertical);
+
+        display: block;
+      }
+
+      .item {
+        color: white;
+        background-color: white;
+      }
+
+      .item:nth-child(odd) {
+        background-color: green;
+      }
+
+      .item:nth-child(even) {
+        background-color: red;
+      }
+
+      iron-list {
+        overflow: hidden;
+      }
+    </style>
+
     <iron-list style$="[[computedListHeight(listHeight)]]" items="[[data]]"
                as="item" id="list">
       <template>
         <div class="item">
-          <div style$="[[computedItemHeight(item)]]">[[item.index]]</div>
+          <div style$="[[computedItemHeight(item)]]" tabindex$="[[tabIndex]]" hidden$="[[primitive]]">[[item.index]]</div>
+          <div style$="[[computedItemHeight(item)]]" tabindex$="[[tabIndex]]" hidden$="[[!primitive]]">[[item]]</div>
         </div>
       </template>
     </iron-list>

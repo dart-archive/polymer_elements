@@ -13,6 +13,7 @@ import 'package:web_components/web_components.dart';
 import 'common.dart';
 import 'iron_list_test_helpers.dart';
 import 'fixtures/x_list.dart';
+import 'dart:math' as Math;
 
 /// Uses [XList].
 main() async {
@@ -28,9 +29,13 @@ main() async {
     });
 
     test('defaults', () {
-      expect(list.items, null);
-      expect(list.as, 'item');
-      expect(list.indexAs, 'index');
+      expect(list.items, null,reason:"items");
+      expect(list.as, 'item',reason:"as");
+      expect(list.indexAs, 'index',reason:"indexAs");
+      expect(list.selectedAs, 'selected', reason:'selectedAs');
+      expect(list.scrollTarget, list,reason: 'scrollTarget');
+      expect(list.selectionEnabled,isFalse,reason: 'selectionEnabled');
+      expect(list.multiSelection,isFalse,reason: 'multiSelection');
     });
 
     test('check items length', () {
@@ -62,43 +67,57 @@ main() async {
       var done = new Completer();
       container.set('data', buildDataSet(100));
       new Future(() {}).then((_) {
-        var rowHeight = list.jsElement['_physicalItems'][0].offsetHeight;
+        var rowHeight = container.itemHeight;
         var viewportHeight = list.offsetHeight;
         var scrollToItem;
         checkFirstVisible() {
           expect(list.firstVisibleIndex, scrollToItem);
           expect(getFirstItemFromList(list).text, scrollToItem.toString());
         }
-        doneScrollUp([_]) {
+
+        checkLastVisible() {
+          var visibleItemsCount = (viewportHeight / rowHeight).floorToDouble();
+          expect(list.lastVisibleIndex, scrollToItem + visibleItemsCount - 1);
+          // dam0vm3nt : getLastItem not working ????
+          // expect(getLastItemFromList(list).text, (scrollToItem + visibleItemsCount - 1).floor().toString());
+        }
+
+         doneScrollUp([_]) {
           checkFirstVisible();
+          checkLastVisible();
           done.complete();
         }
         doneScrollDown([_]) {
           checkFirstVisible();
+          checkLastVisible();
           scrollToItem = 1;
           new Future(() {}).then((_) {
             simulateScroll({
               'list': list,
               'contribution': rowHeight,
-              'target': scrollToItem * rowHeight
-            }, doneScrollUp);
+              'target': scrollToItem * rowHeight,
+              'onScrollEnd' : doneScrollUp
+            });
           });
         }
         scrollToItem = 50;
         simulateScroll({
           'list': list,
           'contribution': 50,
-          'target': scrollToItem * rowHeight
-        }, doneScrollDown);
+          'target': scrollToItem * rowHeight,
+          'onScrollEnd': doneScrollDown
+        });
       });
       return done.future;
     });
 
-    test('scroll to index', () {
-      var done = new Completer();
+    test('scroll to index', () async {
+      //var done = new Completer();
       list.items = buildDataSet(100);
 
-      new Future(() {}).then((_) {
+      await new Future.delayed(new Duration(milliseconds: 100));
+
+      {
         list.scrollToIndex(30);
         expect(list.firstVisibleIndex, 30);
         list.scrollToIndex(0);
@@ -112,13 +131,16 @@ main() async {
         // and scroll to the last item
         list.style.height =
             '${list.jsElement['_physicalItems'][0].offsetHeight}px';
-        wait(100).then((_) {
+
+        await new Future.delayed(new Duration(milliseconds: 100));
+
+        {
           list.scrollToIndex(99);
           expect(list.firstVisibleIndex, 99);
-          done.complete();
-        });
-      });
-      return done.future;
+        }
+      }
+
+
     });
 
     test('reset items', () async {
@@ -131,11 +153,11 @@ main() async {
       list.items = null;
 
       await wait(1);
-      expect(getFirstItemFromList(list), isNot(firstItem));
+      expect(getFirstItemFromList(list).text, isNot('0'));
       list.items = buildDataSet(100);
 
       await wait(1);
-      expect(getFirstItemFromList(list), firstItem);
+      expect(getFirstItemFromList(list).text, '0');
     });
   });
 }

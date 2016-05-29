@@ -26,6 +26,9 @@ class XList extends PolymerElement {
   @property
   bool pre = false;
 
+  @property
+  bool primitive = false;
+
   get list => $['list'];
 
   @reflectable

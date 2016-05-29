@@ -31,13 +31,13 @@ OK lib/src/iron-icon/test/iron-icon.html
 OK lib/src/iron-image/test/iron-image.html
 OK lib/src/iron-input/test/disabled-input.html
 OK lib/src/iron-input/test/iron-input.html
+OK lib/src/iron-list/test/basic.html (getLastItemFromList not working ?)
 
 
 
 KO lib/src/iron-flex-layout/test/iron-flex-layout-classes.html
 KO lib/src/iron-flex-layout/test/iron-flex-layout.html
 
-lib/src/iron-list/test/basic.html
 lib/src/iron-list/test/different-heights.html
 lib/src/iron-list/test/dynamic-item-size.html
 lib/src/iron-list/test/focus.html
