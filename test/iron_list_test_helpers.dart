@@ -114,3 +114,28 @@ isFullOfItems(IronList list) {
   }
   return true;
 }
+
+
+checkRepeatedItems(list) {
+  var listRect = list.getBoundingClientRect();
+  var listHeight = list.offsetHeight;
+  var listItems = {};
+
+  return () {
+    var itemKey;
+    var y = listRect.top;
+    while (y < listHeight) {
+      var item = document.elementFromPoint(listRect.left + 100, y + 2);
+      itemKey = item.text || item.innerHtml;
+
+      if (item.parentNode != null && item.parentNode.jsElement["_templateInstance"]) {
+        if (listItems["itemKey"] && listItems["itemKey"] != item) {
+          return true;
+        }
+        listItems["itemKey"] = item;
+      }
+      y += item.offsetHeight;
+    }
+    return false;
+  };
+}

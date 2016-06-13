@@ -41,8 +41,8 @@ OK lib/src/iron-list/test/helpers.html
 KO lib/src/iron-flex-layout/test/iron-flex-layout-classes.html
 KO lib/src/iron-flex-layout/test/iron-flex-layout.html
 KO lib/src/iron-list/test/different-heights.html
+KO lib/src/iron-list/test/mutations.html
 
-lib/src/iron-list/test/mutations.html
 lib/src/iron-list/test/physical-count.html
 lib/src/iron-list/test/x-list.html
 lib/src/iron-location/test/initialization-cases.html
