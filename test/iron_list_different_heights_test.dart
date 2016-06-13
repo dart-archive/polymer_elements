@@ -51,9 +51,11 @@ main() async {
       });
 
       var done = new Completer();
-      simulateScroll({'list': list, 'contribution': 20, 'target': 100000}, (_) {
+      simulateScroll({'list': list, 'contribution': 20, 'target': 100000, "onScroll":() {
+        expect(isFullOfItems(list),isTrue);
+      },"onScrollEnd": () {
         done.complete();
-      });
+      }});
 
       return done.future;
     });
@@ -75,9 +77,13 @@ main() async {
       });
 
       var done = new Completer();
-      simulateScroll({'list': list, 'contribution': 20, 'target': 100000}, (_) {
+      simulateScroll({'list': list, 'contribution': 20, 'target': 100000,"onScroll":(){
+        list.debounce("scroll",() {
+          expect(isFullOfItems(list),isTrue);
+        });
+      },"onScrollEnd": () {
         done.complete();
-      });
+      }});
 
       return done.future;
     });
@@ -113,9 +119,13 @@ main() async {
       });
 
       var done = new Completer();
-      simulateScroll({'list': list, 'contribution': 20, 'target': 100000}, (_) {
+      simulateScroll({'list': list, 'contribution': 20, 'target': 100000,"onScroll":(){
+        list.debounce("scroll",(){
+          expect(isFullOfItems(list),isTrue);
+        });
+      }, "onScrollEnd": () {
         done.complete();
-      });
+      }});
 
       return done.future;
     });

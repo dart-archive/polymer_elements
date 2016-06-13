@@ -32,16 +32,16 @@ OK lib/src/iron-image/test/iron-image.html
 OK lib/src/iron-input/test/disabled-input.html
 OK lib/src/iron-input/test/iron-input.html
 OK lib/src/iron-list/test/basic.html (getLastItemFromList not working ?)
+OK lib/src/iron-list/test/dynamic-item-size.html
+OK lib/src/iron-list/test/focus.html
+OK lib/src/iron-list/test/helpers.html
 
 
 
 KO lib/src/iron-flex-layout/test/iron-flex-layout-classes.html
 KO lib/src/iron-flex-layout/test/iron-flex-layout.html
+KO lib/src/iron-list/test/different-heights.html
 
-lib/src/iron-list/test/different-heights.html
-lib/src/iron-list/test/dynamic-item-size.html
-lib/src/iron-list/test/focus.html
-lib/src/iron-list/test/helpers.html
 lib/src/iron-list/test/mutations.html
 lib/src/iron-list/test/physical-count.html
 lib/src/iron-list/test/x-list.html

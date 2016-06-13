@@ -102,15 +102,15 @@ isFullOfItems(IronList list) {
   while (y < listHeight) {
     item = document.elementFromPoint((listRect.left + 100).floor(), y.floor())
         as HtmlElement;
-    if (item.parentNode != null &&
+    if (item==null || (item.parentNode != null &&
         new JsObject.fromBrowserObject(item.parentNode)['_templateInstance'] ==
-            null) {
+            null)) {
       badPixels++;
     }
-    if (badPixels > 3) {
+    y++;
+    if (badPixels > 2) {
       return false;
     }
-    y += 2;
   }
   return true;
 }

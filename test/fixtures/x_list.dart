@@ -36,7 +36,7 @@ class XList extends PolymerElement {
     var css = pre ? 'white-space:pre;' : '';
     if (item['height'] != null && item['height'] != 0) {
       css += itemHeight == 0 ? '' : 'height: ${item['height']}px;';
-    } else if (itemHeight != 0) {
+    } else if (this.itemHeight!=null&&itemHeight != 0) {
       css += 'height: ${itemHeight}px;';
     }
     return css;
