@@ -546,5 +546,80 @@ main() async {
   });
 
 
+  group('restore-focus-on-close', () {
+    var overlay;
+    setUp(() {
+      overlay = fixture('autofocus');
+      overlay.restoreFocusOnClose = true;
+    });
+
+    tearDown(() {
+      // No matter what, return the focus to body!
+      document.body.focus();
+    });
+
+    test('does not return focus on close by default (restore-focus-on-close=false)', () async {
+      overlay.restoreFocusOnClose = false;
+      var focusable = document.getElementById('focusInput');
+      focusable.focus();
+      await runAfterOpen(overlay, () async {
+        await runAfterClose(overlay, () {
+          expect(IronOverlayManager.deepActiveElement, isNot(focusable), reason: 'focus is not restored to focusable');
+        });
+      });
+    });
+
+    test('overlay returns focus on close', () async {
+      var focusable = document.getElementById('focusInput');
+      focusable.focus();
+      await runAfterOpen(overlay, () async {
+        await runAfterClose(overlay, () {
+          expect(IronOverlayManager.deepActiveElement, focusable, reason: 'focus restored to focusable');
+        });
+      });
+    });
+
+    test('overlay returns focus on close (ShadowDOM)', () async {
+      var focusable = (document.getElementById('buttons') as TestButtons).button0;
+      focusable.focus();
+      await runAfterOpen(overlay, () async {
+        await runAfterClose(overlay, () async {
+          expect(IronOverlayManager.deepActiveElement, focusable, reason: 'focus restored to focusable');
+        });
+      });
+    });
+
+    test('overlay does not return focus to elements contained in another overlay', () async {
+      var overlay2 = fixture('basic');
+      // So it doesn't interfere with focus changes.
+      overlay2.noAutoFocus = true;
+      var focusable = document.createElement('input');
+      await runAfterOpen(overlay2, () async {
+        new PolymerDom(overlay2).append(focusable);
+        focusable.focus();
+        await runAfterOpen(overlay, () async {
+          await runAfterClose(overlay, () {
+            expect(IronOverlayManager.deepActiveElement, isNot(focusable), reason: 'focus not restored to focusable inside overlay2');
+          });
+        });
+      });
+    });
+
+    test('overlay does not return focus to elements that are not in the body anymore', () async {
+      InputElement focusable = document.createElement('input');
+      document.body.children.add(focusable);
+      focusable.focus();
+      Spy focusSpy = spy(new JsObject.fromBrowserObject(focusable), 'focus');
+      await runAfterOpen(overlay, () async {
+        document.body.children.remove(focusable);
+        await runAfterClose(overlay, () {
+          expect(focusSpy.called, isFalse, reason: 'focus not called');
+        });
+      });
+    });
+  });
+
+
+
 
 }
