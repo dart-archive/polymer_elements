@@ -10,6 +10,8 @@ import 'dart:html';
 class IronOverlayManager {
   static js.JsObject _js = js.context['Polymer']['IronOverlayManager'];
 
+  static js.JsObject get jsObject => _js;
+
   static Element get deepActiveElement =>  convertToDart(_js['deepActiveElement']);
   static Element get backdropElement => convertToDart(_js['backdropElement']);
   static Element get currentOverlay => convertToDart(_js.callMethod('currentOverlay'));

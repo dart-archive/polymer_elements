@@ -13,10 +13,12 @@ import 'package:web_components/web_components.dart';
 
 import 'common.dart';
 import 'fixtures/test_overlay.dart';
+import 'fixtures/test_overlay2.dart';
 import 'sinon/sinon.dart';
 import 'package:polymer_elements/iron_overlay_manager.dart';
 import 'fixtures/test_buttons.dart';
 import 'package:polymer_elements/iron_overlay_backdrop.dart';
+import 'fixtures/test_menu_button.dart';
 
 num parseFloat(String dimension) {
   return num.parse(dimension.replaceAll("px",""));
@@ -700,5 +702,354 @@ main() async {
     });
   });
 
+  int parseInt(x,[_]) => parseFloat(x).floor();
+
+  group('multiple overlays', () {
+    TestOverlay overlay1, overlay2;
+
+    setUp(() {
+      var f = fixture('multiple');
+      overlay1 = f[0];
+      overlay2 = f[1];
+    });
+
+    test('new overlays appear on top', () async {
+      await runAfterOpen(overlay1, () async {
+        await runAfterOpen(overlay2, () {
+          var styleZ = parseInt(overlay1
+                                    .getComputedStyle()
+                                    .zIndex);
+          var styleZ1 = parseInt(overlay2
+                                     .getComputedStyle()
+                                     .zIndex);
+          expect(styleZ1 > styleZ, isTrue, reason: 'overlay2 has higher z-index than overlay1');
+        });
+      });
+    });
+
+    test('ESC closes only the top overlay', () async {
+      await runAfterOpen(overlay1, () async {
+        await runAfterOpen(overlay2, () {
+          pressAndReleaseKeyOn(document, 27);
+          expect(overlay2.opened, isFalse, reason: 'overlay2 was closed');
+          expect(overlay1.opened, isTrue, reason: 'overlay1 is still opened');
+        });
+      });
+    });
+
+    test('close an overlay in proximity to another overlay', () async {
+      // Open and close a separate overlay.
+      overlay1.open();
+      overlay1.close();
+
+      // Open the overlay we care about.
+      overlay2.open();
+
+      // Immediately close the first overlay.
+      // Wait for infinite recursion, otherwise we win.
+      await runAfterClose(overlay2, () {
+      });
+    });
+  });
+
+  group('Manager overlays in sync', () {
+    TestOverlay overlay1, overlay2;
+    List overlays;
+
+    setUp(() {
+      var f = fixture('multiple');
+      overlay1 = f[0];
+      overlay2 = f[1];
+      overlays = IronOverlayManager.jsObject["_overlays"];
+    });
+
+    test('no duplicates after attached', () async {
+      overlay1 = new Element.tag('test-overlay');
+      Completer done = new Completer();
+      overlay1.on['iron-overlay-opened'].take(1).listen((_) {
+        expect(overlays.length, 1, reason: 'correct count after open and attached');
+        document.body.children.remove(overlay1);
+        done.complete();
+      });
+      overlay1.opened = true;
+      expect(overlays.length, 1, reason: 'immediately updated');
+      document.body.children.add(overlay1);
+      await done.future;
+    });
+
+    test('open twice handled', () {
+      overlay1.open();
+      expect(overlays.length, 1, reason: '1 overlay after open');
+      overlay1.open();
+      expect(overlays.length, 1, reason: '1 overlay after second open');
+    });
+
+    test('close handled', () {
+      overlay1.open();
+      overlay1.close();
+      expect(overlays.length, 0, reason: '0 overlays after close');
+    });
+
+    test('open/close brings overlay on top', () {
+      overlay1.open();
+      overlay2.open();
+      expect(overlays.indexOf(overlay1), 0, reason: 'overlay1 at index 0');
+      expect(overlays.indexOf(overlay2), 1, reason: 'overlay2 at index 1');
+      overlay1.close();
+      overlay1.open();
+      expect(overlays.indexOf(overlay1), 1, reason: 'overlay1 moved at index 1');
+      expect(parseInt(overlay1.style.zIndex) > parseInt(overlay2.style.zIndex), isTrue, reason: 'overlay1 on top of overlay2');
+    });
+  });
+
+
+  group('z-ordering', ()
+  {
+    int originalMinimumZ;
+    TestOverlay overlay1, overlay2;
+
+    setUp(() {
+      var f = fixture('multiple');
+      overlay1 = f[0];
+      overlay2 = f[1];
+      originalMinimumZ = IronOverlayManager.jsObject["_minimumZ"];
+    });
+
+    tearDown(() {
+      IronOverlayManager.jsObject['_minimumZ'] = originalMinimumZ;
+    });
+
+    // for iframes
+    test('default z-index is greater than 100', when((done) {
+      runAfterOpen(overlay1, () {
+        var styleZ = parseInt(overlay1
+                                  .getComputedStyle()
+                                  .zIndex);
+        expect(styleZ > 100, isTrue, reason: 'overlay1 z-index is <= 100');
+        done();
+      });
+    }));
+
+    test('ensureMinimumZ() effects z-index', when((done) {
+      IronOverlayManager.ensureMinimumZ(1000);
+
+      runAfterOpen(overlay1, () {
+        var styleZ = parseInt(overlay1
+                                  .getComputedStyle()
+                                  .zIndex);
+        expect(styleZ > 1000, isTrue, reason: 'overlay1 z-index is <= 1000');
+        done();
+      });
+    }));
+
+    test('ensureMinimumZ() never decreases the minimum z-index', when((done) {
+      IronOverlayManager.ensureMinimumZ(1000);
+      IronOverlayManager.ensureMinimumZ(500);
+
+      runAfterOpen(overlay1, () {
+        var styleZ = parseInt(overlay1
+                                  .getComputedStyle()
+                                  .zIndex);
+        expect(styleZ > 1000, isTrue, reason: 'overlay1 z-index is <= 1000');
+        done();
+      });
+    }));
+  });
+
+  group('multiple overlays with backdrop', () {
+    TestOverlay overlay1, overlay2;
+    TestOverlay2 overlay3;
+
+    setUp(() {
+      var f = fixture('multiple');
+      overlay1 = f[0];
+      overlay2 = f[1];
+      overlay3 = f[2];
+      overlay1.withBackdrop = overlay2.withBackdrop = overlay3.withBackdrop = true;
+    });
+
+    test('multiple overlays share the same backdrop', () {
+      expect(overlay1.backdropElement == overlay2.backdropElement, isTrue, reason: 'overlay1 and overlay2 have the same backdrop element');
+      expect(overlay1.backdropElement == overlay3.backdropElement, isTrue, reason: 'overlay1 and overlay3 have the same backdrop element');
+    });
+
+    test('only one iron-overlay-backdrop in the DOM', () {
+      // Open them all.
+      overlay1.opened = overlay2.opened = overlay3.opened = true;
+      expect(document
+                 .querySelectorAll('iron-overlay-backdrop')
+                 .length, 1, reason: 'only one backdrop element in the DOM');
+    });
+
+    test('iron-overlay-backdrop is removed from the DOM when all overlays with backdrop are closed', when((done) async {
+      // Open & close them all.
+      overlay1.opened = overlay2.opened = overlay3.opened = true;
+      overlay1.opened = overlay2.opened = overlay3.opened = false;
+      await wait(100);
+      expect(document
+                 .querySelectorAll('iron-overlay-backdrop')
+                 .length, 0, reason: 'backdrop element removed from the DOM');
+      done();
+    }));
+
+    test('newest overlay appear on top', when((done) {
+      runAfterOpen(overlay1, () {
+        runAfterOpen(overlay2, () {
+          var styleZ = parseInt(overlay1
+                                    .getComputedStyle()
+                                    .zIndex);
+          var style1Z = parseInt(overlay2
+                                     .getComputedStyle()
+                                     .zIndex);
+          var bgStyleZ = parseInt(overlay1.backdropElement
+                                      .getComputedStyle()
+                                      .zIndex);
+          expect(style1Z > styleZ, isTrue, reason: 'overlay2 has higher z-index than overlay1');
+          expect(styleZ > bgStyleZ, isTrue, reason: 'overlay1 has higher z-index than backdrop');
+          done();
+        });
+      });
+    }));
+
+    test('click events handled only by top overlay', when((done) {
+      var btn = new Element.tag('button');
+      btn.on['tap'].take(1).listen((_) {
+        overlay2.close();
+      });
+      new PolymerDom(overlay2).append(btn);
+      runAfterOpen(overlay1, () {
+        runAfterOpen(overlay2, () async {
+          tap(btn);
+          expect(overlay2.opened, isFalse, reason: 'overlay2 closed');
+          expect(overlay1.opened, isTrue, reason: 'overlay1 still opened');
+          done();
+        });
+      });
+    }),skip: "Is this test correct ?");
+
+    test('updating with-backdrop updates z-index', when((done) {
+      runAfterOpen(overlay1, () {
+        runAfterOpen(overlay2, () {
+          overlay1.withBackdrop = false;
+          var styleZ = parseInt(overlay1
+                                    .getComputedStyle()
+                                    .zIndex);
+          var style1Z = parseInt(overlay2
+                                     .getComputedStyle()
+                                     .zIndex);
+          var bgStyleZ = parseInt(overlay1.backdropElement
+                                      .getComputedStyle()
+                                      .zIndex);
+          expect(style1Z > bgStyleZ, isTrue, reason: 'overlay2 has higher z-index than backdrop');
+          expect(styleZ < bgStyleZ, isTrue, reason: 'overlay1 has lower z-index than backdrop');
+          done();
+        });
+      });
+    }));
+  });
+
+
+  group('overlay in composed tree', () {
+    test('click on overlay content does not close it', when((done) {
+      TestMenuButton composed = fixture('composed');
+      // Opens overlay.
+      tap(composed.trigger);
+      composed.dropdown.on['iron-overlay-opened'].take(1).listen((_) async {
+        // Tap on button inside overlay.
+        tap(new PolymerDom(composed).querySelector('button'));
+        await wait(1);
+        expect(composed.dropdown.opened, isTrue, reason: 'overlay still opened');
+        done();
+      });
+    }));
+  });
+
+  group('always-on-top', () {
+    TestOverlay overlay1, overlay2;
+
+    setUp(() {
+      var f = fixture('multiple');
+      overlay1 = f[0];
+      overlay2 = f[1];
+      overlay1.alwaysOnTop = true;
+    });
+
+    test('stays on top', when((done) {
+      runAfterOpen(overlay1, () {
+        runAfterOpen(overlay2, () {
+          int zIndex1 = parseInt(overlay1
+                                     .getComputedStyle()
+                                     .zIndex);
+          var zIndex2 = parseInt(overlay2
+                                     .getComputedStyle()
+                                     .zIndex);
+          expect(zIndex1 > zIndex2, isTrue, reason: 'overlay1 on top');
+          expect(IronOverlayManager.currentOverlay, overlay1, reason: 'currentOverlay ok');
+          done();
+        });
+      });
+    }));
+
+    test('stays on top also if another overlay is with-backdrop', when((done) {
+      overlay2.withBackdrop = true;
+      runAfterOpen(overlay1, () {
+        runAfterOpen(overlay2, () {
+          int zIndex1 = parseInt(overlay1
+                                     .getComputedStyle()
+                                     .zIndex, 10);
+          int zIndex2 = parseInt(overlay2
+                                     .getComputedStyle()
+                                     .zIndex, 10);
+          expect(zIndex1 > zIndex2, isTrue, reason: 'overlay1 on top');
+          expect(IronOverlayManager.currentOverlay, overlay1, reason: 'currentOverlay ok');
+          done();
+        });
+      });
+    }));
+
+    test('last overlay with always-on-top wins', when((done) {
+      overlay2.alwaysOnTop = true;
+      runAfterOpen(overlay1, () {
+        runAfterOpen(overlay2, () {
+          var zIndex1 = parseInt(overlay1
+                                     .getComputedStyle()
+                                     .zIndex, 10);
+          var zIndex2 = parseInt(overlay2
+                                     .getComputedStyle()
+                                     .zIndex, 10);
+          expect(zIndex2 > zIndex1, isTrue, reason: 'overlay2 on top');
+          expect(IronOverlayManager.currentOverlay, overlay2, reason: 'currentOverlay ok');
+          done();
+        });
+      });
+    }));
+  });
+
+  group('animations', () {
+    test('overlay animations correctly triggered', when((done) {
+      var overlay = fixture('basic');
+      overlay.animated = true;
+      overlay.open();
+      overlay.on['simple-overlay-open-animation-start'].take(1).listen((_) {
+        // Since animated overlay will transition center + 300px to center,
+        // we should not find the element at the center when the open animation starts.
+        var centerElement = document.elementFromPoint((window.innerWidth / 2).floor(), (window.innerHeight / 2).floor());
+        expect(centerElement, isNot(overlay), reason: 'overlay should not be centered already');
+        done();
+      });
+    }),skip:"will not work in test runner ?");
+  });
+
+
+  group('a11y', () {
+    test('overlay has aria-hidden=true when opened', () {
+      TestOverlay overlay = fixture('basic');
+      expect(overlay.attributes['aria-hidden'], 'true', reason: 'overlay has aria-hidden="true"');
+      overlay.open();
+      expect(overlay.attributes.containsKey('aria-hidden'), isFalse, reason: 'overlay does not have aria-hidden attribute');
+      overlay.close();
+      expect(overlay.attributes['aria-hidden'], 'true', reason: 'overlay has aria-hidden="true"');
+    });
+  });
 
 }
