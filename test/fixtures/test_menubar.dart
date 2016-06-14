@@ -8,6 +8,7 @@ import 'package:polymer_elements/iron_menubar_behavior.dart';
 import 'package:polymer_elements/iron_multi_selectable.dart';
 import 'package:polymer_elements/iron_selectable.dart';
 import 'package:web_components/web_components.dart';
+import 'dart:html';
 
 @PolymerRegister('test-menubar')
 class TestMenuBar extends PolymerElement
@@ -18,4 +19,7 @@ class TestMenuBar extends PolymerElement
         IronMenuBehavior,
         IronMenubarBehavior {
   TestMenuBar.created() : super.created();
+
+  DivElement get extraContent => this.$['extraContent'];
+
 }

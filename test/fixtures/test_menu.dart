@@ -7,6 +7,7 @@ import 'package:polymer_elements/iron_menu_behavior.dart';
 import 'package:polymer_elements/iron_multi_selectable.dart';
 import 'package:polymer_elements/iron_selectable.dart';
 import 'package:web_components/web_components.dart';
+import "dart:html";
 
 @PolymerRegister('test-menu')
 class TestMenu extends PolymerElement
@@ -16,4 +17,6 @@ class TestMenu extends PolymerElement
         IronA11yKeysBehavior,
         IronMenuBehavior {
   TestMenu.created() : super.created();
+
+  DivElement get extraContent => $['extraContent'];
 }

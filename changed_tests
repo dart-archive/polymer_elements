@@ -37,6 +37,7 @@ OK lib/src/iron-list/test/focus.html
 OK lib/src/iron-list/test/helpers.html
 OK lib/src/iron-list/test/physical-count.html
 OK lib/src/iron-list/test/x-list.html
+OK lib/src/iron-menu-behavior/test/iron-menu-behavior.html
 
 
 
@@ -51,7 +52,6 @@ KO lib/src/iron-list/test/mutations.html
 *SUSP* lib/src/iron-location/test/iron-location.html
 *SUSP* lib/src/iron-location/test/iron-query-params.html
 
-lib/src/iron-menu-behavior/test/iron-menu-behavior.html
 lib/src/iron-menu-behavior/test/iron-menubar-behavior.html
 lib/src/iron-menu-behavior/test/test-menu.html
 lib/src/iron-menu-behavior/test/test-menubar.html
