@@ -15,6 +15,10 @@ import 'common.dart';
 import 'fixtures/test_overlay.dart';
 import 'sinon/sinon.dart';
 
+num parseFloat(String dimension) {
+  return num.parse(dimension.replaceAll("px",""));
+}
+
 Future runAfterOpen(overlay, cb) {
   Completer completer= new Completer();
   overlay.on['iron-overlay-opened'].take(1).listen((_) async {
@@ -314,5 +318,122 @@ main() async {
   });
 
 
+  group('keyboard event listener', () {
+    TestOverlay overlay;
+
+    Function preventKeyDown = (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    };
+
+    setUpAll(() {
+      // Worst case scenario: listener with useCapture = true that prevents & stops propagation
+      // added before the overlay is initialized.
+      document.addEventListener('keydown', preventKeyDown, true);
+    });
+
+    setUp(() {
+      overlay = fixture('basic');
+    });
+
+    tearDownAll(() {
+      document.removeEventListener('keydown', preventKeyDown, true);
+    });
+
+    test('cancel an overlay with esc key even if event is prevented by other listeners', () async {
+      await runAfterOpen(overlay, () {
+        Completer done = new Completer();
+        overlay.on['iron-overlay-canceled'].take(1).listen((event) {
+          done.complete();
+        });
+        pressAndReleaseKeyOn(document, 27);
+        return done.future;
+      });
+    });
+  });
+
+  group('opened overlay', () {
+    TestOverlay overlay;
+
+    setUp(() {
+      overlay = fixture('opened');
+    });
+
+    test('overlay open by default', () async {
+      Completer done = new Completer();
+      overlay.on['iron-overlay-opened'].take(1).listen((_) {
+        expect(overlay.opened, isTrue, reason: 'overlay starts opened');
+        expect(overlay
+                   .getComputedStyle()
+                   .display, isNot('none'), reason: 'overlay starts showing');
+        done.complete();
+      });
+
+      await done.future;
+    });
+
+    test('overlay positioned & sized properly', () async {
+      Completer done = new Completer();
+      overlay.on['iron-overlay-opened'].take(1).listen((_) {
+        var s = overlay.getComputedStyle();
+        expect(parseFloat(s.left), closeTo((window.innerWidth - overlay.offsetWidth) / 2, 1), reason: 'centered horizontally');
+        expect(parseFloat(s.top), closeTo((window.innerHeight - overlay.offsetHeight) / 2, 1), reason: 'centered vertically');
+        done.complete();
+      });
+      await done.future;
+    });
+  });
+
+  group('focus handling', () {
+    TestOverlay overlay;
+
+    setUp(() {
+      overlay = fixture('autofocus');
+    });
+
+    test('node with autofocus is focused', () async {
+      await runAfterOpen(overlay, () {
+        expect(new PolymerDom(overlay).querySelector('[autofocus]'), document.activeElement, reason: '<button autofocus> is focused');
+      });
+    });
+
+    test('no-auto-focus will not focus node with autofocus', () async {
+      overlay.noAutoFocus = true;
+
+      // In Safari the element with autofocus will immediately receive focus when displayed for the first time http://jsbin.com/woroci/2/
+      // Ensure this is not the case for overlay.
+      expect(new PolymerDom(overlay).querySelector('[autofocus]'), isNot(document.activeElement), reason: '<button autofocus> not immediately focused');
+
+      await runAfterOpen(overlay, () {
+        expect(new PolymerDom(overlay).querySelector('[autofocus]'), isNot(document.activeElement), reason: '<button autofocus> not focused after opened');
+      });
+    });
+
+    test('no-cancel-on-outside-click property; focus stays on overlay when click outside', () async {
+      overlay.noCancelOnOutsideClick = true;
+      await runAfterOpen(overlay, () async {
+        tap(document.body);
+        await wait(10);
+        expect(new PolymerDom(overlay).querySelector('[autofocus]'), document.activeElement, reason: '<button autofocus> is focused');
+      });
+    });
+
+    test('with-backdrop traps the focus within the overlay', () async {
+      Stub focusSpy = new Stub();
+      var button = document.createElement('button');
+      document.body.children.add(button);
+      button.addEventListener('focus', focusSpy, true);
+
+      overlay.withBackdrop = true;
+      await runAfterOpen(overlay, () {
+        // Try to steal the focus
+        focus(button);
+        expect(new PolymerDom(overlay).querySelector('[autofocus]'), document.activeElement, reason: '<button autofocus> is focused');
+        expect(focusSpy.calls, 0, reason: 'button in body did not get the focus');
+        document.body.children.remove(button);
+      });
+    });
+  });
+  
 
 }
