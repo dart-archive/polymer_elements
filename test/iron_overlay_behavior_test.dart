@@ -16,6 +16,7 @@ import 'fixtures/test_overlay.dart';
 import 'sinon/sinon.dart';
 import 'package:polymer_elements/iron_overlay_manager.dart';
 import 'fixtures/test_buttons.dart';
+import 'package:polymer_elements/iron_overlay_backdrop.dart';
 
 num parseFloat(String dimension) {
   return num.parse(dimension.replaceAll("px",""));
@@ -619,7 +620,85 @@ main() async {
     });
   });
 
+  group('overlay with backdrop', () {
+    TestOverlay overlay;
 
+    setUp(() {
+      overlay = fixture('backdrop');
+    });
+
+    test('backdrop is opened when overlay is opened', () async {
+      expect(overlay.backdropElement, isNotNull, reason: 'backdrop is defined');
+      await runAfterOpen(overlay, () {
+        expect((overlay.backdropElement as IronOverlayBackdrop).opened, isTrue, reason: 'backdrop is opened');
+        expect(overlay.backdropElement.parentNode, isNotNull, reason: 'backdrop is inserted in the DOM');
+      });
+    });
+
+    test('backdrop appears behind the overlay', () async {
+      await runAfterOpen(overlay, () {
+        int styleZ = parseFloat(overlay
+                                    .getComputedStyle()
+                                    .zIndex).floor();
+        int backdropStyleZ = parseFloat(overlay.backdropElement
+                                            .getComputedStyle()
+                                            .zIndex).floor();
+        expect(styleZ > backdropStyleZ, isTrue, reason: 'overlay has higher z-index than backdrop');
+      });
+    });
+
+    test('backdrop is removed when overlay is closed', () async {
+      await runAfterOpen(overlay, () async {
+        await runAfterClose(overlay, () async {
+          expect((overlay.backdropElement as IronOverlayBackdrop).opened, isFalse, reason: 'backdrop is closed');
+          expect(overlay.backdropElement.parentNode, isNull, reason: 'backdrop is removed from the DOM');
+          expect(document
+                     .querySelectorAll('iron-overlay-backdrop')
+                     .length, 0, reason: 'no backdrop elements on body');
+        });
+      });
+    });
+
+    test('backdrop is removed when the element is removed from DOM', () async {
+      await runAfterOpen(overlay, () {
+        (new PolymerDom(overlay).parentNode as Element).children.remove(overlay);
+        // Ensure detached is executed.
+        PolymerDom.flush();
+        expect((overlay.backdropElement as IronOverlayBackdrop).opened, isFalse, reason: 'backdrop is closed');
+        expect(overlay.backdropElement.parentNode, isNull, reason: 'backdrop is removed from the DOM');
+        expect(document
+                   .querySelectorAll('iron-overlay-backdrop')
+                   .length, 0, reason: 'no backdrop elements on body');
+        expect(overlay.jsElement['_manager'].callMethod('currentOverlay'), isNull, reason: 'currentOverlay ok');
+        expect(IronOverlayManager.currentOverlay, isNull, reason: 'currentOverlay ok'); // dam0vm3nt : same test with IronOverlayMan
+
+      });
+    });
+
+    test('manager.getBackdrops() immediately updated on opened changes', () {
+      overlay.opened = true;
+      expect(IronOverlayManager.backdrops.length, 1, reason: 'overlay added to manager backdrops');
+      overlay.opened = false;
+      expect(IronOverlayManager.backdrops.length, 0, reason: 'overlay removed from manager backdrops');
+    });
+
+    test('updating with-backdrop to false closes backdrop', () async {
+      await runAfterOpen(overlay, () {
+        overlay.withBackdrop = false;
+        expect((overlay.backdropElement as IronOverlayBackdrop).opened, isFalse, reason: 'backdrop is closed');
+        expect(overlay.backdropElement.parentNode, isNull, reason: 'backdrop is removed from document');
+      });
+    });
+
+    test('backdrop is removed when toggling overlay opened', () async {
+      overlay.open();
+      expect(overlay.backdropElement.parentNode, isNotNull, reason: 'backdrop is immediately inserted in the document');
+      await runAfterClose(overlay, () {
+        expect((overlay.backdropElement as IronOverlayBackdrop).opened, isFalse, reason: 'backdrop is closed');
+        expect(overlay.backdropElement.parentNode, isNull, reason: 'backdrop is removed from document');
+      });
+    });
+  });
 
 
 }
