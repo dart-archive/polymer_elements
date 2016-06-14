@@ -88,7 +88,7 @@ Element getFirstItemFromList(list) {
 Element getLastItemFromList(list) {
   Rectangle listRect = list.getBoundingClientRect();
   Element e = document.elementFromPoint((listRect.left + 100).floor(),
-                                        (listRect.bottom - 5).floor());
+                                        (listRect.bottom - 1).floor());
   //print("RECT:${listRect} -> ${e} at ${listRect.bottom-1}");
   return e;
 }

@@ -35,6 +35,8 @@ OK lib/src/iron-list/test/basic.html (getLastItemFromList not working ?)
 OK lib/src/iron-list/test/dynamic-item-size.html
 OK lib/src/iron-list/test/focus.html
 OK lib/src/iron-list/test/helpers.html
+OK lib/src/iron-list/test/physical-count.html
+OK lib/src/iron-list/test/x-list.html
 
 
 
@@ -43,13 +45,12 @@ KO lib/src/iron-flex-layout/test/iron-flex-layout.html
 KO lib/src/iron-list/test/different-heights.html
 KO lib/src/iron-list/test/mutations.html
 
-lib/src/iron-list/test/physical-count.html
-lib/src/iron-list/test/x-list.html
-lib/src/iron-location/test/initialization-cases.html
-lib/src/iron-location/test/initialization-iframe.html
-lib/src/iron-location/test/initialization-tests.html
-lib/src/iron-location/test/iron-location.html
-lib/src/iron-location/test/iron-query-params.html
+*SUSP* lib/src/iron-location/test/initialization-cases.html
+*SUSP* lib/src/iron-location/test/initialization-iframe.html
+*SUSP* lib/src/iron-location/test/initialization-tests.html
+*SUSP* lib/src/iron-location/test/iron-location.html
+*SUSP* lib/src/iron-location/test/iron-query-params.html
+
 lib/src/iron-menu-behavior/test/iron-menu-behavior.html
 lib/src/iron-menu-behavior/test/iron-menubar-behavior.html
 lib/src/iron-menu-behavior/test/test-menu.html

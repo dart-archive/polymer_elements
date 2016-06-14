@@ -187,7 +187,7 @@ main() async {
                          "contribution": 200,
                          "target": itemHeight * list.items.length,
                          "onScrollEnd": () {
-                           list.items = list.items.removeAt(0);
+                           list.items = [list.items.removeAt(0)];
                            simulateScroll({
                                             "list": list,
                                             "contribution": itemHeight,
