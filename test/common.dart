@@ -168,11 +168,15 @@ Future requestAnimationFrame() {
 
 List keysOf(JsObject object) => context['Object'].callMethod('keys', [object]);
 
-Function when(x(void done())) =>
+Function when(x(void done([e]))) =>
         () async {
       Completer _done = new Completer();
-      x(() {
-        _done.complete();
+      x(([e]) {
+        if (e!=null) {
+          _done.completeError(e);
+        } else {
+          _done.complete();
+        }
       });
       await _done.future;
     };

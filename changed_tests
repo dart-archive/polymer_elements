@@ -41,9 +41,14 @@ OK lib/src/iron-menu-behavior/test/iron-menu-behavior.html
 OK lib/src/iron-menu-behavior/test/iron-menubar-behavior.html
 OK lib/src/iron-menu-behavior/test/test-menu.html
 OK lib/src/iron-menu-behavior/test/test-menubar.html
+OK lib/src/iron-overlay-behavior/test/iron-overlay-behavior.html
+OK lib/src/iron-overlay-behavior/test/test-buttons.html
+OK lib/src/iron-overlay-behavior/test/test-menu-button.html
+OK lib/src/iron-overlay-behavior/test/test-overlay.html
+OK lib/src/iron-overlay-behavior/test/test-overlay2.html
 
 
-
+KO lib/src/iron-resizable-behavior/test/basic.html
 KO lib/src/iron-flex-layout/test/iron-flex-layout-classes.html
 KO lib/src/iron-flex-layout/test/iron-flex-layout.html
 KO lib/src/iron-list/test/different-heights.html
@@ -55,12 +60,7 @@ KO lib/src/iron-list/test/mutations.html
 *SUSP* lib/src/iron-location/test/iron-location.html
 *SUSP* lib/src/iron-location/test/iron-query-params.html
 
-lib/src/iron-overlay-behavior/test/iron-overlay-behavior.html
-lib/src/iron-overlay-behavior/test/test-buttons.html
-lib/src/iron-overlay-behavior/test/test-menu-button.html
-lib/src/iron-overlay-behavior/test/test-overlay.html
-lib/src/iron-overlay-behavior/test/test-overlay2.html
-lib/src/iron-resizable-behavior/test/basic.html
+
 lib/src/iron-resizable-behavior/test/iron-resizable-behavior.html
 lib/src/iron-scroll-target-behavior/test/basic.html
 lib/src/iron-scroll-target-behavior/test/x-nested-scrollable.html
