@@ -14,6 +14,8 @@ import 'package:web_components/web_components.dart';
 import 'common.dart';
 import 'fixtures/test_overlay.dart';
 import 'sinon/sinon.dart';
+import 'package:polymer_elements/iron_overlay_manager.dart';
+import 'fixtures/test_buttons.dart';
 
 num parseFloat(String dimension) {
   return num.parse(dimension.replaceAll("px",""));
@@ -434,6 +436,115 @@ main() async {
       });
     });
   });
-  
+
+  group('focusable nodes', () {
+    TestOverlay overlay;
+    TestOverlay overlayWithTabIndex;
+
+    setUp(() {
+      var f = fixture('focusables');
+      overlay = f[0];
+      overlayWithTabIndex = f[1];
+    });
+
+    test('_focusableNodes returns nodes that are focusable', () {
+      var focusableNodes = overlay.jsElement["_focusableNodes"];
+      expect(focusableNodes.length, 3, reason: '3 nodes are focusable');
+      expect(focusableNodes[0], Polymer.dom(overlay).querySelector('.focusable1'));
+      expect(focusableNodes[1], Polymer.dom(overlay).querySelector('.focusable2'));
+      expect(focusableNodes[2], Polymer.dom(overlay).querySelector('.focusable3'));
+    });
+
+    test('_focusableNodes includes overlay if it has a valid tabindex', () {
+      overlay.setAttribute('tabindex', '0');
+      var focusableNodes = overlay.jsElement["_focusableNodes"];
+      expect(focusableNodes.length, 4, reason: '4 focusable nodes');
+      expect(focusableNodes.indexOf(overlay), isNot(-1), reason: 'overlay is included');
+    });
+
+    test('_focusableNodes respects the tabindex order', () {
+      var focusableNodes = overlayWithTabIndex.jsElement["_focusableNodes"];
+      expect(focusableNodes.length, 6, reason: '6 nodes are focusable');
+      expect(focusableNodes[0], Polymer.dom(overlayWithTabIndex).querySelector('.focusable1'));
+      expect(focusableNodes[1], Polymer.dom(overlayWithTabIndex).querySelector('.focusable2'));
+      expect(focusableNodes[2], Polymer.dom(overlayWithTabIndex).querySelector('.focusable3'));
+      expect(focusableNodes[3], Polymer.dom(overlayWithTabIndex).querySelector('.focusable4'));
+      expect(focusableNodes[4], Polymer.dom(overlayWithTabIndex).querySelector('.focusable5'));
+      expect(focusableNodes[5], Polymer.dom(overlayWithTabIndex).querySelector('.focusable6'));
+    });
+
+    test('with-backdrop: TAB & Shift+TAB wrap focus', () async {
+      overlay.withBackdrop = true;
+      var focusableNodes = overlay.jsElement["_focusableNodes"];
+      await runAfterOpen(overlay, () async {
+        await wait(1);
+        // Go to last element.
+        focus(focusableNodes[focusableNodes.length - 1]);
+        // Simulate TAB & focus out of overlay.
+        pressAndReleaseKeyOn(document, 9);
+        focus(document.body);
+
+        expect(focusableNodes[0], document.activeElement, reason: 'focus wrapped to first focusable');
+        // Simulate Shift+TAB & focus out of overlay.
+        pressAndReleaseKeyOn(document, 9, ['shift']);
+        focus(document.body);
+        expect(focusableNodes[focusableNodes.length - 1], document.activeElement, reason: 'focus wrapped to last focusable');
+      });
+    });
+
+    test('with-backdrop: TAB & Shift+TAB wrap focus respecting tabindex', () async {
+      overlayWithTabIndex.withBackdrop = true;
+      var focusableNodes = overlayWithTabIndex.jsElement['_focusableNodes'];
+      await runAfterOpen(overlayWithTabIndex, () async {
+        await wait(1);
+        // Go to last element.
+        focus(focusableNodes[focusableNodes.length - 1]);
+        // Simulate TAB & focus out of overlay.
+        pressAndReleaseKeyOn(document, 9);
+        focus(document.body);
+        expect(focusableNodes[0], document.activeElement, reason: 'focus wrapped to first focusable');
+        // Simulate Shift+TAB & focus out of overlay.
+        pressAndReleaseKeyOn(document, 9, ['shift']);
+        focus(document.body);
+        expect(focusableNodes[focusableNodes.length - 1], document.activeElement, reason: 'focus wrapped to last focusable');
+      });
+    });
+  });
+
+  onFocus(Element e,cb) async {
+    Completer c = new Completer();
+    e.onFocus.take(1).listen((_){
+      cb();
+      c.complete();
+    });
+    e.focus();
+    await c.future;
+  }
+
+  group('Polymer.IronOverlayManager.deepActiveElement', () {
+    test('handles document.body', () async {
+      await onFocus(document.body,() {
+        expect(IronOverlayManager.deepActiveElement, document.body);
+      });
+    },skip:"focus not working on test runner ?");
+
+    test('handles light dom', () async {
+      var focusable = document.getElementById('focusInput');
+      await onFocus(focusable,() {
+        expect(IronOverlayManager.deepActiveElement, focusable, reason: 'input is handled');
+        focusable.blur();
+      });
+    }, skip:"focus not working on test runner ?");
+
+    test('handles shadow dom', () async {
+      var focusable = (document.getElementById('buttons') as TestButtons).button0;
+      await onFocus(focusable, () {
+        expect(IronOverlayManager.deepActiveElement, focusable);
+        focusable.blur();
+      });
+    },skip:"focus not working on test runner ?");
+  });
+
+
 
 }
