@@ -40,7 +40,7 @@ import 'google_js_api.dart';
 ///     <script>
 ///       var aware = document.querySelector('#awareness');
 ///       aware.handleSignin = function(response) {
-///         var user = gapi.auth2.getAuthInstance().currentUser.get();
+///         var user = gapi.auth2.getAuthInstance()['currentUser'].get();
 ///         console.log('User name: ' + user.getBasicProfile().getName());
 ///       };
 ///       aware.handleOffline = function(response) {
@@ -101,6 +101,21 @@ class GoogleSigninAware extends HtmlElement with CustomElementProxyMixin, Polyme
   bool get offlineAlwaysPrompt => jsElement[r'offlineAlwaysPrompt'];
   set offlineAlwaysPrompt(bool value) { jsElement[r'offlineAlwaysPrompt'] = value; }
 
+  /// Space-delimited, case-sensitive list of strings that
+  /// specifies whether the the user is prompted for reauthentication
+  /// and/or consent. The defined values are:
+  ///   none: do not display authentication or consent pages.
+  ///     This value is mutually exclusive with the rest.
+  ///   login: always prompt the user for reauthentication.
+  ///   consent: always show consent screen.
+  ///   select_account: always show account selection page.
+  ///     This enables a user who has multiple accounts to select amongst
+  ///     the multiple accounts that they might have current sessions for.
+  /// For more information, see "prompt" parameter description in
+  /// https://openid.net/specs/openid-connect-basic-1_0.html#RequestParameters
+  String get openidPrompt => jsElement[r'openidPrompt'];
+  set openidPrompt(String value) { jsElement[r'openidPrompt'] = value; }
+
   /// The app activity types you want to write on behalf of the user
   /// (e.g http://schemas.google.com/AddActivity)
   String get requestVisibleActions => jsElement[r'requestVisibleActions'];
@@ -114,6 +129,9 @@ class GoogleSigninAware extends HtmlElement with CustomElementProxyMixin, Polyme
   /// True if user is signed in
   bool get signedIn => jsElement[r'signedIn'];
   set signedIn(bool value) { jsElement[r'signedIn'] = value; }
+
+  errorNotify(error) =>
+      jsElement.callMethod('errorNotify', [error]);
 
   /// pops up the authorization dialog
   signIn() =>

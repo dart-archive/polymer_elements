@@ -28,6 +28,9 @@ class HydrolysisAnalyzer extends HtmlElement with CustomElementProxyMixin, Polym
   bool get loading => jsElement[r'loading'];
   set loading(bool value) { jsElement[r'loading'] = value; }
 
+  String get resolver => jsElement[r'resolver'];
+  set resolver(String value) { jsElement[r'resolver'] = value; }
+
   /// The URL to an import that declares (or transitively imports) the
   /// elements that you wish to see analyzed.
   ///

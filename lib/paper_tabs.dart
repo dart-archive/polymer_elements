@@ -114,6 +114,11 @@ class PaperTabs extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   bool get disableDrag => jsElement[r'disableDrag'];
   set disableDrag(bool value) { jsElement[r'disableDrag'] = value; }
 
+  /// If true, tabs expand to fit their container. This currently only applies when
+  /// scrollable is true.
+  bool get fitContainer => jsElement[r'fitContainer'];
+  set fitContainer(bool value) { jsElement[r'fitContainer'] = value; }
+
   /// If true, scroll buttons (left/right arrow) will be hidden for scrollable tabs.
   bool get hideScrollButtons => jsElement[r'hideScrollButtons'];
   set hideScrollButtons(bool value) { jsElement[r'hideScrollButtons'] = value; }

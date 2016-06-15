@@ -52,8 +52,8 @@ class GoldCcExpirationInput extends HtmlElement with CustomElementProxyMixin, Po
   String get label => jsElement[r'label'];
   set label(String value) { jsElement[r'label'] = value; }
 
-  get value => jsElement[r'value'];
-  set value(value) { jsElement[r'value'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+  String get value => jsElement[r'value'];
+  set value(String value) { jsElement[r'value'] = value; }
 
   /// Overidden from Polymer.PaperInputBehavior.
   validate() =>

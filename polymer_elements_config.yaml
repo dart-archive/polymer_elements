@@ -9,30 +9,45 @@ files_to_generate:
       omit_imports:
         - prism-import.html
 # Carbon
-  - carbon-route/carbon-location.html
-  - carbon-route/carbon-route-converter.html
-  - carbon-route/carbon-route.html
+#  - carbon-route/carbon-location.html
+#  - carbon-route/carbon-route-converter.html
+#  - carbon-route/carbon-route.html
+# App
+  - app-route/app-location.html  
+  - app-route/app-route-converter-behavior.html  
+  - app-route/app-route-converter.html  
+  - app-route/app-route.html
+  - app-localize-behavior/app-localize-behavior.html
+  - app-pouchdb/app-pouchdb-database-behavior.html
+  - app-pouchdb/app-pouchdb-document.html
+  - app-pouchdb/app-pouchdb-query.html
+  - app-pouchdb/app-pouchdb-index.html
+  - app-pouchdb/app-pouchdb-conflict-resolution.html
+  - app-pouchdb/app-pouchdb-sync.html
+  - app-storage/app-network-status-behavior.html  
+  - app-storage/app-storage-behavior.html
 #   Google Web Components https://elements.polymer-project.org/browse?package=google-web-components
-  - firebase-element/firebase-auth.html:
-      omit_imports:
-        - firebase.html
-  - firebase-element/firebase-collection.html:
-      omit_imports:
-        - firebase.html
-      name_substitutions:
-        query: queryObject
-        remove: firebaseRemove
-        add: firebaseAdd
-  - firebase-element/firebase-document.html:
-      omit_imports:
-        - firebase.html
-      name_substitutions:
-        query: queryObject
-  - firebase-element/firebase-query-behavior.html:
-      omit_imports:
-        - firebase.html
-      name_substitutions:
-        query: queryObject
+# FIREBASE IS DEPRACATED ?
+#  - firebase-element/firebase-auth.html:
+#      omit_imports:
+#        - firebase.html
+#  - firebase-element/firebase-query-behavior.html:
+#      omit_imports:
+#        - firebase.html
+#      name_substitutions:
+#        query: queryObject
+#  - firebase-element/firebase-collection.html:
+#      omit_imports:
+#        - firebase.html
+#      name_substitutions:
+#        query: queryObject
+#        remove: firebaseRemove
+#        add: firebaseAdd
+#  - firebase-element/firebase-document.html:
+#      omit_imports:
+#        - firebase.html
+#      name_substitutions:
+#        query: queryObject
   - google-analytics/google-analytics.html
   - google-analytics/google-analytics-chart.html:
       omit_imports:

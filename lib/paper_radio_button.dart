@@ -18,6 +18,7 @@ import 'iron_checked_element_behavior.dart';
 import 'iron_form_element_behavior.dart';
 import 'iron_validatable_behavior.dart';
 import 'default_theme.dart';
+import 'iron_flex_layout.dart';
 
 /// Material design: [Radio button](https://www.google.com/design/spec/components/selection-controls.html#selection-controls-radio-button)
 ///
@@ -44,6 +45,7 @@ import 'default_theme.dart';
 /// `--paper-radio-button-unchecked-ink-color` | Selected/focus ripple color when the input is not checked | `--primary-text-color`
 /// `--paper-radio-button-checked-color` | Radio button color when the input is checked | `--primary-color`
 /// `--paper-radio-button-checked-ink-color` | Selected/focus ripple color when the input is checked | `--primary-color`
+/// `--paper-radio-button-size` | Size of the radio button | `16px`
 /// `--paper-radio-button-label-color` | Label color | `--primary-text-color`
 /// `--paper-radio-button-label-spacing` | Spacing between the label and the button | `10px`
 ///

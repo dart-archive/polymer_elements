@@ -67,6 +67,17 @@ class PaperToast extends HtmlElement with CustomElementProxyMixin, PolymerBase, 
   num get duration => jsElement[r'duration'];
   set duration(num value) { jsElement[r'duration'] = value; }
 
+  /// The element to fit `this` into.
+  /// Overridden from `Polymer.IronFitBehavior`.
+  get fitInto => jsElement[r'fitInto'];
+  set fitInto(value) { jsElement[r'fitInto'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+
+  /// The orientation against which to align the dropdown content
+  /// horizontally relative to `positionTarget`.
+  /// Overridden from `Polymer.IronFitBehavior`.
+  String get horizontalAlign => jsElement[r'horizontalAlign'];
+  set horizontalAlign(String value) { jsElement[r'horizontalAlign'] = value; }
+
   /// Overridden from `IronOverlayBehavior`.
   /// Set to true to disable auto-focusing the toast or child nodes with
   /// the `autofocus` attribute` when the overlay is opened.
@@ -82,13 +93,14 @@ class PaperToast extends HtmlElement with CustomElementProxyMixin, PolymerBase, 
   String get text => jsElement[r'text'];
   set text(String value) { jsElement[r'text'] = value; }
 
+  /// The orientation against which to align the dropdown content
+  /// vertically relative to `positionTarget`.
+  /// Overridden from `Polymer.IronFitBehavior`.
+  String get verticalAlign => jsElement[r'verticalAlign'];
+  set verticalAlign(String value) { jsElement[r'verticalAlign'] = value; }
+
   /// Read-only. Deprecated. Use `opened` from `IronOverlayBehavior`.
   get visible => jsElement[r'visible'];
-
-  /// Overridden from `IronFitBehavior`.
-  /// Positions the toast at the bottom left of fitInto.
-  center() =>
-      jsElement.callMethod('center', []);
 
   /// Hide the toast. Same as `close()` from `IronOverlayBehavior`.
   hide() =>

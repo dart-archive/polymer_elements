@@ -31,6 +31,11 @@ abstract class IronSelectableBehavior implements CustomElementProxyMixin {
   String get attrForSelected => jsElement[r'attrForSelected'];
   set attrForSelected(String value) { jsElement[r'attrForSelected'] = value; }
 
+  /// Default fallback if the selection based on selected with `attrForSelected`
+  /// is not found.
+  String get fallbackSelection => jsElement[r'fallbackSelection'];
+  set fallbackSelection(String value) { jsElement[r'fallbackSelection'] = value; }
+
   /// The list of items from which a selection can be made.
   List get items => jsElement[r'items'];
   set items(List value) { jsElement[r'items'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
@@ -77,6 +82,10 @@ abstract class IronSelectableBehavior implements CustomElementProxyMixin {
   /// [value]: the value to select.
   select(value) =>
       jsElement.callMethod('select', [value]);
+
+  /// Selects the item at the given index.
+  selectIndex(index) =>
+      jsElement.callMethod('selectIndex', [index]);
 
   /// Selects the next item.
   selectNext() =>

@@ -11,10 +11,6 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_overlay_behavior.dart';
 import 'iron_fit_behavior.dart';
 import 'iron_resizable_behavior.dart';
-import 'iron_flex_layout.dart';
-import 'default_theme.dart';
-import 'typography.dart';
-import 'shadow.dart';
 
 /// Use `Polymer.PaperDialogBehavior` and `paper-dialog-shared-styles.html` to implement a Material Design
 /// dialog.
@@ -37,18 +33,6 @@ import 'shadow.dart';
 /// Use the `dialog-dismiss` and `dialog-confirm` attributes on interactive controls to close the
 /// dialog. If the user dismisses the dialog with `dialog-confirm`, the `closingReason` will update
 /// to include `confirmed: true`.
-///
-/// ### Styling
-///
-/// The following custom properties and mixins are available for styling.
-///
-/// Custom property | Description | Default
-/// ----------------|-------------|----------
-/// `--paper-dialog-background-color` | Dialog background color                     | `--primary-background-color`
-/// `--paper-dialog-color`            | Dialog foreground color                     | `--primary-text-color`
-/// `--paper-dialog`                  | Mixin applied to the dialog                 | `{}`
-/// `--paper-dialog-title`            | Mixin applied to the title (`<h2>`) element | `{}`
-/// `--paper-dialog-button-color`     | Button area foreground color                | `--default-primary-color`
 ///
 /// ### Accessibility
 ///

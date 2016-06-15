@@ -10,7 +10,6 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_fit_behavior.dart';
 import 'iron_resizable_behavior.dart';
-import 'iron_overlay_backdrop.dart';
 
 /// Use `Polymer.IronOverlayBehavior` to implement an element that can be hidden or shown, and displays
 /// on top of other content. It includes an optional backdrop, and can be used to implement a variety
@@ -57,7 +56,9 @@ abstract class IronOverlayBehavior implements CustomElementProxyMixin, IronFitBe
   bool get canceled => jsElement[r'canceled'];
   set canceled(bool value) { jsElement[r'canceled'] = value; }
 
-  /// Returns the reason this dialog was last closed.
+  /// Contains the reason(s) this overlay was last closed (see `iron-overlay-closed`).
+  /// `IronOverlayBehavior` provides the `canceled` reason; implementers of the
+  /// behavior can provide other reasons in addition to `canceled`.
   get closingReason => jsElement[r'closingReason'];
   set closingReason(value) { jsElement[r'closingReason'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 

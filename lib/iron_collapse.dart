@@ -25,7 +25,7 @@ import 'iron_resizable_behavior.dart';
 ///       this.$.collapse.toggle();
 ///     }
 ///
-/// `iron-collapse` adjusts the height/width of the collapsible element to show/hide
+/// `iron-collapse` adjusts the max-height/max-width of the collapsible element to show/hide
 /// the content.  So avoid putting padding/margin/border on the collapsible directly,
 /// and instead put a div inside and style that.
 ///
@@ -75,6 +75,9 @@ class IronCollapse extends HtmlElement with CustomElementProxyMixin, PolymerBase
   toggle() =>
       jsElement.callMethod('toggle', []);
 
+  /// Updates the size of the element.
+  /// [size]: The new value for `maxWidth`/`maxHeight` as css property value, usually `auto` or `0px`.
+  /// [animated]: if `true` updates the size with an animation, otherwise without.
   updateSize(size, animated) =>
       jsElement.callMethod('updateSize', [size, animated]);
 }

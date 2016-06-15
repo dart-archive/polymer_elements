@@ -74,6 +74,13 @@ import 'iron_scroll_target_behavior.dart';
 /// </template>
 /// ```
 ///
+/// ### Grid layout
+///
+/// `iron-list` supports a grid layout in addition to linear layout by setting
+/// the `grid` attribute.  In this case, the list template item must have both fixed
+/// width and height (e.g. via CSS). Based on this, the number of items
+/// per row are determined automatically based on the size of the list viewport.
+///
 /// ### Accessibility
 ///
 /// `iron-list` automatically manages the focus state for the items. It also provides
@@ -142,6 +149,19 @@ class IronList extends HtmlElement with CustomElementProxyMixin, PolymerBase, Te
   num get firstVisibleIndex => jsElement[r'firstVisibleIndex'];
   set firstVisibleIndex(num value) { jsElement[r'firstVisibleIndex'] = value; }
 
+  /// When true, the list is rendered as a grid. Grid items must have
+  /// fixed width and height set via CSS. e.g.
+  ///
+  /// ```html
+  /// <iron-list grid>
+  ///   <template>
+  ///      <div style="width: 100px; height: 100px;"> 100x100 </div>
+  ///   </template>
+  /// </iron-list>
+  /// ```
+  bool get grid => jsElement[r'grid'];
+  set grid(bool value) { jsElement[r'grid'] = value; }
+
   /// The name of the variable to add to the binding scope with the index
   /// for the row.
   String get indexAs => jsElement[r'indexAs'];
@@ -158,6 +178,10 @@ class IronList extends HtmlElement with CustomElementProxyMixin, PolymerBase, Te
   /// Gets the index of the last visible item in the viewport.
   num get lastVisibleIndex => jsElement[r'lastVisibleIndex'];
   set lastVisibleIndex(num value) { jsElement[r'lastVisibleIndex'] = value; }
+
+  /// The max count of physical items the pool can extend to.
+  num get maxPhysicalCount => jsElement[r'maxPhysicalCount'];
+  set maxPhysicalCount(num value) { jsElement[r'maxPhysicalCount'] = value; }
 
   /// When `true`, multiple items may be selected at once (in this case,
   /// `selected` is an array of currently selected items).  When `false`,
@@ -196,11 +220,17 @@ class IronList extends HtmlElement with CustomElementProxyMixin, PolymerBase, Te
   deselectItem(item) =>
       jsElement.callMethod('deselectItem', [item]);
 
-  /// Scroll to a specific item in the virtual list regardless
+  /// Scroll to a specific index in the virtual list regardless
   /// of the physical items in the DOM tree.
   /// [idx]: The index of the item
   scrollToIndex(num idx) =>
       jsElement.callMethod('scrollToIndex', [idx]);
+
+  /// Scroll to a specific item in the virtual list regardless
+  /// of the physical items in the DOM tree.
+  /// [item]: The item to be scrolled to
+  scrollToItem(item) =>
+      jsElement.callMethod('scrollToItem', [item]);
 
   /// Select the list item at the given index.
   /// [item]: The item object or its index

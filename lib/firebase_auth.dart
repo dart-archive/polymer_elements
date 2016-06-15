@@ -9,6 +9,10 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 
+/// *Note: This element is for the older Firebase 2 API**
+/// For the latest official Firebase 3.0-compatible component from the Firebase team,
+/// see the [polymerfire](https://github.com/firebase/polymerfire) component.
+///
 /// Element wrapper for the Firebase authentication API (https://www.firebase.com/docs/web/guide/user-auth.html).
 @CustomElementProxy('firebase-auth')
 class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase {
@@ -34,7 +38,7 @@ class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase
   get params => jsElement[r'params'];
   set params(value) { jsElement[r'params'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
-  /// Default login provider type.  May be one of: `anonymous`, `custom`, `password`
+  /// Default login provider type.  May be one of: `anonymous`, `custom`, `password`,
   /// `facebook`, `github`, `twitter`, `google`.
   String get provider => jsElement[r'provider'];
   set provider(String value) { jsElement[r'provider'] = value; }

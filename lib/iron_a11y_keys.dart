@@ -66,7 +66,7 @@ import 'iron_a11y_keys_behavior.dart';
 /// number pad), `F1-F12`, `Page Up`, `Page Down`, `Left Arrow`, `Right Arrow`,
 /// `Down Arrow`, `Up Arrow`, `Home`, `End`, `Escape`, `Space`, `Tab`, `Enter`.
 ///
-/// The modifier keys are: `Shift`, `Control`, `Alt`.
+/// The modifier keys are: `Shift`, `Control`, `Alt`, `Meta`.
 ///
 /// All keys are expected to be lowercase and shortened. E.g.
 /// `Left Arrow` is `left`, `Page Down` is `pagedown`, `Control` is `ctrl`,
@@ -77,7 +77,7 @@ import 'iron_a11y_keys_behavior.dart';
 /// Below is the [EBNF](http://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form)
 /// Grammar of the `keys` attribute.
 ///
-///     modifier = "shift" | "ctrl" | "alt";
+///     modifier = "shift" | "ctrl" | "alt" | "meta";
 ///     ascii = ? /[a-z0-9]/ ? ;
 ///     fnkey = ? f1 through f12 ? ;
 ///     arrow = "up" | "down" | "left" | "right" ;
@@ -104,7 +104,7 @@ import 'iron_a11y_keys_behavior.dart';
 ///
 ///     <iron-a11y-keys target="[[target]]" keys="left pagedown down"
 ///                     on-keys-pressed="decrement"></iron-a11y-keys>
-///     <iron-a11y-keys target=""[[target]] keys="right pageup up"
+///     <iron-a11y-keys target="[[target]]" keys="right pageup up"
 ///                     on-keys-pressed="increment"></iron-a11y-keys>
 ///     <iron-a11y-keys target="[[target]]" keys="home"
 ///                     on-keys-pressed="setMin"></iron-a11y-keys>

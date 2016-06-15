@@ -1,6 +1,6 @@
 {
   "name": "gold-cc-expiration-input",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A validating input for a credit card expiration date",
   "authors": [
     "The Polymer Authors"

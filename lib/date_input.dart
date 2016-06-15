@@ -25,13 +25,29 @@ class DateInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   String get ariaLabelPrefix => jsElement[r'ariaLabelPrefix'];
   set ariaLabelPrefix(String value) { jsElement[r'ariaLabelPrefix'] = value; }
 
+  /// Set to true to autofocus the month input element.
+  bool get autofocus => jsElement[r'autofocus'];
+  set autofocus(bool value) { jsElement[r'autofocus'] = value; }
+
   /// The date object used by the validator. Has two properties, month and year.
   get date => jsElement[r'date'];
   set date(value) { jsElement[r'date'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
+  /// Set to true to disable the month and year input elements.
+  bool get disabled => jsElement[r'disabled'];
+  set disabled(bool value) { jsElement[r'disabled'] = value; }
+
+  /// Bound to the month and year input elements' `inputmode` property.
+  String get inputmode => jsElement[r'inputmode'];
+  set inputmode(String value) { jsElement[r'inputmode'] = value; }
+
   /// The month component of the date displayed.
   String get month => jsElement[r'month'];
   set month(String value) { jsElement[r'month'] = value; }
+
+  /// Set to true to mark the month and year inputs as not editable.
+  bool get readonly => jsElement[r'readonly'];
+  set readonly(bool value) { jsElement[r'readonly'] = value; }
 
   /// Set to true to mark the input as required.
   bool get required => jsElement[r'required'];

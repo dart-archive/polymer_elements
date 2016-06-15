@@ -14,7 +14,7 @@ import 'roboto.dart';
 import 'google_js_api.dart';
 import 'paper_ripple.dart';
 import 'paper_material.dart';
-import 'iron_flex_layout/classes/iron_flex_layout.dart';
+import 'iron_flex_layout_classes.dart';
 
 /// &lt;google-signin&gt; is used to authenticate with Google, allowing you to interact
 /// with other Google APIs such as Drive and Google+.
@@ -151,6 +151,21 @@ class GoogleSignin extends HtmlElement with CustomElementProxyMixin, PolymerBase
   /// `offline` and `offlineAlwaysPrompt`.
   bool get offlineAlwaysPrompt => jsElement[r'offlineAlwaysPrompt'];
   set offlineAlwaysPrompt(bool value) { jsElement[r'offlineAlwaysPrompt'] = value; }
+
+  /// Space-delimited, case-sensitive list of strings that
+  /// specifies whether the the user is prompted for reauthentication
+  /// and/or consent. The defined values are:
+  ///   none: do not display authentication or consent pages.
+  ///     This value is mutually exclusive with the rest.
+  ///   login: always prompt the user for reauthentication.
+  ///   consent: always show consent screen.
+  ///   select_account: always show account selection page.
+  ///     This enables a user who has multiple accounts to select amongst
+  ///     the multiple accounts that they might have current sessions for.
+  /// For more information, see "prompt" parameter description in
+  /// https://openid.net/specs/openid-connect-basic-1_0.html#RequestParameters
+  String get openidPrompt => jsElement[r'openidPrompt'];
+  set openidPrompt(String value) { jsElement[r'openidPrompt'] = value; }
 
   /// If true, the button will be styled with a shadow.
   bool get raised => jsElement[r'raised'];

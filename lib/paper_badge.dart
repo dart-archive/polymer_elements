@@ -9,6 +9,7 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_resizable_behavior.dart';
+import 'iron_icon.dart';
 import 'iron_flex_layout.dart';
 import 'default_theme.dart';
 import 'typography.dart';
