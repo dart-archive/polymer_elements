@@ -231,6 +231,8 @@ class _not {
   _expect _exp;
   _not(this._exp);
 
+  _not get be => this;
+
   equal(expected) => T.expect(_exp.something,T.isNot(expected));
 }
 

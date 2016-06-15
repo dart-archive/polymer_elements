@@ -72,6 +72,7 @@ OK lib/src/paper-card/test/basic.html
 OK lib/src/paper-checkbox/test/basic.html
 OK lib/src/paper-dialog-behavior/test/test-buttons.html
 OK lib/src/paper-dialog-scrollable/test/paper-dialog-scrollable.html
+OK lib/src/paper-drawer-panel/test/focus.html
 
 KO lib/src/iron-resizable-behavior/test/basic.html
 KO lib/src/iron-flex-layout/test/iron-flex-layout-classes.html
@@ -90,7 +91,6 @@ KO lib/src/iron-list/test/mutations.html
 
 
 
-lib/src/paper-drawer-panel/test/focus.html
 lib/src/paper-fab/test/a11y.html
 lib/src/paper-fab/test/basic.html
 lib/src/paper-input/test/paper-input-char-counter.html

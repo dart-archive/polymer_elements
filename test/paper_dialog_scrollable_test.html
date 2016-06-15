@@ -32,6 +32,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 
 <body>
+<style>
+    .fixed-height {
+        width: 100%;
+        height: 400px;
+        min-height: 400px;
+        @apply(--layout-vertical);
+    }
+    .fixed-height paper-dialog-scrollable {
+        @apply(--layout-flex)
+    }
+</style>
 
     <template id="basic">
         <section class="fixed-height">
