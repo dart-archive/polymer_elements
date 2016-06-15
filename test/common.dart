@@ -7,7 +7,7 @@ import 'dart:async';
 import 'dart:html';
 import 'dart:js';
 import 'package:polymer_elements/iron_test_helpers.dart' as test_helpers;
-import 'package:test/test.dart' show group,setUp,expect;
+import 'package:test/test.dart';
 
 /// Used imports: [test_helpers]
 final JsObject _MockInteractionsJs = context['MockInteractions'];
@@ -191,3 +191,33 @@ setup(fn) => setUp(fn);
 class $assert {
   static equal(a,b,[reason]) => expect(a,b,reason:reason);
 }
+
+
+class _expect {
+  var something;
+
+  _expect(this.something);
+
+  _to get to => new _to(this);
+}
+
+
+class _to {
+  _expect _exp;
+  _to(this._exp);
+
+  equal(expected) => expect(_exp.something,expected);
+
+  _not get not => new _not(_exp);
+}
+
+class _not {
+  _expect _exp;
+  _not(this._exp);
+
+  equal(expected) => expect(_exp.something,isNot(expected));
+}
+
+_expect $expect(something) => new _expect(something);
+
+

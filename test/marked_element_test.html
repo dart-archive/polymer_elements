@@ -22,6 +22,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 <body>
 
+<template id="SmartyPants">
+    <marked-element smartypants>
+      <div id="output" class="markdown-html"></div>
+      <script type="text/markdown">
+        # foo
+        ...
+        </script>
+    </marked-element>
+</template>
+
 <template id="CamelCaseHTML">
   <marked-element>
     <div id="output" class="markdown-html"></div>

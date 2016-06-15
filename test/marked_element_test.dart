@@ -10,6 +10,7 @@ import 'package:polymer_elements/marked_element.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
+import 'package:polymer/polymer.dart';
 
 // Thanks IE10.
 bool isHidden(Element element) {
@@ -40,6 +41,26 @@ const noValidation = const NoValidation();
 main() async {
   await initWebComponents();
 
+  suite('<marked-element> has some options of marked available', ( ) {
+    MarkedElement markedElement;
+    var outputElement;
+    setup(() {
+      markedElement = fixture('SmartyPants');
+      outputElement = new PolymerDom(markedElement).querySelector('#output');
+    });
+    test('has sanitize', () {
+      $expect(markedElement.sanitize).to.equal(false);
+    });
+    test('has pedantic', () {
+      $expect(markedElement.sanitize).to.equal(false);
+    });
+    test('has smartypants', () {
+      $expect(markedElement.sanitize).to.equal(false);
+      // console.log(outputElement.innerHTML)
+    });
+  });
+
+
   group('<marked-element> with .markdown-html child', () {
     group('respects camelCased HTML', () {
       MarkedElement markedElement;
@@ -55,7 +76,7 @@ main() async {
 
       test('in code blocks', () {
         proofElement.setInnerHtml('<div camelCase></div>',
-            validator: noValidation);
+                                      validator: noValidation);
 
         expect(outputElement, markedElement.outputElement);
         expect(isHidden(markedElement.$['content']), isTrue);
@@ -95,11 +116,11 @@ main() async {
         // Chrome/FF say: <p><div></p></div> -> <p></p><div><p></p></div>.
         // So that's cool.
         var isEqualToOneOfThem = proofElement.innerHtml ==
-                '<p><div><p></p></div>' ||
+            '<p><div><p></p></div>' ||
             proofElement.innerHtml == '<p></p><div><p></p></div>';
         expect(isEqualToOneOfThem, isTrue);
         expect(outputElement.innerHtml,
-            contains(escapeHTML('<p><div></p></div>')));
+                   contains(escapeHTML('<p><div></p></div>')));
       });
     });
 
@@ -116,7 +137,7 @@ main() async {
 
         test('in code blocks', () {
           proofElement.setInnerHtml('<div camelCase></div>',
-              validator: noValidation);
+                                        validator: noValidation);
           expect(markedElement.$['content'], markedElement.outputElement);
           expect(isHidden(markedElement.$['content']), isFalse);
 
@@ -125,7 +146,7 @@ main() async {
           // using `<script>` descendants, content is interpreted as plain text.
           expect(proofElement.innerHtml, '<div camelcase=""></div>');
           expect(markedElement.$['content'].innerHtml,
-              contains(escapeHTML('<div camelCase>')));
+                     contains(escapeHTML('<div camelCase>')));
         });
       });
 
@@ -152,12 +173,31 @@ main() async {
           // Chrome/FF say: <p><div></p></div> -> <p></p><div><p></p></div>.
           // So that's cool.
           var isEqualToOneOfThem = proofElement.innerHtml ==
-                  '<p><div><p></p></div>' ||
+              '<p><div><p></p></div>' ||
               proofElement.innerHtml == '<p></p><div><p></p></div>';
           expect(isEqualToOneOfThem, isTrue);
           expect(markedElement.$['content'].innerHtml,
-              contains(escapeHTML('<p><div></p></div>')));
+                     contains(escapeHTML('<p><div></p></div>')));
         });
+      });
+
+
+      suite('events', () {
+        MarkedElement markedElement;
+        DivElement outputElement;
+
+        setup(() {
+          markedElement = fixture('CamelCaseHTML');
+          outputElement = document.getElementById('output');
+        });
+
+        test('render() fires marked-render-complete', when((done) {
+          markedElement.on['marked-render-complete'].take(1).listen((_) {
+            $expect(outputElement.innerHtml).to.not.equal('');
+            done();
+          });
+          markedElement.render();
+        }));
       });
     });
   });
