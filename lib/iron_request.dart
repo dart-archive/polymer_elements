@@ -79,6 +79,9 @@ class IronRequest extends HtmlElement with CustomElementProxyMixin, PolymerBase 
       jsElement.callMethod('parseResponse', []);
 
   /// Sends an HTTP request to the server and returns the XHR object.
+  ///
+  /// The handling of the `body` parameter will vary based on the Content-Type
+  /// header. See the docs for iron-ajax's `body` param for details.
   /// [options]: url The url to which the request is sent.
   ///         method The HTTP method to use, default is GET.
   ///         async By default, all requests are sent asynchronously. To send synchronous requests,

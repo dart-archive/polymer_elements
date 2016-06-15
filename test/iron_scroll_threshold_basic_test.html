@@ -1,0 +1,53 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>iron-resizable-behavior</title>
+
+    <script src="packages/web_components/webcomponents-lite.js"></script>
+    <link rel="x-dart-test" href="iron_scroll_threshold_basic_test.dart">
+    <!--<script type="application/dart" src="iron_resizable_behavior_test.dart"></script>-->
+    <!--<script src="packages/browser/dart.js"></script>-->
+    <script src="packages/test/dart.js"></script>
+
+    <style>
+        #scrollingRegion {
+            width: 200px;
+            height: 200px;
+            overflow: auto;
+            background: green;
+        }
+        .content {
+            height: 2000px;
+            width: 2px;
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+
+<template id="trivialScrollThreshold">
+        <iron-scroll-threshold id="scrollingRegion">
+            <div class="content"></div>
+        </iron-scroll-threshold>
+
+</template>
+
+<template id="trivialDocumentScrolling">
+        <iron-scroll-threshold scroll-target="document"> <!-- fixed in dart port, was 'html' -->
+            <div class="content"></div>
+        </iron-scroll-threshold>
+</template>
+
+</body>
+</html>

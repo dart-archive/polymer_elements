@@ -20,8 +20,14 @@ abstract class IronSelectableBehavior implements CustomElementProxyMixin {
   String get activateEvent => jsElement[r'activateEvent'];
   set activateEvent(String value) { jsElement[r'activateEvent'] = value; }
 
-  /// If you want to use the attribute value of an element for `selected` instead of the index,
-  /// set this to the name of the attribute.
+  /// If you want to use an attribute value or property of an element for
+  /// `selected` instead of the index, set this to the name of the attribute
+  /// or property. Hyphenated values are converted to camel case when used to
+  /// look up the property of a selectable element. Camel cased values are
+  /// *not* converted to hyphenated values for attribute lookup. It's
+  /// recommended that you provide the hyphenated form of the name so that
+  /// selection works in both cases. (Use `attr-or-property-name` instead of
+  /// `attrOrPropertyName`.)
   String get attrForSelected => jsElement[r'attrForSelected'];
   set attrForSelected(String value) { jsElement[r'attrForSelected'] = value; }
 

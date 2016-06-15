@@ -8,7 +8,10 @@ files_to_generate:
   - prism-element/prism-highlighter.html:
       omit_imports:
         - prism-import.html
-
+# Carbon
+  - carbon-route/carbon-location.html
+  - carbon-route/carbon-route-converter.html
+  - carbon-route/carbon-route.html
 #   Google Web Components https://elements.polymer-project.org/browse?package=google-web-components
   - firebase-element/firebase-auth.html:
       omit_imports:
@@ -120,6 +123,7 @@ files_to_generate:
         - iron-dropdown-scroll-manager.html
   - iron-fit-behavior/iron-fit-behavior.html
   - iron-flex-layout/iron-flex-layout.html
+  - iron-flex-layout/iron-flex-layout-classes.html
   - iron-flex-layout/classes/iron-flex-layout.html
   - iron-flex-layout/classes/iron-shadow-flex-layout.html
   - iron-form/iron-form.html
@@ -147,6 +151,10 @@ files_to_generate:
   - iron-list/iron-list.html:
       omit_imports:
         - templatizer.html # Part of `polymer_interop.dart`
+  - iron-location/iron-location.html:
+      name_substitutions:
+        query: locationQuery
+  - iron-location/iron-query-params.html
   - iron-localstorage/iron-localstorage.html
   - iron-media-query/iron-media-query.html:
       name_substitutions:
@@ -219,6 +227,12 @@ files_to_generate:
       omit_imports:
         - web-animations.html
   - neon-animation/animations/scale-up-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/slide-from-bottom-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/slide-from-top-animation.html:
       omit_imports:
         - web-animations.html
   - neon-animation/animations/slide-down-animation.html:
@@ -306,6 +320,7 @@ files_to_generate:
   - paper-scroll-header-panel/paper-scroll-header-panel.html
   - paper-slider/paper-slider.html
   - paper-spinner/paper-spinner.html
+  - paper-spinner/paper-spinner-lite.html
   - paper-spinner/paper-spinner-behavior.html
   - paper-spinner/paper-spinner-styles.html
   - paper-styles/color.html
@@ -351,4 +366,5 @@ deletion_patterns:
   - ^webcomponentsjs$
   - .gitignore$
   - .travis.yml$
+  - .github
   - CONTRIBUTING\.md$

@@ -11,6 +11,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_input_behavior.dart';
 import 'iron_control_state.dart';
 import 'iron_a11y_keys_behavior.dart';
+import 'iron_form_element_behavior.dart';
 import 'iron_autogrow_textarea.dart';
 import 'paper_input_char_counter.dart';
 import 'paper_input_container.dart';
@@ -31,7 +32,7 @@ import 'paper_input_error.dart';
 /// See `Polymer.PaperInputContainer` for a list of custom properties used to
 /// style this element.
 @CustomElementProxy('paper-textarea')
-class PaperTextarea extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, PaperInputBehavior {
+class PaperTextarea extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, PaperInputBehavior, IronFormElementBehavior {
   PaperTextarea.created() : super.created();
   factory PaperTextarea() => new Element.tag('paper-textarea');
 

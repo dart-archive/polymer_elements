@@ -10,6 +10,7 @@ import 'package:test/test.dart';
 
 import 'common.dart';
 import 'fixtures/iron_resizable_elements.dart';
+import 'sinon/sinon.dart';
 
 int pendingNotifications;
 
@@ -86,28 +87,30 @@ main() async {
       });
 
       test('detach resizables then notify parent', () {
-        var listeners = [
-          ListenForResize(testEl.$['parent']),
-          ListenForResize(testEl.$['child1a'], false),
-          ListenForResize(testEl.$['child1b']),
-          ListenForResize(testEl.$['shadow1c'].$['resizable'], false),
-          ListenForResize(testEl.$['shadow1d'].$['resizable'])
-        ];
+        Spy child1aSpy = spy(testEl.$['child1a'].jsElement, 'notifyResize');
+        Spy shadow1cSpy = spy(testEl.$['shadow1c'].$['resizable'].jsElement, 'notifyResize');
+        Spy child1bSpy = spy(testEl.$['child1b'].jsElement, 'notifyResize');
+        Spy shadow1dSpy = spy(testEl.$['shadow1d'].$['resizable'].jsElement, 'notifyResize');
 
-        var el = Polymer.dom(testEl.root).querySelector('#child1a');
+        var firstElementToRemove = testEl.$['child1a'];
+        var firstElementParent = new PolymerDom(firstElementToRemove).parentNode;
+        var secondElementToRemove = testEl.$['shadow1c'].$['resizable'];
+        var secondElementParent = new PolymerDom(secondElementToRemove).parentNode;
 
-        el.parentNode.children.remove(el);
-        el = Polymer.dom(testEl.root).querySelector('#shadow1c');
-        el.parentNode.children.remove(el);
+        new PolymerDom(firstElementParent).removeChild(firstElementToRemove);
+        new PolymerDom(secondElementParent).removeChild(secondElementToRemove);
 
-        return wait(1).then((_) {
-          testEl.$['parent'].notifyResize();
-          expect(pendingNotifications, 0);
-          RemoveListeners(listeners);
-        });
+        PolymerDom.flush();
+
+        testEl.$['parent'].notifyResize();
+
+        expect(child1aSpy.callCount,0);
+        expect(shadow1cSpy.callCount,0);
+        expect(child1bSpy.callCount,1);
+        expect(shadow1dSpy.callCount,1);
       });
 
-      test('detach parent then notify window', () {
+      test('detach parent then notify window', when((done) {
         var listeners = [
           ListenForResize(testEl.$['parent'], false),
           ListenForResize(testEl.$['child1a'], false),
@@ -121,12 +124,98 @@ main() async {
         el.parentNode.children.remove(el);
 
         return wait(1).then((_) {
+          try {
+            window.dispatchEvent(new CustomEvent('resize', canBubble: false ));
+            expect(pendingNotifications,0);
+            RemoveListeners(listeners);
+            done();
+          } catch (e) {
+            done(e);
+          }
+        });
+      }));
+    });
+
+
+    group('x-resizer-parent', () {
+      test('notify resizables from window', () {
+        var listeners = [
+          ListenForResize(testEl.$['parent']),
+          ListenForResize(testEl.$['child1a']),
+          ListenForResize(testEl.$['child1b']),
+          ListenForResize(testEl.$['shadow1c'].$['resizable']),
+          ListenForResize(testEl.$['shadow1d'].$['resizable'])
+        ];
+
+        window.dispatchEvent(new CustomEvent('resize', canBubble: false));
+        expect(pendingNotifications, 0);
+
+        RemoveListeners(listeners);
+      });
+
+      test('notify resizables from parent', () {
+        var listeners = [
+          ListenForResize(testEl.$['parent']),
+          ListenForResize(testEl.$['child1a']),
+          ListenForResize(testEl.$['child1b']),
+          ListenForResize(testEl.$['shadow1c'].$['resizable']),
+          ListenForResize(testEl.$['shadow1d'].$['resizable'])
+        ];
+
+        testEl.$['parent'].notifyResize();
+        expect(pendingNotifications, 0);
+        RemoveListeners(listeners);
+      });
+
+      test('detach resizables then notify parent', () {
+        Spy child1aSpy = spy(testEl.$['child1a'].jsElement, 'notifyResize');
+        Spy shadow1cSpy = spy(testEl.$['shadow1c'].$['resizable'].jsElement, 'notifyResize');
+        Spy child1bSpy = spy(testEl.$['child1b'].jsElement, 'notifyResize');
+        Spy shadow1dSpy = spy(testEl.$['shadow1d'].$['resizable'].jsElement, 'notifyResize');
+
+        var firstElementToRemove = testEl.$['child1a'];
+        var firstElementParent = new PolymerDom(firstElementToRemove).parentNode;
+        var secondElementToRemove = testEl.$['shadow1c'].$['resizable'];
+        var secondElementParent = new PolymerDom(secondElementToRemove).parentNode;
+
+        new PolymerDom(firstElementParent).removeChild(firstElementToRemove);
+        new PolymerDom(secondElementParent).removeChild(secondElementToRemove);
+
+        PolymerDom.flush();
+
+        testEl.$['parent'].notifyResize();
+
+        expect(child1aSpy.callCount, 0);
+        expect(shadow1cSpy.callCount, 0);
+        expect(child1bSpy.callCount, 1);
+        expect(shadow1dSpy.callCount, 1);
+      });
+
+      test('detach parent then notify window', when((done) async {
+        var listeners = [
+          ListenForResize(testEl.$['parent'], false),
+          ListenForResize(testEl.$['child1a'], false),
+          ListenForResize(testEl.$['child1b'], false),
+          ListenForResize(testEl.$['shadow1c'].$['resizable'], false),
+          ListenForResize(testEl.$['shadow1d'].$['resizable'], false)
+        ];
+
+        var el = new PolymerDom(testEl.root).querySelector('#parent');
+
+        (el.parentNode as Element).children.remove(el);
+
+        await wait(1);
+        try {
           window.dispatchEvent(new CustomEvent('resize', canBubble: false));
           expect(pendingNotifications, 0);
           RemoveListeners(listeners);
-        });
-      });
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }));
     });
+
 
     group('x-resizer-parent-filtered', () {
       test('notify resizables from window', () {

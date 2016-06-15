@@ -77,6 +77,19 @@ main() async {
           reason: 'centered vertically');
     });
 
+    test('sized element with transformed parent is centered in viewport', () {
+      var constrain = fixture('constrain-target');
+      var el = Polymer.dom(constrain).querySelector('.el');
+      var rectBefore = el.getBoundingClientRect();
+      constrain.style.transform = 'translate3d(5px, 5px, 0)';
+      el.center();
+      var rectAfter = el.getBoundingClientRect();
+      expect(rectBefore.top, rectAfter.top, reason: 'top ok');
+      expect(rectBefore.bottom, rectAfter.bottom, reason: 'bottom ok');
+      expect(rectBefore.left, rectAfter.left, reason: 'left ok');
+      expect(rectBefore.right, rectAfter.right, reason: 'right ok');
+    });
+
     test('scrolling element is centered in viewport', () {
       TestFit el = fixture('sized-x');
       makeScrolling(el);
@@ -240,6 +253,17 @@ main() async {
           reason: 'centered horizontally in fitInto');
       expect(rect.top - crect.top - (crect.bottom - rect.bottom), closeTo(0, 5),
           reason: 'centered vertically in fitInto');
+    });
+
+    test('element with max-width centers in another element', () {
+      var constrain = fixture('with-max-width');
+      var el = Polymer.dom(constrain).querySelector('.el');
+      el.fitInto = constrain;
+      el.refit();
+      var rect = el.getBoundingClientRect();
+      var crect = constrain.getBoundingClientRect();
+      expect(rect.left - crect.left - (crect.right - rect.right), closeTo(0, 5), reason: 'centered horizontally in fitInto');
+      expect(rect.top - crect.top - (crect.bottom - rect.bottom), closeTo(0, 5), reason: 'centered vertically in fitInto');
     });
   });
 }

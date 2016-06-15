@@ -7,6 +7,7 @@ import 'dart:async';
 import 'dart:html';
 import 'dart:js';
 import 'package:polymer_elements/iron_test_helpers.dart' as test_helpers;
+import 'package:test/test.dart' as T;
 
 /// Used imports: [test_helpers]
 final JsObject _MockInteractionsJs = context['MockInteractions'];
@@ -91,8 +92,8 @@ void keyUpOn(Node target, int keyCode) {
   _MockInteractionsJs.callMethod('keyUpOn', [target, keyCode]);
 }
 
-void pressAndReleaseKeyOn(Node target, int keyCode) {
-  _MockInteractionsJs.callMethod('pressAndReleaseKeyOn', [target, keyCode]);
+void pressAndReleaseKeyOn(Node target, int keyCode,[List modifiers=const [],String name]) {
+  _MockInteractionsJs.callMethod('pressAndReleaseKeyOn', [target, keyCode,modifiers,name]);
 }
 
 void pressEnter(Node target) {
@@ -167,3 +168,81 @@ Future requestAnimationFrame() {
 }
 
 List keysOf(JsObject object) => context['Object'].callMethod('keys', [object]);
+
+// Helper to let porting JS tests faster
+
+Function when(x(void done([e]))) =>
+        () async {
+      Completer _done = new Completer();
+      x(([e]) {
+        if (e!=null) {
+          _done.completeError(e);
+        } else {
+          _done.complete();
+        }
+      });
+      await _done.future;
+    };
+
+suite(title,test(),{skip}) => T.group(title,test,skip:skip);
+
+setup(fn) => T.setUp(fn);
+
+class $assert {
+  static equal(a,b,[reason]) => T.expect(a,b,reason:reason);
+
+  static strictEqual(a,b,[reason]) => T.expect(a,b,reason:reason);
+
+  static deepEqual(a,b,[reason]) => T.expect(a,b,reason:reason);  // TODO:  a better way to implement this ?
+
+  static isFalse(a,[reason]) => T.expect(a,T.isFalse,reason:reason);
+
+
+  static isUndefined(x,[reason]) => T.expect(x,T.isNull,reason: reason);
+
+  static void isTrue(bool x,[reason]) => T.expect(x,T.isTrue,reason:reason);
+
+  static void ok(x,[reason]) => T.expect(x,T.isNotNull,reason:reason);
+
+  static void isAbove(num x, num what, [reason]) => T.expect(x,T.greaterThan(what),reason:reason);
+  static void isBelow(num x, num what, [reason]) => T.expect(x,T.lessThan(what),reason:reason);
+
+  static void isOk(thing,[reason]) => ok(thing,reason);
+}
+
+$$assert(x,[reason]) => $assert.isTrue(x,reason);
+
+
+class _expect {
+  var something;
+
+  _expect(this.something);
+
+  _expect get to =>this;
+
+  _expect get be => this;
+
+  equal(expected) => T.expect(something,expected);
+
+  _not get not => new _not(this);
+}
+
+class _not {
+  _expect _exp;
+  _not(this._exp);
+
+  _not get be => this;
+  _not get to => this;
+
+  get $null => T.expect(_exp.something,T.isNotNull);
+
+  equal(expected) => T.expect(_exp.something,T.isNot(expected));
+}
+
+_expect $expect(something) => new _expect(something);
+
+
+num parseFloat(String dimension) {
+  return num.parse(dimension.replaceAll(new RegExp("[^0-9.]+"),""));
+}
+

@@ -9,6 +9,7 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_validatable_behavior.dart';
+import 'iron_a11y_announcer.dart';
 
 /// `<iron-input>` adds two-way binding and custom validators using `Polymer.IronValidatorBehavior`
 /// to `<input>`.
@@ -43,9 +44,11 @@ class IronInput extends InputElement with CustomElementProxyMixin, PolymerBase, 
   IronInput.created() : super.created();
   factory IronInput() => new Element.tag('input', 'iron-input');
 
-  /// Regular expression expressing a set of characters to enforce the validity of input characters.
-  /// The recommended value should follow this format: `[a-ZA-Z0-9.+-!;:]` that list the characters
-  /// allowed as input.
+  /// Regular expression that list the characters allowed as input.
+  /// This pattern represents the allowed characters for the field; as the user inputs text,
+  /// each individual character will be checked against the pattern (rather than checking
+  /// the entire value as a whole). The recommended format should be a list of allowed characters;
+  /// for example, `[a-zA-Z0-9.+-!;:]`
   String get allowedPattern => jsElement[r'allowedPattern'];
   set allowedPattern(String value) { jsElement[r'allowedPattern'] = value; }
 
@@ -53,9 +56,11 @@ class IronInput extends InputElement with CustomElementProxyMixin, PolymerBase, 
   String get bindValue => jsElement[r'bindValue'];
   set bindValue(String value) { jsElement[r'bindValue'] = value; }
 
-  /// Set to true to prevent the user from entering invalid input. The new input characters are
-  /// matched with `allowedPattern` if it is set, otherwise it will use the `type` attribute (only
-  /// supported for `type=number`).
+  /// Set to true to prevent the user from entering invalid input. If `allowedPattern` is set,
+  /// any character typed by the user will be matched against that pattern, and rejected if it's not a match.
+  /// Pasted input will have each character checked individually; if any character
+  /// doesn't match `allowedPattern`, the entire pasted string will be rejected.
+  /// If `allowedPattern` is not set, it will use the `type` attribute (only supported for `type=number`).
   bool get preventInvalidInput => jsElement[r'preventInvalidInput'];
   set preventInvalidInput(bool value) { jsElement[r'preventInvalidInput'] = value; }
 
@@ -63,4 +68,7 @@ class IronInput extends InputElement with CustomElementProxyMixin, PolymerBase, 
   /// then any constraints.
   bool validate() =>
       jsElement.callMethod('validate', []);
+
+  registered() =>
+      jsElement.callMethod('registered', []);
 }

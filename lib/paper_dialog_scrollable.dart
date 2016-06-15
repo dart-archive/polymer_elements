@@ -9,6 +9,7 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_flex_layout.dart';
+import 'paper_dialog_behavior.dart';
 import 'default_theme.dart';
 
 /// Material design: [Dialogs](https://www.google.com/design/spec/components/dialogs.html)

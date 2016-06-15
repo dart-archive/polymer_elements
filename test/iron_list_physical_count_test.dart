@@ -30,10 +30,12 @@ main() async {
 
     test('increase pool size', () async {
       await wait(100);
-      var lastItem = getLastItemFromList(list);
-      var lastItemHeight = lastItem.offsetHeight;
-      var expectedFinalItem = (container.listHeight / lastItemHeight).floor();
+      Element lastItem = getLastItemFromList(list);
+      int lastItemHeight = lastItem.offsetHeight;
+      int expectedFinalItem = ((container.listHeight / lastItemHeight) -1).floor();
+      expect(list.offsetHeight, container.listHeight);
       expect(lastItemHeight, 2);
+      expect(isFullOfItems(list),isTrue);
       expect(getLastItemFromList(list).text, expectedFinalItem.toString());
     });
   });
@@ -45,22 +47,20 @@ main() async {
     setUp(() {
       container = fixture('trivialListSmall');
       list = container.list;
+      list.style.display='none';
       list.items = buildDataSet(200);
     });
 
     test('increase pool size on resize', () async {
       await wait(1);
+
+      list.style.display = '';
+      expect(getFirstItemFromList(list).text,isNot('0'), reason:'Item should not be rendered');
       // resize
       list.fire('iron-resize');
 
       await wait(100);
-      var lastItem = getLastItemFromList(list);
-      var lastItemHeight = lastItem.offsetHeight;
-      int expectedFinalItem = (container.listHeight / lastItemHeight).round();
-
-      expect(list.offsetHeight, container.listHeight);
-      expect(lastItemHeight, 2);
-      expect(getLastItemFromList(list).text, '$expectedFinalItem');
+      expect(getFirstItemFromList(list).text, '0', reason:'Item should be rendered');
     });
   });
 }

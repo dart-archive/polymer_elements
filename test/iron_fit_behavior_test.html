@@ -44,6 +44,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       height: 200px;
     }
 
+    .sized-xy {
+      width: 200px;
+      height: 200px;
+    }
+
     .positioned-left {
       position: absolute;
       left: 100px;
@@ -97,6 +102,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </test-fit>
   </template>
 
+
+  <template id="with-max-width">
+    <div class="constrain" style="position: fixed; top: 20px; left: 100px; width: 50vw; height: 50vh; border: 1px solid black;">
+      <test-fit auto-fit-on-attach class="with-max-width el">
+        with-max-width, auto center/center
+      </test-fit>
+    </div>
+  </template>
+
   <template id="positioned-xy">
     <test-fit auto-fit-on-attach class="sized-x positioned-left positioned-top">
       Sized (x/y), positioned/positioned
@@ -120,7 +134,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <template id="constrain-target">
     <div class="constrain" style="position: fixed; top: 20px; left: 100px; width: 50vw; height: 50vh; border: 1px solid black;">
-      <test-fit auto-fit-on-attach class="el">
+      <test-fit auto-fit-on-attach class="el sized-xy">
         <div>
           Auto center/center to parent element
         </div>

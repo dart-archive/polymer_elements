@@ -18,14 +18,38 @@ main() async {
       IronAutogrowTextarea autogrow = fixture('basic');
       var textarea = autogrow.textarea;
       autogrow.bindValue = 'batman';
-      expect(textarea.value, autogrow.bindValue,
-          reason: 'textarea value equals to bindValue');
+      expect(textarea.value, autogrow.bindValue, reason: 'textarea value equals to bindValue');
     });
 
     test('can set an initial bindValue', () {
       IronAutogrowTextarea autogrow = fixture('has-bindValue');
-      expect(autogrow.textarea.value, 'foobar',
-          reason: 'textarea value equals to initial bindValue');
+      expect(autogrow.textarea.value, 'foobar', reason: 'textarea value equals to initial bindValue');
+
+      expect(autogrow.value, 'foobar', reason: 'value equals to initial bindValue');
+    });
+
+    test('can set an initial value', () {
+      var autogrow = fixture('has-value');
+      expect(autogrow.textarea.value, 'foobar', reason: 'textarea value equals to initial bindValue');
+      expect(autogrow.bindValue, 'foobar', reason: 'textarea bindValue equals to initial value');
+    });
+
+    test('can update the value', () {
+      var autogrow = fixture('has-bindValue');
+      expect(autogrow.textarea.value, 'foobar', reason: 'textarea value equals to initial bindValue');
+      autogrow.value = 'batman';
+      expect(autogrow.textarea.value, 'batman', reason: 'textarea value is updated');
+      expect(autogrow.bindValue, 'batman', reason: 'bindValue is updated');
+      expect(autogrow.value, 'batman', reason: 'value is updated');
+    });
+
+    test('can update the bindValue', () {
+      var autogrow = fixture('has-bindValue');
+      expect(autogrow.textarea.value, 'foobar', reason: 'textarea value equals to initial bindValue');
+      autogrow.bindValue = 'batman';
+      expect(autogrow.textarea.value, 'batman', reason: 'textarea value is updated');
+      expect(autogrow.bindValue, 'batman', reason: 'bindValue is updated');
+      expect(autogrow.value, 'batman', reason: 'value is updated');
     });
 
     test('can set an initial number of rows', () {

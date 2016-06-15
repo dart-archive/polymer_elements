@@ -18,20 +18,31 @@ import 'package:polymer_interop/polymer_interop.dart';
 abstract class IronScrollTargetBehavior implements CustomElementProxyMixin {
 
   /// Specifies the element that will handle the scroll event
-  /// on the behalf of the current element. This is typically a reference to an `Element`,
+  /// on the behalf of the current element. This is typically a reference to an element,
   /// but there are a few more posibilities:
   ///
   /// ### Elements id
   ///
   /// ```html
-  /// <div id="scrollable-element" style="overflow-y: auto;">
+  /// <div id="scrollable-element" style="overflow: auto;">
   ///  <x-element scroll-target="scrollable-element">
-  ///    Content
+  ///    <!-- Content-->
   ///  </x-element>
   /// </div>
   /// ```
-  /// In this case, `scrollTarget` will point to the outer div element. Alternatively,
-  /// you can set the property programatically:
+  /// In this case, the `scrollTarget` will point to the outer div element.
+  ///
+  /// ### Document scrolling
+  ///
+  /// For document scrolling, you can use the reserved word `document`:
+  ///
+  /// ```html
+  /// <x-element scroll-target="document">
+  ///   <!-- Content -->
+  /// </x-element>
+  /// ```
+  ///
+  /// ### Elements reference
   ///
   /// ```js
   /// appHeader.scrollTarget = document.querySelector('#scrollable-element');
@@ -40,8 +51,8 @@ abstract class IronScrollTargetBehavior implements CustomElementProxyMixin {
   set scrollTarget(value) { jsElement[r'scrollTarget'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Scrolls the content to a particular place.
-  /// [top]: The top position
   /// [left]: The left position
-  scroll(num top, num left) =>
-      jsElement.callMethod('scroll', [top, left]);
+  /// [top]: The top position
+  scroll(num left, num top) =>
+      jsElement.callMethod('scroll', [left, top]);
 }

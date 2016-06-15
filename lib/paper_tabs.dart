@@ -56,12 +56,40 @@ import 'paper_tab.dart';
 ///
 ///
 /// To use links in tabs, add `link` attribute to `paper-tab` and put an `<a>`
-/// element in `paper-tab`.
+/// element in `paper-tab` with a `tabindex` of -1.
 ///
 /// Example:
 ///
-///     <style is="custom-style">
-///       .link {
+/// <pre><code>
+/// &lt;style is="custom-style">
+///   .link {
+///     &#64;apply(--layout-horizontal);
+///     &#64;apply(--layout-center-center);
+///   }
+/// &lt;/style>
+///
+/// &lt;paper-tabs selected="0">
+///   &lt;paper-tab link>
+///     &lt;a href="#link1" class="link" tabindex="-1">TAB ONE&lt;/a>
+///   &lt;/paper-tab>
+///   &lt;paper-tab link>
+///     &lt;a href="#link2" class="link" tabindex="-1">TAB TWO&lt;/a>
+///   &lt;/paper-tab>
+///   &lt;paper-tab link>
+///     &lt;a href="#link3" class="link" tabindex="-1">TAB THREE&lt;/a>
+///   &lt;/paper-tab>
+/// &lt;/paper-tabs>
+/// </code></pre>
+///
+/// ### Styling
+///
+/// The following custom properties and mixins are available for styling:
+///
+/// Custom property | Description | Default
+/// ----------------|-------------|----------
+/// `--paper-tabs-selection-bar-color` | Color for the selection bar | `--paper-yellow-a100`
+/// `--paper-tabs-selection-bar` | Mixin applied to the selection bar | `{}`
+/// `--paper-tabs` | Mixin applied to the tabs | `{}`
 @CustomElementProxy('paper-tabs')
 class PaperTabs extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronResizableBehavior, IronSelectableBehavior, IronMultiSelectableBehavior, IronA11yKeysBehavior, IronMenuBehavior, IronMenubarBehavior {
   PaperTabs.created() : super.created();
@@ -71,6 +99,17 @@ class PaperTabs extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   bool get alignBottom => jsElement[r'alignBottom'];
   set alignBottom(bool value) { jsElement[r'alignBottom'] = value; }
 
+  /// If true, tabs are automatically selected when focused using the
+  /// keyboard.
+  bool get autoselect => jsElement[r'autoselect'];
+  set autoselect(bool value) { jsElement[r'autoselect'] = value; }
+
+  /// The delay (in milliseconds) between when the user stops interacting
+  /// with the tabs through the keyboard and when the focused item is
+  /// automatically selected (if `autoselect` is true).
+  num get autoselectDelay => jsElement[r'autoselectDelay'];
+  set autoselectDelay(num value) { jsElement[r'autoselectDelay'] = value; }
+
   /// If true, dragging on the tabs to scroll is disabled.
   bool get disableDrag => jsElement[r'disableDrag'];
   set disableDrag(bool value) { jsElement[r'disableDrag'] = value; }
@@ -79,19 +118,22 @@ class PaperTabs extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   bool get hideScrollButtons => jsElement[r'hideScrollButtons'];
   set hideScrollButtons(bool value) { jsElement[r'hideScrollButtons'] = value; }
 
+  get keyBindings => jsElement[r'keyBindings'];
+  set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+
   /// If true, the bottom bar to indicate the selected tab will not be shown.
   bool get noBar => jsElement[r'noBar'];
   set noBar(bool value) { jsElement[r'noBar'] = value; }
+
+  /// If true, the slide effect for the bottom bar is disabled.
+  bool get noSlide => jsElement[r'noSlide'];
+  set noSlide(bool value) { jsElement[r'noSlide'] = value; }
 
   /// If true, ink ripple effect is disabled. When this property is changed,
   /// all descendant `<paper-tab>` elements have their `noink` property
   /// changed to the new value as well.
   bool get noink => jsElement[r'noink'];
   set noink(bool value) { jsElement[r'noink'] = value; }
-
-  /// If true, the slide effect for the bottom bar is disabled.
-  bool get noSlide => jsElement[r'noSlide'];
-  set noSlide(bool value) { jsElement[r'noSlide'] = value; }
 
   /// If true, tabs are scrollable and the tab width is based on the label width.
   bool get scrollable => jsElement[r'scrollable'];

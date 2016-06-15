@@ -12,6 +12,8 @@ import 'package:web_components/web_components.dart';
 import 'common.dart';
 import 'fixtures/test_menu.dart';
 
+getOwnerRoot(Element e) => new PolymerDom(e).getOwnerRoot() !=null ? new PolymerDom(e).getOwnerRoot(): document;
+
 main() async {
   await initPolymer();
 
@@ -31,8 +33,9 @@ main() async {
         focus(menu);
         // wait for async in _onFocus
         await wait(200);
-        expect(document.activeElement, menu.children.first,
-            reason: 'document.activeElement is first item');
+        var ownerRoot = getOwnerRoot(menu.children.first);
+        var activeElement = new PolymerDom(ownerRoot).activeElement;
+        expect(activeElement, menu.children.first, reason:'menu.firstElementChild is focused');
       });
 
       test('selected item gets focus when menu is focused', () async {
@@ -40,9 +43,23 @@ main() async {
         focus(menu);
         // wait for async in _onFocus
         await wait(200);
-        expect(document.activeElement, menu.selectedItem,
-            reason: 'document.activeElement is selected item');
+        var ownerRoot = getOwnerRoot(menu.selectedItem);
+        var activeElement = Polymer.dom(ownerRoot).activeElement;
+        expect(activeElement, menu.selectedItem, reason:'menu.selectedItem is focused');
       });
+
+
+      test('focusing non-item content does not auto-focus an item', () async {
+        TestMenu menu = fixture('basic');
+        menu.extraContent.focus();
+        await wait(200);
+        var menuOwnerRoot = getOwnerRoot(menu.extraContent);
+        var menuActiveElement = new PolymerDom(menuOwnerRoot).activeElement;
+        expect(menuActiveElement, menu.extraContent, reason: 'menu.extraContent is focused');
+        expect(new PolymerDom(document).activeElement, menu, reason: 'menu is document.activeElement');
+      });
+
+
     });
 
     group('multi', () {
@@ -56,8 +73,9 @@ main() async {
         tap(menu.items[1]);
         // wait for async in _onFocus
         await wait(200);
-        expect(document.activeElement, menu.items[1],
-            reason: 'document.activeElement is last activated item');
+        var ownerRoot = getOwnerRoot(menu.items[1]);
+        var activeElement = Polymer.dom(ownerRoot).activeElement;
+        expect(activeElement, menu.items[1], reason: 'menu.items[1] is focused');
       }, skip: 'fails in test runner');
 
       test('deselection in a multi select menu focuses deselected item',
@@ -66,8 +84,9 @@ main() async {
         tap(menu.items[0]);
         // wait for async in _onFocus
         await wait(200);
-        expect(document.activeElement, menu.items[0],
-            reason: 'document.activeElement is last activated item');
+        var ownerRoot = getOwnerRoot(menu.items[0]);
+        var activeElement = Polymer.dom(ownerRoot).activeElement;
+        expect(activeElement, menu.items[0],reason:  'menu.items[0] is focused');
       });
     });
 
@@ -98,5 +117,15 @@ main() async {
         expect(menu.children.first.tagName, 'TEST-MENU');
         expect(keyCounter, 0);
       });
+
+    test('empty menus don\'t unfocus themselves', () async {
+    var menu = fixture('empty');
+
+    menu.focus();
+    await wait(200);
+
+    expect(Polymer.dom(document).activeElement, menu);
+
+    });
   });
 }

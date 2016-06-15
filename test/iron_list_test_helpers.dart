@@ -7,6 +7,9 @@ import 'dart:html';
 import 'dart:js';
 import 'package:polymer_elements/iron_list.dart';
 import 'common.dart';
+import 'dart:async';
+import 'dart:math' as Math;
+import 'package:polymer/polymer.dart';
 
 JsFunction _matchesSelector = context['Polymer']['DomApi']['matchesSelector'];
 
@@ -34,45 +37,60 @@ JsArray buildDataSet(size) {
   return new JsObject.jsify(data);
 }
 
-void simulateScroll(config, fn) {
-  var list = config['list'];
-  var target = config['target'];
-  var delay = config['delay'] != null ? config['delay'] : 1;
-  var contribution =
-      config['contribution'] != null ? config['contribution'] : 10;
-  scroll(dir, prevVal) {
-    if ((dir > 0 && list.scrollTop >= target) ||
-        (dir < 0 && list.scrollTop <= target) ||
-        list.scrollTop == prevVal) {
-      list.scrollTop = target;
-      wait(100).then((_) {
-        fn(list.scrollTop);
-      });
-      return;
-    }
-    prevVal = list.scrollTop;
-    list.scrollTop = list.scrollTop + dir;
-    wait(delay).then((_) {
-      scroll(dir, prevVal);
+void simulateScroll(config) {
+  IronList list = config['list'];
+  num target = config['target'];
+  num delay = config['delay'] != null ? config['delay'] : 1;
+  num contribution =
+      config['contribution'] != null ? (config['contribution'] as num).abs() : 10;
+  // scroll back up
+  if (target < list.scrollTop) {
+    contribution = -contribution;
+  }
+  StreamSubscription l;
+  scrollHandler() {
+
+    new Future.delayed(new Duration(milliseconds: delay)).then((_) {
+      num minScrollTop = 0;
+      num maxScrollTop = list.scrollHeight - list.offsetHeight;
+
+      if (config['onScroll'] != null) config['onScroll']();
+
+      if (list.scrollTop < target && contribution > 0 && list.scrollTop < maxScrollTop) {
+        num x = Math.min(maxScrollTop, list.scrollTop + contribution);
+        list.scrollTop = x;
+      } else if (list.scrollTop > target && contribution < 0 && list.scrollTop > minScrollTop) {
+        list.scrollTop = Math.max(minScrollTop, list.scrollTop + contribution);
+      } else {
+        l.cancel();
+        list.scrollTop = target;
+        new Future.delayed(new Duration(milliseconds: 10)).then((_){
+          if (config['onScrollEnd']!=null) config['onScrollEnd']();
+        });
+
+      }
+
+      //print("T : ${list.scrollTop}");
     });
   }
-  if (list.scrollTop < target) {
-    scroll((contribution as int).abs(), -1);
-  } else if (list.scrollTop > target) {
-    scroll(-(contribution as int).abs(), -1);
-  }
+  l=list.onScroll.listen((_) => scrollHandler());
+  scrollHandler();
 }
 
 Element getFirstItemFromList(list) {
   var listRect = list.getBoundingClientRect();
-  return document.elementFromPoint(
-      (listRect.left + 1).floor(), (listRect.top + 1).floor());
+  Element e= document.elementFromPoint(
+      (listRect.left + 100).floor(), (listRect.top + 1).floor());
+  //print("RECT:${listRect} -> ${e} at ${listRect.top+1}");
+  return e;
 }
 
 Element getLastItemFromList(list) {
-  var listRect = list.getBoundingClientRect();
-  return document.elementFromPoint((listRect.left + 1).floor(),
-      (listRect.top + listRect.height - 1).floor());
+  Rectangle listRect = list.getBoundingClientRect();
+  Element e = document.elementFromPoint((listRect.left + 100).floor(),
+                                        (listRect.bottom - 1).floor());
+  //print("RECT:${listRect} -> ${e} at ${listRect.bottom-1}");
+  return e;
 }
 
 isFullOfItems(IronList list) {
@@ -84,15 +102,40 @@ isFullOfItems(IronList list) {
   while (y < listHeight) {
     item = document.elementFromPoint((listRect.left + 100).floor(), y.floor())
         as HtmlElement;
-    if (item.parentNode != null &&
+    if (item==null || (item.parentNode != null &&
         new JsObject.fromBrowserObject(item.parentNode)['_templateInstance'] ==
-            null) {
+            null)) {
       badPixels++;
     }
-    if (badPixels > 3) {
+    y++;
+    if (badPixels > 2) {
       return false;
     }
-    y += 2;
   }
   return true;
+}
+
+
+checkRepeatedItems(list) {
+  var listRect = list.getBoundingClientRect();
+  var listHeight = list.offsetHeight;
+  var listItems = {};
+
+  return () {
+    var itemKey;
+    var y = listRect.top;
+    while (y < listHeight) {
+      var item = document.elementFromPoint((listRect.left + 100).floor(), (y + 2).floor());
+      itemKey = item.text!=null?item.text: item.innerHtml;
+
+      if (item.parentNode != null && new JsObject.fromBrowserObject(item.parentNode)["_templateInstance"]!=null) {
+        if (listItems["itemKey"] !=null && listItems["itemKey"] != item) {
+          return true;
+        }
+        listItems["itemKey"] = item;
+      }
+      y += item.offsetHeight;
+    }
+    return false;
+  };
 }

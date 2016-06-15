@@ -11,6 +11,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_elements/iron_input.dart';
 import 'package:polymer_elements/paper_input_container.dart';
 import 'common.dart';
+import 'dart:html';
 
 String getTransform(node) {
   var style = node.getComputedStyle();
@@ -19,6 +20,25 @@ String getTransform(node) {
 
 main() async {
   await initWebComponents();
+
+  suite('basic', () {
+    test('can be created imperatively', () {
+      PaperInputContainer container = document.createElement('paper-input-container');
+      IronInput input = document.createElement('input', 'iron-input');
+      input.className = 'paper-input-input';
+      input.id = 'input';
+
+      var label = document.createElement('label');
+      label.innerHtml = 'label';
+
+      new PolymerDom(container).append(label);
+      new PolymerDom(container).append(input);
+
+      document.body.children.add(container);
+      $assert.isOk(container);
+      document.body.children.remove(container);
+    });
+  });
 
   group('label position', () {
     test('label is visible by default', () async {

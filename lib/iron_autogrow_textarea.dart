@@ -21,9 +21,6 @@ import 'iron_flex_layout.dart';
 ///
 ///     <iron-autogrow-textarea></iron-autogrow-textarea>
 ///
-/// Because the `textarea`'s `value` property is not observable, you should use
-/// this element's `bind-value` instead for imperative updates.
-///
 /// ### Styling
 ///
 /// The following custom properties and mixins are available for styling:
@@ -31,6 +28,7 @@ import 'iron_flex_layout.dart';
 /// Custom property | Description | Default
 /// ----------------|-------------|----------
 /// `--iron-autogrow-textarea` | Mixin applied to the textarea | `{}`
+/// `--iron-autogrow-textarea-placeholder` | Mixin applied to the textarea placeholder | `{}`
 @CustomElementProxy('iron-autogrow-textarea')
 class IronAutogrowTextarea extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronFormElementBehavior, IronValidatableBehavior, IronControlState {
   IronAutogrowTextarea.created() : super.created();
@@ -45,6 +43,7 @@ class IronAutogrowTextarea extends HtmlElement with CustomElementProxyMixin, Pol
   set autofocus(bool value) { jsElement[r'autofocus'] = value; }
 
   /// Use this property instead of `value` for two-way data binding.
+  /// This property will be deprecated in the future. Use `value` instead.
   get bindValue => jsElement[r'bindValue'];
   set bindValue(value) { jsElement[r'bindValue'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
@@ -52,18 +51,14 @@ class IronAutogrowTextarea extends HtmlElement with CustomElementProxyMixin, Pol
   String get inputmode => jsElement[r'inputmode'];
   set inputmode(String value) { jsElement[r'inputmode'] = value; }
 
-  /// The maximum length of the input value.
-  num get maxlength => jsElement[r'maxlength'];
-  set maxlength(num value) { jsElement[r'maxlength'] = value; }
-
   /// The maximum number of rows this element can grow to until it
   /// scrolls. 0 means no maximum.
   num get maxRows => jsElement[r'maxRows'];
   set maxRows(num value) { jsElement[r'maxRows'] = value; }
 
-  /// Bound to the textarea's `name` attribute.
-  String get name => jsElement[r'name'];
-  set name(String value) { jsElement[r'name'] = value; }
+  /// The maximum length of the input value.
+  num get maxlength => jsElement[r'maxlength'];
+  set maxlength(num value) { jsElement[r'maxlength'] = value; }
 
   /// Bound to the textarea's `placeholder` attribute.
   String get placeholder => jsElement[r'placeholder'];
@@ -81,20 +76,16 @@ class IronAutogrowTextarea extends HtmlElement with CustomElementProxyMixin, Pol
   num get rows => jsElement[r'rows'];
   set rows(num value) { jsElement[r'rows'] = value; }
 
-  /// Returns textarea's selection end.
+  /// Sets the textarea's selection end.
   get selectionEnd => jsElement[r'selectionEnd'];
   set selectionEnd(value) { jsElement[r'selectionEnd'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
-  /// Returns textarea's selection start.
+  /// Sets the textarea's selection start.
   get selectionStart => jsElement[r'selectionStart'];
   set selectionStart(value) { jsElement[r'selectionStart'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Returns the underlying textarea.
   get textarea => jsElement[r'textarea'];
-
-  /// The value for this input, same as `bindValue`
-  String get value => jsElement[r'value'];
-  set value(String value) { jsElement[r'value'] = value; }
 
   /// Returns true if `value` is valid. The validator provided in `validator`
   /// will be used first, if it exists; otherwise, the `textarea`'s validity

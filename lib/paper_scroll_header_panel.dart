@@ -49,7 +49,7 @@ import 'iron_resizable_behavior.dart';
 ///
 /// ```html
 /// <paper-scroll-header-panel>
-///   <paper-toolbar>Header</paper-toolbar>
+///   <div class="paper-header">Header</div>
 ///   <div>Content goes here...</div>
 /// </paper-scroll-header-panel>
 /// ```

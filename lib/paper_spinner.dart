@@ -42,6 +42,7 @@ import 'paper_spinner_styles.dart';
 /// `--paper-spinner-layer-2-color` | Color of the second spinner rotation | `--google-red-500`
 /// `--paper-spinner-layer-3-color` | Color of the third spinner rotation | `--google-yellow-500`
 /// `--paper-spinner-layer-4-color` | Color of the fourth spinner rotation | `--google-green-500`
+/// `--paper-spinner-stroke-width` | The width of the spinner stroke | 3px
 @CustomElementProxy('paper-spinner')
 class PaperSpinner extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperSpinnerBehavior {
   PaperSpinner.created() : super.created();

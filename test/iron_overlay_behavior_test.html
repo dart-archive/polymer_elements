@@ -19,6 +19,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!--<script type="application/dart" src="iron_overlay_behavior_test.dart"></script>-->
   <!--<script src="packages/browser/dart.js"></script>-->
   <script src="packages/test/dart.js"></script>
+
+  <style is="custom-style">
+    iron-overlay-backdrop {
+      /* For quicker tests */
+      --iron-overlay-backdrop: {
+        transition: none;
+      }
+    }
+  </style>
+
 </head>
 <body>
   <template id="basic">
@@ -40,6 +50,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </test-overlay>
   </template>
 
+  <template id="focusables">
+      <test-overlay tabindex="-1">
+        <h2>Focusables (no tabindex)</h2>
+        <div>
+          <input class="focusable1" placeholder="1 (nested)">
+        </div>
+        <button class="focusable2">1</button>
+        <button disabled> disabled button</button>
+        <div tabindex="-1">not focusable</div>
+        <button class="focusable3">2</button>
+      </test-overlay>
+      <test-overlay tabindex="-1">
+        <h2>Focusables (with tabindex)</h2>
+        <div tabindex="-1">not focusable</div>
+        <div tabindex="3" class="focusable3">3</div>
+        <div tabindex="4" class="focusable4">4</div>
+        <div tabindex="5" class="focusable5">5</div>
+        <div>
+          <div tabindex="1" class="focusable1">1 (nested)</div>
+          <div tabindex="6" class="focusable6">6 (nested)</div>
+        </div>
+        <div tabindex="2" class="focusable2">2</div>
+      </test-overlay>
+  </template>
+
+  <template id="backdrop">
+      <test-overlay with-backdrop>
+        Overlay with backdrop
+      </test-overlay>
+  </template>
+
   <template id="multiple">
     <test-overlay class="overlay-1">
       Overlay 1
@@ -47,21 +88,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <test-overlay class="overlay-2">
       Overlay 2
     </test-overlay>
-    <test-overlay class="overlay-3">
+    <test-overlay2 class="overlay-3">
       Overlay 3
-    </test-overlay>
+    </test-overlay2>
   </template>
 
-  <template id="backdrop-multiple">
-    <test-overlay with-backdrop class="overlay-1">
-      Overlay 1 with backdrop
-    </test-overlay>
-    <test-overlay with-backdrop class="overlay-2">
-      Overlay 2 with backdrop
-    </test-overlay>
-    <test-overlay with-backdrop class="overlay-3">
-      Overlay 3 with backdrop
-    </test-overlay>
+  <template id="composed">
+      <test-menu-button>
+        Composed overlay
+        <button>Button</button>
+      </test-menu-button>
   </template>
+
+  <test-buttons id="buttons"></test-buttons>
+  <input id="focusInput" placeholder="focus input">
 </body>
 </html>

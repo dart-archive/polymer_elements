@@ -12,6 +12,9 @@ import 'package:polymer_elements/neon_animated_pages.dart';
 import 'package:test/test.dart';
 import 'common.dart';
 import 'fixtures/neon_test_resizable_pages.dart';
+import 'package:polymer_elements/neon_animation/animations/slide_from_left_animation.dart';
+import 'package:polymer_elements/neon_animation/animations/slide_right_animation.dart';
+import 'package:polymer_elements/neon_animatable.dart';
 
 /// Used imports: [AResizablePage], [BResizablePage], [CResizablePage]
 main() async {
@@ -39,5 +42,22 @@ main() async {
         expect(receives, equals({'C-RESIZABLE-PAGE': 1}));
       });
     });
+  });
+
+
+  suite('animate-initial-selection', () {
+    test('\'neon-animation-finish\' event fired after animating initial selection', when((done) {
+      var animatedPages = fixture('animate-initial-selection');
+      $assert.isUndefined(animatedPages.selected);
+      var pages = new PolymerDom(animatedPages)
+          .children;
+      animatedPages.on['neon-animation-finish'].take(1).listen((event) {
+        $assert.strictEqual(animatedPages.selected, 0);
+        $assert.isFalse(new CustomEventWrapper(event).detail['fromPage']);
+        $assert.deepEqual(new CustomEventWrapper(event).detail['toPage'], pages[0]);
+        done();
+      });
+      animatedPages.selected = 0;
+    }));
   });
 }

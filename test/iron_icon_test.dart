@@ -91,5 +91,61 @@ main() async {
         return done;
       });
     });
+
+    group('when switching between src and icon properties', () {
+      var icon;
+
+      setUp(() {
+        var elements = fixture('IconFromIconset');
+        icon = elements[1];
+      });
+
+      test('will display the icon if both icon and src are set', () {
+        icon.src = '../demo/location.png';
+        icon.icon = 'example:location';
+        expect(hasIcon(icon), isTrue);
+        expect(iconElementFor(icon), isNull);
+
+        // Check if it works too it we change the affectation order
+        icon.icon = 'example:location';
+        icon.src = '../demo/location.png';
+        expect(hasIcon(icon), isTrue);
+        expect(iconElementFor(icon), isNull);
+      });
+
+      test('will display the icon when src is defined first and then reset', () {
+        icon.src = '../demo/location.png';
+        icon.icon = null;
+        icon.src = null;
+        icon.icon = 'example:location';
+        expect(hasIcon(icon), isTrue);
+        expect(iconElementFor(icon), isNull);
+      });
+
+      test('will display the src when icon is defined first and then reset', () {
+        icon.src = null;
+        icon.icon = 'example:location';
+        icon.src = '../demo/location.png';
+        icon.icon = null;
+        expect(hasIcon(icon), isFalse);
+        expect(iconElementFor(icon), isNotNull);
+      });
+
+      test('will display nothing if both properties are unset', () {
+        icon.src = '../demo/location.png';
+        icon.icon = 'example:location';
+        icon.src = null;
+        icon.icon = null;
+        expect(hasIcon(icon), isFalse);
+        expect(iconElementFor(icon), isNull);
+      });
+    });
+    group('ancestor direct updates', () {
+      test('handle properties set before ready', () {
+        var holder = fixture('ParentForceUpdate');
+      });
+    });
+
+
   });
 }

@@ -29,6 +29,15 @@ main() async {
         pressSpace(keys);
 
         expect(keys.keyCount, 1);
+
+        pressAndReleaseKeyOn(keys, 27,[],'Esc');
+        expect(keys.keyCount,2);
+
+        pressAndReleaseKeyOn(keys, 27,[],'Escape');
+        expect(keys.keyCount,3);
+
+        pressAndReleaseKeyOn(keys, 27);
+        expect(keys.keyCount,4);
       });
 
       test(
@@ -147,6 +156,27 @@ main() async {
           jsEvent['key'] = 'ArrowUp';
           expect(keys.keyboardEventMatchesKeys(event, 'up'), true);
         });
+
+
+        group('matching keyboard events to top row and number pad digit keys', () {
+          test('top row can be done imperatively', () {
+            var event = new CustomEvent('keydown');
+            var jsEvent = new JsObject.fromBrowserObject(event);
+            jsEvent['keyCode'] = 49;
+            expect(keys.keyboardEventMatchesKeys(event, '1'), true);
+          });
+
+          test('number pad digits can be done imperatively', () {
+            var event = new CustomEvent('keydown');
+            var jsEvent = new JsObject.fromBrowserObject(event);
+            jsEvent['keyCode'] = 97;
+            expect(keys.keyboardEventMatchesKeys(event, '1'), true);
+          });
+        });
+
+
+
+
       });
     });
 
@@ -168,6 +198,21 @@ main() async {
 
         expect(keys.keyCount, 1);
       });
+
+      test('check if KeyBoardEvent.key is alpha-numberic', () {
+        var event = new CustomEvent('keydown');
+        var jsEvent = new JsObject.fromBrowserObject(event);
+
+        jsEvent['ctrlKey'] = true;
+        jsEvent['shiftKey'] = true;
+        jsEvent['key'] = 'å';
+        jsEvent['keyCode'] = jsEvent['code'] = 65;
+
+        keys.dispatchEvent(event);
+
+        expect(keys.keyCount, 1);
+      });
+
 
       test('trigger also bindings without modifiers', () {
         var event = new CustomEvent('keydown');
@@ -310,7 +355,8 @@ class XA11yBasicKeys extends PolymerElement
   @reflectable
   static Map<String, String> keyBindings = {
     'space': 'keyHandler',
-    '@': 'keyHandler'
+    '@': 'keyHandler',
+    'esc' : 'keyHandler'
   };
 }
 

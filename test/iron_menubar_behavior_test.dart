@@ -12,6 +12,8 @@ import 'package:web_components/web_components.dart';
 import 'common.dart';
 import 'fixtures/test_menubar.dart';
 
+getOwnerRoot(Element e) => new PolymerDom(e).getOwnerRoot() !=null ? new PolymerDom(e).getOwnerRoot(): document;
+
 main() async {
   await initPolymer();
 
@@ -32,7 +34,7 @@ main() async {
         focus(menubar);
         // wait for async in _onFocus
         await wait(200);
-        expect(document.activeElement, menubar.children.first,
+        expect(new PolymerDom(document).activeElement, menubar.children.first,
             reason: 'document.activeElement is first item');
       });
 
@@ -41,9 +43,26 @@ main() async {
         focus(menubar);
         // wait for async in _onFocus
         await wait(200);
-        expect(document.activeElement, menubar.selectedItem,
+        expect(new PolymerDom(document).activeElement, menubar.selectedItem,
             reason: 'document.activeElement is selected item');
       });
+
+
+      test('focusing non-item content does not auto-focus an item', () async {
+        TestMenuBar menubar = fixture('basic');
+        menubar.extraContent.focus();
+        await wait(200);
+        var ownerRoot = getOwnerRoot(menubar.extraContent);
+        var activeElement = Polymer
+            .dom(ownerRoot)
+            .activeElement;
+        expect(activeElement, menubar.extraContent, reason: 'menubar.extraContent is focused');
+        expect(Polymer
+                   .dom(document)
+                   .activeElement, menubar, reason: 'menubar is document.activeElement');
+      });
+
+
     });
 
     group('multi', () {
@@ -58,7 +77,7 @@ main() async {
         tap(menubar.items[1]);
         // wait for async in _onFocus
         await wait(200);
-        expect(document.activeElement, menubar.items[1],
+        expect(new PolymerDom(document).activeElement, menubar.items[1],
             reason: 'document.activeElement is last activated item');
       });
 
@@ -68,9 +87,48 @@ main() async {
         tap(menubar.items[0]);
         // wait for async in _onFocus
         await wait(200);
-        expect(document.activeElement, menubar.items[0],
+        expect(new PolymerDom(document).activeElement, menubar.items[0],
             reason: 'document.activeElement is last activated item');
       });
     });
+
+    group('left / right keys are reversed when the menubar has RTL directionality', () {
+      const int LEFT = 37;
+      const int RIGHT = 39;
+
+      test('left key moves to the next item', () {
+        var rtlContainer = fixture('rtl');
+        var menubar = rtlContainer.querySelector('test-menubar');
+        menubar.selected = 0;
+        menubar.items[1].click();
+
+        expect(new PolymerDom(document).activeElement, menubar.items[1]);
+
+        pressAndReleaseKeyOn(menubar, LEFT);
+
+        expect(new PolymerDom(document).activeElement, menubar.items[2],
+                   reason: '`document.activeElement` should be the next item.');
+        expect(menubar.selected, 1,
+                   reason: '`menubar.selected` should not change.');
+      });
+
+      test('right key moves to the previous item', () {
+        var rtlContainer = fixture('rtl');
+        var menubar = rtlContainer.querySelector('test-menubar');
+        menubar.selected = 0;
+        menubar.items[1].click();
+
+        expect(new PolymerDom(document).activeElement, menubar.items[1]);
+
+        pressAndReleaseKeyOn(menubar, RIGHT);
+
+        expect(new PolymerDom(document).activeElement, menubar.items[0],
+                   reason: '`document.activeElement` should be the previous item');
+        expect(menubar.selected, 1,
+                   reason: '`menubar.selected` should not change.');
+      });
+    });
+
+
   });
 }

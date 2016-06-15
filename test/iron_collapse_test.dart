@@ -9,6 +9,7 @@ import 'package:polymer_elements/iron_collapse.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
+import 'sinon/sinon.dart';
 
 main() async {
   await initWebComponents();
@@ -27,8 +28,7 @@ main() async {
     });
 
     test('animated by default', () {
-      expect(collapse.noAnimation, isNot(true),
-          reason: '`noAnimation` is falsy');
+      expect(collapse.noAnimation, isNot(true), reason: '`noAnimation` is falsy');
     });
 
     test('horizontal attribute', () {
@@ -49,7 +49,7 @@ main() async {
 
     test('enableTransition(false) disables animations', () {
       collapse.enableTransition(false);
-      expect(collapse.noAnimation, isTrue,reason:'`noAnimation` is true');
+      expect(collapse.noAnimation, isTrue, reason: '`noAnimation` is true');
       // trying to animate the size update
       collapse.updateSize('0px', true);
       // Animation immediately disabled.
@@ -65,7 +65,6 @@ main() async {
       expect(collapse.style.height, '0px');
 
       await for (var _ in collapse.on['transitionend']) {
-
         if (collapse.opened) {
           // Check finalSize after animation is done.
           expect(collapse.style.height, 'auto');
@@ -81,17 +80,46 @@ main() async {
       }
     }, skip: 'https://github.com/dart-lang/polymer_elements/issues/116');
 
+    test('opened changes trigger iron-resize', () {
+      Stub spy = new Stub();
+      collapse.addEventListener('iron-resize', spy);
+      // No animations for faster test.
+      collapse.noAnimation = true;
+      collapse.opened = false;
+      expect(spy.calledOnce, isTrue, reason: 'iron-resize was fired');
+    });
+
+    test('overflow is hidden while animating', () async {
+      expect(collapse.getComputedStyle().overflow, 'visible');
+      collapse.opened = false;
+      // Immediately updated style.
+      expect(collapse.getComputedStyle().overflow, 'hidden');
+
+      await collapse.on['transitionend'].first;
+      // Should still be hidden.
+      expect(collapse.getComputedStyle().overflow, 'hidden');
+    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/116');
+
+    test('toggle horizontal updates size', () {
+      collapse.horizontal = false;
+      expect(collapse.style.width, '');
+      expect(collapse.style.height, 'auto');
+      expect(collapse.style.transitionProperty, 'height');
+
+      collapse.horizontal = true;
+      expect(collapse.style.width, 'auto');
+      expect(collapse.style.height, '');
+      expect(collapse.style.transitionProperty, 'width');
+    });
   });
 
-  group('horizontal', ()
-  {
+  group('horizontal', () {
     IronCollapse collapse;
     var collapseWidth;
 
     setUp(() {
       collapse = fixture('horizontal');
       collapseWidth = collapse.getComputedStyle().width;
-
     });
 
     test('opened attribute', () {
@@ -115,7 +143,6 @@ main() async {
       expect(collapse.style.width, '0px');
 
       await for (var _ in collapse.on['transitionend']) {
-
         if (collapse.opened) {
           // Check finalSize after animation is done.
           expect(collapse.style.width, 'auto');
@@ -129,7 +156,67 @@ main() async {
           expect(collapse.style.width, collapseWidth);
         }
       }
-
     }, skip: 'https://github.com/dart-lang/polymer_elements/issues/116');
+  });
+
+  group('nested', () {
+    var outerCollapse;
+    var innerCollapse;
+
+    setUp(() {
+      outerCollapse = fixture('nested');
+    });
+
+    group('vertical', () {
+      setUp(() {
+        innerCollapse = outerCollapse.querySelector('#inner-collapse-vertical');
+      });
+
+      test('inner collapse default opened attribute', () {
+        expect(innerCollapse.opened, false);
+      });
+
+      test('inner collapse default style height', () {
+        expect(innerCollapse.style.height, '0px');
+      });
+
+      test('open inner collapse updates size without animation', () {
+        innerCollapse.opened = true;
+
+        // Animation disabled
+        expect(innerCollapse.style.transitionDuration, '0s');
+      });
+
+      test('open inner collapse then open outer collapse reveals inner collapse with expanded height', () {
+        innerCollapse.opened = true;
+        outerCollapse.opened = true;
+
+        expect(innerCollapse.getBoundingClientRect().height, 100);
+      });
+    });
+
+    group('horizontal', () {
+      setUp(() {
+        innerCollapse = outerCollapse.querySelector('#inner-collapse-horizontal');
+      });
+
+      test('inner collapse default style width', () {
+        expect(innerCollapse.style.width, '0px');
+      });
+
+      test('open inner collapse updates size without animation', () {
+        innerCollapse.opened = true;
+
+        // Animation disabled
+        expect(innerCollapse.style.transitionDuration, '0s');
+      });
+
+      test('open inner collapse then open outer collapse reveals inner collapse with expanded width', () {
+        innerCollapse.opened = true;
+        outerCollapse.opened = true;
+
+        expect(innerCollapse.getBoundingClientRect().width, 100);
+      });
+    });
   });
 }

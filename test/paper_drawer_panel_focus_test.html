@@ -1,0 +1,70 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>paper dropdown menu test</title>
+
+    <script src="packages/web_components/webcomponents-lite.js"></script>
+    <link rel="x-dart-test" href="paper_drawer_panel_focus_test.dart">
+    <!-- <script type="application/dart" src="paper_drawer_panel_positioning_test.dart"></script> -->
+    <!-- <script src="packages/browser/dart.js"></script> -->
+    <script src="packages/test/dart.js"></script>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+    }
+</style>
+<body>
+
+<template id="drawer">
+
+        <paper-drawer-panel force-narrow>
+            <div drawer>
+                <input id="innerLink1" tabindex="0" value="inside drawer 1">
+                <input id="innerLink2" tabindex="0" value="inside drawer 2">
+            </div>
+            <div main>
+                <input id="outerLink" tabindex="0" value="outside drawer">
+            </div>
+        </paper-drawer-panel>
+
+</template>
+
+<template id="nestedDrawer">
+
+        <paper-drawer-panel force-narrow>
+            <div drawer>
+                <input id="innerLink1" tabindex="0" value="inside drawer 1">
+            </div>
+            <paper-drawer-panel id="drawer2" main force-narrow>
+                <div drawer>
+                    <input id="innerLink2" tabindex="0" value="inside drawer 2">
+                </div>
+                <div main>
+                    <input id="outerLink" tabindex="0" value="outside drawer">
+                </div>
+            </paper-drawer-panel>
+        </paper-drawer-panel>
+
+</template>
+
+
+</body>
+</html>
