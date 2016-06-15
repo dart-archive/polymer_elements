@@ -13,6 +13,7 @@ import 'package:polymer_elements/paper_input_char_counter.dart';
 import 'package:polymer_elements/paper_input_container.dart';
 
 import 'common.dart';
+import 'package:polymer/polymer.dart';
 
 main() async {
   await initWebComponents();
@@ -33,6 +34,23 @@ main() async {
             as PaperInputContainer).$$('.label-is-floating');
         expect(floatingLabel, isNotNull);
       });
+
+
+      test('special types autofloat the label', () {
+        PaperInput input = fixture('date');
+        // Browsers that don't support special <input> types like `date` fallback
+        // to `text`, so make sure to only test if type is still preserved after
+        // the element is attached.
+        if (input.inputElement.type == "date") {
+          $assert.equal(input.alwaysFloatLabel, true);
+          var floatingLabel = new PolymerDom((new PolymerDom(input.root)
+                                                 .querySelector('paper-input-container')
+          as PaperInputContainer)
+                                                 .root).querySelector('.label-is-floating');
+          $assert.ok(floatingLabel);
+        }
+      });
+
 
       test('always-float-label attribute works without placeholder', () {
         PaperInput input = fixture('always-float-label');
@@ -63,7 +81,7 @@ main() async {
         PaperInputCharCounter counter = input.$$('paper-input-char-counter');
         expect(counter, isNotNull);
         expect(
-            counter.jsElement['_charCounterStr'], equals(input.value.length));
+            counter.jsElement['_charCounterStr'], equals(input.value.length.toString()));
       });
 
       test('validator is used', () {
@@ -107,6 +125,40 @@ main() async {
         focus(input.inputElement);
         expect(nFocusEvents >= 1, isTrue);
         expect(nBlurEvents >= 1, isTrue);
+      });
+
+      test('focus events fired on host element if nested element is focused', () {
+      input.on['focus'].take(1).listen(  (event) {
+      $assert.isTrue(input.focused, 'input is focused');
+      });
+      focus(input.inputElement);
+      });
+
+      test('blur events fired on host element', () {
+      focus(input);
+      input.on['blur'].take(1).listen(  (event) {
+      $assert.isTrue(!input.focused, 'input is blurred');
+      });
+      blur(input);
+      });
+
+      test('blur events fired on host element nested element is blurred', () {
+      focus(input);
+      input.on['blur'].take(1).listen( ( event) {
+      $assert.isTrue(!input.focused, 'input is blurred');
+      });
+      blur(input.inputElement);
+      });
+
+      test('focusing then bluring sets the focused attribute correctly', () {
+      focus(input);
+      $assert.isTrue(input.focused, 'input is focused');
+      blur(input);
+      $assert.isTrue(!input.focused, 'input is blurred');
+      focus(input.inputElement);
+      $assert.isTrue(input.focused, 'input is focused');
+      blur(input.inputElement);
+      $assert.isTrue(!input.focused, 'input is blurred');
       });
     });
 
