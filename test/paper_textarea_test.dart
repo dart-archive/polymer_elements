@@ -91,33 +91,54 @@ main() async {
     setUp(() {
       input = fixture('basic');
     });
-    test('focus/blur events fired on host element', () {
-      var nFocusEvents = 0;
-      var nBlurEvents = 0;
-      input.on['focus'].listen((e) {
-        nFocusEvents += 1;
-        expect(input.focused, isTrue);
-        blur(input.inputElement.textarea);
-      });
 
-      input.on['blur'].listen((e) {
-        nBlurEvents += 1;
-        expect(input.focused, isFalse);
-      });
 
-      focus(input.inputElement.textarea);
-      expect(nFocusEvents >= 1, isTrue);
-      expect(nBlurEvents >= 1, isTrue);
+    // At the moment, it is very hard to correctly fire exactly
+    // one focus/blur events on a paper-textarea. This is because
+    // when a paper-textarea is focused, it needs to focus
+    // its underlying native textarea, which will also fire a `blur`
+    // event.
+    test('focus events fired on host element', () {
+    input.on['focus'].take(1).listen( (event) {
+    $$assert(input.focused, 'input is focused');
+    });
+    focus(input);
     });
 
-    test('focus a textarea with tabindex', () async {
-      var input = fixture('has-tabindex');
-      await wait(1);
-      expect(document.activeElement, isNot(input.jsElement['_focusableElement']));
-      focus(input);
-      await wait(1);
-      expect(document.activeElement, input.shadowRoot != null ? input : input.jsElement['_focusableElement']);
+    test('focus events fired on host element if nested element is focused', () {
+    input.on['focus'].take(1).listen( (event) {
+    $$assert(input.focused, 'input is focused');
     });
+    focus(input.inputElement.textarea);
+    });
+
+    test('blur events fired on host element', () {
+    focus(input);
+    input.on['blur'].take(1).listen( (event) {
+    $$assert(!input.focused, 'input is blurred');
+    });
+    blur(input);
+    });
+
+    test('blur events fired on host element nested element is blurred', () {
+    focus(input);
+    input.on['blur'].take(1).listen( (event) {
+    $$assert(!input.focused, 'input is blurred');
+    });
+    blur(input.inputElement.textarea);
+    });
+
+    test('focusing then bluring sets the focused attribute correctly', () {
+    focus(input);
+    $$assert(input.focused, 'input is focused');
+    blur(input);
+    $$assert(!input.focused, 'input is blurred');
+    focus(input.inputElement.textarea);
+    $$assert(input.focused, 'input is focused');
+    blur(input.inputElement.textarea);
+    $$assert(!input.focused, 'input is blurred');
+    });
+    
   });
 
   group('a11y', () {

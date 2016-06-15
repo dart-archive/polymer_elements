@@ -210,6 +210,8 @@ class $assert {
   static void isOk(thing,[reason]) => ok(thing,reason);
 }
 
+$$assert(x,[reason]) => $assert.isTrue(x,reason);
+
 
 class _expect {
   var something;
