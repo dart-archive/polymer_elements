@@ -203,6 +203,9 @@ class $assert {
   static void isTrue(bool x,[reason]) => T.expect(x,T.isTrue,reason:reason);
 
   static void ok(bool x,[reason]) => T.expect(x,T.isNotNull,reason:reason);
+
+  static void isAbove(num x, num what, [reason]) => T.expect(x,T.greaterThan(what),reason:reason);
+  static void isBelow(num x, num what, [reason]) => T.expect(x,T.lessThan(what),reason:reason);
 }
 
 

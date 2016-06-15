@@ -67,23 +67,6 @@ main() async {
       });
     });
 
-    test('with-backdrop works', () {
-      var dialog = fixture('backdrop');
-      runAfterOpen(dialog, () {
-        expect(dialog.backdropElement.opened, isTrue, reason: 'backdrop is open');
-      });
-    });
-
-    test('modal dialog has backdrop', () {
-      var dialog = fixture('modal');
-      expect(dialog.withBackdrop, isTrue, reason: 'withBackdrop is true');
-    });
-
-    test('modal dialog has no-cancel-on-outside-click', () {
-      var dialog = fixture('modal');
-      expect(dialog.noCancelOnOutsideClick, isTrue, reason: 'noCancelOnOutsideClick is true');
-    });
-
     test('clicking outside a modal dialog does not move focus from dialog', () {
       var done = new Completer();
       var dialog = fixture('modal');
@@ -112,55 +95,91 @@ main() async {
       return done.future;
     });
 
+    test('multiple modal dialogs opened, handle focus change', when((done) {
+      var dialogs = fixture('multiple');
+
+      runAfterOpen(dialogs[0], () {
+        runAfterOpen(dialogs[1], () async {
+          // Each modal dialog will trap the focus within its children.
+          // Multiple modal dialogs doing it might result in an infinite loop
+          // dialog1 focus -> dialog2 focus -> dialog1 focus -> dialog2 focus...
+          // causing a "Maximum call stack size exceeded" error.
+          // Wait 50ms and verify this does not happen.
+          await wait(50);
+          done();
+        });
+      });
+    }));
+
+    test('multiple modal dialogs opened, handle outside click', when((done) {
+      var dialogs = fixture('multiple');
+
+      runAfterOpen(dialogs[0], () {
+        runAfterOpen(dialogs[1], () async {
+          // Click should be handled only by dialogs[1].
+          tap(document.body);
+          // Each modal dialog will trap the focus within its children.
+          // Multiple modal dialogs doing it might result in an infinite loop
+          // dialog1 focus -> dialog2 focus -> dialog1 focus -> dialog2 focus...
+          // causing a "Maximum call stack size exceeded" error.
+          // Wait 50ms and verify this does not happen.
+          await wait(50);
+          // Should not enter in an infinite loop.
+          done();
+        });
+      });
+    }));
+
+    test('focus is given to the autofocus element when clicking on backdrop', when((done) {
+      TestDialog dialog = fixture('modal');
+
+
+      onSecondOpen(_) async {
+        tap(document.body);
+        await wait(10);
+        $assert.equal(document.activeElement, Polymer.dom(dialog).querySelector('[autofocus]'), 'document.activeElement is the autofocused button');
+        done();
+      }
+
+      onFirstClose(_) {
+        dialog.on['iron-overlay-opened'].take(1).listen(onSecondOpen);
+        dialog.open();
+      }
+
+      onFirstOpen(_) {
+        dialog.on['iron-overlay-closed'].take(1).listen(onFirstClose);
+        // Set the focus on dismiss button
+        focus(new PolymerDom(dialog).querySelector('[dialog-dismiss]'));
+        // Close the dialog
+        dialog.close();
+      }
+
+      dialog.on['iron-overlay-opened'].take(1).listen(onFirstOpen);
+      dialog.open();
+
+
+
+
+    }));
+    
+    
   });
 
   group('a11y', () {
-
     test('dialog has role="dialog"', () {
       var dialog = fixture('basic');
-      expect(dialog.getAttribute('role'), 'dialog', reason: 'has role="dialog"');
+      $assert.equal(dialog.attributes['role'], 'dialog', 'has role="dialog"');
     });
 
     test('dialog has aria-modal=false', () {
       var dialog = fixture('basic');
-      expect(dialog.getAttribute('aria-modal'), 'false', reason: 'has aria-modal="false"');
+      $assert.equal(dialog.attributes['aria-modal'], 'false', 'has aria-modal="false"');
     });
 
     test('modal dialog has aria-modal=true', () {
       var dialog = fixture('modal');
-      expect(dialog.getAttribute('aria-modal'), 'true', reason: 'has aria-modal="true"');
+      $assert.equal(dialog.attributes['aria-modal'], 'true', 'has aria-modal="true"');
     });
-
-    test('dialog with header has aria-labelledby', () async {
-      var dialog = fixture('header');
-      await new Future(() {});
-      var header = Polymer.dom(dialog).querySelector('h2');
-      expect(header.getAttribute('id'), isNotNull, reason: 'header has auto-generated id');
-      expect(dialog.getAttribute('aria-labelledby'), header.getAttribute('id'), reason: 'aria-labelledby is set to header id');
-    });
-
-    test('dialog with lazily created header has aria-labelledby', () {
-      var done = new Completer();
-      var dialog = fixture('basic');
-      var header = document.createElement('h2');
-      Polymer.dom(dialog).append(header);
-      PolymerDom.flush();
-      wait(10).then((_) {
-        expect(header.getAttribute('id'), isNotNull, reason: 'header has auto-generated id');
-        expect(dialog.getAttribute('aria-labelledby'), header.getAttribute('id'), reason: 'aria-labelledby is set to header id');
-        done.complete();
-      });
-      return done.future;
-    });
-
-    test('dialog with header with id preserves id and has aria-labelledby', () async {
-      var dialog = fixture('header-with-id');
-      await new Future(() {});
-      var header = Polymer.dom(dialog).querySelector('h2');
-      expect(header.getAttribute('id'), 'header', reason: 'header has preset id');
-      expect(dialog.getAttribute('aria-labelledby'), 'header', reason: 'aria-labelledby is set to header id');
-    });
-
   });
 }
 
@@ -179,4 +198,10 @@ class TestDialog extends PolymerElement
         IronOverlayBehavior,
         PaperDialogBehavior {
   TestDialog.created() : super.created();
+}
+
+@PolymerRegister('test-buttons')
+class TestButtons extends PolymerElement
+    {
+      TestButtons.created() : super.created();
 }
