@@ -82,6 +82,7 @@ OK lib/src/paper-listbox/test/paper-listbox.html
 OK lib/src/paper-menu-button/test/paper-menu-button.html
 OK lib/src/paper-slider/test/basic.html
 OK lib/src/paper-slider/test/a11y.html
+OK lib/src/paper-tabs/test/basic.html
 
 KO lib/src/iron-resizable-behavior/test/basic.html
 KO lib/src/iron-flex-layout/test/iron-flex-layout-classes.html
@@ -104,7 +105,7 @@ KO lib/src/paper-fab/test/basic.html
 
 
 
-lib/src/paper-tabs/test/basic.html
+
 lib/src/paper-tabs/test/links.html
 lib/src/paper-toast/test/basic.html
 lib/src/paper-tooltip/test/basic.html
