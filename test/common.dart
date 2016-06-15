@@ -215,12 +215,16 @@ class _expect {
   _expect(this.something);
 
   _to get to => new _to(this);
+
+  _not get not => new _not(this);
 }
 
 
 class _to {
   _expect _exp;
   _to(this._exp);
+
+  _to get be => this;
 
   equal(expected) => T.expect(_exp.something,expected);
 
@@ -232,6 +236,9 @@ class _not {
   _not(this._exp);
 
   _not get be => this;
+  _not get to => this;
+
+  get $null => T.expect(_exp.something,T.isNotNull);
 
   equal(expected) => T.expect(_exp.something,T.isNot(expected));
 }
