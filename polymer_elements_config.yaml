@@ -25,7 +25,9 @@ files_to_generate:
   - app-pouchdb/app-pouchdb-conflict-resolution.html
   - app-pouchdb/app-pouchdb-sync.html
   - app-storage/app-network-status-behavior.html  
-  - app-storage/app-storage-behavior.html
+  - app-storage/app-storage-behavior.html:
+      omit_imports:
+        - promise-polyfill-lite.html
 #   Google Web Components https://elements.polymer-project.org/browse?package=google-web-components
 # FIREBASE IS DEPRACATED ?
 #  - firebase-element/firebase-auth.html:
@@ -75,7 +77,12 @@ files_to_generate:
   - google-castable-video/google-castable-video.html:
       omit_imports:
         - google-cast-sender-api.html
-  - google-chart/google-chart.html
+  - google-chart/google-chart.html:
+      omit_imports:
+        - promise-polyfill-lite.html
+  - google-chart/charts-loader.html:
+      omit_imports:
+        - promise-polyfill-lite.html
   - google-feeds/google-feeds.html:
       name_substitutions:
         query: queryObject
@@ -299,6 +306,9 @@ files_to_generate:
   - paper-dialog-scrollable/paper-dialog-scrollable.html
   - paper-drawer-panel/paper-drawer-panel.html
   - paper-dropdown-menu/paper-dropdown-menu.html
+  - paper-dropdown-menu/paper-dropdown-menu-light.html
+  - paper-dropdown-menu/paper-dropdown-menu-icons.html  
+  - paper-dropdown-menu/paper-dropdown-menu-shared-styles.html
   - paper-fab/paper-fab.html
   - paper-header-panel/paper-header-panel.html
   - paper-icon-button/paper-icon-button.html
@@ -372,7 +382,7 @@ files_to_load:
   - package:polymer_interop/src/js/debug/src/lib/template/templatizer.html
 deletion_patterns:
   - metadata\.html$
-  - index\.html$
+  - /index\.html$
   - demo\.html$
   - demos$
   - demo$
