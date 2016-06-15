@@ -9,7 +9,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'package:test/test.dart';
 
 import 'common.dart';
-import 'fixtures/test_elements.dart';
+import 'fixtures/iron_resizable_elements.dart';
 import 'sinon/sinon.dart';
 
 int pendingNotifications;

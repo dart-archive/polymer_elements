@@ -46,6 +46,7 @@ OK lib/src/iron-overlay-behavior/test/test-buttons.html
 OK lib/src/iron-overlay-behavior/test/test-menu-button.html
 OK lib/src/iron-overlay-behavior/test/test-overlay.html
 OK lib/src/iron-overlay-behavior/test/test-overlay2.html
+OK lib/src/iron-resizable-behavior/test/iron-resizable-behavior.html
 
 
 KO lib/src/iron-resizable-behavior/test/basic.html
@@ -61,7 +62,7 @@ KO lib/src/iron-list/test/mutations.html
 *SUSP* lib/src/iron-location/test/iron-query-params.html
 
 
-lib/src/iron-resizable-behavior/test/iron-resizable-behavior.html
+
 lib/src/iron-scroll-target-behavior/test/basic.html
 lib/src/iron-scroll-target-behavior/test/x-nested-scrollable.html
 lib/src/iron-scroll-target-behavior/test/x-scrollable.html
