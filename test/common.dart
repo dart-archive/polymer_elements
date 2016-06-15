@@ -199,6 +199,8 @@ class $assert {
 
 
   static isUndefined(x,[reason]) => T.expect(x,T.isNull,reason: reason);
+
+  static void isTrue(bool x,[reason]) => T.expect(x,T.isTrue,reason:reason);
 }
 
 
