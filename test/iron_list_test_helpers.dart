@@ -125,11 +125,11 @@ checkRepeatedItems(list) {
     var itemKey;
     var y = listRect.top;
     while (y < listHeight) {
-      var item = document.elementFromPoint(listRect.left + 100, y + 2);
-      itemKey = item.text || item.innerHtml;
+      var item = document.elementFromPoint((listRect.left + 100).floor(), (y + 2).floor());
+      itemKey = item.text!=null?item.text: item.innerHtml;
 
-      if (item.parentNode != null && item.parentNode.jsElement["_templateInstance"]) {
-        if (listItems["itemKey"] && listItems["itemKey"] != item) {
+      if (item.parentNode != null && new JsObject.fromBrowserObject(item.parentNode)["_templateInstance"]!=null) {
+        if (listItems["itemKey"] !=null && listItems["itemKey"] != item) {
           return true;
         }
         listItems["itemKey"] = item;

@@ -18,7 +18,7 @@ import 'package:polymer_elements/iron_flex_layout_classes.dart';
 
 bool positionEquals(Element node, top, bottom, left, right) {
   Rectangle rect = node.getBoundingClientRect();
-  print ("NODE : ${rect.top},${rect.bottom},${rect.left},${rect.right}");
+  //print ("NODE : ${rect.top},${rect.bottom},${rect.left},${rect.right}");
   return rect.top == top && rect.bottom == bottom && rect.left == left && rect.right == right;
 }
 
