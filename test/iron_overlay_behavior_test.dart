@@ -20,9 +20,6 @@ import 'fixtures/test_buttons.dart';
 import 'package:polymer_elements/iron_overlay_backdrop.dart';
 import 'fixtures/test_menu_button.dart';
 
-num parseFloat(String dimension) {
-  return num.parse(dimension.replaceAll("px",""));
-}
 
 Future runAfterOpen(overlay, cb) {
   Completer completer= new Completer();

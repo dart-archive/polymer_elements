@@ -234,3 +234,7 @@ class _not {
 _expect $expect(something) => new _expect(something);
 
 
+num parseFloat(String dimension) {
+  return num.parse(dimension.replaceAll(new RegExp("[^0-9.]+"),""));
+}
+
