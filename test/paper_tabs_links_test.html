@@ -1,0 +1,69 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>paper tabs test</title>
+
+    <script src="packages/web_components/webcomponents-lite.js"></script>
+    <link rel="x-dart-test" href="paper_tabs_links_test.dart">
+    <!--<script type="application/dart" src="paper_tabs_test.dart"></script>-->
+    <!--<script src="packages/browser/dart.js"></script>-->
+    <script src="packages/test/dart.js"></script>
+</head>
+
+<body>
+
+<template id="links">
+
+        <paper-tabs>
+            <paper-tab link><a href="#one" tabindex="-1">ONE</a></paper-tab>
+            <paper-tab link><a href="#two" tabindex="-1">TWO</a></paper-tab>
+            <paper-tab link><a href="#three" tabindex="-1">THREE</a></paper-tab>
+        </paper-tabs>
+
+</template>
+
+<template id="not-links">
+
+        <paper-tabs>
+            <paper-tab><a href="#one" tabindex="-1">ONE</a></paper-tab>
+            <paper-tab><a href="#two" tabindex="-1">TWO</a></paper-tab>
+            <paper-tab><a href="#three" tabindex="-1">THREE</a></paper-tab>
+        </paper-tabs>
+
+</template>
+
+<template id="not-first-child">
+
+        <paper-tabs>
+            <paper-tab>
+                <div>
+                    <a href="#one" tabindex="-1">ONE</a>
+                </div>
+            </paper-tab>
+            <paper-tab>
+                <div>
+                    <a href="#two" tabindex="-1">TWO</a>
+                </div>
+            </paper-tab>
+            <paper-tab>
+                <div>
+                    <a href="#three" tabindex="-1">THREE</a>
+                </div>
+            </paper-tab>
+        </paper-tabs>
+
+</template>
+
+</body>
+</html>

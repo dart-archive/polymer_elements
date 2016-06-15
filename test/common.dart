@@ -218,21 +218,13 @@ class _expect {
 
   _expect(this.something);
 
-  _to get to => new _to(this);
+  _expect get to =>this;
+
+  _expect get be => this;
+
+  equal(expected) => T.expect(something,expected);
 
   _not get not => new _not(this);
-}
-
-
-class _to {
-  _expect _exp;
-  _to(this._exp);
-
-  _to get be => this;
-
-  equal(expected) => T.expect(_exp.something,expected);
-
-  _not get not => new _not(_exp);
 }
 
 class _not {

@@ -90,6 +90,7 @@ KO lib/src/iron-flex-layout/test/iron-flex-layout.html
 KO lib/src/iron-list/test/different-heights.html
 KO lib/src/iron-list/test/mutations.html
 KO lib/src/paper-fab/test/basic.html
+KO lib/src/paper-tabs/test/links.html
 
 *SUSP* lib/src/iron-location/test/initialization-cases.html
 *SUSP* lib/src/iron-location/test/initialization-iframe.html
@@ -106,6 +107,6 @@ KO lib/src/paper-fab/test/basic.html
 
 
 
-lib/src/paper-tabs/test/links.html
+
 lib/src/paper-toast/test/basic.html
 lib/src/paper-tooltip/test/basic.html
