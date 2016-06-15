@@ -7,7 +7,7 @@ import 'dart:async';
 import 'dart:html';
 import 'dart:js';
 import 'package:polymer_elements/iron_test_helpers.dart' as test_helpers;
-import 'package:test/test.dart';
+import 'package:test/test.dart' as T;
 
 /// Used imports: [test_helpers]
 final JsObject _MockInteractionsJs = context['MockInteractions'];
@@ -184,12 +184,21 @@ Function when(x(void done([e]))) =>
       await _done.future;
     };
 
-suite(title,test(),{skip}) => group(title,test,skip:skip);
+suite(title,test(),{skip}) => T.group(title,test,skip:skip);
 
-setup(fn) => setUp(fn);
+setup(fn) => T.setUp(fn);
 
 class $assert {
-  static equal(a,b,[reason]) => expect(a,b,reason:reason);
+  static equal(a,b,[reason]) => T.expect(a,b,reason:reason);
+
+  static strictEqual(a,b,[reason]) => T.expect(a,b,reason:reason);
+
+  static deepEqual(a,b,[reason]) => T.expect(a,b,reason:reason);  // TODO:  a better way to implement this ?
+
+  static isFalse(a,[reason]) => T.expect(a,T.isFalse,reason:reason);
+
+
+  static isUndefined(x,[reason]) => T.expect(x,T.isNull,reason: reason);
 }
 
 
@@ -206,7 +215,7 @@ class _to {
   _expect _exp;
   _to(this._exp);
 
-  equal(expected) => expect(_exp.something,expected);
+  equal(expected) => T.expect(_exp.something,expected);
 
   _not get not => new _not(_exp);
 }
@@ -215,7 +224,7 @@ class _not {
   _expect _exp;
   _not(this._exp);
 
-  equal(expected) => expect(_exp.something,isNot(expected));
+  equal(expected) => T.expect(_exp.something,T.isNot(expected));
 }
 
 _expect $expect(something) => new _expect(something);

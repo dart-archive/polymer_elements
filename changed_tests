@@ -65,6 +65,7 @@ OK lib/src/iron-test-helpers/mock-interactions.js
 OK lib/src/iron-test-helpers/test-helpers.js
 OK lib/src/iron-test-helpers/test/mock-interactions.html
 OK lib/src/marked-element/test/marked-element.html
+OK lib/src/neon-animation/test/neon-animated-pages.html
 
 KO lib/src/iron-resizable-behavior/test/basic.html
 KO lib/src/iron-flex-layout/test/iron-flex-layout-classes.html
@@ -80,7 +81,7 @@ KO lib/src/iron-list/test/mutations.html
 
 
 lib/src/neon-animation/test/neon-animated-pages-lazy.html
-lib/src/neon-animation/test/neon-animated-pages.html
+
 lib/src/paper-behaviors/test/paper-button-behavior.html
 lib/src/paper-card/test/basic.html
 lib/src/paper-checkbox/test/basic.html
