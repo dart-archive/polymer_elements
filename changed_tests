@@ -50,7 +50,20 @@ OK lib/src/iron-resizable-behavior/test/iron-resizable-behavior.html
 OK lib/src/iron-scroll-target-behavior/test/basic.html
 OK lib/src/iron-scroll-target-behavior/test/x-nested-scrollable.html
 OK lib/src/iron-scroll-target-behavior/test/x-scrollable.html
-
+OK lib/src/iron-scroll-threshold/test/basic.html
+OK lib/src/iron-selector/test/attr-for-selected-elements.html
+OK lib/src/iron-selector/test/attr-for-selected.html
+OK lib/src/iron-selector/test/basic.html
+OK lib/src/iron-selector/test/multi.html
+OK lib/src/iron-selector/test/numeric-ids.html
+OK lib/src/iron-selector/test/selected-attribute.html
+OK lib/src/iron-selector/test/template-repeat.html
+OK lib/src/iron-test-helpers/.bower.json
+OK lib/src/iron-test-helpers/bower.json
+OK lib/src/iron-test-helpers/iron-test-helpers.html
+OK lib/src/iron-test-helpers/mock-interactions.js
+OK lib/src/iron-test-helpers/test-helpers.js
+OK lib/src/iron-test-helpers/test/mock-interactions.html
 
 KO lib/src/iron-resizable-behavior/test/basic.html
 KO lib/src/iron-flex-layout/test/iron-flex-layout-classes.html
@@ -65,21 +78,6 @@ KO lib/src/iron-list/test/mutations.html
 *SUSP* lib/src/iron-location/test/iron-query-params.html
 
 
-
-lib/src/iron-scroll-threshold/test/basic.html
-lib/src/iron-selector/test/attr-for-selected-elements.html
-lib/src/iron-selector/test/attr-for-selected.html
-lib/src/iron-selector/test/basic.html
-lib/src/iron-selector/test/multi.html
-lib/src/iron-selector/test/numeric-ids.html
-lib/src/iron-selector/test/selected-attribute.html
-lib/src/iron-selector/test/template-repeat.html
-lib/src/iron-test-helpers/.bower.json
-lib/src/iron-test-helpers/bower.json
-lib/src/iron-test-helpers/iron-test-helpers.html
-lib/src/iron-test-helpers/mock-interactions.js
-lib/src/iron-test-helpers/test-helpers.js
-lib/src/iron-test-helpers/test/mock-interactions.html
 lib/src/marked-element/test/marked-element.html
 lib/src/neon-animation/test/neon-animated-pages-lazy.html
 lib/src/neon-animation/test/neon-animated-pages.html

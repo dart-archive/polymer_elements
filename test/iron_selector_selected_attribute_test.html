@@ -35,5 +35,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div>Item 4</div>
     </iron-selector>
   </template>
+
+  <template id="test-attr-change">
+      <iron-selector id="selector" attr-for-selected="data-x" selected="x-1">
+        <div data-x="x-1" data-y="y-1">1</div>
+        <div data-x="x-2" data-y="y-2">2</div>
+        <div data-x="x-3" data-y="y-3">3</div>
+      </iron-selector>
+  </template>
+
+  <template id="test-attr-change-multi">
+      <iron-selector multi id="selector"
+                     attr-for-selected="data-x"
+                     selected-values='["x-1","x-2"]'>
+        <div data-x="x-1" data-y="y-1">1</div>
+        <div data-x="x-2" data-y="y-2">2</div>
+        <div data-x="x-3" data-y="y-3">3</div>
+      </iron-selector>
+  </template>
+
 </body>
 </html>

@@ -7,6 +7,7 @@ import 'dart:async';
 import 'dart:html';
 import 'dart:js';
 import 'package:polymer_elements/iron_test_helpers.dart' as test_helpers;
+import 'package:test/test.dart' show group,setUp,expect;
 
 /// Used imports: [test_helpers]
 final JsObject _MockInteractionsJs = context['MockInteractions'];
@@ -168,6 +169,8 @@ Future requestAnimationFrame() {
 
 List keysOf(JsObject object) => context['Object'].callMethod('keys', [object]);
 
+// Helper to let porting JS tests faster
+
 Function when(x(void done([e]))) =>
         () async {
       Completer _done = new Completer();
@@ -181,4 +184,10 @@ Function when(x(void done([e]))) =>
       await _done.future;
     };
 
+suite(title,test(),{skip}) => group(title,test,skip:skip);
 
+setup(fn) => setUp(fn);
+
+class $assert {
+  static equal(a,b,[reason]) => expect(a,b,reason:reason);
+}
