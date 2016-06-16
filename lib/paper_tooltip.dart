@@ -86,8 +86,8 @@ class PaperTooltip extends HtmlElement with CustomElementProxyMixin, PolymerBase
 
   /// The spacing between the top of the tooltip and the element it is
   /// anchored to.
-  num get offset => jsElement[r'offset'];
-  set offset(num value) { jsElement[r'offset'] = value; }
+  num get tooltipOffset => jsElement[r'offset'];
+  set tooltipOffset(num value) { jsElement[r'offset'] = value; }
 
   /// Positions the tooltip to the top, right, bottom, left of its content.
   String get position => jsElement[r'position'];

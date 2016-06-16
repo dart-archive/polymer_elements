@@ -9,8 +9,6 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'app_pouchdb_database_behavior.dart';
-import 'pouchdb.dart';
-import 'pouchdb.find.dart';
 
 /// `app-pouchdb-query` allows for declarative, read-only querying into a PouchDB
 /// database. The semantics for querying match those of the
@@ -92,8 +90,8 @@ class AppPouchdbQuery extends HtmlElement with CustomElementProxyMixin, PolymerB
   /// A configuration object suitable to be passed to the `find` method of
   /// the PouchDB database. For more information, refer to the docs
   /// [here](https://github.com/nolanlawson/pouchdb-find/blob/master/README.md#dbfindrequest--callback)
-  get query => jsElement[r'query'];
-  set query(value) { jsElement[r'query'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+  get queryConfig => jsElement[r'query'];
+  set queryConfig(value) { jsElement[r'query'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The selector to use when querying for documents. Fields referenced
   /// in the selector must have indexes created for them.

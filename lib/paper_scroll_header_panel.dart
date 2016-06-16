@@ -142,7 +142,7 @@ class PaperScrollHeaderPanel extends HtmlElement with CustomElementProxyMixin, P
   /// Scroll to a specific y coordinate.
   /// [top]: The coordinate to scroll to, along the y-axis.
   /// [smooth]: true if the scroll position should be smoothly adjusted.
-  scroll(num top, bool smooth) =>
+  scrollAt(num top, bool smooth) =>
       jsElement.callMethod('scroll', [top, smooth]);
 
   /// Scroll to the top of the content.

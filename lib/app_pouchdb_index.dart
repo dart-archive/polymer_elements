@@ -9,8 +9,6 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'app_pouchdb_database_behavior.dart';
-import 'pouchdb.dart';
-import 'pouchdb.find.dart';
 
 /// `app-pouchdb-index` enables declarative, idempotent configuration of database
 /// indexes. The semantics map to those of the pouchdb-find plugin. For more

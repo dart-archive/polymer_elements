@@ -90,6 +90,6 @@ class IronAutogrowTextarea extends HtmlElement with CustomElementProxyMixin, Pol
   /// Returns true if `value` is valid. The validator provided in `validator`
   /// will be used first, if it exists; otherwise, the `textarea`'s validity
   /// is used.
-  bool validate() =>
+  bool validate([_]) => //() =>
       jsElement.callMethod('validate', []);
 }

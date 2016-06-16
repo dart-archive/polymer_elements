@@ -8,7 +8,6 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
-import 'pouchdb.dart';
 
 /// `Polymer.AppPouchDBDatabaseBehavior` is an abstract implementation that
 /// is intended to be shared by any element that refers to and operates on a

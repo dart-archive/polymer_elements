@@ -8,7 +8,6 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
-import 'pouchdb.dart';
 
 /// `app-pouchdb-sync` arranges for one-directional or bi-directional
 /// synchronization between two PouchDB databases. For one-directional

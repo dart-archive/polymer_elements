@@ -10,7 +10,6 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'app_storage_behavior.dart';
 import 'app_pouchdb_database_behavior.dart';
-import 'pouchdb.dart';
 
 /// `app-pouchdb-document` is an implementation of `Polymer.CarbonStorageBehavior`
 /// for reading and writing to individual PouchDB documents.

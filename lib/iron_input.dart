@@ -66,7 +66,7 @@ class IronInput extends InputElement with CustomElementProxyMixin, PolymerBase, 
 
   /// Returns true if `value` is valid. The validator provided in `validator` will be used first,
   /// then any constraints.
-  bool validate() =>
+  bool validate([_]) => //() =>
       jsElement.callMethod('validate', []);
 
   registered() =>

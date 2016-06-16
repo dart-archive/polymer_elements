@@ -8,7 +8,6 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
-import 'promise_polyfill.dart';
 
 /// AppStorageBehavior is an abstract behavior that makes it easy to
 /// synchronize in-memory data and a persistant storage system, such as
