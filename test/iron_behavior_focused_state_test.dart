@@ -95,10 +95,12 @@ main() async {
 
   group('elements in the light dom', () {
     var lightDOM, input;
+    var lightDescendantShadowInput;
 
     setUp(() {
       lightDOM = fixture('LightDOM');
       input = document.querySelector('#input');
+      lightDescendantShadowInput = (new PolymerDom(lightDOM).querySelector('nested-focusable') as PolymerElement).$['input'];
     });
 
     test('should not fire the focus event', () {
@@ -111,6 +113,18 @@ main() async {
       focus(input);
 
       expect(nFocusEvents, 0);
+    });
+
+    test('should not fire the focus event from shadow descendants', () {
+      var nFocusEvents = 0;
+
+      lightDOM.on['focus'].take(1).listen((_) {
+        nFocusEvents += 1;
+      });
+
+      focus(lightDescendantShadowInput);
+
+      $expect(nFocusEvents).to.be.equal(0);
     });
   });
 }
