@@ -29,15 +29,6 @@ main() async {
         pressSpace(keys);
 
         expect(keys.keyCount, 1);
-
-        pressAndReleaseKeyOn(keys, 27,[],'Esc');
-        expect(keys.keyCount,2);
-
-        pressAndReleaseKeyOn(keys, 27,[],'Escape');
-        expect(keys.keyCount,3);
-
-        pressAndReleaseKeyOn(keys, 27);
-        expect(keys.keyCount,4);
       });
 
       test(
@@ -54,13 +45,20 @@ main() async {
       });
 
       test('handles special character @', () {
-        var event = new CustomEvent('keydown');
-        var e = new JsObject.fromBrowserObject(event);
-        e['key'] = '@';
-        keys.dispatchEvent(event);
+        pressAndReleaseKeyOn(keys, null, [], '@');
         expect(keys.keyCount, 1);
       });
 
+      test('handles variations of Esc key', () {
+        pressAndReleaseKeyOn(keys, null, [], 'Esc');
+        $expect(keys.keyCount).to.be.equal(1);
+
+        pressAndReleaseKeyOn(keys, null, [], 'Escape');
+        $expect(keys.keyCount).to.be.equal(2);
+
+        pressAndReleaseKeyOn(keys, 27, [], '');
+        $expect(keys.keyCount).to.be.equal(3);
+      });
 
       test('do not trigger the handler for non-specified keys', () {
         pressEnter(keys);
@@ -157,7 +155,6 @@ main() async {
           expect(keys.keyboardEventMatchesKeys(event, 'up'), true);
         });
 
-
         group('matching keyboard events to top row and number pad digit keys', () {
           test('top row can be done imperatively', () {
             var event = new CustomEvent('keydown');
@@ -173,10 +170,6 @@ main() async {
             expect(keys.keyboardEventMatchesKeys(event, '1'), true);
           });
         });
-
-
-
-
       });
     });
 
@@ -212,7 +205,6 @@ main() async {
 
         expect(keys.keyCount, 1);
       });
-
 
       test('trigger also bindings without modifiers', () {
         var event = new CustomEvent('keydown');
@@ -300,8 +292,7 @@ main() async {
 
       test('only 1 handler is invoked', () {
         sinon.Spy aSpy = sinon.spy(keys.jsElement, 'keyHandler');
-        sinon.Spy shiftASpy =
-            sinon.spy(keys.jsElement, 'preventDefaultHandler');
+        sinon.Spy shiftASpy = sinon.spy(keys.jsElement, 'preventDefaultHandler');
         var event = new CustomEvent('keydown', cancelable: true);
         var jsEvent = new JsObject.fromBrowserObject(event);
         // Combo `shift+a`.
@@ -318,8 +309,7 @@ main() async {
 }
 
 @behavior
-abstract class KeysTestBehavior
-    implements PolymerMixin, PolymerBase, HtmlElement, IronA11yKeysBehavior {
+abstract class KeysTestBehavior implements PolymerMixin, PolymerBase, HtmlElement, IronA11yKeysBehavior {
   @property
   int keyCount = 0;
 
@@ -348,69 +338,47 @@ abstract class KeysTestBehavior
 }
 
 @PolymerRegister('x-a11y-basic-keys')
-class XA11yBasicKeys extends PolymerElement
-    with IronA11yKeysBehavior, KeysTestBehavior {
+class XA11yBasicKeys extends PolymerElement with IronA11yKeysBehavior, KeysTestBehavior {
   XA11yBasicKeys.created() : super.created();
 
   @reflectable
-  static Map<String, String> keyBindings = {
-    'space': 'keyHandler',
-    '@': 'keyHandler',
-    'esc' : 'keyHandler'
-  };
+  static Map<String, String> keyBindings = {'space': 'keyHandler', '@': 'keyHandler', 'esc': 'keyHandler'};
 }
 
 @PolymerRegister('x-a11y-combo-keys')
-class XA11yComboKeys extends PolymerElement
-    with IronA11yKeysBehavior, KeysTestBehavior {
+class XA11yComboKeys extends PolymerElement with IronA11yKeysBehavior, KeysTestBehavior {
   XA11yComboKeys.created() : super.created();
 
   @reflectable
-  static Map<String, String> keyBindings = {
-      'enter': 'keyHandler2',
-      'ctrl+shift+a shift+enter': 'keyHandler'
-  };
+  static Map<String, String> keyBindings = {'enter': 'keyHandler2', 'ctrl+shift+a shift+enter': 'keyHandler'};
 }
 
 @PolymerRegister('x-a11y-alternate-event-keys')
-class XA11yAlternateEventKeys extends PolymerElement
-    with IronA11yKeysBehavior, KeysTestBehavior {
+class XA11yAlternateEventKeys extends PolymerElement with IronA11yKeysBehavior, KeysTestBehavior {
   XA11yAlternateEventKeys.created() : super.created();
 
   @reflectable
-  static Map<String, String> keyBindings = {
-    'space:keyup': 'keyHandler',
-  };
+  static Map<String, String> keyBindings = {'space:keyup': 'keyHandler',};
 }
 
 @behavior
 abstract class XA11yBehavior implements KeysTestBehavior {
-
   @reflectable
-  static Map<String, String> keyBindings = {
-    'enter': 'keyHandler',
-  };
+  static Map<String, String> keyBindings = {'enter': 'keyHandler',};
 }
 
 @PolymerRegister('x-a11y-behavior-keys')
-class XA11yBehaviorKeys extends PolymerElement
-    with IronA11yKeysBehavior, KeysTestBehavior, XA11yBehavior {
+class XA11yBehaviorKeys extends PolymerElement with IronA11yKeysBehavior, KeysTestBehavior, XA11yBehavior {
   XA11yBehaviorKeys.created() : super.created();
 
   @reflectable
-  static Map<String, String> keyBindings = {
-    'enter': 'keyHandler',
-  };
+  static Map<String, String> keyBindings = {'enter': 'keyHandler',};
 }
 
 @PolymerRegister('x-a11y-prevent-keys')
-class XA11yPreventKeys extends PolymerElement
-    with IronA11yKeysBehavior, KeysTestBehavior, XA11yBehavior {
+class XA11yPreventKeys extends PolymerElement with IronA11yKeysBehavior, KeysTestBehavior, XA11yBehavior {
   XA11yPreventKeys.created() : super.created();
 
   @reflectable
-  static Map<String, String> keyBindings = {
-    'space a': 'keyHandler',
-    'enter shift+a': 'preventDefaultHandler',
-  };
+  static Map<String, String> keyBindings = {'space a': 'keyHandler', 'enter shift+a': 'preventDefaultHandler',};
 }

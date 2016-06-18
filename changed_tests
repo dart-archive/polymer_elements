@@ -18,17 +18,13 @@ KO lib/src/paper-toast/test/basic.html
 *SUSP* lib/src/iron-location/test/iron-query-params.html
 *SUSP* lib/src/paper-dialog-behavior/test/paper-dialog-behavior.html
 
+OK lib/src/gold-cc-expiration-input/test/basic.html
+OK lib/src/iron-a11y-keys-behavior/test/basic-test.html
 
 NEXT UPDATE : 20160616
 
 
 
-
-
-
-
-lib/src/gold-cc-expiration-input/test/basic.html
-lib/src/iron-a11y-keys-behavior/test/basic-test.html
 lib/src/iron-behaviors/test/active-state.html
 lib/src/iron-behaviors/test/disabled-state.html
 lib/src/iron-behaviors/test/focused-state.html
