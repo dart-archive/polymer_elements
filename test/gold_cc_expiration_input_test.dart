@@ -110,6 +110,18 @@ main() async {
 
       return done;
     });
+
+    test('placeholder shows correctly', () {
+      var input = fixture('basic');
+      forceXIfStamp(input);
+      var dateInput = Polymer.dom(input.root).querySelector('date-input');
+      var month = Polymer.dom(dateInput.root).querySelector('#expirationMonth');
+      var year = Polymer.dom(dateInput.root).querySelector('#expirationYear');
+      $assert.equal(month.placeholder, 'MM', 'month placeholder is MM');
+      $assert.equal(year.placeholder, 'YY', 'year placeholder is YY');
+    });
+
+
   });
 
   group('a11y', () {
