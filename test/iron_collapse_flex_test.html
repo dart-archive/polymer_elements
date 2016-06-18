@@ -15,47 +15,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>iron-collapse</title>
 
   <script src="packages/web_components/webcomponents-lite.js"></script>
-  <link rel="x-dart-test" href="iron_collapse_test.dart">
+  <link rel="x-dart-test" href="iron_collapse_flex_test.dart">
+
+  <style is="custom-style" include="iron-flex">
+  </style>
+
   <!--<script type="application/dart" src="iron_collapse_test.dart"></script>-->
   <!--<script src="packages/browser/dart.js"></script>-->
   <script src="packages/test/dart.js"></script>
-</head>
+
+ </head>
 <body>
-  <template id="basic">
-    <iron-collapse id="collapse" opened>
-      <div style="height:100px;">
-        Lorem ipsum
-      </div>
-    </iron-collapse>
-  </template>
 
-  <template id="horizontal">
-    <iron-collapse id="collapse" opened horizontal>
-      <div>
-        Lorem ipsum
-      </div>
-    </iron-collapse>
-  </template>
-
-  <template id="nested">
-    <iron-collapse id="outer-collapse">
-      <div style="height:100px;">
-        Lorem ipsum
-      </div>
-
-      <iron-collapse id="inner-collapse-vertical">
+  <template id="test">
+    <div id="container" class="layout vertical" style="height: 200px">
+      <iron-collapse id="collapse" opened style="flex: 1 0 auto">
         <div style="height:100px;">
-          consectetur adipiscing elit
+          Lorem ipsum
         </div>
       </iron-collapse>
-
-      <iron-collapse id="inner-collapse-horizontal" horizontal style="display: inline-block">
-        <div style="width:100px;">
-          consectetur adipiscing elit
-        </div>
-      </iron-collapse>
-    </iron-collapse>
+    </div>
   </template>
+
 
 </body>
 </html>

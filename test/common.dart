@@ -208,6 +208,8 @@ class $assert {
   static void isBelow(num x, num what, [reason]) => T.expect(x,T.lessThan(what),reason:reason);
 
   static void isOk(thing,[reason]) => ok(thing,reason);
+
+  static void notEqual(x,what, [reason]) => T.expect(x,T.isNot(what),reason:reason);
 }
 
 $$assert(x,[reason]) => $assert.isTrue(x,reason);

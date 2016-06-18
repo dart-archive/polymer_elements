@@ -36,7 +36,7 @@ main() async {
     });
 
     test('default opened height', () {
-      expect(collapse.style.height, 'auto');
+      expect(collapse.style.maxHeight, '');
     });
 
     test('set opened to false triggers animation', () async {
@@ -48,37 +48,35 @@ main() async {
     }, skip: 'https://github.com/dart-lang/polymer_elements/issues/116');
 
     test('enableTransition(false) disables animations', () {
-      collapse.enableTransition(false);
+      collapse.noAnimation= true;
       expect(collapse.noAnimation, isTrue, reason: '`noAnimation` is true');
       // trying to animate the size update
       collapse.updateSize('0px', true);
       // Animation immediately disabled.
-      expect(collapse.style.height, '0px');
+      expect(collapse.style.maxHeight, '0px');
     });
 
-    test('set opened to false, then to true', () async {
+    test('set opened to false, then to true', when((done) async {
       // this listener will be triggered twice (every time `opened` changes)
-
-      // Trigger 1st toggle.
-      collapse.opened = false;
-      // Size should be immediately set.
-      expect(collapse.style.height, '0px');
-
-      await for (var _ in collapse.on['transitionend']) {
+      collapse.on['transitionend'].take(1).listen((_) {
         if (collapse.opened) {
           // Check finalSize after animation is done.
-          expect(collapse.style.height, 'auto');
-          break;
+          $assert.equal(collapse.style.height, '');
+          done();
         } else {
           // Check if size is still 0px.
-          expect(collapse.style.height, '0px');
+          $assert.equal(collapse.style.maxHeight, '0px');
           // Trigger 2nd toggle.
           collapse.opened = true;
           // Size should be immediately set.
-          expect(collapse.style.height, collapseHeight);
+          $assert.equal(collapse.style.maxHeight, collapseHeight);
         }
-      }
-    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/116');
+      });
+      // Trigger 1st toggle.
+      collapse.opened = false;
+      // Size should be immediately set.
+      $assert.equal(collapse.style.maxHeight, '0px');
+    }) , skip: 'https://github.com/dart-lang/polymer_elements/issues/116' );
 
     test('opened changes trigger iron-resize', () {
       Stub spy = new Stub();
@@ -103,13 +101,13 @@ main() async {
     test('toggle horizontal updates size', () {
       collapse.horizontal = false;
       expect(collapse.style.width, '');
-      expect(collapse.style.height, 'auto');
-      expect(collapse.style.transitionProperty, 'height');
+      expect(collapse.style.maxHeight, '');
+      expect(collapse.style.transitionProperty, 'max-height');
 
       collapse.horizontal = true;
-      expect(collapse.style.width, 'auto');
+      expect(collapse.style.maxWidth, '');
       expect(collapse.style.height, '');
-      expect(collapse.style.transitionProperty, 'width');
+      expect(collapse.style.transitionProperty, 'max-width');
     });
   });
 
@@ -131,7 +129,7 @@ main() async {
     });
 
     test('default opened width', () {
-      expect(collapse.style.width, 'auto');
+      expect(collapse.style.width, '');
     });
 
     test('set opened to false, then to true', () async {
@@ -145,15 +143,15 @@ main() async {
       await for (var _ in collapse.on['transitionend']) {
         if (collapse.opened) {
           // Check finalSize after animation is done.
-          expect(collapse.style.width, 'auto');
+          expect(collapse.style.width, '');
           break;
         } else {
           // Check if size is still 0px.
-          expect(collapse.style.width, '0px');
+          expect(collapse.style.maxWidth, '0px');
           // Trigger 2nd toggle.
           collapse.opened = true;
           // Size should be immediately set.
-          expect(collapse.style.width, collapseWidth);
+          expect(collapse.style.maxWidth, collapseWidth);
         }
       }
     }, skip: 'https://github.com/dart-lang/polymer_elements/issues/116');
@@ -177,7 +175,7 @@ main() async {
       });
 
       test('inner collapse default style height', () {
-        expect(innerCollapse.style.height, '0px');
+        expect(innerCollapse.style.maxHeight, '0px');
       });
 
       test('open inner collapse updates size without animation', () {
@@ -201,7 +199,7 @@ main() async {
       });
 
       test('inner collapse default style width', () {
-        expect(innerCollapse.style.width, '0px');
+        expect(innerCollapse.style.maxWidth, '0px');
       });
 
       test('open inner collapse updates size without animation', () {
