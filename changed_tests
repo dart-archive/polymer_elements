@@ -31,17 +31,12 @@ OK lib/src/iron-collapse/test/nested.html
 OK lib/src/iron-component-page/test/iron-component-page.html
 OK lib/src/iron-dropdown/test/iron-dropdown.html
 OK lib/src/iron-fit-behavior/test/iron-fit-behavior.html
+OK lib/src/iron-input/test/iron-input.html
+OK lib/src/iron-list/test/basic.html
 
 NEXT UPDATE : 20160616
 
 
-
-
-
-
-
-lib/src/iron-input/test/iron-input.html
-lib/src/iron-list/test/basic.html
 lib/src/iron-list/test/grid.html
 lib/src/iron-list/test/helpers.html
 lib/src/iron-list/test/mutations.html
