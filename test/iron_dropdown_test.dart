@@ -27,7 +27,7 @@ bool elementIsVisible(element) {
 Future runAfterOpen(IronDropdown overlay, Function cb) async {
   overlay.open();
   await overlay.on['iron-overlay-opened'].first;
-  await new Future((){});
+  //await new Future((){});
   await cb();
 }
 
@@ -58,7 +58,7 @@ main() async {
         await runAfterOpen(dropdown, () async {
           expect(elementIsVisible(content), isTrue);
           tap(dropdown.parentNode);
-          await new Future(() {});
+          await dropdown.on['iron-overlay-closed'].first;
           expect(elementIsVisible(content), isFalse);
         });
       });
@@ -127,14 +127,16 @@ main() async {
 
     group('aligned dropdown', () {
       var parent;
+      var parentRect;
+      var dropdownRect;
+
       setUp(() {
         parent = fixture('AlignedDropdown');
         dropdown = parent.querySelector('iron-dropdown');
       });
 
       test('can be re-aligned to the right and the top', () async {
-        var parentRect;
-        var dropdownRect;
+
 
         await runAfterOpen(dropdown, () async {
           dropdownRect = dropdown.getBoundingClientRect();
@@ -147,8 +149,6 @@ main() async {
       });
 
       test('can be re-aligned to the bottom', () async {
-        var parentRect;
-        var dropdownRect;
 
         dropdown.verticalAlign = 'bottom';
         await runAfterOpen(dropdown, () {
@@ -162,8 +162,6 @@ main() async {
       });
 
       test('handles parent\'s stacking context', () async {
-        var parentRect;
-        var dropdownRect;
         // This will create a new stacking context.
         parent.style.transform = 'translateZ(0)';
         await runAfterOpen(dropdown, () async {
@@ -180,7 +178,6 @@ main() async {
     group('when align is left/top, with an offset', () {
       var dropdownRect;
       var offsetDropdownRect;
-      var dropdown;
       setUp(() {
         var parent = fixture('OffsetDropdownTopLeft');
         dropdown = parent.querySelector('iron-dropdown');
@@ -189,10 +186,10 @@ main() async {
       test('can be offset towards the bottom right', () async {
         await runAfterOpen(dropdown, () async {
           dropdownRect = dropdown.getBoundingClientRect();
-
           dropdown.verticalOffset = 10;
           dropdown.horizontalOffset = 10;
-          await PolymerRenderStatus.afterNextRender(dropdown);
+          // Force refit instead of waiting for requestAnimationFrame.
+          dropdown.refit();
           offsetDropdownRect = dropdown.getBoundingClientRect();
 
           // verticalAlign is top, so a positive offset moves down.
@@ -205,10 +202,10 @@ main() async {
       test('can be offset towards the top left', () async {
         await runAfterOpen(dropdown, () async {
           dropdownRect = dropdown.getBoundingClientRect();
-
           dropdown.verticalOffset = -10;
           dropdown.horizontalOffset = -10;
-          await PolymerRenderStatus.afterNextRender(dropdown);
+          // Force refit instead of waiting for requestAnimationFrame.
+          dropdown.refit();
           offsetDropdownRect = dropdown.getBoundingClientRect();
 
           // verticalAlign is top, so a negative offset moves up.
@@ -234,7 +231,8 @@ main() async {
 
           dropdown.verticalOffset = 10;
           dropdown.horizontalOffset = 10;
-          await PolymerRenderStatus.afterNextRender(dropdown);
+          // Force refit instead of waiting for requestAnimationFrame.
+          dropdown.refit();
           offsetDropdownRect = dropdown.getBoundingClientRect();
 
           // verticalAlign is bottom, so a positive offset moves up.
@@ -250,7 +248,8 @@ main() async {
 
           dropdown.verticalOffset = -10;
           dropdown.horizontalOffset = -10;
-          await PolymerRenderStatus.afterNextRender(dropdown);
+          // Force refit instead of waiting for requestAnimationFrame.
+          dropdown.refit();
           offsetDropdownRect = dropdown.getBoundingClientRect();
 
           // verticalAlign is bottom, so a negative offset moves down.
@@ -262,7 +261,6 @@ main() async {
     });
 
     group('RTL', () {
-      var dropdown;
       var dropdownRect;
 
       test('with horizontalAlign=left', () async {
