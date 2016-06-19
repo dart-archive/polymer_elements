@@ -33,12 +33,14 @@ OK lib/src/iron-dropdown/test/iron-dropdown.html
 OK lib/src/iron-fit-behavior/test/iron-fit-behavior.html
 OK lib/src/iron-input/test/iron-input.html
 OK lib/src/iron-list/test/basic.html
+OK lib/src/iron-list/test/grid.html
+OK lib/src/iron-list/test/helpers.html
 
 NEXT UPDATE : 20160616
 
 
-lib/src/iron-list/test/grid.html
-lib/src/iron-list/test/helpers.html
+
+
 lib/src/iron-list/test/mutations.html
 lib/src/iron-list/test/physical-count.html
 lib/src/iron-list/test/x-grid.html

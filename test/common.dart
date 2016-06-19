@@ -8,6 +8,7 @@ import 'dart:html';
 import 'dart:js';
 import 'package:polymer_elements/iron_test_helpers.dart' as test_helpers;
 import 'package:test/test.dart' as T;
+import 'package:polymer/polymer.dart';
 
 /// Used imports: [test_helpers]
 final JsObject _MockInteractionsJs = context['MockInteractions'];
@@ -248,3 +249,8 @@ num parseFloat(String dimension) {
   return num.parse(dimension.replaceAll(new RegExp("[^0-9.]+"),""));
 }
 
+Future flush(cb) async {
+  PolymerDom.flush();
+  await wait(1);
+  await cb();
+}
