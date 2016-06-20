@@ -18,7 +18,7 @@ import 'fixtures/x_list.dart';
 var rand = new Random();
 
 flush(x()) {
-  new Future((){}).then((_) => x());
+  new Future(() {}).then((_) => x());
 }
 
 main() async {
@@ -50,23 +50,31 @@ main() async {
       list.items = buildDataSet(setSize);
 
       scrollBackUp([_]) {
-        simulateScroll({'list': list, 'contribution': 200, 'target': 0, "onScrollEnd" :() {
-          new Future(() {}).then((_) {
-            expect(getFirstItemFromList(list).text, phrase);
-            done.complete();
-          });
-        }});
+        simulateScroll({
+          'list': list,
+          'contribution': 200,
+          'target': 0,
+          "onScrollEnd": () {
+            new Future(() {}).then((_) {
+              expect(getFirstItemFromList(list).text, phrase);
+              done.complete();
+            });
+          }
+        });
       }
 
       new Future(() {}).then((_) {
         var rowHeight = list.jsElement['_physicalItems'][0].offsetHeight;
         // scroll down
-        simulateScroll(
-            {'list': list, 'contribution': 200, 'target': setSize * rowHeight,
-              "onScrollEnd": () {
-                list.set('items.0.index', phrase);
-                new Future(() {}).then(scrollBackUp);
-              }});
+        simulateScroll({
+          'list': list,
+          'contribution': 200,
+          'target': setSize * rowHeight,
+          "onScrollEnd": () {
+            list.set('items.0.index', phrase);
+            new Future(() {}).then(scrollBackUp);
+          }
+        });
       });
 
       return done.future;
@@ -85,14 +93,14 @@ main() async {
         var itemsPerViewport = (viewportHeight / rowHeight).floor();
         expect(getFirstItemFromList(list).text, '0');
         simulateScroll({
-                         'list': list,
-                         'contribution': rowHeight,
-                         'target': list.items.length * rowHeight
-                         , "onScrollEnd": () {
-            expect(getFirstItemFromList(list).text,
-                       (list.items.length - itemsPerViewport).toString());
+          'list': list,
+          'contribution': rowHeight,
+          'target': list.items.length * rowHeight,
+          "onScrollEnd": () {
+            expect(getFirstItemFromList(list).text, (list.items.length - itemsPerViewport).toString());
             done.complete();
-          }});
+          }
+        });
       });
       return done.future;
     });
@@ -112,13 +120,12 @@ main() async {
 
         list.scrollToIndex(list.items.length - 1);
         expect(isFullOfItems(list), isTrue);
-        expect(getFirstItemFromList(list).text.trim(),
-                   list.items.length - itemsPerViewport);
+        expect(getFirstItemFromList(list).text.trim(), list.items.length - itemsPerViewport);
         done.complete();
       });
 
       return done.future;
-    });
+    }, skip: 'https://github.com/dart-lang/polymer_elements/issues/53');
 
     test('pop', () {
       var done = new Completer();
@@ -127,21 +134,22 @@ main() async {
       new Future(() {}).then((_) {
         var rowHeight = getFirstItemFromList(list).offsetHeight;
         simulateScroll({
-                         'list': list,
-                         'contribution': rowHeight,
-                         'target': setSize * rowHeight,
-                         'onScrollEnd': () {
-                           var viewportHeight = list.offsetHeight;
-                           var itemsPerViewport = (viewportHeight / rowHeight).floor();
-                           // TODO(jakemac): Update once we resolve
-                           // https://github.com/dart-lang/polymer_interop/issues/6
-                           list.removeLast('items');
-                           new Future(() {}).then((_) {
-                             expect(list.items.length, setSize - 1);
-                             expect(getFirstItemFromList(list).text, '${setSize - 3 - 1}');
-                             done.complete();
-                           });
-                         }});
+          'list': list,
+          'contribution': rowHeight,
+          'target': setSize * rowHeight,
+          'onScrollEnd': () {
+            var viewportHeight = list.offsetHeight;
+            var itemsPerViewport = (viewportHeight / rowHeight).floor();
+            // TODO(jakemac): Update once we resolve
+            // https://github.com/dart-lang/polymer_interop/issues/6
+            list.removeLast('items');
+            new Future(() {}).then((_) {
+              expect(list.items.length, setSize - 1);
+              expect(getFirstItemFromList(list).text, '${setSize - 3 - 1}');
+              done.complete();
+            });
+          }
+        });
       });
       return done.future;
     });
@@ -167,38 +175,36 @@ main() async {
         index = (list.items.length * rand.nextDouble()).floor();
         list.removeItem('items', list.items[index]);
         list.scrollToIndex(list.items.length - 1);
-        expect(
-            new RegExp(r'^[0-9]*$').hasMatch(getFirstItemFromList(list).text),
-            isTrue);
+        expect(new RegExp(r'^[0-9]*$').hasMatch(getFirstItemFromList(list).text), isTrue);
       }
     });
 
     test('reassign items', () {
       Completer done = new Completer();
       list.items = buildDataSet(100);
-      container.itemHeight =null;// 'auto';
+      container.itemHeight = null; // 'auto';
 
       flush(() {
         var itemHeight = getFirstItemFromList(list).offsetHeight;
         var hasRepeatedItems = checkRepeatedItems(list);
 
         simulateScroll({
-                         "list": list,
-                         "contribution": 200,
-                         "target": itemHeight * list.items.length,
-                         "onScrollEnd": () {
-                           list.items = [list.items.removeAt(0)];
-                           simulateScroll({
-                                            "list": list,
-                                            "contribution": itemHeight,
-                                            "target": itemHeight * list.items.length,
-                                            "onScroll": () {
-                                              expect(hasRepeatedItems(), isFalse, reason: 'List should not have repeated items');
-                                            },
-                                            "onScrollEnd": done.complete()
-                                          });
-                         }
-                       });
+          "list": list,
+          "contribution": 200,
+          "target": itemHeight * list.items.length,
+          "onScrollEnd": () {
+            list.items = [list.items.removeAt(0)];
+            simulateScroll({
+              "list": list,
+              "contribution": itemHeight,
+              "target": itemHeight * list.items.length,
+              "onScroll": () {
+                expect(hasRepeatedItems(), isFalse, reason: 'List should not have repeated items');
+              },
+              "onScrollEnd": done.complete()
+            });
+          }
+        });
       });
 
       return done.future;
@@ -226,12 +232,71 @@ main() async {
 
         list.scrollToIndex(idx);
         list.notifyPath('items.1.index', 'bad');
-        expect(getFirstItemFromList(list).text, idx);
+        expect(getFirstItemFromList(list).text, idx.toString());
         done.complete();
       });
       return done.future;
     });
 
+    test('should update items off the screen', () {
+      container.listHeight = 50;
+      list.items = buildDataSet(100);
+      PolymerDom.flush();
+      list.scrollToIndex(40);
+      PolymerDom.flush();
+      container.listHeight = 300;
+      container.fire('iron-resize');
+      PolymerDom.flush();
+      list.jsElement.callMethod('_didFocus', [
+        {
+          "target": list.jsElement['_physicalItems'][list.jsElement.callMethod('_getPhysicalIndex', [40])]
+        }
+      ]);
+      list.scrollToIndex(80);
+      PolymerDom.flush();
+      list.set('items.40.index', 'correct');
+      list.scrollToIndex(40);
+      PolymerDom.flush();
+      $assert.equal(getFirstItemFromList(list).text, 'correct');
+    });
+  });
 
+  suite('mutations of primitive type items', () {
+    XList container; IronList list;
+
+    setup(() {
+      container = fixture('trivialListPrimitiveItem');
+      list = container.list;
+    });
+
+    test('push item = polymer', when((done) {
+      list.items = [];
+      list.add('items', 'polymer');
+
+      flush(() {
+        $assert.equal(getFirstItemFromList(list).text, 'polymer');
+        done();
+      });
+    }));
+
+    test('push item = 0', when((done) {
+      list.items = [];
+      list.add('items', 0);
+
+      flush(() {
+        $assert.equal(getFirstItemFromList(list).text, '0');
+        done();
+      });
+    }));
+
+    test('push item = false', when((done) {
+      list.items = [];
+      list.add('items', false);
+
+      flush(() {
+        $assert.equal(getFirstItemFromList(list).text, 'false');
+        done();
+      });
+    }));
   });
 }
