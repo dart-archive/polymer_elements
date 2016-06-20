@@ -32,10 +32,10 @@ main() async {
       await wait(100);
       Element lastItem = getLastItemFromList(list);
       int lastItemHeight = lastItem.offsetHeight;
-      int expectedFinalItem = ((container.listHeight / lastItemHeight) -1).floor();
+      int expectedFinalItem = ((container.listHeight / lastItemHeight) - 1).floor();
       expect(list.offsetHeight, container.listHeight);
       expect(lastItemHeight, 2);
-      expect(isFullOfItems(list),isTrue);
+      expect(isFullOfItems(list), isTrue);
       expect(getLastItemFromList(list).text, expectedFinalItem.toString());
     });
   });
@@ -47,7 +47,7 @@ main() async {
     setUp(() {
       container = fixture('trivialListSmall');
       list = container.list;
-      list.style.display='none';
+      list.style.display = 'none';
       list.items = buildDataSet(200);
     });
 
@@ -55,12 +55,22 @@ main() async {
       await wait(1);
 
       list.style.display = '';
-      expect(getFirstItemFromList(list).text,isNot('0'), reason:'Item should not be rendered');
+      expect(getFirstItemFromList(list).text, isNot('0'), reason: 'Item should not be rendered');
       // resize
       list.fire('iron-resize');
 
       await wait(100);
-      expect(getFirstItemFromList(list).text, '0', reason:'Item should be rendered');
+      expect(getFirstItemFromList(list).text, '0', reason: 'Item should be rendered');
     });
+
+    test('pool should not increase if the list has no size', when((done) {
+      container.style.display = 'none';
+      list.fire('iron-resize');
+
+      flush(() {
+        $assert.isFalse(list.jsElement.callMethod('_increasePoolIfNeeded'));
+        done();
+      });
+    }));
   });
 }
