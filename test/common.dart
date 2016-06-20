@@ -254,3 +254,8 @@ Future flush(cb) async {
   await wait(1);
   await cb();
 }
+
+Future $async(cb) async {
+  await wait(1);
+  return await cb();
+}

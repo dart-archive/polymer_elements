@@ -36,19 +36,15 @@ OK lib/src/iron-list/test/basic.html
 OK lib/src/iron-list/test/grid.html
 OK lib/src/iron-list/test/helpers.html
 OK lib/src/iron-list/test/mutations.html
+OK lib/src/iron-list/test/physical-count.html
+OK lib/src/iron-list/test/x-grid.html
+OK lib/src/iron-list/test/x-list.html
+OK lib/src/iron-menu-behavior/test/iron-menu-behavior.html
 
 NEXT UPDATE : 20160616
 
 
 
-
-
-lib/src/iron-list/test/physical-count.html
-lib/src/iron-list/test/x-grid.html
-lib/src/iron-list/test/x-list.html
-lib/src/iron-location/test/iron-location.html
-lib/src/iron-location/test/redirection.html
-lib/src/iron-menu-behavior/test/iron-menu-behavior.html
 lib/src/iron-overlay-behavior/test/iron-overlay-backdrop.html
 lib/src/iron-overlay-behavior/test/iron-overlay-behavior.html
 lib/src/iron-overlay-behavior/test/test-menu-button.html
