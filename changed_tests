@@ -64,10 +64,11 @@ OK* lib/src/iron-validatable-behavior/test/iron-validatable-behavior.html
 OK lib/src/iron-validatable-behavior/test/test-validatable.html
 OK lib/src/neon-animation/test/neon-animated-pages-descendant-selection.html
 OK lib/src/neon-animation/test/neon-animated-pages-lazy.html
+OK lib/src/paper-badge/test/basic.html
 
 NEXT UPDATE : 20160616
 
-lib/src/paper-badge/test/basic.html
+
 
 lib/src/paper-checkbox/test/basic.html
 
