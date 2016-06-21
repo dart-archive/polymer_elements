@@ -74,6 +74,33 @@ main() async {
       expect(range.value, 5.1);
     });
 
+    test('set large step', when((done) {
+      // PolymerElements/paper-slider#135
+      range.min = 0;
+      range.max = 2625;
+      range.step = 875;
+      range.value = 875;
+      flush(() {
+        $assert.equal(range.value, 875);
+        done();
+      });
+    }));
+
+    test('set step with min', when((done) {
+      range.min = -0.9;
+      range.max = 1.1;
+      range.step = 0.5;
+      range.value = -0.5;
+      flush(() {
+        $assert.equal(range.value, -0.4);
+        range.value = 0.7;
+        flush(() {
+          $assert.equal(range.value, 0.6);
+          done();
+        });
+      });
+    }));
+
     test('odd values', () async {
       range.min = 1;
       range.max = 7;

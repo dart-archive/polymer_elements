@@ -13,11 +13,11 @@ class TestMenuButton extends PolymerElement {
 
   ButtonElement get trigger => $['trigger'];
 
-  TestOverlay get dropdown => $['dropdown'];
+  TestOverlay get overlay => $['overlay'];
 
   @reflectable
   toggle([_,__]) {
-    dropdown.toggle();
+    overlay.toggle();
   }
 
 }

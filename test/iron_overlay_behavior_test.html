@@ -73,6 +73,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </div>
         <div tabindex="2" class="focusable2">2</div>
       </test-overlay>
+    <test-overlay2>
+      Overlay with optimized focusableNodes getter
+      <button class="focusable1">1</button>
+    </test-overlay2>
   </template>
 
   <template id="backdrop">
@@ -94,10 +98,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <template id="composed">
-      <test-menu-button>
-        Composed overlay
-        <button>Button</button>
-      </test-menu-button>
+      <test-menu-button></test-menu-button>
   </template>
 
   <test-buttons id="buttons"></test-buttons>

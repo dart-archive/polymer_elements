@@ -211,6 +211,10 @@ class $assert {
   static void isOk(thing,[reason]) => ok(thing,reason);
 
   static void notEqual(x,what, [reason]) => T.expect(x,T.isNot(what),reason:reason);
+
+  static void isNotOk(x, [reason]) => T.expect(x,T.isNull,reason:reason);
+
+  static void lengthOf(List list, int len, [reason]) => T.expect(list.length,len,reason:reason);
 }
 
 $$assert(x,[reason]) => $assert.isTrue(x,reason);

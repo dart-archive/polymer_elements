@@ -7,6 +7,7 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
+
 <dom-module id="test-overlay2">
 
     <style>
@@ -20,8 +21,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <template>
+        <button id="first">first</button>
         <content></content>
+        <button id="last">last</button>
     </template>
 
 </dom-module>
+
+<script>
+
+    (function() {
+
+        Polymer({
+
+            is: 'test-overlay2',
+
+            behaviors: [
+                Polymer.IronOverlayBehavior
+            ],
+
+            get _focusableNodes() {
+                return [this.$.first, this.$.last];
+            }
+
+        });
+
+    })();
+
+</script>
 

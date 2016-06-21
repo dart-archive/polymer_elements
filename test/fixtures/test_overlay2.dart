@@ -11,8 +11,9 @@ import 'package:polymer_elements/iron_overlay_backdrop.dart';
 import 'dart:html';
 
 
-@PolymerRegister('test-overlay2')
-class TestOverlay2 extends PolymerElement
-    with IronFitBehavior, IronResizableBehavior, IronOverlayBehavior {
+@CustomElementProxy('test-overlay2')
+class TestOverlay2  extends HtmlElement with CustomElementProxyMixin,PolymerBase,IronOverlayBehavior  {
   TestOverlay2.created() : super.created();
+
+  List<Element> get focusableNodes => jsElement['_focusableNodes'];
 }

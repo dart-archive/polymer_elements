@@ -20,9 +20,8 @@ import 'fixtures/test_buttons.dart';
 import 'package:polymer_elements/iron_overlay_backdrop.dart';
 import 'fixtures/test_menu_button.dart';
 
-
 Future runAfterOpen(overlay, cb) {
-  Completer completer= new Completer();
+  Completer completer = new Completer();
   overlay.on['iron-overlay-opened'].take(1).listen((_) async {
     await wait(1);
     await cb();
@@ -48,6 +47,8 @@ final JsObject _IronOverlayManager = context['Polymer']['IronOverlayManager'];
 main() async {
   await initPolymer();
 
+  //context['Polymer']['Gesture'].callMethod('add', [document, 'tap', null]);
+
   group('basic overlay tests', () {
     TestOverlay overlay;
 
@@ -58,33 +59,22 @@ main() async {
 
     test('overlay starts hidden', () {
       expect(overlay.opened, isFalse, reason: 'overlay starts closed');
-      expect(overlay
-                 .getComputedStyle()
-                 .display, 'none',
-                 reason: 'overlay starts hidden');
+      expect(overlay.getComputedStyle().display, 'none', reason: 'overlay starts hidden');
     });
 
-    test('overlay open by default', () async {
-      overlay = fixture('opened');
-      await overlay.on['iron-overlay-opened'].first;
-      expect(overlay.opened, isTrue, reason: 'overlay starts opened');
-      expect(overlay
-                 .getComputedStyle()
-                 .display, isNot('none'),
-                 reason: 'overlay starts showing');
-    });
-
-    test('overlay positioned & sized properly', () async {
-      overlay = fixture('opened');
-      await overlay.on['iron-overlay-opened'].first;
-      var s = overlay.getComputedStyle();
-      expect(double.parse(s.left.replaceFirst('px', '')),
-                 (window.innerWidth - overlay.offsetWidth) / 2,
-                 reason: 'centered horizontally');
-      expect(double.parse(s.top.replaceFirst('px', '')),
-                 (window.innerHeight - overlay.offsetHeight) / 2,
-                 reason: 'centered vertically');
-    });
+    test('_renderOpened called only after is attached', when((done) async {
+      TestOverlay overlay = document.createElement('test-overlay');
+      // The overlay is ready at this point, but not yet attached.
+      Spy _spy = spy(overlay.jsElement, '_renderOpened');
+      // This triggers _openedChanged.
+      overlay.opened = true;
+      // Wait long enough for requestAnimationFrame callback.
+      await wait(100);
+      $assert.isFalse(_spy.called, '_renderOpened not called');
+      // Because not attached yet, overlay should not be the current overlay!
+      $assert.isNotOk(overlay.jsElement['_manager'].callMethod('currentOverlay'), 'currentOverlay not set');
+      done();
+    }));
 
     test('overlay open/close events', () {
       var done = new Completer();
@@ -319,7 +309,6 @@ main() async {
     });
   });
 
-
   group('keyboard event listener', () {
     TestOverlay overlay;
 
@@ -365,9 +354,7 @@ main() async {
       Completer done = new Completer();
       overlay.on['iron-overlay-opened'].take(1).listen((_) {
         expect(overlay.opened, isTrue, reason: 'overlay starts opened');
-        expect(overlay
-                   .getComputedStyle()
-                   .display, isNot('none'), reason: 'overlay starts showing');
+        expect(overlay.getComputedStyle().display, isNot('none'), reason: 'overlay starts showing');
         done.complete();
       });
 
@@ -435,16 +422,65 @@ main() async {
         document.body.children.remove(button);
       });
     });
+
+    test('overlay with-backdrop and 1 focusable: prevent TAB and trap the focus', when((done) {
+      overlay.withBackdrop = true;
+      runAfterOpen(overlay, () async {
+        // 1ms timeout needed by IE10 to have proper focus switching.
+        await wait(1);
+        // Spy keydown.
+        bool defaultPrevented;
+        int calls = 0;
+        StreamSubscription sub = document.on['keydown'].listen((Event evt) {
+          defaultPrevented = evt.defaultPrevented;
+          calls++;
+        });
+        // Simulate TAB.
+        pressAndReleaseKeyOn(document, 9);
+        $assert.equal(new PolymerDom(overlay).querySelector('[autofocus]'), document.activeElement, 'focus stays on button');
+        $assert.isTrue(calls == 1, 'keydown spy called');
+        $assert.isTrue(defaultPrevented, 'keydown default prevented');
+        // Cleanup.
+        sub.cancel();
+        done();
+      });
+    }));
+
+    test('empty overlay with-backdrop: prevent TAB and trap the focus', when((done) {
+      overlay = fixture('basic');
+      overlay.withBackdrop = true;
+      runAfterOpen(overlay, () async {
+        // 1ms timeout needed by IE10 to have proper focus switching.
+        await wait(1);
+        // Spy keydown.
+        bool defaultPrevented;
+        int calls = 0;
+        StreamSubscription sub = document.on['keydown'].listen((Event evt) {
+          defaultPrevented = evt.defaultPrevented;
+          calls++;
+        });
+        // Simulate TAB.
+        pressAndReleaseKeyOn(document, 9);
+        $assert.equal(overlay, document.activeElement, 'focus stays on overlay');
+        $assert.isTrue(calls == 1, 'keydown spy called');
+        $assert.isTrue(defaultPrevented, 'keydown default prevented');
+        // Cleanup.
+        sub.cancel();
+        done();
+      });
+    }));
   });
 
   group('focusable nodes', () {
     TestOverlay overlay;
     TestOverlay overlayWithTabIndex;
+    TestOverlay2 overlayFocusableNodes;
 
     setUp(() {
       var f = fixture('focusables');
       overlay = f[0];
       overlayWithTabIndex = f[1];
+      overlayFocusableNodes = f[2];
     });
 
     test('_focusableNodes returns nodes that are focusable', () {
@@ -473,47 +509,113 @@ main() async {
       expect(focusableNodes[5], Polymer.dom(overlayWithTabIndex).querySelector('.focusable6'));
     });
 
-    test('with-backdrop: TAB & Shift+TAB wrap focus', () async {
+    test('_focusableNodes can be overridden', () {
+      // It has 1 focusable in the light dom, and 2 in the shadow dom.
+      List<Element> focusableNodes = overlayFocusableNodes.focusableNodes;
+      $assert.equal(focusableNodes.length, 2, 'length ok');
+      $assert.equal(focusableNodes[0], overlayFocusableNodes.$['first'], 'first ok');
+      $assert.equal(focusableNodes[1], overlayFocusableNodes.$['last'], 'last ok');
+    });
+
+    test('with-backdrop: TAB & Shift+TAB wrap focus', when((done) {
       overlay.withBackdrop = true;
-      var focusableNodes = overlay.jsElement["_focusableNodes"];
-      await runAfterOpen(overlay, () async {
+      List<Element> focusableNodes = overlay.jsElement['_focusableNodes'];
+      runAfterOpen(overlay, () async {
+        // 1ms timeout needed by IE10 to have proper focus switching.
         await wait(1);
         // Go to last element.
-        focus(focusableNodes[focusableNodes.length - 1]);
-        // Simulate TAB & focus out of overlay.
+        focusableNodes[focusableNodes.length - 1].focus();
+        // Spy keydown.
+        await wait(1);
+        // Spy keydown.
+        List<bool> defaultPrevented = [];
+
+        StreamSubscription sub = document.on['keydown'].listen((Event evt) {
+          defaultPrevented.add(evt.defaultPrevented);
+        });
+        // Simulate TAB.
         pressAndReleaseKeyOn(document, 9);
-        focus(document.body);
-
-        expect(focusableNodes[0], document.activeElement, reason: 'focus wrapped to first focusable');
-        // Simulate Shift+TAB & focus out of overlay.
+        $assert.equal(focusableNodes[0], document.activeElement, 'focus wrapped to first focusable');
+        $assert.isTrue(defaultPrevented.length == 1, 'keydown spy called');
+        $assert.isTrue(defaultPrevented[0], 'keydown default prevented');
+        // Simulate Shift+TAB.
         pressAndReleaseKeyOn(document, 9, ['shift']);
-        focus(document.body);
-        expect(focusableNodes[focusableNodes.length - 1], document.activeElement, reason: 'focus wrapped to last focusable');
+        $assert.equal(focusableNodes[focusableNodes.length - 1], document.activeElement, 'focus wrapped to last focusable');
+        $assert.isTrue(defaultPrevented.length == 2, 'keydown spy called again');
+        $assert.isTrue(defaultPrevented[1], 'keydown default prevented again');
+        // Cleanup.
+        sub.cancel();
+        done();
       });
-    });
+    }));
 
-    test('with-backdrop: TAB & Shift+TAB wrap focus respecting tabindex', () async {
+    test('with-backdrop: TAB & Shift+TAB wrap focus respecting tabindex', when((done) {
       overlayWithTabIndex.withBackdrop = true;
-      var focusableNodes = overlayWithTabIndex.jsElement['_focusableNodes'];
-      await runAfterOpen(overlayWithTabIndex, () async {
+      List<Element> focusableNodes = overlayWithTabIndex.jsElement['_focusableNodes'];
+      runAfterOpen(overlayWithTabIndex, () async {
+        // 1ms timeout needed by IE10 to have proper focus switching.
         await wait(1);
         // Go to last element.
-        focus(focusableNodes[focusableNodes.length - 1]);
-        // Simulate TAB & focus out of overlay.
+        focusableNodes[focusableNodes.length - 1].focus();
+        // Simulate TAB.
         pressAndReleaseKeyOn(document, 9);
-        focus(document.body);
-        expect(focusableNodes[0], document.activeElement, reason: 'focus wrapped to first focusable');
-        // Simulate Shift+TAB & focus out of overlay.
+        $assert.equal(focusableNodes[0], document.activeElement, 'focus wrapped to first focusable');
+        // Simulate Shift+TAB.
         pressAndReleaseKeyOn(document, 9, ['shift']);
-        focus(document.body);
-        expect(focusableNodes[focusableNodes.length - 1], document.activeElement, reason: 'focus wrapped to last focusable');
+        $assert.equal(focusableNodes[focusableNodes.length - 1], document.activeElement, 'focus wrapped to last focusable');
+        done();
       });
-    });
+    }));
+
+    test('with-backdrop: Shift+TAB after open wrap focus', when((done) {
+      overlay.withBackdrop = true;
+      var focusableNodes = overlay.jsElement['_focusableNodes'];
+      runAfterOpen(overlay, () async {
+        // 1ms timeout needed by IE10 to have proper focus switching.
+        await wait(1);
+        // Spy keydown.
+        List<bool> defaultPrevented = [];
+
+        StreamSubscription sub = document.on['keydown'].listen((Event evt) {
+          defaultPrevented.add(evt.defaultPrevented);
+        });
+        // Simulate Shift+TAB.
+        pressAndReleaseKeyOn(document, 9, ['shift']);
+        $assert.equal(focusableNodes[focusableNodes.length - 1], document.activeElement, 'focus wrapped to last focusable');
+        $assert.isTrue(defaultPrevented.length == 1, 'keydown spy called');
+        $assert.isTrue(defaultPrevented[0], 'keydown default prevented');
+        // Cleanup.
+        sub.cancel();
+        done();
+      });
+    }));
+
+    test('with-backdrop: Shift+TAB wrap focus in shadowDOM', when((done) {
+      overlayFocusableNodes.withBackdrop = true;
+      runAfterOpen(overlayFocusableNodes, () async {
+        // 1ms timeout needed by IE10 to have proper focus switching.
+        await wait(1);
+        // Spy keydown.
+        List<bool> defaultPrevented = [];
+
+        StreamSubscription sub = document.on['keydown'].listen((Event evt) {
+          defaultPrevented.add(evt.defaultPrevented);
+        });
+        // Simulate Shift+TAB.
+        pressAndReleaseKeyOn(document, 9, ['shift']);
+        $assert.equal(overlayFocusableNodes.$['last'], IronOverlayManager.deepActiveElement, 'focus wrapped to last focusable in the shadowDOM');
+        $assert.isTrue(defaultPrevented.length == 1, 'keydown spy called');
+        $assert.isTrue(defaultPrevented.single, 'keydown default prevented');
+        // Cleanup.
+        sub.cancel();
+        done();
+      });
+    }));
   });
 
-  onFocus(Element e,cb) async {
+  onFocus(Element e, cb) async {
     Completer c = new Completer();
-    e.onFocus.take(1).listen((_){
+    e.onFocus.take(1).listen((_) {
       cb();
       c.complete();
     });
@@ -523,18 +625,18 @@ main() async {
 
   group('Polymer.IronOverlayManager.deepActiveElement', () {
     test('handles document.body', () async {
-      await onFocus(document.body,() {
+      await onFocus(document.body, () {
         expect(IronOverlayManager.deepActiveElement, document.body);
       });
-    },skip:"focus not working on test runner ?");
+    }, skip: "focus not working on test runner ?");
 
     test('handles light dom', () async {
       var focusable = document.getElementById('focusInput');
-      await onFocus(focusable,() {
+      await onFocus(focusable, () {
         expect(IronOverlayManager.deepActiveElement, focusable, reason: 'input is handled');
         focusable.blur();
       });
-    }, skip:"focus not working on test runner ?");
+    }, skip: "focus not working on test runner ?");
 
     test('handles shadow dom', () async {
       var focusable = (document.getElementById('buttons') as TestButtons).button0;
@@ -542,9 +644,8 @@ main() async {
         expect(IronOverlayManager.deepActiveElement, focusable);
         focusable.blur();
       });
-    },skip:"focus not working on test runner ?");
+    }, skip: "focus not working on test runner ?");
   });
-
 
   group('restore-focus-on-close', () {
     var overlay;
@@ -567,7 +668,7 @@ main() async {
           expect(IronOverlayManager.deepActiveElement, isNot(focusable), reason: 'focus is not restored to focusable');
         });
       });
-    });
+    }, skip: "focus not working on test runner ?");
 
     test('overlay returns focus on close', () async {
       var focusable = document.getElementById('focusInput');
@@ -577,7 +678,7 @@ main() async {
           expect(IronOverlayManager.deepActiveElement, focusable, reason: 'focus restored to focusable');
         });
       });
-    });
+    }, skip: "focus not working on test runner ?");
 
     test('overlay returns focus on close (ShadowDOM)', () async {
       var focusable = (document.getElementById('buttons') as TestButtons).button0;
@@ -587,7 +688,7 @@ main() async {
           expect(IronOverlayManager.deepActiveElement, focusable, reason: 'focus restored to focusable');
         });
       });
-    });
+    }, skip: "focus not working on test runner ?");
 
     test('overlay does not return focus to elements contained in another overlay', () async {
       var overlay2 = fixture('basic');
@@ -603,7 +704,7 @@ main() async {
           });
         });
       });
-    });
+    }, skip: "focus not working on test runner ?");
 
     test('overlay does not return focus to elements that are not in the body anymore', () async {
       InputElement focusable = document.createElement('input');
@@ -616,8 +717,8 @@ main() async {
           expect(focusSpy.called, isFalse, reason: 'focus not called');
         });
       });
-    });
-  });
+    }, skip: "focus not working on test runner ?");
+  }, skip: "focus not working on test runner ?");
 
   group('overlay with backdrop', () {
     TestOverlay overlay;
@@ -636,12 +737,8 @@ main() async {
 
     test('backdrop appears behind the overlay', () async {
       await runAfterOpen(overlay, () {
-        int styleZ = parseFloat(overlay
-                                    .getComputedStyle()
-                                    .zIndex).floor();
-        int backdropStyleZ = parseFloat(overlay.backdropElement
-                                            .getComputedStyle()
-                                            .zIndex).floor();
+        int styleZ = parseFloat(overlay.getComputedStyle().zIndex).floor();
+        int backdropStyleZ = parseFloat(overlay.backdropElement.getComputedStyle().zIndex).floor();
         expect(styleZ > backdropStyleZ, isTrue, reason: 'overlay has higher z-index than backdrop');
       });
     });
@@ -651,9 +748,7 @@ main() async {
         await runAfterClose(overlay, () async {
           expect((overlay.backdropElement as IronOverlayBackdrop).opened, isFalse, reason: 'backdrop is closed');
           expect(overlay.backdropElement.parentNode, isNull, reason: 'backdrop is removed from the DOM');
-          expect(document
-                     .querySelectorAll('iron-overlay-backdrop')
-                     .length, 0, reason: 'no backdrop elements on body');
+          expect(document.querySelectorAll('iron-overlay-backdrop').length, 0, reason: 'no backdrop elements on body');
         });
       });
     });
@@ -665,21 +760,21 @@ main() async {
         PolymerDom.flush();
         expect((overlay.backdropElement as IronOverlayBackdrop).opened, isFalse, reason: 'backdrop is closed');
         expect(overlay.backdropElement.parentNode, isNull, reason: 'backdrop is removed from the DOM');
-        expect(document
-                   .querySelectorAll('iron-overlay-backdrop')
-                   .length, 0, reason: 'no backdrop elements on body');
+        expect(document.querySelectorAll('iron-overlay-backdrop').length, 0, reason: 'no backdrop elements on body');
         expect(overlay.jsElement['_manager'].callMethod('currentOverlay'), isNull, reason: 'currentOverlay ok');
         expect(IronOverlayManager.currentOverlay, isNull, reason: 'currentOverlay ok'); // dam0vm3nt : same test with IronOverlayMan
-
       });
     });
 
-    test('manager.getBackdrops() immediately updated on opened changes', () {
-      overlay.opened = true;
-      expect(IronOverlayManager.backdrops.length, 1, reason: 'overlay added to manager backdrops');
-      overlay.opened = false;
-      expect(IronOverlayManager.backdrops.length, 0, reason: 'overlay removed from manager backdrops');
-    });
+    test('manager.getBackdrops() immediately updated on opened changes', when((done) {
+      runAfterOpen(overlay, () {
+        overlay.opened = true;
+        expect(IronOverlayManager.backdrops.length, 1, reason: 'overlay added to manager backdrops');
+        overlay.opened = false;
+        expect(IronOverlayManager.backdrops.length, 0, reason: 'overlay removed from manager backdrops');
+        done();
+      });
+    }));
 
     test('updating with-backdrop to false closes backdrop', () async {
       await runAfterOpen(overlay, () {
@@ -691,15 +786,26 @@ main() async {
 
     test('backdrop is removed when toggling overlay opened', () async {
       overlay.open();
-      expect(overlay.backdropElement.parentNode, isNotNull, reason: 'backdrop is immediately inserted in the document');
       await runAfterClose(overlay, () {
         expect((overlay.backdropElement as IronOverlayBackdrop).opened, isFalse, reason: 'backdrop is closed');
         expect(overlay.backdropElement.parentNode, isNull, reason: 'backdrop is removed from document');
       });
     });
+
+    test('withBackdrop = false does not prevent click outside event', when((done) {
+      overlay.withBackdrop = false;
+      runAfterOpen(overlay, () {
+        overlay.on['iron-overlay-canceled'].take(1).listen((event) {
+          CustomEventWrapper customEventWrapper = new CustomEventWrapper(event);
+          $assert.isFalse(customEventWrapper.detail.defaultPrevented, 'click event not prevented');
+          done();
+        });
+        tap(document.body);
+      });
+    }));
   });
 
-  int parseInt(x,[_]) => parseFloat(x).floor();
+  int parseInt(x, [_]) => parseFloat(x).floor();
 
   group('multiple overlays', () {
     TestOverlay overlay1, overlay2;
@@ -713,12 +819,8 @@ main() async {
     test('new overlays appear on top', () async {
       await runAfterOpen(overlay1, () async {
         await runAfterOpen(overlay2, () {
-          var styleZ = parseInt(overlay1
-                                    .getComputedStyle()
-                                    .zIndex);
-          var styleZ1 = parseInt(overlay2
-                                     .getComputedStyle()
-                                     .zIndex);
+          var styleZ = parseInt(overlay1.getComputedStyle().zIndex);
+          var styleZ1 = parseInt(overlay2.getComputedStyle().zIndex);
           expect(styleZ1 > styleZ, isTrue, reason: 'overlay2 has higher z-index than overlay1');
         });
       });
@@ -744,8 +846,7 @@ main() async {
 
       // Immediately close the first overlay.
       // Wait for infinite recursion, otherwise we win.
-      await runAfterClose(overlay2, () {
-      });
+      await runAfterClose(overlay2, () {});
     });
   });
 
@@ -763,45 +864,48 @@ main() async {
     test('no duplicates after attached', () async {
       overlay1 = new Element.tag('test-overlay');
       Completer done = new Completer();
-      overlay1.on['iron-overlay-opened'].take(1).listen((_) {
+      runAfterOpen(overlay1, () {
         expect(overlays.length, 1, reason: 'correct count after open and attached');
         document.body.children.remove(overlay1);
         done.complete();
       });
-      overlay1.opened = true;
-      expect(overlays.length, 1, reason: 'immediately updated');
       document.body.children.add(overlay1);
       await done.future;
     });
 
-    test('open twice handled', () {
+    test('call open multiple times handled', when((done) {
       overlay1.open();
-      expect(overlays.length, 1, reason: '1 overlay after open');
       overlay1.open();
-      expect(overlays.length, 1, reason: '1 overlay after second open');
-    });
+      runAfterOpen(overlay1, () {
+        $assert.equal(overlays.length, 1, '1 overlay after open');
+        done();
+      });
+    }));
 
-    test('close handled', () {
-      overlay1.open();
-      overlay1.close();
-      expect(overlays.length, 0, reason: '0 overlays after close');
-    });
+    test('close handled', when((done) {
+      runAfterOpen(overlay1, () {
+        overlay1.close();
+        $assert.equal(overlays.length, 0, '0 overlays after close');
+        done();
+      });
+    }));
 
-    test('open/close brings overlay on top', () {
+    test('open/close brings overlay on top', when((done) {
       overlay1.open();
-      overlay2.open();
-      expect(overlays.indexOf(overlay1), 0, reason: 'overlay1 at index 0');
-      expect(overlays.indexOf(overlay2), 1, reason: 'overlay2 at index 1');
-      overlay1.close();
-      overlay1.open();
-      expect(overlays.indexOf(overlay1), 1, reason: 'overlay1 moved at index 1');
-      expect(parseInt(overlay1.style.zIndex) > parseInt(overlay2.style.zIndex), isTrue, reason: 'overlay1 on top of overlay2');
-    });
+      runAfterOpen(overlay2, () {
+        $assert.equal(overlays.indexOf(overlay1), 0, 'overlay1 at index 0');
+        $assert.equal(overlays.indexOf(overlay2), 1, 'overlay2 at index 1');
+        overlay1.close();
+        runAfterOpen(overlay1, () {
+          $assert.equal(overlays.indexOf(overlay1), 1, 'overlay1 moved at index 1');
+          $assert.isAbove(parseInt(overlay1.style.zIndex), parseInt(overlay2.style.zIndex), 'overlay1 on top of overlay2');
+          done();
+        });
+      });
+    }));
   });
 
-
-  group('z-ordering', ()
-  {
+  group('z-ordering', () {
     int originalMinimumZ;
     TestOverlay overlay1, overlay2;
 
@@ -819,9 +923,7 @@ main() async {
     // for iframes
     test('default z-index is greater than 100', when((done) {
       runAfterOpen(overlay1, () {
-        var styleZ = parseInt(overlay1
-                                  .getComputedStyle()
-                                  .zIndex);
+        var styleZ = parseInt(overlay1.getComputedStyle().zIndex);
         expect(styleZ > 100, isTrue, reason: 'overlay1 z-index is <= 100');
         done();
       });
@@ -831,9 +933,7 @@ main() async {
       IronOverlayManager.ensureMinimumZ(1000);
 
       runAfterOpen(overlay1, () {
-        var styleZ = parseInt(overlay1
-                                  .getComputedStyle()
-                                  .zIndex);
+        var styleZ = parseInt(overlay1.getComputedStyle().zIndex);
         expect(styleZ > 1000, isTrue, reason: 'overlay1 z-index is <= 1000');
         done();
       });
@@ -844,9 +944,7 @@ main() async {
       IronOverlayManager.ensureMinimumZ(500);
 
       runAfterOpen(overlay1, () {
-        var styleZ = parseInt(overlay1
-                                  .getComputedStyle()
-                                  .zIndex);
+        var styleZ = parseInt(overlay1.getComputedStyle().zIndex);
         expect(styleZ > 1000, isTrue, reason: 'overlay1 z-index is <= 1000');
         done();
       });
@@ -870,37 +968,34 @@ main() async {
       expect(overlay1.backdropElement == overlay3.backdropElement, isTrue, reason: 'overlay1 and overlay3 have the same backdrop element');
     });
 
-    test('only one iron-overlay-backdrop in the DOM', () {
+    test('only one iron-overlay-backdrop in the DOM', when((done) {
       // Open them all.
-      overlay1.opened = overlay2.opened = overlay3.opened = true;
-      expect(document
-                 .querySelectorAll('iron-overlay-backdrop')
-                 .length, 1, reason: 'only one backdrop element in the DOM');
-    });
+      overlay1.opened = true;
+      overlay2.opened = true;
+      runAfterOpen(overlay3, () {
+        $assert.lengthOf(document.querySelectorAll('iron-overlay-backdrop'), 1, 'only one backdrop element in the DOM');
+        done();
+      });
+    }));
 
-    test('iron-overlay-backdrop is removed from the DOM when all overlays with backdrop are closed', when((done) async {
+    test('iron-overlay-backdrop is removed from the DOM when all overlays with backdrop are closed', when((done) {
       // Open & close them all.
-      overlay1.opened = overlay2.opened = overlay3.opened = true;
-      overlay1.opened = overlay2.opened = overlay3.opened = false;
-      await wait(100);
-      expect(document
-                 .querySelectorAll('iron-overlay-backdrop')
-                 .length, 0, reason: 'backdrop element removed from the DOM');
-      done();
+      overlay1.opened = true;
+      overlay2.opened = true;
+      runAfterOpen(overlay3, () {
+        overlay1.opened = overlay2.opened = overlay3.opened = false;
+        PolymerDom.flush();
+        $assert.lengthOf(document.querySelectorAll('iron-overlay-backdrop'), 0, 'backdrop element removed from the DOM');
+        done();
+      });
     }));
 
     test('newest overlay appear on top', when((done) {
       runAfterOpen(overlay1, () {
         runAfterOpen(overlay2, () {
-          var styleZ = parseInt(overlay1
-                                    .getComputedStyle()
-                                    .zIndex);
-          var style1Z = parseInt(overlay2
-                                     .getComputedStyle()
-                                     .zIndex);
-          var bgStyleZ = parseInt(overlay1.backdropElement
-                                      .getComputedStyle()
-                                      .zIndex);
+          var styleZ = parseInt(overlay1.getComputedStyle().zIndex);
+          var style1Z = parseInt(overlay2.getComputedStyle().zIndex);
+          var bgStyleZ = parseInt(overlay1.backdropElement.getComputedStyle().zIndex);
           expect(style1Z > styleZ, isTrue, reason: 'overlay2 has higher z-index than overlay1');
           expect(styleZ > bgStyleZ, isTrue, reason: 'overlay1 has higher z-index than backdrop');
           done();
@@ -922,21 +1017,15 @@ main() async {
           done();
         });
       });
-    }),skip: "Is this test correct ?");
+    }), skip: "Is this test correct ?");
 
     test('updating with-backdrop updates z-index', when((done) {
       runAfterOpen(overlay1, () {
         runAfterOpen(overlay2, () {
           overlay1.withBackdrop = false;
-          var styleZ = parseInt(overlay1
-                                    .getComputedStyle()
-                                    .zIndex);
-          var style1Z = parseInt(overlay2
-                                     .getComputedStyle()
-                                     .zIndex);
-          var bgStyleZ = parseInt(overlay1.backdropElement
-                                      .getComputedStyle()
-                                      .zIndex);
+          var styleZ = parseInt(overlay1.getComputedStyle().zIndex);
+          var style1Z = parseInt(overlay2.getComputedStyle().zIndex);
+          var bgStyleZ = parseInt(overlay1.backdropElement.getComputedStyle().zIndex);
           expect(style1Z > bgStyleZ, isTrue, reason: 'overlay2 has higher z-index than backdrop');
           expect(styleZ < bgStyleZ, isTrue, reason: 'overlay1 has lower z-index than backdrop');
           done();
@@ -945,19 +1034,55 @@ main() async {
     }));
   });
 
-
   group('overlay in composed tree', () {
-    test('click on overlay content does not close it', when((done) {
-      TestMenuButton composed = fixture('composed');
-      // Opens overlay.
-      tap(composed.trigger);
-      composed.dropdown.on['iron-overlay-opened'].take(1).listen((_) async {
-        // Tap on button inside overlay.
-        tap(new PolymerDom(composed).querySelector('button'));
-        await wait(1);
-        expect(composed.dropdown.opened, isTrue, reason: 'overlay still opened');
+    TestMenuButton composed;
+    TestOverlay overlay;
+    Element trigger;
+    setup(when((done) {
+      composed = fixture('composed');
+      overlay = composed.overlay;
+      trigger = composed.trigger;
+      overlay.withBackdrop = true;
+      overlay.on['iron-overlay-opened'].take(1).listen((_) {
         done();
       });
+      // Opens the overlay.
+      tap(trigger);
+    }));
+
+    test('click on overlay content does not close it', when((done) async {
+      // Tap on button inside overlay.
+      tap(Polymer.dom(overlay).querySelector('button'));
+      await wait(1);
+      $assert.isTrue(overlay.opened, 'overlay still opened');
+      done();
+    }));
+
+    test('with-backdrop wraps the focus within the overlay', when((done) async {
+      // 1ms timeout needed by IE10 to have proper focus switching.
+      await wait(1);
+      var buttons = Polymer.dom(overlay).querySelectorAll('button');
+      // Go to last element.
+      buttons[buttons.length - 1].focus();
+      // Spy keydown.
+      List<bool> defaultPrevented = [];
+
+      StreamSubscription sub = document.on['keydown'].listen((Event evt) {
+        defaultPrevented.add(evt.defaultPrevented);
+      });
+      // Simulate TAB.
+      pressAndReleaseKeyOn(document, 9);
+      $assert.equal(buttons[0], IronOverlayManager.deepActiveElement, 'focus wrapped to first focusable');
+      $assert.isTrue(defaultPrevented.length == 1, 'keydown spy called');
+      $assert.isTrue(defaultPrevented[0], 'keydown default prevented');
+      // Simulate Shift+TAB.
+      pressAndReleaseKeyOn(document, 9, ['shift']);
+      $assert.equal(buttons[buttons.length - 1], IronOverlayManager.deepActiveElement, 'focus wrapped to last focusable');
+      $assert.isTrue(defaultPrevented.length == 2, 'keydown spy called again');
+      $assert.isTrue(defaultPrevented[1], 'keydown default prevented again');
+      // Cleanup.
+      sub.cancel();
+      done();
     }));
   });
 
@@ -974,12 +1099,8 @@ main() async {
     test('stays on top', when((done) {
       runAfterOpen(overlay1, () {
         runAfterOpen(overlay2, () {
-          int zIndex1 = parseInt(overlay1
-                                     .getComputedStyle()
-                                     .zIndex);
-          var zIndex2 = parseInt(overlay2
-                                     .getComputedStyle()
-                                     .zIndex);
+          int zIndex1 = parseInt(overlay1.getComputedStyle().zIndex);
+          var zIndex2 = parseInt(overlay2.getComputedStyle().zIndex);
           expect(zIndex1 > zIndex2, isTrue, reason: 'overlay1 on top');
           expect(IronOverlayManager.currentOverlay, overlay1, reason: 'currentOverlay ok');
           done();
@@ -991,12 +1112,8 @@ main() async {
       overlay2.withBackdrop = true;
       runAfterOpen(overlay1, () {
         runAfterOpen(overlay2, () {
-          int zIndex1 = parseInt(overlay1
-                                     .getComputedStyle()
-                                     .zIndex, 10);
-          int zIndex2 = parseInt(overlay2
-                                     .getComputedStyle()
-                                     .zIndex, 10);
+          int zIndex1 = parseInt(overlay1.getComputedStyle().zIndex, 10);
+          int zIndex2 = parseInt(overlay2.getComputedStyle().zIndex, 10);
           expect(zIndex1 > zIndex2, isTrue, reason: 'overlay1 on top');
           expect(IronOverlayManager.currentOverlay, overlay1, reason: 'currentOverlay ok');
           done();
@@ -1008,12 +1125,8 @@ main() async {
       overlay2.alwaysOnTop = true;
       runAfterOpen(overlay1, () {
         runAfterOpen(overlay2, () {
-          var zIndex1 = parseInt(overlay1
-                                     .getComputedStyle()
-                                     .zIndex, 10);
-          var zIndex2 = parseInt(overlay2
-                                     .getComputedStyle()
-                                     .zIndex, 10);
+          var zIndex1 = parseInt(overlay1.getComputedStyle().zIndex, 10);
+          var zIndex2 = parseInt(overlay2.getComputedStyle().zIndex, 10);
           expect(zIndex2 > zIndex1, isTrue, reason: 'overlay2 on top');
           expect(IronOverlayManager.currentOverlay, overlay2, reason: 'currentOverlay ok');
           done();
@@ -1034,9 +1147,8 @@ main() async {
         expect(centerElement, isNot(overlay), reason: 'overlay should not be centered already');
         done();
       });
-    }),skip:"will not work in test runner ?");
+    }), skip: "will not work in test runner ?");
   });
-
 
   group('a11y', () {
     test('overlay has aria-hidden=true when opened', () {
@@ -1048,5 +1160,4 @@ main() async {
       expect(overlay.attributes['aria-hidden'], 'true', reason: 'overlay has aria-hidden="true"');
     });
   });
-
 }
