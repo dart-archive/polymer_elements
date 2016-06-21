@@ -46,22 +46,24 @@ OK lib/src/iron-overlay-behavior/test/test-menu-button.html
 OK lib/src/iron-overlay-behavior/test/test-overlay2.html
 OK lib/src/iron-range-behavior/test/basic.html
 OK lib/src/iron-range-behavior/test/x-progressbar.html
+OK lib/src/iron-selector/test/content-element.html
+OK lib/src/iron-selector/test/activate-event.html
+OK lib/src/iron-selector/test/attr-for-selected-elements.html
+OK lib/src/iron-selector/test/attr-for-selected.html
+OK lib/src/iron-selector/test/basic.html
+OK lib/src/iron-selector/test/content.html
+OK lib/src/iron-selector/test/excluded-local-names.html
+OK lib/src/iron-selector/test/multi.html
+OK lib/src/iron-selector/test/next-previous.html
+OK lib/src/iron-selector/test/numeric-ids.html
+OK lib/src/iron-selector/test/selected-attribute.html
+OK
+lib/src/iron-selector/test/template-repeat.html
 
 NEXT UPDATE : 20160616
 
 
-lib/src/iron-selector/test/activate-event.html
-lib/src/iron-selector/test/attr-for-selected-elements.html
-lib/src/iron-selector/test/attr-for-selected.html
-lib/src/iron-selector/test/basic.html
-lib/src/iron-selector/test/content-element.html
-lib/src/iron-selector/test/content.html
-lib/src/iron-selector/test/excluded-local-names.html
-lib/src/iron-selector/test/multi.html
-lib/src/iron-selector/test/next-previous.html
-lib/src/iron-selector/test/numeric-ids.html
-lib/src/iron-selector/test/selected-attribute.html
-lib/src/iron-selector/test/template-repeat.html
+
 
 
 lib/src/iron-validatable-behavior/test/cats-only.html

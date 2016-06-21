@@ -18,7 +18,6 @@ import 'dart:async';
 main() async {
   await initPolymer();
 
-
   group('inline attributes', () {
     IronSelector selector;
     List items;
@@ -49,7 +48,7 @@ main() async {
       selector = fixture('reflectedProperties');
       items = new List.from(selector.querySelectorAll('attr-reflector'));
       for (var i = 0; i < items.length; i++) {
-        items[i].set('someAttr',"value$i");
+        items[i].set('someAttr', "value$i");
       }
     });
 
@@ -75,7 +74,7 @@ main() async {
       items = new List.from(selector.querySelectorAll('attr-reflector, div[some-attr]'));
       for (var i = 0; i < items.length; i++) {
         if (items[i] is AttrReflector) {
-          items[i].set('someAttr',"value$i");
+          items[i].set('someAttr', "value$i");
         } else {
           items[i].attributes['someAttr'] = "value$i";
         }
@@ -107,5 +106,60 @@ main() async {
 
       testSelectItem(i);
     }));
+  });
+
+  suite('default attribute', () {
+    IronSelector selector;
+    List items;
+
+    setup(() {
+      selector = fixture('defaultAttribute');
+      items = new List.from(selector.querySelectorAll('div[some-attr]'));
+    });
+
+    test('setting non-existing value sets default', () {
+      selector.select('non-existing-value');
+      $assert.equal(selector.selected, 'default');
+      $assert.equal(selector.selectedItem, items[2]);
+    });
+
+    test('setting non-existing value sets default', () {
+      selector.multi = true;
+      selector.select(['non-existing-value']);
+      $assert.deepEqual(selector.selectedValues, ['default']);
+      $assert.deepEqual(selector.selectedItems, [items[2]]);
+    });
+
+    test('default not used when there was at least one match', () {
+      selector.multi = true;
+      selector.selectedValues = ['non-existing-value', 'value0'];
+      $assert.deepEqual(selector.selectedValues, ['non-existing-value', 'value0']);
+      $assert.deepEqual(selector.selectedItems, [items[0]]);
+    });
+
+    test('default element not found does not result in infinite loop', () {
+      selector.fallbackSelection = 'non-existing-fallback';
+      selector.select('non-existing-value');
+      $assert.equal(selector.selectedItem, null);
+      selector.multi = true;
+      selector.selectedValues = ['non-existing-value'];
+      $assert.deepEqual(selector.selectedItems, [null]);
+      selector.fallbackSelection = 'default';
+      $assert.deepEqual(selector.selectedItems, [items[2]]);
+    });
+
+    test('selection is updated after fallback is set', () {
+      selector.fallbackSelection = null;
+      selector.select('non-existing-value');
+      selector.fallbackSelection = 'default';
+      $assert.equal(selector.selectedItem, items[2]);
+    });
+
+    test('multi-selection is updated after fallback is set', () {
+      selector.fallbackSelection = null;
+      selector.selectedValues = ['non-existing-value'];
+      selector.fallbackSelection = 'default';
+      $assert.equal(selector.selectedItem, items[2]);
+    });
   });
 }

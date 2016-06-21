@@ -96,6 +96,44 @@ main() async {
       expect(selectedEventCounter, 0);
     });
 
+    test('force synchronous item update', () {
+      $expect(s2.items.length).to.be.equal(5);
+      new PolymerDom(s2).append(document.createElement('div'));
+      $expect(s2.items.length).to.be.equal(5);
+      s2.forceSynchronousItemUpdate();
+      $expect(s2.items.length).to.be.equal(6);
+    });
+
+    suite('`select()` and `selectIndex()`', () {
+      test('`select()` selects an item with the given value', () {
+        s2.select('item1');
+        $assert.equal(s2.selected, 'item1');
+
+        s2.select('item3');
+        $assert.equal(s2.selected, 'item3');
+
+        s2.select('item2');
+        $assert.equal(s2.selected, 'item2');
+      });
+
+      test('`selectIndex()` selects an item with the given index', () {
+        s2.selectIndex(-1);
+        $assert.equal(s2.selectedItem, null);
+
+        s2.selectIndex(1);
+        $assert.equal(s2.selected, 'item1');
+        $assert.equal(s2.selectedItem, s2.items[1]);
+
+        s2.selectIndex(3);
+        $assert.equal(s2.selected, 'item3');
+        $assert.equal(s2.selectedItem, s2.items[3]);
+
+        s2.selectIndex(4);
+        $assert.equal(s2.selected, 'item4');
+        $assert.equal(s2.selectedItem, s2.items[4]);
+      });
+    });
+
     group('items changing', () {
       test('cause iron-items-changed to fire', () async {
         var newItem = document.createElement('div');
@@ -103,8 +141,13 @@ main() async {
 
         newItem.id = 'item999';
 
-        var sub = s2.on['iron-items-changed'].listen((_) {
+        var sub = s2.on['iron-items-changed'].listen((Event event) {
           changeCount++;
+          CustomEventWrapper w = new CustomEventWrapper(event);
+          var mutation = w.detail;
+          $assert.notEqual(mutation, null);
+          $assert.notEqual(mutation['addedNodes'], null);
+          $assert.notEqual(mutation['removedNodes'], null);
         });
 
         Polymer.dom(s2).append(newItem);
