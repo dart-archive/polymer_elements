@@ -53,7 +53,7 @@ main() async {
         adjustments++;
         wait(0).then(check);
       }
-      scrollHeaderPanel.scroll(destination, true);
+      scrollHeaderPanel.scrollAt(destination, true);
       check();
       return done.future;
     });
@@ -91,7 +91,7 @@ main() async {
 
     test('scroll to top smoothly', () {
       var done = new Completer();
-      scrollHeaderPanel.scroll(100, false);
+      scrollHeaderPanel.scrollAt(100, false);
 
       wait(1).then((_) {
         var adjustments = 0;
@@ -112,7 +112,7 @@ main() async {
 
     test('scroll to top immediately', () {
       var done = new Completer();
-      scrollHeaderPanel.scroll(100, false);
+      scrollHeaderPanel.scrollAt(100, false);
 
       wait(1).then((_) {
         expect(scrollHeaderPanel.scroller.scrollTop, 100);
