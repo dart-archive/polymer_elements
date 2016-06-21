@@ -68,6 +68,10 @@ OK lib/src/paper-badge/test/basic.html
 OK lib/src/paper-checkbox/test/basic.html
 OK lib/src/paper-dropdown-menu/test/paper-dropdown-menu-light.html
 OK lib/src/paper-dropdown-menu/test/paper-dropdown-menu.html
+OK lib/src/paper-input/test/paper-input-char-counter.html
+OK lib/src/paper-input/test/paper-input-container.html
+OK lib/src/paper-input/test/paper-input-error.html
+OK lib/src/paper-input/test/paper-input.html
 
 NEXT UPDATE : 20160616
 
@@ -76,10 +80,10 @@ NEXT UPDATE : 20160616
 
 
 
-lib/src/paper-input/test/paper-input-char-counter.html
-lib/src/paper-input/test/paper-input-container.html
-lib/src/paper-input/test/paper-input-error.html
-lib/src/paper-input/test/paper-input.html
+
+
+
+
 lib/src/paper-input/test/paper-textarea.html
 
 lib/src/paper-item/test/paper-item.html

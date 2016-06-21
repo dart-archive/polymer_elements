@@ -261,6 +261,8 @@ num parseFloat(String dimension) {
   return num.parse(dimension.replaceAll(new RegExp("[^0-9.]+"),""));
 }
 
+int parseInt(x, [_]) => parseFloat(x).floor();
+
 Future flush(cb) async {
   PolymerDom.flush();
   await wait(1);
