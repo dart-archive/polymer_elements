@@ -57,22 +57,15 @@ OK lib/src/iron-selector/test/multi.html
 OK lib/src/iron-selector/test/next-previous.html
 OK lib/src/iron-selector/test/numeric-ids.html
 OK lib/src/iron-selector/test/selected-attribute.html
-OK
-lib/src/iron-selector/test/template-repeat.html
+OK lib/src/iron-selector/test/template-repeat.html
+OK lib/src/iron-validatable-behavior/test/cats-only.html
+OK lib/src/iron-validatable-behavior/test/dogs-only.html
+OK* lib/src/iron-validatable-behavior/test/iron-validatable-behavior.html
+OK lib/src/iron-validatable-behavior/test/test-validatable.html
+OK lib/src/neon-animation/test/neon-animated-pages-descendant-selection.html
+OK lib/src/neon-animation/test/neon-animated-pages-lazy.html
 
 NEXT UPDATE : 20160616
-
-
-
-
-
-lib/src/iron-validatable-behavior/test/cats-only.html
-lib/src/iron-validatable-behavior/test/dogs-only.html
-lib/src/iron-validatable-behavior/test/iron-validatable-behavior.html
-lib/src/iron-validatable-behavior/test/test-validatable.html
-
-lib/src/neon-animation/test/neon-animated-pages-descendant-selection.html
-lib/src/neon-animation/test/neon-animated-pages-lazy.html
 
 lib/src/paper-badge/test/basic.html
 

@@ -46,9 +46,9 @@ main() async {
         $assert.equal(event.detail['toPage'], pages[1]);
         $assert.isTrue(calls.length == 2);
         var a$ = calls[1];
-        $assert.isTrue((a$[0]['animation'] as NeonAnimationBehavior).isNeonAnimation, 'default animation is not a registered animation');
-        $assert.isTrue((a$[1]['animation'] as NeonAnimationBehavior).isNeonAnimation, 'entry animation is not a registered animation');
-        $assert.isTrue((a$[2]['animation'] as NeonAnimationBehavior).isNeonAnimation, 'exit animation is not a registered animation');
+        $assert.isTrue((a$[0]['animation'] as NeonAnimationBehavior).isNeonAnimation, 'entry animation is not a registered animation');
+        $assert.isTrue((a$[1]['animation'] as NeonAnimationBehavior).isNeonAnimation, 'exit animation is not a registered animation');
+
         done();
       });
       animatedPages.selected = 0;
