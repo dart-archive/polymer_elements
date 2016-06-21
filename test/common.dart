@@ -229,9 +229,15 @@ class _expect {
 
   _expect get be => this;
 
+  get $true => T.expect(something,T.isTrue);
+
+  get $false => T.expect(something,T.isFalse);
+
   equal(expected) => T.expect(something,expected);
 
   _not get not => new _not(this);
+
+  greaterThan(num i) => T.expect(something,T.greaterThan(i));
 }
 
 class _not {
@@ -242,6 +248,8 @@ class _not {
   _not get to => this;
 
   get $null => T.expect(_exp.something,T.isNotNull);
+
+  get ok => T.expect(_exp.something,T.isNull);
 
   equal(expected) => T.expect(_exp.something,T.isNot(expected));
 }

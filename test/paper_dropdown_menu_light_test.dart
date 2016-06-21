@@ -5,17 +5,19 @@
 library polymer_elements.test.paper_dropdown_menu_test;
 
 import 'dart:async';
-import 'package:polymer_elements/paper_dropdown_menu.dart';
+import 'package:polymer_elements/paper_dropdown_menu_light.dart';
 import 'package:polymer_elements/paper_listbox.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'package:web_components/web_components.dart';
 import 'package:test/test.dart';
 import 'common.dart';
+import 'package:polymer/polymer.dart';
+import 'dart:html';
 
 main() async {
-  await initWebComponents();
+  await initPolymer();
 
-  runAfterOpen(PaperDropdownMenu menu, callback()) {
+  runAfterOpen(PaperDropdownMenuLight menu, callback()) {
     menu.$['menuButton'].$['dropdown'].on['iron-overlay-opened'].listen((_) async {
       await wait(1);
       callback();
@@ -23,35 +25,33 @@ main() async {
     tap(menu);
   }
 
-  group('<paper-dropdown-menu>', () {
-    PaperDropdownMenu dropdownMenu;
-    PaperListbox content;
+  suite('<paper-dropdown-menu-light>', () {
+    PaperDropdownMenuLight dropdownMenu;
+    Element content;
 
-    setUp(() {
+    setup(() {
       dropdownMenu = fixture('TrivialDropdownMenu');
       content = Polymer.dom(dropdownMenu).querySelector('.dropdown-content');
     });
 
-    test('opens when tapped', () async {
-      var contentRect = content.getBoundingClientRect();
+    test('opens when tapped', when((done) {
+      Rectangle contentRect = content.getBoundingClientRect();
 
-      expect(contentRect.width, 0);
-      expect(contentRect.height, 0);
+      $expect(contentRect.width).to.be.equal(0);
+      $expect(contentRect.height).to.be.equal(0);
 
-      tap(dropdownMenu);
-      expect(dropdownMenu.opened, true);
-
-      await runAfterOpen(dropdownMenu, () {
+      runAfterOpen(dropdownMenu, () {
         contentRect = content.getBoundingClientRect();
 
-        expect(dropdownMenu.opened, true);
+        $expect(dropdownMenu.opened).to.be.equal(true);
 
-        expect(contentRect.width, greaterThan(0));
-        expect(contentRect.height, greaterThan(0));
+        $expect(contentRect.width).to.be.greaterThan(0);
+        $expect(contentRect.height).to.be.greaterThan(0);
+        done();
       });
 
       $expect(dropdownMenu.opened).to.be.equal(true);
-    });
+    }));
 
     test('closes when an item is activated', when((done) {
       runAfterOpen(dropdownMenu, () {
@@ -79,23 +79,22 @@ main() async {
       });
     }));
 
-    group('when a value is preselected', () {
-      setUp(() async {
+    suite('when a value is preselected', () {
+      setup(() {
         dropdownMenu = fixture('PreselectedDropdownMenu');
-        await new Future(() {});
       });
 
       test('the input area shows the correct selection', () {
         PolymerDom.flush();
         var secondItem = Polymer.dom(dropdownMenu).querySelectorAll('paper-item')[1];
-        expect(dropdownMenu.selectedItem, secondItem);
+        $expect(dropdownMenu.selectedItem).to.be.equal(secondItem);
       });
     });
 
-    group('deselecting', () {
+    suite('deselecting', () {
       var menu;
 
-      setUp(() {
+      setup(() {
         dropdownMenu = fixture('PreselectedDropdownMenu');
         menu = Polymer.dom(dropdownMenu).querySelector('.dropdown-content');
       });
@@ -103,52 +102,46 @@ main() async {
       test('an `iron-deselect` event clears the current selection', () {
         PolymerDom.flush();
         menu.selected = null;
-        expect(dropdownMenu.selectedItem, null);
+        $expect(dropdownMenu.selectedItem).to.be.equal(null);
       });
     });
 
-    group('validation', () {
-      var menu;
-
+    suite('validation', () {
       test('a non required dropdown is valid regardless of its selection', () {
-        PaperDropdownMenu dropdownMenu = fixture('TrivialDropdownMenu');
-        menu = Polymer.dom(dropdownMenu).querySelector('.dropdown-content');
+        PaperDropdownMenuLight dropdownMenu = fixture('TrivialDropdownMenu');
+        var menu = Polymer.dom(dropdownMenu).querySelector('.dropdown-content');
 
         // no selection.
-        expect(dropdownMenu.validate(null), isTrue);
-        expect(dropdownMenu.invalid, isFalse);
-        expect(dropdownMenu.value, isNull);
+        $expect(dropdownMenu.validate("")).to.be.$true;
+        $expect(dropdownMenu.invalid).to.be.$false;
+        $expect(dropdownMenu.value).to.not.be.ok;
 
         // some selection.
         menu.selected = 1;
-        expect(dropdownMenu.validate(null), isTrue);
-        expect(dropdownMenu.invalid, isFalse);
-        expect(dropdownMenu.value, 'Bar');
+        $expect(dropdownMenu.validate("")).to.be.$true;
+        $expect(dropdownMenu.invalid).to.be.$false;
+        $expect(dropdownMenu.value).to.be.equal('Bar');
       });
 
-      test('a required dropdown is invalid without a selection', () async {
-        PaperDropdownMenu dropdownMenu = fixture('TrivialDropdownMenu');
-        PolymerDom.flush();
-
-        await new Future(() {});
+      test('a required dropdown is invalid without a selection', () {
+        PaperDropdownMenuLight dropdownMenu = fixture('TrivialDropdownMenu');
         dropdownMenu.required = true;
 
         // no selection.
-        expect(dropdownMenu.validate(null), isFalse);
-        expect(dropdownMenu.invalid, isTrue);
-        expect(dropdownMenu.value, isNull);
+        $expect(dropdownMenu.validate("")).to.be.$false;
+        $expect(dropdownMenu.invalid).to.be.$true;
+        $expect(dropdownMenu.value).to.not.be.ok;
       });
 
-      test('a required dropdown is valid with a selection', () async {
-        PaperDropdownMenu dropdownMenu = fixture('PreselectedDropdownMenu');
-        await new Future(() {});
+      test('a required dropdown is valid with a selection', () {
+        PaperDropdownMenuLight dropdownMenu = fixture('PreselectedDropdownMenu');
         PolymerDom.flush();
 
         dropdownMenu.required = true;
 
-        expect(dropdownMenu.validate(null), isTrue);
-        expect(dropdownMenu.invalid, isFalse);
-        expect(dropdownMenu.value, 'Bar');
+        $expect(dropdownMenu.validate("")).to.be.$true;
+        $expect(dropdownMenu.invalid).to.be.$false;
+        $expect(dropdownMenu.value).to.be.equal('Bar');
       });
     });
   });
