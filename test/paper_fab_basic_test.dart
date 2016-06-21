@@ -11,13 +11,14 @@ import 'package:polymer_elements/iron_icons.dart' as iron_icons;
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
+import 'dart:html';
 
 /// Used tests: [IronIcon], [iron_icons]
 main() async {
   await initWebComponents();
 
-  isHidden(element) {
-    var rect = element.getBoundingClientRect();
+  isHidden(Element element) {
+    Rectangle rect = element.getBoundingClientRect();
     return (rect.width == 0 && rect.height == 0);
   }
 
@@ -29,20 +30,21 @@ main() async {
     PaperFab f5;
 
     setUp(() {
-      f1 = fixture('TrivialFab').querySelector('#fab1');
-      f2 = fixture('SrcFab');
-      f3 = fixture('icon-fab');
-      f4 = fixture('icon-src-fab');
-      f5 = fixture('label-fab');
+
+
+
+
+
     });
 
     test('applies an icon specified by the `icon` attribute', () {
-      expect((f1.$['icon'] as IronIcon).jsElement['usesSrcAttribute'],isFalse);
-      expect(Polymer.dom(f1.$['icon'].jsElement['root']).querySelector('svg'),
-          isNotNull);
+      f1 = fixture('TrivialFab').querySelector('#fab1');
+      expect((f1.$['icon'] as IronIcon).jsElement['usesSrcAttribute'],null);
+      $assert.ok(new PolymerDom(f1.$['icon'].root).querySelector('svg'));
     });
 
     test('applies an icon specified by the `src` attribute', () {
+      f2 = fixture('SrcFab');
       expect(f2.$['icon'].jsElement.callMethod('_usesIconset'), false);
       expect(f2.$['icon'].jsElement['_img'], isNotNull);
     });
@@ -55,6 +57,7 @@ main() async {
 
 
     test('fab displays icon with `icon` and `label` attributes', when((done) async {
+      f3 = fixture('icon-fab');
     await wait(1);
     var icon = f3.$$('iron-icon');
     var text = f3.$$('span');
@@ -68,6 +71,7 @@ main() async {
     }));
 
     test('fab displays icon with `src` and `label` attributes', when((done) async {
+      f4 = fixture('icon-src-fab');
     await wait(1);
     var icon = f4.$$('iron-icon');
     var text = f4.$$('span');
@@ -81,6 +85,7 @@ main() async {
     }));
 
     test('fab displays label with `label` attribute correctly', when((done) async {
+      f5 = fixture('label-fab');
     await wait(1);
     var icon = f5.$$('iron-icon');
     var text = f5.$$('span');

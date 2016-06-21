@@ -36,7 +36,7 @@ main() async {
     });
 
     tearDown(() {
-      scrollHeaderPanel.scroll(0, null);
+      scrollHeaderPanel.scrollAt(0,null);
     });
 
     test('scroll smoothly', () {

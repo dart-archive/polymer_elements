@@ -172,17 +172,17 @@ List keysOf(JsObject object) => context['Object'].callMethod('keys', [object]);
 
 // Helper to let porting JS tests faster
 
-Function when(x(void done([e]))) =>
-        () async {
+Function when(x(void p_done([e]))) =>
+        ()  {
       Completer _done = new Completer();
       x(([e]) {
         if (e!=null) {
           _done.completeError(e);
         } else {
-          _done.complete();
+          _done.complete(true);
         }
       });
-      await _done.future;
+      return _done.future;
     };
 
 suite(title,test(),{skip}) => T.group(title,test,skip:skip);

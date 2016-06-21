@@ -146,6 +146,7 @@ main() async {
     });
 
     // Test for PolymerElements/iron-image#23.
+    // NOTE : This sometimes fails when run with the whole test suite.
     test('image is not shown below placeholder if previous image was loaded with' + ' sizing on and current image fails to load', () {
       Completer done = new Completer();
       image.preload = true;

@@ -219,6 +219,7 @@ main() async {
 
     group('x-resizer-parent-filtered', () {
       test('notify resizables from window', () {
+        pendingNotifications=0;
         var listeners = [
           ListenForResize(testEl.$['parentFiltered']),
           ListenForResize(testEl.$['child2a']),

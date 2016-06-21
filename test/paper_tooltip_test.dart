@@ -100,7 +100,7 @@ main() async {
 
       // Also check the math, just in case.
       expect(contentRect.left, approximatelyEquals((divRect.width - contentRect.width) / 2));
-      expect(contentRect.top, approximatelyEquals(divRect.height + tooltip.offset));
+      expect(contentRect.top, approximatelyEquals(divRect.height + tooltip.tooltipOffset));
     });
 
     test('tooltip is positioned correctly (top)', () async {
@@ -163,7 +163,7 @@ main() async {
       expect(contentRect.top, approximatelyEquals((20 - 30) / 2));
 
       // Also check the math, just in case.
-      expect(contentRect.left, approximatelyEquals(divRect.width + tooltip.offset));
+      expect(contentRect.left, approximatelyEquals(divRect.width + tooltip.tooltipOffset));
       expect(contentRect.top, approximatelyEquals((divRect.height - contentRect.height) / 2));
     });
 
@@ -218,7 +218,7 @@ main() async {
 
       // Should be fitted on the left side.
       expect(contentRect.left, approximatelyEquals(0));
-      expect(contentRect.top, approximatelyEquals(divRect.height + tooltip.offset));
+      expect(contentRect.top, approximatelyEquals(divRect.height + tooltip.tooltipOffset));
     });
 
     test('tooltip is positioned correctly after being dynamically set', () async {
@@ -342,7 +342,7 @@ main() async {
 
       // Also check the math, just in case.
       expect(contentRect.left, approximatelyEquals((divRect.width - contentRect.width) / 2));
-      expect(contentRect.top, approximatelyEquals(divRect.height + tooltip.offset));
+      expect(contentRect.top, approximatelyEquals(divRect.height + tooltip.tooltipOffset));
     });
   });
 

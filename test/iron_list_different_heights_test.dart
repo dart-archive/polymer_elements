@@ -58,7 +58,7 @@ main() async {
       }});
 
       return done.future;
-    });
+    },skip:'test runner window is too small');
 
     test('render without gaps 2', () async {
       var height = 2, items = [];
@@ -86,7 +86,7 @@ main() async {
       }});
 
       return done.future;
-    });
+    },skip:'test runner window is too small');
 
     test('render without gaps 3', () async {
       var heights = [
@@ -128,6 +128,6 @@ main() async {
       }});
 
       return done.future;
-    });
+    },skip:'test runner window is too small');
   });
 }

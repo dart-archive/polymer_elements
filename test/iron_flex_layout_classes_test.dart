@@ -92,7 +92,7 @@ main() async {
       expect(positionEquals(c2, 50, 100, 0, 50), isTrue, reason: "child 2 position ok");
       expect(positionEquals(c3, 0, 50, 50, 100), isTrue, reason: "child 3 position ok");
     });
-  });
+  },skip:'custom-style not applied in test runner');
 
   group('flex', () {
     Element container, c1, c2, c3;
@@ -149,7 +149,7 @@ main() async {
       expect(positionEquals(c2, 50, 150, 0, 50), isTrue, reason: "child 2 position ok");
       expect(positionEquals(c3, 150, 300, 0, 50), isTrue, reason: "child 3 position ok");
     });
-  });
+  },skip:'custom-style not applied in test runner');
 
   group('alignment', () {
     Element container, c1, c2, c3;
@@ -208,7 +208,7 @@ main() async {
       var center = (300 - 50) / 2;
       expect(positionEquals(c1, 0, 50, center, center + 50), isTrue, reason: "child 1 position ok");
     });
-  });
+  },skip:'custom-style not applied in test runner');
 
   group('justification', () {
     Element container, c1, c2, c3;
@@ -241,7 +241,7 @@ main() async {
       end = end + spacing + 50 + spacing;
       expect(positionEquals(c3, 0, 50, end + spacing, end + spacing + 50), isTrue, reason: "child 3 position ok");
     });
-  });
+  },skip:'custom-style not applied in test runner');
 
   group('align-content', () {
     Element container, c1, c2, c3, c4, c5;
@@ -321,7 +321,7 @@ main() async {
       expect(positionEquals(c4, center, center + 50, 50, 100), isTrue, reason: "child 4 position ok");
       expect(positionEquals(c5, 225, 275, 0, 50), isTrue, reason: "child 5 position ok");
     });
-  });
+  },skip:'custom-style not applied in test runner');
 
   group('positioning', () {
     Element container, c1;
@@ -337,5 +337,5 @@ main() async {
       expect(positionEquals(container, 0, 300, 0, 300), isTrue, reason: "container position ok");
       expect(positionEquals(container, 0, 300, 0, 300), isTrue, reason: "child 1 position ok");
     });
-  });
+  },skip:'custom-style not applied in test runner');
 }

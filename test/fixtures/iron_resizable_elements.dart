@@ -27,6 +27,7 @@ class XResizerParentFiltered extends PolymerElement with IronResizableBehavior {
 
   }
 
+  @reflectable
   resizerShouldNotify(Element e) {
     return e == this.active;
   }

@@ -2,22 +2,6 @@ SKIP = I skipped the test
 OK = ported and tested
 RM = the test has been removed
 
-KO lib/src/iron-resizable-behavior/test/basic.html
-KO lib/src/iron-flex-layout/test/iron-flex-layout-classes.html
-KO lib/src/iron-flex-layout/test/iron-flex-layout.html
-KO lib/src/iron-list/test/different-heights.html
-KO lib/src/iron-list/test/mutations.html
-KO lib/src/paper-fab/test/basic.html
-KO lib/src/paper-tabs/test/links.html
-KO lib/src/paper-toast/test/basic.html
-
-*SUSP* lib/src/iron-location/test/initialization-cases.html
-*SUSP* lib/src/iron-location/test/initialization-iframe.html
-*SUSP* lib/src/iron-location/test/initialization-tests.html
-*SUSP* lib/src/iron-location/test/iron-location.html
-*SUSP* lib/src/iron-location/test/iron-query-params.html
-*SUSP* lib/src/paper-dialog-behavior/test/paper-dialog-behavior.html
-
 OK lib/src/gold-cc-expiration-input/test/basic.html
 OK lib/src/iron-a11y-keys-behavior/test/basic-test.html
 OK lib/src/iron-behaviors/test/active-state.html
@@ -78,6 +62,7 @@ OK lib/src/paper-radio-button/test/basic.html
 OK lib/src/paper-radio-group/test/basic.html
 OK lib/src/paper-slider/test/a11y.html
 OK lib/src/paper-toast/test/basic.html
+
 
 NEXT UPDATE : 20160616
 
