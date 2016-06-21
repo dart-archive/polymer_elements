@@ -72,28 +72,15 @@ OK lib/src/paper-input/test/paper-input-char-counter.html
 OK lib/src/paper-input/test/paper-input-container.html
 OK lib/src/paper-input/test/paper-input-error.html
 OK lib/src/paper-input/test/paper-input.html
+OK lib/src/paper-input/test/paper-textarea.html
+OK lib/src/paper-item/test/paper-item.html
+OK lib/src/paper-radio-button/test/basic.html
+OK lib/src/paper-radio-group/test/basic.html
+OK lib/src/paper-slider/test/a11y.html
+OK lib/src/paper-toast/test/basic.html
 
 NEXT UPDATE : 20160616
 
-
-
-
-
-
-
-
-
-
-lib/src/paper-input/test/paper-textarea.html
-
-lib/src/paper-item/test/paper-item.html
-
-lib/src/paper-radio-button/test/basic.html
-lib/src/paper-radio-group/test/basic.html
-
-lib/src/paper-slider/test/a11y.html
-
-lib/src/paper-toast/test/basic.html
 
 lib/src/app-localize-behavior/test/basic.html
 lib/src/app-localize-behavior/test/locales.json

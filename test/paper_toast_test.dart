@@ -14,6 +14,7 @@ import 'package:web_components/web_components.dart';
 
 import 'common.dart';
 import 'sinon/sinon.dart' as sinon;
+import 'dart:js';
 
 main() async {
   await initWebComponents();
@@ -52,12 +53,12 @@ main() async {
       done();
     }));
 
-    test('toast fires opened event', when((done) async {
+    test('toast fires opened event', when((done) {
       toast = fixture('show');
       toast.on['iron-overlay-opened'].take(1).listen((_) {
         done();
       });
-    }),skip:"WHY?");
+    }), skip: "iron-overlay-opened not get fired ?");
 
     test('toast does not get focused', when((done) {
       toast = fixture('show');
@@ -67,7 +68,7 @@ main() async {
         $assert.isFalse(spy.called, 'toast is not focused');
         done();
       });
-    }),skip:"WHY?");
+    }), skip: "iron-overlay-opened not get fired ?");
 
     test('toast fires closed event', when((done) {
       toast = fixture('basic');
@@ -75,11 +76,11 @@ main() async {
       toast.on['iron-overlay-closed'].take(1).listen((_) {
         done();
       });
-    }),skip:"WHY?");
+    }), skip: "iron-overlay-opened not get fired ?");
 
     test('show() accepts valid properties', () {
       toast = fixture('basic');
-      toast.show({"text": 'hello world', "duration": 20});
+      toast.show(new JsObject.jsify({"text": 'hello world', "duration": 20}));
       $assert.isTrue(toast.opened, '`opened` is true');
       $assert.equal(toast.text, 'hello world', '`text` is correct');
       $assert.equal(toast.duration, 20, '`duration` is correct');
@@ -113,7 +114,7 @@ main() async {
         spy = sinon.spy(toast.jsElement, 'async');
       });
       test('duration = Infinity', () async {
-        toast.duration = 999999;
+        toast.duration = context['Infinity'];
         toast.show({});
         $assert.isFalse(spy.calledWith([toast.jsElement['close']]), '`async` was not called with `close()`');
         $assert.isFalse(spy.calledWith([toast.jsElement['hide']]), '`async` was not called with `hide()`');
@@ -161,30 +162,33 @@ main() async {
       done();
     }));
 
-    test('toast is positioned according at the bottom left of its fitInto', () {
+    test('toast is positioned according at the bottom left of its fitInto', when((done) {
       var f = fixture('contained');
       PaperToast toast = f[0];
-      var container = f[1];
+      DivElement container = f[1];
       toast.fitInto = container;
-      toast.center();
-      var style = toast.getComputedStyle();
-      $assert.equal(style.left, '50px', 'left');
-      // Should be 150px from top, (100px of height + 50px of margin-top)
-      // aka window height - 150 from bottom.
-      $assert.equal(style.bottom, "${(window.innerHeight - 150)}px", 'bottom');
-    });
+      toast.open();
+      // Wait for it to be opened, so it will be sized correctly.
+      toast.on['iron-overlay-opened'].take(1).listen((_) {
+        var rect = toast.getBoundingClientRect();
+        $assert.equal(rect.left, 50, 'left ok');
+        // 150px from top, (100px of height + 50px of margin-top)
+        $assert.equal(rect.bottom, 150, 'bottom');
+        done();
+      });
+    }),skip: "iron-overlay-opened not get fired ?");
 
     suite('a11y', () {
       test('show() will announce text', () {
         toast = fixture('basic');
         sinon.Spy spy = sinon.spy(toast.jsElement, 'fire');
         toast.text = 'announce!';
-        toast.show({});
+        toast.show(null);
         $assert.isTrue(
-            spy.calledWith([
+            spy.calledWith(new JsArray.from([
               'iron-announce',
-              {"text": 'announce!'}
-            ]),
+              new JsObject.jsify({"text": 'announce!'})
+            ])),
             'text announced');
       });
 

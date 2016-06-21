@@ -22,12 +22,15 @@ main() async {
       slider = fixture('trivialSlider');
     });
 
-    test('has aria role "slider"', () {
-      $assert.equal(slider.getAttribute('role'), 'slider');
-      $assert.equal(slider.getAttribute('aria-valuemin'), slider.min.toString());
-      $assert.equal(slider.getAttribute('aria-valuemax'), slider.max.toString());
-      $assert.equal(slider.getAttribute('aria-valuenow'), slider.value.toString());
-    });
+    test('has aria role "slider"', when((done) {
+      flush(() {
+        $assert.equal(slider.getAttribute('role'), 'slider');
+        $assert.equal(slider.getAttribute('aria-valuemin'), slider.min.toString());
+        $assert.equal(slider.getAttribute('aria-valuemax'), slider.max.toString());
+        $assert.equal(slider.getAttribute('aria-valuenow'), slider.value.toString());
+        done();
+      });
+    }));
 
     test('ripple is added after keyboard event on knob', () {
       $assert.isFalse(slider.hasRipple());
