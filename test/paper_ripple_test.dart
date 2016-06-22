@@ -10,6 +10,7 @@ import 'package:polymer_elements/paper_ripple.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'common.dart';
+import 'package:polymer/polymer.dart';
 
 main() async {
   await initWebComponents();
@@ -42,7 +43,7 @@ main() async {
     });
 
     group('when holdDown is togggled', () {
-      setUp( () async {
+      setUp(() async {
         rippleContainer = fixture('TrivialRipple');
         await new Future(() {});
         ripple = rippleContainer.children.first;
@@ -57,25 +58,23 @@ main() async {
         ripple.noink = true;
         ripple.holdDown = true;
         expect(ripple.ripples.length, 1);
-
       });
-
     });
 
-    group('when target is noink',  () {
+    group('when target is noink', () {
       setUp(() async {
         rippleContainer = fixture('NoinkTarget');
         await new Future(() {});
         ripple = rippleContainer.children.first;
       });
 
-      test('tapping does not create a ripple',  () {
+      test('tapping does not create a ripple', () {
         expect(ripple.ripples.length, 0);
         down(ripple);
         expect(ripple.ripples.length, 0);
       });
 
-      test('ripples can be manually created',  () {
+      test('ripples can be manually created', () {
         expect(ripple.ripples.length, 0);
         ripple.simulatedRipple();
         expect(ripple.ripples.length, 1);
@@ -124,9 +123,45 @@ main() async {
         return requestAnimationFrame().then((_) {
           expect(waveTranslateString, isNotNull);
           expect(waveContainerElement.style.transform, isNotNull);
-          expect(
-              waveContainerElement.style.transform, isNot(waveTranslateString));
+          expect(waveContainerElement.style.transform, isNot(waveTranslateString));
         });
+      });
+    });
+
+    suite('remove a paper ripple', () {
+      setup(() {
+        rippleContainer = fixture('NoRipple');
+      });
+      testAsync('add and remove a paper-ripple', (done) {
+        PaperRipple ripple = document.createElement('paper-ripple');
+        ripple.on['transitionend'].take(1).listen((_) {
+          $expect(ripple.parentNode).to.be.ok;
+          new PolymerDom(rippleContainer).removeChild(ripple);
+          done();
+        });
+        new PolymerDom(rippleContainer).append(ripple);
+        ripple.downAction(null);
+        ripple.upAction(null);
+      });
+    });
+
+    suite('avoid double transitionend event', () {
+      setup(() {
+        rippleContainer = fixture('NoRipple');
+      });
+      testAsync('the transitionend event should only fire once', (done) {
+        PaperRipple ripple = document.createElement('paper-ripple');
+        var transitionedEventCount = 0;
+        ripple.on['transitionend'].take(1).listen((_) async {
+          ++transitionedEventCount;
+          $expect(transitionedEventCount).to.be.eql(1);
+          new PolymerDom(rippleContainer).removeChild(ripple);
+          await wait(1);
+          done();
+        });
+        new PolymerDom(rippleContainer).append(ripple);
+        ripple.downAction(null);
+        ripple.upAction(null);
       });
     });
   });
@@ -134,6 +169,5 @@ main() async {
 
 CustomEvent fakeMouseEvent(Element target, int relativeX, int relativeY) {
   var rect = target.getBoundingClientRect();
-  return new CustomEvent('',
-      detail: {'x': rect.left + relativeX, 'y': rect.top + relativeY});
+  return new CustomEvent('', detail: {'x': rect.left + relativeX, 'y': rect.top + relativeY});
 }

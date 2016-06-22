@@ -221,6 +221,8 @@ class Assert  {
   void call(x,[reason]) => $assert.isTrue(x,reason);
 
   void isNotNull(thing,[reason]) => T.expect(thing,T.isNotNull,reason: reason);
+
+  void isNull(selectedItem,[reason]) => T.expect(selectedItem,T.isNull,reason:reason);
 }
 
 void testAsync(name,body(done()),{skip}) {

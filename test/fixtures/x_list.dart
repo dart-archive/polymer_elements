@@ -34,7 +34,7 @@ class XList extends PolymerElement {
   @reflectable
   String computedItemHeight(item) {
     var css = pre ? 'white-space:pre;' : '';
-    if (item['height'] != null && item['height'] != 0) {
+    if (item is Map && item['height'] != null && item['height'] != 0) {
       css += itemHeight == 0 ? '' : 'height: ${item['height']}px;';
     } else if (this.itemHeight!=null&&itemHeight != 0) {
       css += 'height: ${itemHeight}px;';

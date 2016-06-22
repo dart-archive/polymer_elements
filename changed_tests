@@ -67,21 +67,8 @@ OK lib/src/paper-toast/test/basic.html
 NEXT UPDATE : 20160616
 
 
-lib/src/app-localize-behavior/test/basic.html
-lib/src/app-localize-behavior/test/locales.json
-lib/src/app-localize-behavior/test/locales2.json
-lib/src/app-localize-behavior/test/x-translate-only-imperative.html
-lib/src/app-localize-behavior/test/x-translate.html
-lib/src/app-localize-behavior/test/x-translate2.html
-lib/src/app-pouchdb/test/app-pouchdb-document.html
-lib/src/app-route/test/app-example-1.html
-lib/src/app-route/test/app-location.html
-lib/src/app-route/test/app-route-converter.html
-lib/src/app-route/test/app-route.html
-lib/src/app-route/test/redirection.html
-lib/src/app-route/test/test-app-example-1.html
-lib/src/app-storage/test/app-indexeddb-mirror/app-indexeddb-mirror.html
-lib/src/app-storage/test/app-indexeddb-mirror/helpers.js
-lib/src/app-storage/test/app-localstorage/app-localstorage-document.html
-lib/src/app-storage/test/app-storage-compatibility-suite.html
-lib/src/app-storage/test/app-storage.html
+NEXT UPDATE : 20160622
+
+lib/src/iron-list/test/selection.html
+lib/src/paper-ripple/test/paper-ripple.html
+lib/src/paper-toolbar/test/paper-toolbar.html
