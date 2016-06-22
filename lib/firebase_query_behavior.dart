@@ -10,10 +10,8 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 
 
-@BehaviorProxy(const ['Polymer', '*Note: This element is for the older Firebase 2 API**
-  For the latest official Firebase 3.0-compatible component from the Firebase team,
-  see the [polymerfire](https://github.com/firebase/polymerfire) component.'])
-abstract class  implements CustomElementProxyMixin {
+@BehaviorProxy(const ['Polymer', 'FirebaseQueryBehavior'])
+abstract class FirebaseQueryBehavior implements CustomElementProxyMixin {
 
   get dataAsObject => jsElement[r'dataAsObject'];
 
