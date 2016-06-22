@@ -7,6 +7,7 @@ library polymer_elements.test.src.sinon;
 import 'dart:js';
 import 'package:web_components/web_components.dart';
 import 'dart:html';
+import 'dart:async';
 
 JsObject _Sinon = context['sinon'];
 
@@ -29,6 +30,38 @@ class Stub {
 
 }
 
+class DartSpyEventHandler {
+  List<Event> calls = [];
+
+  bool get called => calls.isNotEmpty;
+
+  get callCount => calls.length;
+  void call([Event e]) {
+    calls.add(e);
+  }
+
+  DartSpyEventHandler();
+
+  factory DartSpyEventHandler.on(Element target,String eventName,[int max])  =>
+    new DartSpyEventHandler()
+      ..attach(target,eventName,max);
+
+  StreamSubscription _sub;
+
+  void attach(Element target,String eventName,[int max=null]) {
+    if (max!=null) {
+      _sub = target.on[eventName].take(max).listen(this);
+    } else {
+      _sub = target.on[eventName].listen(this);
+    }
+  }
+
+  void detach() {
+    _sub.cancel();
+    _sub=null;
+  }
+}
+
 
 class Spy {
   JsObject jsObject;
@@ -45,6 +78,8 @@ class Spy {
       jsObject.callMethod('calledWith', matchers);
 
   reset() => jsObject.callMethod('reset');
+
+  SpyCall get lastCall => new SpyCall(jsObject['lastCall']);
 
   SpyCall getCall(int arg) => new SpyCall(jsObject.callMethod("getCall",[arg]));
 

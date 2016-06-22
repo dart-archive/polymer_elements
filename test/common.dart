@@ -189,33 +189,45 @@ suite(title,test(),{skip}) => T.group(title,test,skip:skip);
 
 setup(fn) => T.setUp(fn);
 
-class $assert {
-  static equal(a,b,[reason]) => T.expect(a,b,reason:reason);
+class Assert  {
+  const Assert();
 
-  static strictEqual(a,b,[reason]) => T.expect(a,b,reason:reason);
+  equal(a,b,[reason]) => T.expect(a,b,reason:reason);
 
-  static deepEqual(a,b,[reason]) => T.expect(a,b,reason:reason);  // TODO:  a better way to implement this ?
+  strictEqual(a,b,[reason]) => T.expect(a,b,reason:reason);
 
-  static isFalse(a,[reason]) => T.expect(a,T.isFalse,reason:reason);
+  deepEqual(a,b,[reason]) => T.expect(a,b,reason:reason);  // TODO:  a better way to implement this ?
+
+  isFalse(a,[reason]) => T.expect(a,T.isFalse,reason:reason);
 
 
-  static isUndefined(x,[reason]) => T.expect(x,T.isNull,reason: reason);
+  isUndefined(x,[reason]) => T.expect(x,T.isNull,reason: reason);
 
-  static void isTrue(bool x,[reason]) => T.expect(x,T.isTrue,reason:reason);
+  void isTrue(bool x,[reason]) => T.expect(x,T.isTrue,reason:reason);
 
-  static void ok(x,[reason]) => T.expect(x,T.isNotNull,reason:reason);
+  void ok(x,[reason]) => T.expect(x,T.isNotNull,reason:reason);
 
-  static void isAbove(num x, num what, [reason]) => T.expect(x,T.greaterThan(what),reason:reason);
-  static void isBelow(num x, num what, [reason]) => T.expect(x,T.lessThan(what),reason:reason);
+  void isAbove(num x, num what, [reason]) => T.expect(x,T.greaterThan(what),reason:reason);
+  void isBelow(num x, num what, [reason]) => T.expect(x,T.lessThan(what),reason:reason);
 
-  static void isOk(thing,[reason]) => ok(thing,reason);
+  void isOk(thing,[reason]) => ok(thing,reason);
 
-  static void notEqual(x,what, [reason]) => T.expect(x,T.isNot(what),reason:reason);
+  void notEqual(x,what, [reason]) => T.expect(x,T.isNot(what),reason:reason);
 
-  static void isNotOk(x, [reason]) => T.expect(x,T.isNull,reason:reason);
+  void isNotOk(x, [reason]) => T.expect(x,T.isNull,reason:reason);
 
-  static void lengthOf(List list, int len, [reason]) => T.expect(list.length,len,reason:reason);
+  void lengthOf(List list, int len, [reason]) => T.expect(list.length,len,reason:reason);
+
+  void call(x,[reason]) => $assert.isTrue(x,reason);
 }
+
+void testAsync(name,body(done()),{skip}) {
+  T.test(name,when((done) {
+    body(done);
+  }),skip:skip);
+}
+
+const Assert $assert = const Assert();
 
 $$assert(x,[reason]) => $assert.isTrue(x,reason);
 
