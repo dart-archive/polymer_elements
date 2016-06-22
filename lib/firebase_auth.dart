@@ -2,142 +2,116 @@
 
 /// Dart API for the polymer element `firebase_auth`.
 @HtmlImport('firebase_auth_nodart.html')
-library polymer_elements.lib.src.firebase_element.firebase_auth;
+library polymer_elements.lib.src.polymerfire.firebase_auth;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
+import 'firebase_common_behavior.dart';
+import 'app_network_status_behavior.dart';
 
-/// *Note: This element is for the older Firebase 2 API**
-/// For the latest official Firebase 3.0-compatible component from the Firebase team,
-/// see the [polymerfire](https://github.com/firebase/polymerfire) component.
+/// `firebase-auth` is a wrapper around the Firebase authentication API. It notifies
+/// successful authentication, provides user information, and handles different
+/// types of authentication including anonymous, email / password, and several OAuth
+/// workflows.
 ///
-/// Element wrapper for the Firebase authentication API (https://www.firebase.com/docs/web/guide/user-auth.html).
+/// Example Usage:
+/// ```html
+/// <firebase-app auth-domain="polymerfire-test.firebaseapp.com"
+///   database-url="https://polymerfire-test.firebaseio.com/"
+///   api-key="AIzaSyDTP-eiQezleFsV2WddFBAhF_WEzx_8v_g">
+/// </firebase-app>
+/// <firebase-auth id="auth" user="{{user}}" provider="google" on-error="handleError">
+/// </firebase-auth>
+/// ```
+///
+/// The `firebase-app` element initializes `app` in `firebase-auth` (see
+/// `firebase-app` documentation for more information), but an app name can simply
+/// be specified at `firebase-auth`'s `app-name` property instead.
+///
+/// JavaScript sign-in calls can then be made to the `firebase-auth` object to
+/// attempt authentication, e.g.:
+///
+/// ```javascript
+/// this.$.signInWithPopup()
+///     .then(function(response) {// successful authentication response here})
+///     .catch(function(error) {// unsuccessful authentication response here});
+/// ```
+///
+/// This popup sign-in will then attempt to sign in using Google as an OAuth
+/// provider since there was no provider argument specified and since `"google"` was
+/// defined as the default provider.
 @CustomElementProxy('firebase-auth')
-class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase {
+class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase, AppNetworkStatusBehavior, FirebaseCommonBehaviorImpl, FirebaseCommonBehavior {
   FirebaseAuth.created() : super.created();
   factory FirebaseAuth() => new Element.tag('firebase-auth');
 
-  /// When true, login will be attempted if login status check determines no user is
-  /// logged in.  Should generally only be used with provider types that do not present
-  /// a login UI, such as 'anonymous'.
-  bool get autoLogin => jsElement[r'autoLogin'];
-  set autoLogin(bool value) { jsElement[r'autoLogin'] = value; }
+  /// [`firebase.Auth`](https://firebase.google.com/docs/reference/js/firebase.auth.Auth) service interface.
+  get auth => jsElement[r'auth'];
+  set auth(value) { jsElement[r'auth'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
-  /// Firebase location URL (must have simple login enabled via Forge interface).
-  String get location => jsElement[r'location'];
-  set location(String value) { jsElement[r'location'] = value; }
-
-  /// Provider-specific options to pass to login, for provider types that take a second
-  /// object to pass firebase-specific options.  May be overridden at `login()`-time.
-  get options => jsElement[r'options'];
-  set options(value) { jsElement[r'options'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
-
-  /// Provider-specific parameters to pass to login.  May be overridden at `login()`-time.
-  get params => jsElement[r'params'];
-  set params(value) { jsElement[r'params'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
-
-  /// Default login provider type.  May be one of: `anonymous`, `custom`, `password`,
-  /// `facebook`, `github`, `twitter`, `google`.
+  /// Default auth provider OAuth flow to use when attempting provider
+  /// sign in. This property can remain undefined when attempting to sign
+  /// in anonymously, using email and password, or when specifying a
+  /// provider in the provider sign-in function calls (i.e.
+  /// `signInWithPopup` and `signInWithRedirect`).
+  ///
+  /// Current accepted providers are:
+  ///
+  /// ```
+  /// 'facebook'
+  /// 'github'
+  /// 'google'
+  /// 'twitter'
+  /// ```
   String get provider => jsElement[r'provider'];
   set provider(String value) { jsElement[r'provider'] = value; }
 
-  /// When true, authentication will try to redirect instead of using a
-  /// popup if possible.
-  bool get redirect => jsElement[r'redirect'];
-  set redirect(bool value) { jsElement[r'redirect'] = value; }
+  /// True if the client is authenticated, and false if the client is not
+  /// authenticated.
+  bool get signedIn => jsElement[r'signedIn'];
+  set signedIn(bool value) { jsElement[r'signedIn'] = value; }
 
-  /// A pointer to the Firebase instance being used by the firebase-auth element.
-  get ref => jsElement[r'ref'];
-  set ref(value) { jsElement[r'ref'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
-
-  /// When true, login status can be determined by checking `user` property.
-  bool get statusKnown => jsElement[r'statusKnown'];
-  set statusKnown(bool value) { jsElement[r'statusKnown'] = value; }
-
-  /// When logged in, this property reflects the firebase user auth object.
+  /// The currently-authenticated user with user-related metadata. See
+  /// the [`firebase.User`](https://firebase.google.com/docs/reference/js/firebase.User)
+  /// documentation for the spec.
   get user => jsElement[r'user'];
   set user(value) { jsElement[r'user'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
-  /// Changes the email of a "password provider"-based user account.
-  ///
-  /// If the operation is successful, the `email-changed` event is fired.
-  ///
-  /// If the operation fails, the `error` event is fired, with `e.detail`
-  /// containing error information supplied from Firebase.
-  changeEmail(String oldEmail, String newEmail, password) =>
-      jsElement.callMethod('changeEmail', [oldEmail, newEmail, password]);
+  /// Creates a new user account using an email / password combination.
+  /// [email]: Email address corresponding to the user account.
+  /// [password]: Password corresponding to the user account.
+  createUserWithEmailAndPassword(email, password) =>
+      jsElement.callMethod('createUserWithEmailAndPassword', [email, password]);
 
-  /// Changes the password of a "password provider"-based user account.
-  ///
-  /// If the operation is successful, the `password-changed` event is fired.
-  ///
-  /// If the operation fails, the `error` event is fired, with `e.detail`
-  /// containing error information supplied from Firebase.
-  changePassword(String email, String oldPassword, String newPassword) =>
-      jsElement.callMethod('changePassword', [email, oldPassword, newPassword]);
+  /// Authenticates a Firebase client using a new, temporary guest account.
+  signInAnonymously() =>
+      jsElement.callMethod('signInAnonymously', []);
 
-  /// Creates a "password provider"-based user account.
-  ///
-  /// If the operation is successful, the `user-created` event is fired.
-  ///
-  /// If the operation fails, the `error` event is fired, with `e.detail`
-  /// containing error information supplied from Firebase.
-  createUser(String email, String password) =>
-      jsElement.callMethod('createUser', [email, password]);
+  /// Authenticates a Firebase client using an email / password combination.
+  /// [email]: Email address corresponding to the user account.
+  /// [password]: Password corresponding to the user account.
+  signInWithEmailAndPassword(email, password) =>
+      jsElement.callMethod('signInWithEmailAndPassword', [email, password]);
 
-  /// Performs a login attempt, using the `provider` specified via attribute/property,
-  /// or optionally via `provider` argument to the `login` function.  Optionally,
-  /// provider-specific login parameters can be specified via attribute (JSON)/property,
-  /// or via the `params` argument to the `login` function.
-  ///
-  /// If your `provider` is `custom` you must pass a Firebase Auth token as
-  /// `params.token`. You can also optionally pass an auth token as `params.token` for
-  /// providers `facebook`, `google`, `github` and `twitter` to login headlessly.
-  ///
-  /// If the login is successful, the `login` event is fired, with `e.detail.user`
-  /// containing the authenticated user object from Firebase.
-  ///
-  /// If login fails, the `error` event is fired, with `e.detail` containing error
-  /// information supplied from Firebase.
-  ///
-  /// If the browser supports `navigator.onLine` network status reporting and the
-  /// network is currently offline, the login attempt will be queued until the network
-  /// is restored.
-  /// [params]: (optional)
-  /// [options]: (optional)
-  login(params, options) =>
-      jsElement.callMethod('login', [params, options]);
+  /// Authenticates a Firebase client using a popup-based OAuth flow.
+  /// [provider]: Provider OAuth flow to follow. If no
+  ///     provider is specified, it will default to the element's `provider`
+  ///     property's OAuth flow (See the `provider` property's documentation
+  ///     for supported providers).
+  signInWithPopup(provider) =>
+      jsElement.callMethod('signInWithPopup', [provider]);
 
-  /// Performs a logout attempt.
-  ///
-  /// If the logout is successful, the `logout` event is fired.
-  ///
-  /// If logout fails, the `error` event is fired, with `e.detail` containing error
-  /// information supplied from Firebase.
-  ///
-  /// If the browswer supports `navigator.onLine` network status reporting and the
-  /// network is currently offline, the logout attempt will be queued until the network
-  /// is restored.
-  logout() =>
-      jsElement.callMethod('logout', []);
+  /// Authenticates a firebase client using a redirect-based OAuth flow.
+  /// [provider]: Provider OAuth flow to follow. If no
+  ///     provider is specified, it will default to the element's `provider`
+  ///     property's OAuth flow (See the `provider` property's documentation
+  ///     for supported providers).
+  signInWithRedirect(provider) =>
+      jsElement.callMethod('signInWithRedirect', [provider]);
 
-  /// Removes a "password provider"-based user account.
-  ///
-  /// If the operation is successful, the `user-removed` event is fired.
-  ///
-  /// If the operation fails, the `error` event is fired, with `e.detail`
-  /// containing error information supplied from Firebase.
-  removeUser(String email, String password) =>
-      jsElement.callMethod('removeUser', [email, password]);
-
-  /// Sends a password reset email for a "password provider"-based user account.
-  ///
-  /// If the operation is successful, the `password-reset` event is fired.
-  ///
-  /// If the operation fails, the `error` event is fired, with `e.detail`
-  /// containing error information supplied from Firebase.
-  sendPasswordResetEmail(String email) =>
-      jsElement.callMethod('sendPasswordResetEmail', [email]);
+  /// Unauthenticates a Firebase client.
+  signOut() =>
+      jsElement.callMethod('signOut', []);
 }
