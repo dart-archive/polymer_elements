@@ -70,27 +70,26 @@ files_to_generate:
   - app-layout/app-scroll-effects/effects/resize-title.html
   - app-layout/app-scroll-effects/effects/waterfall.html
 #   Google Web Components https://elements.polymer-project.org/browse?package=google-web-components
-# FIREBASE IS DEPRACATED ?
-#  - firebase-element/firebase-auth.html:
-#      omit_imports:
-#        - firebase.html
-#  - firebase-element/firebase-query-behavior.html:
-#      omit_imports:
-#        - firebase.html
-#      name_substitutions:
-#        query: queryObject
-#  - firebase-element/firebase-collection.html:
-#      omit_imports:
-#        - firebase.html
-#      name_substitutions:
-#        query: queryObject
-#        remove: firebaseRemove
-#        add: firebaseAdd
-#  - firebase-element/firebase-document.html:
-#      omit_imports:
-#        - firebase.html
-#      name_substitutions:
-#        query: queryObject
+  - firebase-element/firebase-auth.html:
+      omit_imports:
+        - firebase.html
+  - firebase-element/firebase-query-behavior.html:
+      omit_imports:
+        - firebase.html
+      name_substitutions:
+        query: queryObject
+  - firebase-element/firebase-collection.html:
+      omit_imports:
+        - firebase.html
+      name_substitutions:
+        query: queryObject
+        remove: firebaseRemove
+        add: firebaseAdd
+  - firebase-element/firebase-document.html:
+      omit_imports:
+        - firebase.html
+      name_substitutions:
+        query: queryObject
   - google-analytics/google-analytics.html
   - google-analytics/google-analytics-chart.html:
       omit_imports:

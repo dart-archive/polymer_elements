@@ -10,6 +10,13 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'firebase_query_behavior.dart';
 
+/// **Note: This element is for the older Firebase 2 API**
+///
+/// For the latest official Firebase 3.0-compatible component from the Firebase team,
+/// see the [polymerfire](https://github.com/firebase/polymerfire) component.
+/// In this new component, the `firebase-collection` element has been replaced
+/// with [`firebase-query`](https://github.com/firebase/polymerfire#firebase-query)
+///
 /// An element wrapper for the Firebase API that provides a view into the provided
 /// Firebase location as an ordered collection.
 ///
@@ -126,6 +133,8 @@ class FirebaseCollection extends HtmlElement with CustomElementProxyMixin, Polym
   /// Add an item to the document referenced at `location`. A key associated
   /// with the item will be created by Firebase, and can be accessed via the
   /// Firebase Query instance returned by this method.
+  ///
+  /// If the query is not yet properly defined as it can be the case for bound location, the `query-error` event is fired.
   /// [data]: A value to add to the document.
   firebaseAdd(data) =>
       jsElement.callMethod('add', [data]);

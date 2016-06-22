@@ -36,7 +36,7 @@ import 'iron_a11y_keys_behavior.dart';
 ///     <paper-ripple id="ripple" style="pointer-events: none;"></paper-ripple>
 ///     ...
 ///     downAction: function(e) {
-///       this.$.ripple.downAction({x: e.x, y: e.y});
+///       this.$.ripple.downAction({detail: {x: e.x, y: e.y}});
 ///     },
 ///     upAction: function(e) {
 ///       this.$.ripple.upAction();

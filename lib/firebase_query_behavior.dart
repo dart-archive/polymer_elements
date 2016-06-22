@@ -9,7 +9,9 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 
-
+/// **Note: This element is for the older Firebase 2 API**
+/// For the latest official Firebase 3.0-compatible component from the Firebase team,
+/// see the [polymerfire](https://github.com/firebase/polymerfire) component.
 @BehaviorProxy(const ['Polymer', 'FirebaseQueryBehavior'])
 abstract class FirebaseQueryBehavior implements CustomElementProxyMixin {
 

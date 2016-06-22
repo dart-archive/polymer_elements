@@ -10,6 +10,10 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'firebase_query_behavior.dart';
 
+/// *Note: This element is for the older Firebase 2 API**
+/// For the latest official Firebase 3.0-compatible component from the Firebase team,
+/// see the [polymerfire](https://github.com/firebase/polymerfire) component.
+///
 /// An element wrapper for the Firebase API.
 ///
 /// A `<firebase-document>` is a reference to a remote document somewhere on
