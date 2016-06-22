@@ -270,11 +270,15 @@ class _expect {
 
   get $false => T.expect(something,T.isFalse);
 
+  get ok => T.expect(something,T.isNotNull);
+
   equal(expected) => T.expect(something,expected);
 
   _not get not => new _not(this);
 
   greaterThan(num i) => T.expect(something,T.greaterThan(i));
+
+  void eql(x) => T.expect(something,x);
 }
 
 class _not {

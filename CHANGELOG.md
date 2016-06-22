@@ -1,3 +1,17 @@
+## 1.0.0-rc.9
+
+* Updated elements at 20160616:
+   * `iron-elements` 1.0.10
+   * `paper-elements` 1.0.7
+   * `gold-elements` 1.0.1
+   * `neon-elements` 1.0.0
+   * `app-elements` 0.9.0  **brand new!!!**
+
+* Many bug fix and enhancements
+* new components : `app-*` , `paper-spinner-light`, `paper-dropdown-menu--light`
+* `IronOverlayManager` 
+
+
 ## 1.0.0-rc.8
 
 * The `keyBindings` instance property from `IronA11yKeysBehavior` has been
