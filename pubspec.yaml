@@ -20,6 +20,14 @@ environment:
 transformers:
 - polymer:
     entry_points:
+    - test/app_drawer_layout_test.html
+    - test/app_drawer_test.html
+    - test/app_header_test.html
+    - test/app_header_layout_test.html
+    - test/app_pouchdb_document_test.html
+    - test/app_scroll_effects_behavior_test.html
+    - test/app_scrollpos_control_test.html
+    - test/app_toolbar_test.html
     - test/carbon_location_test.html
     - test/carbon_route_converter_test.html
     - test/carbon_route_test.html
@@ -53,12 +61,14 @@ transformers:
     - test/iron_behavior_disabled_state_test.html
     - test/iron_behavior_focused_state_test.html
     - test/iron_checked_element_behavior_test.html
+    - test/iron_collapse_flex_test.html
     - test/iron_collapse_test.html
     - test/iron_component_page_test.html
     - test/iron_demo_helpers_test.html
     - test/iron_doc_viewer_test.html
     - test/iron_dropdown_test.html
     - test/iron_fit_behavior_test.html
+    - test/iron_flex_layout_classes_test.html
     - test/iron_form_test.html
     - test/iron_form_element_behavior_test.html
     - test/iron_icon_test.html
@@ -72,6 +82,8 @@ transformers:
     - test/iron_list_basic_test.html
     - test/iron_list_different_heights_test.html
     - test/iron_list_dynamic_item_size_test.html
+    - test/iron_list_focus_test.html
+    - test/iron_list_grid_test.html
     - test/iron_list_hidden_test.html
     - test/iron_list_mutations_test.html
     - test/iron_list_physical_count_test.html
@@ -84,6 +96,7 @@ transformers:
     - test/iron_menubar_behavior_test.html
     - test/iron_meta_basic_test.html
     - test/iron_meta_test.html
+    - test/iron_overlay_behavior_backdrop_test.html
     - test/iron_overlay_behavior_test.html
     - test/iron_pages_attr_for_selected_test.html
     - test/iron_pages_basic_test.html
@@ -93,18 +106,24 @@ transformers:
     - test/iron_request_test.html
     - test/iron_resizable_behavior_basic_test.html
     - test/iron_resizable_behavior_test.html
+    - test/iron_scroll_target_behavior_basic_test.html
+    - test/iron_scroll_threshold_basic_test.html
     - test/iron_selector_activate_event_test.html
+    - test/iron_selector_attr_for_selected_test.html
     - test/iron_selector_basic_test.html
     - test/iron_selector_content_test.html
     - test/iron_selector_exclude_local_names_test.html
     - test/iron_selector_multi_test.html
     - test/iron_selector_next_previous_test.html
+    - test/iron_selector_numeric_ids_test.html
     - test/iron_selector_selected_attribute_test.html
     - test/iron_selector_template_repeat_test.html
     - test/iron_swipeable_container_test.html
     - test/iron_validatable_behavior_test.html
     - test/iron_validator_behavior_test.html
     - test/marked_element_test.html
+    - test/neon_animated_pages_descendant_selection_test.html
+    - test/neon_animated_pages_lazy_test.html
     - test/neon_animated_pages_test.html
     - test/paper_badge_test.html
     - test/paper_button_behavior_test.html
@@ -115,8 +134,10 @@ transformers:
     - test/paper_dialog_behavior_test.html
     - test/paper_dialog_scrollable_test.html
     - test/paper_dialog_test.html
+    - test/paper_drawer_panel_focus_test.html
     - test/paper_drawer_panel_positioning_test.html
     - test/paper_drawer_panel_small_devices_test.html
+    - test/paper_dropdown_menu_light_test.html
     - test/paper_dropdown_menu_test.html
     - test/paper_fab_a11y_test.html
     - test/paper_fab_basic_test.html
@@ -145,6 +166,7 @@ transformers:
     - test/paper_spinner_test.html
     - test/paper_submenu_test.html
     - test/paper_tabs_attr_test.html
+    - test/paper_tabs_links_test.html
     - test/paper_tabs_test.html
     - test/paper_textarea_test.html
     - test/paper_toggle_button_test.html
