@@ -229,6 +229,29 @@ void testAsync(name,body(done()),{skip}) {
 
 const Assert $assert = const Assert();
 
+void showTestRunnerFrame() {
+  // Make testrunner iFrame visible otherwise transitions not get fired ...
+
+  WindowBase w = window.parent;
+
+  JsObject doc = new JsObject.fromBrowserObject(w)['document'];
+
+
+  JsObject res =doc.callMethod("querySelector",['iframe']);
+  res['style']['visibility']='visible';
+}
+
+void hideTestRunnerFrame() {
+  WindowBase w = window.parent;
+
+  JsObject doc = new JsObject.fromBrowserObject(w)['document'];
+
+
+  JsObject res =doc.callMethod("querySelector",['iframe']);
+  res['style']['visibility']='';
+
+}
+
 $$assert(x,[reason]) => $assert.isTrue(x,reason);
 
 

@@ -70,29 +70,9 @@ main() async {
 
     });
 
-    setUpAll(() {
-      // Make testrunner iFrame visible otherwise transitions not get fired ...
+    setUpAll(showTestRunnerFrame);
 
-      WindowBase w = window.parent;
-
-      JsObject doc = new JsObject.fromBrowserObject(w)['document'];
-
-
-      JsObject res =doc.callMethod("querySelector",['iframe']);
-      res['style']['visibility']='visible';
-
-    });
-
-    tearDownAll((){
-      WindowBase w = window.parent;
-
-      JsObject doc = new JsObject.fromBrowserObject(w)['document'];
-
-
-      JsObject res =doc.callMethod("querySelector",['iframe']);
-      res['style']['visibility']='';
-
-    });
+    tearDownAll(hideTestRunnerFrame);
 
     test('default values', () {
       $assert.isFalse(drawer.opened);

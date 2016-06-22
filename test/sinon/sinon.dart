@@ -60,6 +60,10 @@ class DartSpyEventHandler {
     _sub.cancel();
     _sub=null;
   }
+
+  void reset() {
+    calls.clear();
+  }
 }
 
 
