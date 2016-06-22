@@ -219,6 +219,8 @@ class Assert  {
   void lengthOf(List list, int len, [reason]) => T.expect(list.length,len,reason:reason);
 
   void call(x,[reason]) => $assert.isTrue(x,reason);
+
+  void isNotNull(thing,[reason]) => T.expect(thing,T.isNotNull,reason: reason);
 }
 
 void testAsync(name,body(done()),{skip}) {

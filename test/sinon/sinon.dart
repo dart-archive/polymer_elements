@@ -91,6 +91,7 @@ class Spy {
 
   bool calledAfter(Spy otherSpy) => jsObject.callMethod("calledAfter", [otherSpy.jsObject]);
 
+  call([a,b]) => (jsObject as JsFunction).apply([a,b]);
 }
 
 class SpyCall {
