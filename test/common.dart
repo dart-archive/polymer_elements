@@ -298,6 +298,9 @@ class _not {
   get ok => T.expect(_exp.something, T.isNull);
 
   equal(expected) => T.expect(_exp.something, T.isNot(expected));
+
+  void eql(resources, [reason]) => T.expect(_exp.something, T.isNot(resources),reason:reason);
+
 }
 
 _expect $expect(something) => new _expect(something);
