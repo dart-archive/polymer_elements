@@ -246,8 +246,16 @@ void hideTestRunnerFrame() {
 $$assert(x, [reason]) => $assert.isTrue(x, reason);
 
 jsDeepEquals(JsObject a, JsObject b) {
+
   List<String> x = context['Object']['keys'].apply([a]);
-  return x.every((x) => a[x] == b[x]);
+  return x.every((x) {
+    if (a[x] is JsObject || b[x] is JsObject) {
+      return jsDeepEquals(a[x],b[x]);
+    } else {
+      T.expect(a[x], b[x]);
+      return a[x] == b[x];
+    }
+  });
 }
 
 class _expect {
@@ -272,8 +280,15 @@ class _expect {
   }
 
   equal(expected) {
-    if (expected is JsObject && _deep) {
-      T.expect(jsDeepEquals(something, expected), T.isTrue);
+    if ((something is JsObject || expected is JsObject )&& _deep) {
+      if (!(expected is JsObject)) {
+        expected = new JsObject.jsify(expected);
+      }
+      var s = something;
+      if (!(something is JsObject)) {
+        s = new JsObject.jsify(something);
+      }
+      T.expect(jsDeepEquals(s, expected), T.isTrue);
     } else {
       T.expect(something, expected);
     }
@@ -283,9 +298,9 @@ class _expect {
 
   greaterThan(num i) => T.expect(something, T.greaterThan(i));
 
-  void eql(x) => T.expect(something, x);
+  void eql(x) => equal(x);
 
-  void match(String regexp) => T.expect(something,T.matches(new RegExp(regexp)));
+  void match(String regexp) => T.expect(something, T.matches(new RegExp(regexp)));
 }
 
 class _not {
@@ -301,8 +316,7 @@ class _not {
 
   equal(expected) => T.expect(_exp.something, T.isNot(expected));
 
-  void eql(resources, [reason]) => T.expect(_exp.something, T.isNot(resources),reason:reason);
-
+  void eql(resources, [reason]) => T.expect(_exp.something, T.isNot(resources), reason: reason);
 }
 
 _expect $expect(something) => new _expect(something);
