@@ -54,6 +54,13 @@ files_to_generate:
         - promise-polyfill.html
   - app-layout/app-box/app-box.html
   - app-layout/app-scroll-effects/app-scroll-effects-behavior.html
+  - app-layout/app-scroll-effects/effects/blend-background.html
+  - app-layout/app-scroll-effects/effects/fade-background.html
+  - app-layout/app-scroll-effects/effects/material.html
+  - app-layout/app-scroll-effects/effects/parallax-background.html
+  - app-layout/app-scroll-effects/effects/resize-snapped-title.html
+  - app-layout/app-scroll-effects/effects/resize-title.html
+  - app-layout/app-scroll-effects/effects/waterfall.html
   - app-layout/app-drawer/app-drawer.html
   - app-layout/app-scroll-effects/app-scroll-effects.html
   - app-layout/app-drawer-layout/app-drawer-layout.html  

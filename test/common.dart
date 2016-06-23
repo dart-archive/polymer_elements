@@ -314,3 +314,26 @@ Future $async(cb,[delay=1]) async {
   await wait(delay);
   return await cb();
 }
+
+bool sameCSS(Element el,String css) {
+  DivElement dummy = new DivElement();
+  dummy.style.cssText = css;
+  document.body.children.add(dummy);
+  CssStyleDeclaration expected = dummy.getComputedStyle();
+  CssStyleDeclaration actual = el.getComputedStyle();
+
+  return css.split(";").every((String style) {
+    if (style
+        .trim()
+        .isEmpty) {
+      return true;
+    }
+    List<String> p = style.split(":");
+    String name = p[0].trim();
+    String val1 = actual.getPropertyValue(name);
+    String val2 = expected.getPropertyValue(name);
+    if (val1!=null&&val1.isNotEmpty)
+      T.expect(val1, val2);
+    return true;
+  });
+}
