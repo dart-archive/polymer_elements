@@ -284,6 +284,8 @@ class _expect {
   greaterThan(num i) => T.expect(something, T.greaterThan(i));
 
   void eql(x) => T.expect(something, x);
+
+  void match(String regexp) => T.expect(something,T.matches(new RegExp(regexp)));
 }
 
 class _not {
