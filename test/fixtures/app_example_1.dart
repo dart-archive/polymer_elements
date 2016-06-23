@@ -14,13 +14,20 @@ import 'package:polymer_elements/app_location.dart';
 class AppExample1 extends PolymerElement {
   AppExample1.created() : super.created();
 
-  @property var data;
-  @property var userRoute;
+  @property
+  var data;
+  @property
+  var userRoute;
+  @property
+  var userData;
+  @property
+  var route;
+  @property
+  var userQueryParams;
 
   AppRoute get page => $['page'];
   AppRoute get user => $['user'];
   AppRoute get tail => $['tail'];
-
 
   @Observe('data.page')
   pageChanged(page) {
@@ -36,5 +43,4 @@ class AppExample1 extends PolymerElement {
       this.set('userRoute.path', '/view');
     }
   }
-
 }

@@ -301,6 +301,9 @@ class _expect {
   void eql(x) => equal(x);
 
   void match(String regexp) => T.expect(something, T.matches(new RegExp(regexp)));
+
+  void eq(x) => equal(x);
+
 }
 
 class _not {
