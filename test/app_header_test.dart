@@ -16,6 +16,7 @@ import 'dart:html';
 import 'package:polymer/polymer.dart';
 import 'dart:js';
 import 'package:polymer_elements/app_layout/app_toolbar/app_toolbar.dart';
+import 'package:polymer_elements/app_layout_helpers.dart';
 
 /// Used tests: [IronIcon], [iron_icons]
 main() async {
@@ -81,7 +82,7 @@ main() async {
 
     setUpAll(() {
       testEffect = {'setUp':sinon.spy(), 'tearDown': sinon.spy(), 'run': sinon.spy()};
-      context['Polymer']['AppLayout'].callMethod('registerEffect', ['test-effect', new JsObject.jsify(testEffect)]);
+      AppLayout.registerEffect('test-effect', new JsObject.jsify(testEffect));
       showTestRunnerFrame();
     });
 

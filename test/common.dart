@@ -221,6 +221,8 @@ class Assert  {
   void call(x,[reason]) => $assert.isTrue(x,reason);
 
   void isNotNull(thing,[reason]) => T.expect(thing,T.isNotNull,reason: reason);
+
+  void isFunction(f) => T.expect(f,const T.isInstanceOf<Function>());
 }
 
 void testAsync(name,body(done()),{skip}) {

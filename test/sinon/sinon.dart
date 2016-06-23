@@ -42,13 +42,13 @@ class DartSpyEventHandler {
 
   DartSpyEventHandler();
 
-  factory DartSpyEventHandler.on(Element target,String eventName,[int max])  =>
+  factory DartSpyEventHandler.on(EventTarget target,String eventName,[int max])  =>
     new DartSpyEventHandler()
       ..attach(target,eventName,max);
 
   StreamSubscription _sub;
 
-  void attach(Element target,String eventName,[int max=null]) {
+  void attach(EventTarget target,String eventName,[int max=null]) {
     if (max!=null) {
       _sub = target.on[eventName].take(max).listen(this);
     } else {
