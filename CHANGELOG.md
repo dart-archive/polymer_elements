@@ -6,6 +6,7 @@
    * `gold-elements` 1.0.1
    * `neon-elements` 1.0.0
    * `app-elements` 0.9.0  **brand new!!!**
+   * `google-web-components` 1.1.0
 
 * Many bug fix and enhancements
 * Many new components : `app-*` , `paper-spinner-light`, `paper-dropdown-menu--light`
