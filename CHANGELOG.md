@@ -8,8 +8,9 @@
    * `app-elements` 0.9.0  **brand new!!!**
 
 * Many bug fix and enhancements
-* new components : `app-*` , `paper-spinner-light`, `paper-dropdown-menu--light`
-* `IronOverlayManager` 
+* Many new components : `app-*` , `paper-spinner-light`, `paper-dropdown-menu--light`
+* Support for `firebase` protocol v.3 (v.2 deprecated)
+* Better support for singletons: `IronOverlayManager`, `IronDropdownScrollManager`
 
 
 ## 1.0.0-rc.8
