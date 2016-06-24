@@ -246,11 +246,10 @@ void hideTestRunnerFrame() {
 $$assert(x, [reason]) => $assert.isTrue(x, reason);
 
 jsDeepEquals(JsObject a, JsObject b) {
-
   List<String> x = context['Object']['keys'].apply([a]);
   return x.every((x) {
     if (a[x] is JsObject || b[x] is JsObject) {
-      return jsDeepEquals(a[x],b[x]);
+      return jsDeepEquals(a[x], b[x]);
     } else {
       T.expect(a[x], b[x]);
       return a[x] == b[x];
@@ -280,7 +279,7 @@ class _expect {
   }
 
   equal(expected) {
-    if ((something is JsObject || expected is JsObject )&& _deep) {
+    if ((something is JsObject || expected is JsObject) && _deep) {
       if (!(expected is JsObject)) {
         expected = new JsObject.jsify(expected);
       }
@@ -303,7 +302,6 @@ class _expect {
   void match(String regexp) => T.expect(something, T.matches(new RegExp(regexp)));
 
   void eq(x) => equal(x);
-
 }
 
 class _not {
