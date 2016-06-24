@@ -22,6 +22,50 @@ bool positionEquals(Element node, top, bottom, left, right) {
   return rect.top == top && rect.bottom == bottom && rect.left == left && rect.right == right;
 }
 
+
+@behavior
+abstract class FlexLayoutTestBehavior implements PolymerBase {
+  DivElement get container => new PolymerDom(root).querySelector(".container");
+  DivElement get c1 => $['c1'];
+  DivElement get c2 => $['c2'];
+  DivElement get c3 => $['c3'];
+  DivElement get c4 => $['c4'];
+  DivElement get c5 => $['c5'];
+}
+
+@PolymerRegister('test-styles')
+class TestStyles extends PolymerElement {
+  TestStyles.created() : super.created();
+}
+
+@PolymerRegister('basic-test')
+class BasicTest extends PolymerElement with FlexLayoutTestBehavior {
+  BasicTest.created() : super.created();
+}
+
+@PolymerRegister('flex-test')
+class FlexTest extends PolymerElement  with FlexLayoutTestBehavior {
+  FlexTest.created() : super.created();
+}
+
+@PolymerRegister('single-child-test')
+class SingleChildTest extends PolymerElement with FlexLayoutTestBehavior {
+  SingleChildTest.created() : super.created();
+}
+
+
+@PolymerRegister('positioning-test')
+class PositioningTest extends PolymerElement with FlexLayoutTestBehavior {
+  PositioningTest.created() : super.created();
+}
+
+
+@PolymerRegister('align-content-test')
+class AlignContentTest extends PolymerElement with FlexLayoutTestBehavior {
+  AlignContentTest.created() : super.created();
+}
+
+
 main() async {
   await initPolymer();
 
@@ -29,15 +73,15 @@ main() async {
     Element container, c1, c2, c3;
 
     setUp(() {
-      container = fixture('basic');
-      c1 = container.querySelector("#c1");
-      c2 = container.querySelector("#c2");
-      c3 = container.querySelector("#c3");
+      FlexLayoutTestBehavior _test = fixture('basic');
+      container = _test.container;
+      c1 = _test.c1;
+      c2 = _test.c2;
+      c3 = _test.c3;
     });
 
-    test('layout-horizontal', () async {
+    test('layout-horizontal', () {
       container.classes.add('horizontal');
-      await new Future(() {});
       expect(positionEquals(container, 0, 50, 0, 300), isTrue, reason: "container position ok");
       // |c1| |c2| |c3|
       expect(positionEquals(c1, 0, 50, 0, 50), isTrue, reason: "child 1 position ok");
@@ -92,16 +136,17 @@ main() async {
       expect(positionEquals(c2, 50, 100, 0, 50), isTrue, reason: "child 2 position ok");
       expect(positionEquals(c3, 0, 50, 50, 100), isTrue, reason: "child 3 position ok");
     });
-  },skip:'custom-style not applied in test runner');
+  });
 
   group('flex', () {
     Element container, c1, c2, c3;
 
     setUp(() {
-      container = fixture('flex');
-      c1 = container.querySelector("#c1");
-      c2 = container.querySelector("#c2");
-      c3 = container.querySelector("#c3");
+      FlexLayoutTestBehavior _test = fixture('flex');
+      container = _test.container;
+      c1 = _test.c1;
+      c2 = _test.c2;
+      c3 = _test.c3;
     });
 
     test('layout-flex child in a horizontal layout', () {
@@ -149,17 +194,16 @@ main() async {
       expect(positionEquals(c2, 50, 150, 0, 50), isTrue, reason: "child 2 position ok");
       expect(positionEquals(c3, 150, 300, 0, 50), isTrue, reason: "child 3 position ok");
     });
-  },skip:'custom-style not applied in test runner');
+  });
 
   group('alignment', () {
-    Element container, c1, c2, c3;
+    Element container, c1;
 
     setUp(() {
-      container = fixture('single-child');
+      FlexLayoutTestBehavior _test = fixture('single-child');
+      container = _test.container;
+      c1 = _test.c1;
       container.classes.add('horizontal');
-      c1 = container.querySelector("#c1");
-      c2 = container.querySelector("#c2");
-      c3 = container.querySelector("#c3");
     });
 
     test('stretch (default)', () {
@@ -208,17 +252,20 @@ main() async {
       var center = (300 - 50) / 2;
       expect(positionEquals(c1, 0, 50, center, center + 50), isTrue, reason: "child 1 position ok");
     });
-  },skip:'custom-style not applied in test runner');
+  });
 
   group('justification', () {
     Element container, c1, c2, c3;
 
     setUp(() {
-      container = fixture('flex');
+      FlexLayoutTestBehavior _test = fixture('flex');
+      container = _test.container;
+      c1 = _test.c1;
+      c2 = _test.c2;
+      c3 = _test.c3;
+
       container.classes.add('horizontal');
-      c1 = container.querySelector("#c1");
-      c2 = container.querySelector("#c2");
-      c3 = container.querySelector("#c3");
+
     });
 
     test('layout-justified', () {
@@ -241,23 +288,27 @@ main() async {
       end = end + spacing + 50 + spacing;
       expect(positionEquals(c3, 0, 50, end + spacing, end + spacing + 50), isTrue, reason: "child 3 position ok");
     });
-  },skip:'custom-style not applied in test runner');
+  });
 
   group('align-content', () {
     Element container, c1, c2, c3, c4, c5;
 
     setUp(() {
-      container = fixture('align-content');
+      FlexLayoutTestBehavior _test = fixture('align-content');
+      container = _test.container;
+      c1 = _test.c1;
+      c2 = _test.c2;
+      c3 = _test.c3;
+      c4 = _test.c4;
+      c5 = _test.c5;
+
+
       container.classes.add('small');
       container.classes.add('tall');
       container.classes.add('horizontal');
       container.classes.add('flex');
       container.classes.add('wrap');
-      c1 = container.querySelector("#c1");
-      c2 = container.querySelector("#c2");
-      c3 = container.querySelector("#c3");
-      c4 = container.querySelector("#c4");
-      c5 = container.querySelector("#c5");
+
     });
 
     test('default is stretch', () {
@@ -321,15 +372,19 @@ main() async {
       expect(positionEquals(c4, center, center + 50, 50, 100), isTrue, reason: "child 4 position ok");
       expect(positionEquals(c5, 225, 275, 0, 50), isTrue, reason: "child 5 position ok");
     });
-  },skip:'custom-style not applied in test runner');
+  });
 
   group('positioning', () {
     Element container, c1;
 
     setUp(() {
-      container = fixture('positioning');
+
+      FlexLayoutTestBehavior _test = fixture('positioning');
+      container = _test.container;
+      c1 = _test.c1;
+
       container.classes.add('tall');
-      c1 = container.querySelector("#c1");
+
     });
 
     test('layout-fit', () {
@@ -337,5 +392,5 @@ main() async {
       expect(positionEquals(container, 0, 300, 0, 300), isTrue, reason: "container position ok");
       expect(positionEquals(container, 0, 300, 0, 300), isTrue, reason: "child 1 position ok");
     });
-  },skip:'custom-style not applied in test runner');
+  });
 }
