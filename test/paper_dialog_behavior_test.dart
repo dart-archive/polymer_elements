@@ -20,7 +20,6 @@ main() async {
   await initPolymer();
 
   group('basic', () {
-
     test('clicking dialog does not cancel the dialog', () {
       var done = new Completer();
       var dialog = fixture('basic');
@@ -53,6 +52,32 @@ main() async {
       return done.future;
     });
 
+    testAsync('dialog-dismiss on a custom element is handled', (done) {
+      TestDialog dialog = fixture('custom-element-button');
+      runAfterOpen(dialog, () {
+        dialog.on['iron-overlay-closed'].take(1).listen((event) {
+          event = convertToDart(event);
+          $assert.isFalse(event.detail['canceled'], 'dialog is not canceled');
+          $assert.isFalse(event.detail['confirmed'], 'dialog is not confirmed');
+          done();
+        });
+        tap(new PolymerDom(dialog).querySelector('[dialog-dismiss]'));
+      });
+    });
+
+    testAsync('dialog-dismiss button inside a custom element is handled', (done) {
+      TestDialog dialog = fixture('buttons');
+      runAfterOpen(dialog, () {
+        dialog.on['iron-overlay-closed'].take(1).listen((event) {
+          event = convertToDart(event);
+          $assert.isFalse(event.detail['canceled'], 'dialog is not canceled');
+          $assert.isFalse(event.detail['confirmed'], 'dialog is not confirmed');
+          done();
+        });
+        tap((new PolymerDom(dialog).querySelector('test-buttons') as TestButtons).$['dismiss']);
+      });
+    });
+
     test('clicking dialog-confirm button closes the dialog with confirmation', () {
       var done = new Completer();
       var dialog = fixture('basic');
@@ -63,7 +88,116 @@ main() async {
           expect(event.detail['confirmed'], isTrue, reason: 'dialog is confirmed');
           done.complete();
         });
-        Polymer.dom(dialog).querySelector('[dialog-confirm]').click();
+        new PolymerDom(dialog).querySelector('[dialog-confirm]').click();
+      });
+    });
+
+    testAsync('dialog-confirm on a custom element handled', (done) {
+      TestDialog dialog = fixture('custom-element-button');
+      runAfterOpen(dialog, () {
+        dialog.on['iron-overlay-closed'].take(1).listen((event) {
+          event = convertToDart(event);
+          $assert.isFalse(event.detail['canceled'], 'dialog is not canceled');
+          $assert.isTrue(event.detail['confirmed'], 'dialog is confirmed');
+          done();
+        });
+        tap(new PolymerDom(dialog).querySelector('[dialog-confirm]'));
+      });
+    });
+
+    testAsync('dialog-confirm button inside a custom element is handled', (done) {
+      var dialog = fixture('buttons');
+      runAfterOpen(dialog, () {
+        dialog.on['iron-overlay-closed'].take(1).listen((event) {
+          event = convertToDart(event);
+          $assert.isFalse(event.detail['canceled'], 'dialog is not canceled');
+          $assert.isTrue(event.detail['confirmed'], 'dialog is confirmed');
+          done();
+        });
+        tap((new PolymerDom(dialog).querySelector('test-buttons') as TestButtons).$['confirm']);
+      });
+    });
+
+    testAsync('clicking dialog-dismiss button closes only the dialog where is contained', (done) async {
+      var dialog = fixture('nestedmodals');
+      TestDialog innerDialog = new PolymerDom(dialog).querySelector('test-dialog');
+      tap(new PolymerDom(innerDialog).querySelector('[dialog-dismiss]'));
+      await wait(10);
+      $assert.isFalse(innerDialog.opened, 'inner dialog is closed');
+      $assert.isTrue(dialog.opened, 'dialog is still open');
+      done();
+    });
+
+    testAsync('clicking dialog-confirm button closes only the dialog where is contained', (done) async {
+      TestDialog dialog = fixture('nestedmodals');
+      TestDialog innerDialog = new PolymerDom(dialog).querySelector('test-dialog');
+      tap(new PolymerDom(innerDialog).querySelector('[dialog-confirm]'));
+      await wait(10);
+      $assert.isFalse(innerDialog.opened, 'inner dialog is closed');
+      $assert.isTrue(dialog.opened, 'dialog is still open');
+      done();
+    });
+
+    List<String> properties = ['noCancelOnEscKey', 'noCancelOnOutsideClick', 'withBackdrop'];
+
+    // Could use polymer accessors or underlining js props but this way is more a 'dartish'
+    getProperty(TestDialog x, propName) {
+      Map<String, Function> getters = {
+        'noCancelOnEscKey': (TestDialog x) => x.noCancelOnEscKey,
+        'noCancelOnOutsideClick': (TestDialog x) => x.noCancelOnOutsideClick,
+        'withBackdrop': (TestDialog x) => x.withBackdrop
+      };
+
+      return getters[propName](x);
+    }
+
+    setProperty(TestDialog x, propName, val) {
+      Map<String, Function> setters = {
+        'noCancelOnEscKey': (TestDialog x, val) => x.noCancelOnEscKey = val,
+        'noCancelOnOutsideClick': (TestDialog x, val) => x.noCancelOnOutsideClick = val,
+        'withBackdrop': (TestDialog x, val) => x.withBackdrop = val
+      };
+
+      setters[propName](x, val);
+    }
+
+    properties.forEach((String property) {
+      test('modal sets ' + property + ' to true', () {
+        TestDialog dialog = fixture('modal');
+        $assert.isTrue(getProperty(dialog, property), property);
+      });
+
+      test('modal toggling keeps current value of ' + property, () {
+        var dialog = fixture('modal');
+        // Changed to false while modal is true.
+        setProperty(dialog, property, false);
+        dialog.modal = false;
+        $assert.isFalse(getProperty(dialog, property), property + ' is false');
+      });
+
+      test('modal toggling keeps previous value of ' + property, () {
+        var dialog = fixture('basic');
+        // Changed before modal is true.
+        setProperty(dialog, property, true);
+        // Toggle twice to trigger observer.
+        dialog.modal = true;
+        dialog.modal = false;
+        $assert.isTrue(getProperty(dialog, property), property + ' is still true');
+      });
+
+      test('default modal does not override ' + property + ' (attribute)', () {
+        // Property is set on ready from attribute.
+        var dialog = fixture('like-modal');
+        $assert.isTrue(getProperty(dialog, property), property + ' is true');
+      });
+
+      test('modal toggling keeps previous value of ' + property + ' (attribute)', () {
+        // Property is set on ready from attribute.
+        var dialog = fixture('like-modal');
+        // Toggle twice to trigger observer.
+        dialog.modal = true;
+        dialog.modal = false;
+        $assert.isTrue(getProperty(dialog, property), property + ' is still true');
       });
     });
 
@@ -133,7 +267,6 @@ main() async {
     test('focus is given to the autofocus element when clicking on backdrop', when((done) {
       TestDialog dialog = fixture('modal');
 
-
       onSecondOpen(_) async {
         tap(document.body);
         await wait(10);
@@ -156,13 +289,7 @@ main() async {
 
       dialog.on['iron-overlay-opened'].take(1).listen(onFirstOpen);
       dialog.open();
-
-
-
-
     }));
-    
-    
   });
 
   group('a11y', () {
@@ -191,17 +318,11 @@ runAfterOpen(TestDialog dialog, cb) {
 }
 
 @PolymerRegister('test-dialog')
-class TestDialog extends PolymerElement
-    with
-        IronFitBehavior,
-        IronResizableBehavior,
-        IronOverlayBehavior,
-        PaperDialogBehavior {
+class TestDialog extends PolymerElement with IronFitBehavior, IronResizableBehavior, IronOverlayBehavior, PaperDialogBehavior {
   TestDialog.created() : super.created();
 }
 
 @PolymerRegister('test-buttons')
-class TestButtons extends PolymerElement
-    {
-      TestButtons.created() : super.created();
+class TestButtons extends PolymerElement {
+  TestButtons.created() : super.created();
 }

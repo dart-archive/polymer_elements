@@ -25,7 +25,7 @@ bool positionEquals(Element node, top, bottom, left, right) {
 
 @behavior
 abstract class FlexLayoutTestBehavior implements PolymerBase {
-  DivElement get container => new PolymerDom(root).querySelector(".container");
+  DivElement get container => $$(".container");
   DivElement get c1 => $['c1'];
   DivElement get c2 => $['c2'];
   DivElement get c3 => $['c3'];

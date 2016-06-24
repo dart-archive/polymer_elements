@@ -25,9 +25,9 @@ bool elementIsVisible(element) {
 }
 
 Future runAfterOpen(IronDropdown overlay, Function cb) async {
+  var done = overlay.on['iron-overlay-opened'].first;
   overlay.open();
-  await overlay.on['iron-overlay-opened'].first;
-  //await new Future((){});
+  await done;
   await cb();
 }
 
@@ -286,100 +286,6 @@ main() async {
           dropdownRect = dropdown.getBoundingClientRect();
           expect(dropdownRect.top, 0);
           expect(dropdownRect.left, 0);
-        });
-      });
-    });
-  });
-
-  group('IronDropdownScrollManager', () {
-    var parent;
-    var childOne;
-    var childTwo;
-    var grandChildOne;
-    var grandChildTwo;
-    var ancestor;
-
-    setUp(() {
-      parent = fixture('DOMSubtree');
-      childOne = parent.$$('#ChildOne');
-      childTwo = parent.$$('#ChildTwo');
-      grandChildOne = parent.$$('#GrandchildOne');
-      grandChildTwo = parent.$$('#GrandchildTwo');
-      ancestor = document.body;
-    });
-
-    group('constraining scroll in the DOM', () {
-      setUp(() {
-        IronDropdownScrollManager.pushScrollLock(childOne);
-      });
-
-      tearDown(() {
-        IronDropdownScrollManager.removeScrollLock(childOne);
-      });
-
-      test('recognizes sibling as locked', () {
-        expect(IronDropdownScrollManager.elementIsScrollLocked(childTwo), true);
-      });
-
-      test('recognizes neice as locked', () {
-        expect(IronDropdownScrollManager.elementIsScrollLocked(grandChildTwo), true);
-      });
-
-      test('recognizes parent as locked', () {
-        expect(IronDropdownScrollManager.elementIsScrollLocked(parent), true);
-      });
-
-      test('recognizes ancestor as locked', () {
-        expect(IronDropdownScrollManager.elementIsScrollLocked(ancestor), true);
-      });
-
-      test('recognizes locking child as unlocked', () {
-        expect(IronDropdownScrollManager.elementIsScrollLocked(childOne), false);
-      });
-
-      test('recognizes descendant of locking child as unlocked', () {
-        expect(IronDropdownScrollManager.elementIsScrollLocked(grandChildOne), false);
-      });
-
-      test('unlocks locked elements when there are no locking elements', () {
-        IronDropdownScrollManager.removeScrollLock(childOne);
-
-        expect(IronDropdownScrollManager.elementIsScrollLocked(parent), false);
-      });
-
-      test('does not check locked elements when there are no locking elements', () {
-        Spy s = spy(IronDropdownScrollManager.jsProxy, 'elementIsScrollLocked');
-        childOne.dispatchEvent(new CustomEvent('wheel', canBubble: true, cancelable: true));
-        expect(s.callCount, 1);
-        IronDropdownScrollManager.removeScrollLock(childOne);
-        childOne.dispatchEvent(new CustomEvent('wheel', canBubble: true, cancelable: true));
-        expect(s.callCount, 1);
-      });
-
-      group('various scroll events', () {
-        var scrollEvents;
-        var events;
-
-        setUp(() {
-          scrollEvents = ['wheel', 'mousewheel', 'DOMMouseScroll', 'touchmove'];
-
-          events = scrollEvents.map((scrollEvent) {
-            return new CustomEvent(scrollEvent, canBubble: true, cancelable: true);
-          });
-        });
-
-        test('prevents wheel events from locked elements', () {
-          events.forEach((event) {
-            childTwo.dispatchEvent(event);
-            expect(event.defaultPrevented, true);
-          });
-        });
-
-        test('allows wheel events from unlocked elements', () {
-          events.forEach((event) {
-            childOne.dispatchEvent(event);
-            expect(event.defaultPrevented, false);
-          });
         });
       });
     });
