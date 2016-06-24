@@ -63,6 +63,34 @@ main() async {
       expect(button.elevation, 3);
       expect(button.hasRipple(), isTrue);
     });
+
+    test('space key', when((done) {
+      const SPACE_KEY_CODE = 32;
+      var ripple;
+      focus(button);
+
+      $assert.ok(button.hasRipple());
+
+      ripple = button.getRipple();
+      keyDownOn(button, SPACE_KEY_CODE);
+
+      $assert.equal(ripple.ripples.length, 1);
+
+      keyDownOn(button, SPACE_KEY_CODE);
+
+      $assert.equal(ripple.ripples.length, 1);
+
+      keyUpOn(button, SPACE_KEY_CODE);
+
+      var transitionEndCalled = false;
+      ripple.on['transitionend'].take(1).listen((_) {
+        if (!transitionEndCalled) {
+          transitionEndCalled = true;
+          $assert.equal(ripple.ripples.length, 0);
+          done();
+        }
+      });
+    }));
   });
 }
 

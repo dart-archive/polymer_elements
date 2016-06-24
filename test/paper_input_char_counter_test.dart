@@ -26,7 +26,7 @@ main() async {
       InputElement input = Polymer.dom(container).querySelector('#i');
       PaperInputCharCounter counter =
           Polymer.dom(container).querySelector('#c');
-      expect(counter.jsElement['_charCounterStr'], equals(input.value.length));
+      expect(counter.jsElement['_charCounterStr'], equals(input.value.length.toString()));
     });
 
     test('character counter shows the value length with maxlength', () async {
@@ -64,7 +64,7 @@ main() async {
       expect(counter, isNotNull);
       // A new line counts as two characters.
       expect(
-          counter.jsElement['_charCounterStr'], equals(input.value.length + 1));
+          counter.jsElement['_charCounterStr'], equals(input.value.length.toString() ));
     });
   });
 }

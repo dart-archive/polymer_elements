@@ -32,6 +32,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </test-dialog>
   </template>
 
+  <template id="buttons">
+      <test-dialog>
+        <p>Dialog with test-buttons</p>
+        <test-buttons class="buttons"></test-buttons>
+      </test-dialog>
+  </template>
+
+  <template id="custom-element-button">
+      <test-dialog>
+        <p>Dialog</p>
+        <div class="buttons">
+          <paper-icon-button icon="cancel" dialog-dismiss></paper-icon-button>
+          <paper-icon-button icon="add-circle" dialog-confirm></paper-icon-button>
+          <paper-icon-button icon="favorite"></paper-icon-button>
+        </div>
+      </test-dialog>
+  </template>
+
   <template id="modal">
     <test-dialog modal>
       <p>Dialog</p>
@@ -42,15 +60,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </test-dialog>
   </template>
 
-  <template id="backdrop">
-    <test-dialog with-backdrop>
-      <p>Dialog</p>
-      <div class="buttons">
-        <button dialog-dismiss>dismiss</button>
-        <button dialog-confirm autofocus>confirm</button>
-      </div>
-    </test-dialog>
+  <template id="like-modal">
+      <test-dialog no-cancel-on-esc-key no-cancel-on-outside-click with-backdrop>
+        <p>Dialog</p>
+      </test-dialog>
   </template>
+
   <template id="header">
     <test-dialog>
       <h2>Dialog</h2>
@@ -71,6 +86,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </test-dialog>
   </template>
 
+  <template id="multiple">
+      <test-dialog modal id="dialog1">
+        <p>Dialog 1</p>
+      </test-dialog>
+      <test-dialog modal id="dialog2">
+        <p>Dialog 2</p>
+      </test-dialog>
+  </template>
+
+  <template id="nestedmodals">
+      <test-dialog modal opened>
+        <p>Dialog 1</p>
+        <div class="buttons">
+          <button dialog-dismiss>dismiss</button>
+          <button dialog-confirm autofocus>confirm</button>
+        </div>
+
+        <test-dialog modal opened>
+          <p>Dialog 2</p>
+          <div class="buttons">
+            <button dialog-dismiss>dismiss</button>
+            <button dialog-confirm autofocus>confirm</button>
+          </div>
+        </test-dialog>
+      </test-dialog>
+  </template>
+
   <dom-module id="test-dialog">
 
     <template>
@@ -78,6 +120,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <content></content>
     </template>
 
+  </dom-module>
+
+  <dom-module id="test-buttons">
+    <template>
+      <button dialog-dismiss id="dismiss">dismiss</button>
+      <button dialog-confirm id="confirm">confirm</button>
+    </template>
   </dom-module>
 </body>
 </html>

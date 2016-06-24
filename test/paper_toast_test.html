@@ -19,7 +19,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <!--<script type="application/dart" src="paper_toast_test.dart"></script>-->
     <!--<script src="packages/browser/dart.js"></script>-->
     <script src="packages/test/dart.js"></script>
-
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
   <template id="basic">
@@ -29,5 +34,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template id="show">
     <paper-toast opened></paper-toast>
   </template>
+
+ <template id="contained">
+
+         <paper-toast class="fit-bottom"></paper-toast>
+         <div style="margin: 50px; width: 100px; height: 100px; background-color: orange;"></div>
+
+ </template>
 </body>
 </html>

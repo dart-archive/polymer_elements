@@ -95,6 +95,32 @@ main() async {
       // Dart Note: upped to `60` from `50`
       expect(giant.width, lessThanOrEqualTo(60));
     });
+
+    suite('checkbox line-height', () {
+      var large;
+      var small;
+
+      setup(() {
+        var checkboxes = fixture('WithLineHeight');
+        large = checkboxes[0];
+        small = checkboxes[1];
+      });
+
+      test('checkboxes with >1 line-height have an equal height', () {
+        var largeRect = large.getBoundingClientRect();
+        var largeStyle = large.getComputedStyle();
+
+        $assert.isTrue(largeRect.height == 3 * parseFloat(largeStyle.fontSize));
+      });
+
+      test('checkbox with <1 line-height are at least 1em tall', () {
+        var smallRect = small.getBoundingClientRect();
+        var smallStyle = small.getComputedStyle();
+
+        $assert.isTrue(smallRect.height >= 1 * parseFloat(smallStyle.fontSize));
+      });
+    });
+
   });
 
   group('a11y', () {

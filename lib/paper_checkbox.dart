@@ -17,9 +17,7 @@ import 'paper_ripple_behavior.dart';
 import 'iron_checked_element_behavior.dart';
 import 'iron_form_element_behavior.dart';
 import 'iron_validatable_behavior.dart';
-import 'paper_ripple.dart';
 import 'default_theme.dart';
-import 'color.dart';
 
 /// Material design: [Checkbox](https://www.google.com/design/spec/components/selection-controls.html#selection-controls-checkbox)
 ///
@@ -44,13 +42,19 @@ import 'color.dart';
 /// `--paper-checkbox-unchecked-background-color` | Checkbox background color when the input is not checked | `transparent`
 /// `--paper-checkbox-unchecked-color` | Checkbox border color when the input is not checked | `--primary-text-color`
 /// `--paper-checkbox-unchecked-ink-color` | Selected/focus ripple color when the input is not checked | `--primary-text-color`
-/// `--paper-checkbox-checked-color` | Checkbox color when the input is checked | `--default-primary-color`
-/// `--paper-checkbox-checked-ink-color` | Selected/focus ripple color when the input is checked | `--default-primary-color`
+/// `--paper-checkbox-checked-color` | Checkbox color when the input is checked | `--primary-color`
+/// `--paper-checkbox-checked-ink-color` | Selected/focus ripple color when the input is checked | `--primary-color`
 /// `--paper-checkbox-checkmark-color` | Checkmark color | `white`
 /// `--paper-checkbox-label-color` | Label color | `--primary-text-color`
+/// `--paper-checkbox-label-checked-color` | Label color when the input is checked | `--paper-checkbox-label-color`
 /// `--paper-checkbox-label-spacing` | Spacing between the label and the checkbox | `8px`
-/// `--paper-checkbox-error-color` | Checkbox color when invalid | `--google-red-500`
+/// `--paper-checkbox-error-color` | Checkbox color when invalid | `--error-color`
 /// `--paper-checkbox-size` | Size of the checkbox | `18px`
+/// `--paper-checkbox-margin` | Margin around the checkbox container | `initial`
+/// `--paper-checkbox-vertical-align` | Vertical alignment of the checkbox container | `middle`
+///
+/// This element applies the mixin `--paper-font-common-base` but does not import `paper-styles/typography.html`.
+/// In order to apply the `Roboto` font to this element, make sure you've imported `paper-styles/typography.html`.
 @CustomElementProxy('paper-checkbox')
 class PaperCheckbox extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperRippleBehavior, PaperInkyFocusBehavior, IronFormElementBehavior, IronValidatableBehavior, IronCheckedElementBehavior, PaperCheckedElementBehavior {
   PaperCheckbox.created() : super.created();

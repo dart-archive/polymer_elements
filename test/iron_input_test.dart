@@ -11,6 +11,7 @@ import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/iron_input.dart';
 import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
+import 'fixtures/disabled_input.dart';
 import 'common.dart';
 
 main() async {
@@ -28,8 +29,7 @@ main() async {
       var done = new Completer();
       IronInput input = fixture('basic');
       input.on['bind-value-changed'].take(1).listen((value) {
-        expect(input.value, input.bindValue,
-            reason: 'value equals to bindValue');
+        expect(input.value, input.bindValue, reason: 'value equals to bindValue');
         done.complete();
       });
 
@@ -134,6 +134,55 @@ main() async {
       input.value = 'bar123';
       input.jsElement.callMethod('_onInput');
       expect(input.bindValue, 'foo');
+    });
+
+    test('disabled input doesn\'t throw on Firefox', () {
+      DisabledInput el = fixture('disabled-input');
+      IronInput input = el.$['input'];
+
+      expect(input.bindValue, 'foo');
+
+      expect(el.myInvalid, isFalse);
+      expect(input.disabled, isTrue);
+    });
+
+    test('browser validation beats custom validation', () {
+      IronInput input = fixture('native-and-custom-validator')[1];
+      // The input allows any letters, but the browser only allows one
+      // of [abc].
+      input.value = 'aaaa';
+      input.validate();
+      expect(input.invalid, isFalse, reason: 'input is valid');
+
+      // The validator allows this, but the browser doesn't.
+      input.value = 'zzz';
+      input.validate();
+      expect(input.invalid, isTrue, reason: 'input is invalid');
+    });
+  });
+
+  group('a11y', () {
+    test('announces invalid characters when _onInput is called', () {
+      IronInput input = fixture('prevent-invalid-input');
+      input.on['iron-announce'].listen((event) {
+        CustomEventWrapper ce = new CustomEventWrapper(event);
+        expect(ce.detail["text"], 'Invalid string of characters not entered.');
+      });
+      input.value = 'foo';
+      input.jsElement.callMethod("_onInput");
+    });
+
+    test('announces invalid characters on keypress', () {
+      IronInput input = fixture('prevent-invalid-input');
+      input.on['iron-announce'].listen((event) {
+        CustomEventWrapper ce = new CustomEventWrapper(event);
+        expect(ce.detail['text'], 'Invalid character a not entered.');
+      });
+
+      // Simulate key press event.
+      var event = new CustomEvent('keypress', canBubble: true, cancelable: true);
+      new JsObject.fromBrowserObject(event)["charCode"] = 97 /* a */;
+      input.dispatchEvent(event);
     });
   });
 }

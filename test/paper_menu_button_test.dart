@@ -11,6 +11,7 @@ import 'package:polymer_elements/paper_menu_button.dart';
 import 'package:web_components/web_components.dart';
 import 'package:test/test.dart';
 import 'common.dart';
+import 'package:polymer/polymer.dart';
 
 main() async {
   await initWebComponents();
@@ -33,31 +34,32 @@ main() async {
       expect(contentRect.width, equals(0));
       expect(contentRect.height, equals(0));
 
-      tap(trigger);
 
-      wait(1).then((_) {
-        contentRect = content.getBoundingClientRect();
-        expect(menuButton.opened, isTrue);
-        expect(contentRect.width, greaterThan(0));
-        expect(contentRect.height, greaterThan(0));
-        done.complete();
+
+      menuButton.on['paper-dropdown-open'].take(1).listen( (_) {
+      $expect(menuButton.opened).to.be.equal(true);
+      done.complete();
       });
+
+      tap(trigger);
 
       return done.future;
     });
 
-    test('closes when trigger is clicked again', () async {
+    test('closes when trigger is clicked again', when((done) {
+      menuButton.on['paper-dropdown-open'].take(1).listen((_)async  {
+      menuButton.on['paper-dropdown-close'].take(1).listen((_)  {
+      $expect(menuButton.opened).to.be.equal(false);
+      done();
+      });
+
+      await wait(1);
       tap(trigger);
 
-      await wait(100);
-      tap(trigger);
+      });
 
-      await wait(context['Polymer']['PaperMenuButton']['MAX_ANIMATION_TIME_MS']);
-      Rectangle contentRect = content.getBoundingClientRect();
-      expect(menuButton.opened, isFalse);
-      expect(contentRect.width, equals(0));
-      expect(contentRect.height, equals(0));
-    }, skip: 'failing on the js side');
+      tap(trigger);
+    }));
 
     test('closes when disabled while open', () {
       Rectangle contentRect;
@@ -74,5 +76,60 @@ main() async {
     test('has aria-haspopup attribute', () {
       expect(menuButton.getAttribute('aria-haspopup'), isNotNull);
     });
+
+
+    suite('when there are two buttons', () {
+      PaperMenuButton menuButton;
+      SpanElement trigger;
+      PaperMenuButton otherButton;
+      SpanElement otherTrigger;
+
+      setup(() {
+        var buttons = fixture('TwoMenuButtons');
+        menuButton = buttons[0];
+        otherButton = buttons[1];
+        trigger = new PolymerDom(menuButton).querySelector('.dropdown-trigger');
+        otherTrigger = new PolymerDom(otherButton).querySelector('.dropdown-trigger');
+      });
+
+      test('closes current and opens other', when((done) {
+        $expect(menuButton.opened).to.be.equal(false);
+        $expect(otherButton.opened).to.be.equal(false);
+
+        /*
+          NOTE: iron-overlay-behavior adds listeners asynchronously when the
+          overlay opens, so we need to wait for this event which is a
+          more-explicit signal that tells us that the overlay is really opened.
+         */
+        menuButton.on['iron-overlay-opened'].take(1).listen((_) async {
+          $expect(menuButton.opened).to.be.equal(true);
+          $expect(otherButton.opened).to.be.equal(false);
+
+          var firstClosed = false;
+          var secondOpened = false;
+
+          menuButton.on['paper-dropdown-close'].take(1).listen( (_) {
+            firstClosed = true;
+          });
+
+          otherButton.on['paper-dropdown-open'].take(1).listen( (_) {
+            secondOpened = true;
+          });
+
+          await wait(1);
+          tap(otherTrigger);
+
+
+          await wait(1);
+          $expect(firstClosed).to.be.equal(true);
+          $expect(secondOpened).to.be.equal(true);
+
+          done();
+        });
+
+        tap(trigger);
+      }));
+    });
+    
   });
 }

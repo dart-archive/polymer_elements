@@ -16,8 +16,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 abstract class PaperInputAddonBehavior implements CustomElementProxyMixin {
 
   /// The function called by `<paper-input-container>` when the input value or validity changes.
-  /// [state]: All properties are optional -
-  ///         inputElement: The input element.
+  /// [state]: inputElement: The input element.
   ///         value: The input value.
   ///         invalid: True if the input value is invalid.
   update(state) =>

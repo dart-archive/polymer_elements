@@ -1,0 +1,167 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title></title>
+
+    <script src="packages/web_components/webcomponents-lite.js"></script>
+    <link rel="x-dart-test" href="iron_flex_layout_classes_test.dart">
+    <!--<script type="application/dart" src="iron_fit_behavior_test.dart"></script>-->
+    <!--<script src="packages/browser/dart.js"></script>-->
+    <script src="packages/test/dart.js"></script>
+
+    <style >
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+<dom-module id="test-styles">
+    <template>
+        <style
+               include="iron-flex iron-flex-reverse iron-flex-factors iron-flex-alignment iron-positioning">
+            .container {
+                width: 300px;
+                min-height: 50px;
+                background-color: #ccc;
+            }
+
+            .container > div {
+                width: 50px;
+                min-height: 50px; /* so that it can grow in vertical layouts. */
+            }
+
+            /* IE11 does not calculate flex proportions correctly in a vertical
+             * layout if the children just have a min-height. For those tests,
+             * use a fixed height instead. */
+            .container > div.fixed-height {
+                min-height: 0;
+                height: 50px;
+            }
+
+            .container.relative > div {
+                min-width: 50px;
+                min-height: 50px;
+                width: inherit;
+            }
+
+            .container.small {
+                width: 120px;
+            }
+
+            .container.tall {
+                height: 300px;
+            }
+
+            #c1 {
+                background-color: #E91E63;
+            }
+
+            #c2 {
+                background-color: #03A9F4;
+            }
+
+            #c3 {
+                background-color: #CDDC39;
+            }
+
+            #c4 {
+                background-color: #03A9F4;
+            }
+
+            #c5 {
+                background-color: #E91E63;
+            }
+        </style>
+    </template>
+
+</dom-module>
+
+<dom-module id="basic-test">
+    <template>
+        <style include="test-styles"></style>
+        <div class="container layout">
+            <div id="c1"></div>
+            <div id="c2"></div>
+            <div id="c3"></div>
+        </div>
+    </template>
+</dom-module>
+
+<template id="basic">
+    <basic-test></basic-test>
+</template>
+
+<dom-module id="flex-test">
+    <template>
+        <style include="test-styles"></style>
+        <div class="container layout">
+            <div id="c1" class="fixed-height"></div>
+            <div id="c2" class="fixed-height"></div>
+            <div id="c3" class="fixed-height"></div>
+        </div>
+    </template>
+</dom-module>
+
+<template id="flex">
+    <flex-test></flex-test>
+</template>
+
+<dom-module id="single-child-test">
+    <template>
+        <style include="test-styles"></style>
+        <div class="container layout">
+            <div id="c1"></div>
+        </div>
+    </template>
+</dom-module>
+
+<template id="single-child">
+    <single-child-test></single-child-test>
+</template>
+
+<dom-module id="positioning-test">
+    <template>
+        <style include="test-styles"></style>
+        <div class="container layout relative">
+            <div id="c1"></div>
+        </div>
+    </template>
+</dom-module>
+
+<template id="positioning">
+    <positioning-test></positioning-test>
+</template>
+
+<dom-module id="align-content-test">
+    <template>
+        <style include="test-styles"></style>
+        <div class="container layout">
+            <div id="c1"></div>
+            <div id="c2"></div>
+            <div id="c3"></div>
+            <div id="c4"></div>
+            <div id="c5"></div>
+        </div>
+    </template>
+</dom-module>
+
+<template id="align-content">
+    <align-content-test></align-content-test>
+</template>
+
+</body>
+</html>

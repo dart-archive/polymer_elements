@@ -21,8 +21,7 @@ main() async {
       DivElement f = fixture('basic');
       await new Future(() {});
       PaperBadge badge = f.querySelector('paper-badge');
-      HtmlElement actualbadge =
-          new PolymerDom(badge.root).querySelector('.badge');
+      HtmlElement actualbadge = new PolymerDom(badge.root).querySelector('.badge');
       expect(badge.target.getAttribute('id'), 'target');
       badge.updatePosition();
 
@@ -44,6 +43,44 @@ main() async {
       expect(contentRect.left, equals(divRect.width - 10));
       expect(contentRect.top, equals(divRect.top - 10));
     });
+
+    test('badge is positioned correctly after initially being hidden', when((done) {
+      var f = fixture('initially-hidden');
+      PaperBadge badge = f.querySelector('paper-badge');
+      DivElement actualbadge = Polymer.dom(badge.root).querySelector('.badge');
+
+      $expect(badge.target.getAttribute('id')).to.be.equal('target');
+
+      // Badge is initially hidden.
+      var contentRect = badge.getBoundingClientRect();
+      $expect(contentRect.width).to.be.equal(0);
+      $expect(contentRect.height).to.be.equal(0);
+
+      badge.attributes.remove('hidden');
+
+      $async(() {
+        $assert.equal(actualbadge.text.trim(), "1");
+
+        Rectangle divRect = f.querySelector('#target').getBoundingClientRect();
+        $expect(divRect.width).to.be.equal(100);
+        $expect(divRect.height).to.be.equal(20);
+
+        contentRect = badge.getBoundingClientRect();
+        $expect(contentRect.width).to.be.equal(20);
+        $expect(contentRect.height).to.be.equal(20);
+
+        // The target div is 100 x 20, and the badge is centered on the
+        // top right corner.
+        $expect(contentRect.left).to.be.equal(100 - 10);
+        $expect(contentRect.top).to.be.equal(0 - 10);
+
+        // Also check the math, just in case.
+        $expect(contentRect.left).to.be.equal(divRect.width - 10);
+        $expect(contentRect.top).to.be.equal(divRect.top - 10);
+
+        done();
+      });
+    }));
 
     test('badge is positioned correctly after being dynamically set', () async {
       DivElement f = fixture('dynamic');
@@ -80,8 +117,7 @@ main() async {
     });
   });
 
-  test('badge is positioned correctly when nested in a target element',
-      () async {
+  test('badge is positioned correctly when nested in a target element', () async {
     var f = fixture('nested');
     await new Future(() {});
     var badge = f.querySelector('paper-badge');
@@ -114,8 +150,7 @@ main() async {
     var badge = f.querySelector('paper-badge');
 
     await wait(1);
-    var icon =
-        new PolymerDom(badge.root).querySelector('iron-icon') as IronIcon;
+    var icon = new PolymerDom(badge.root).querySelector('iron-icon') as IronIcon;
     expect(icon, isNotNull);
     expect(icon.icon, badge.icon);
     expect(badge.getAttribute('aria-label'), badge.label);
@@ -127,8 +162,7 @@ main() async {
       await new Future(() {});
 
       PaperBadge badge = f.querySelector('paper-badge');
-      HtmlElement actualbadge =
-          new PolymerDom(badge.root).querySelector('.badge');
+      HtmlElement actualbadge = new PolymerDom(badge.root).querySelector('.badge');
       badge.updatePosition();
 
       await wait(1);

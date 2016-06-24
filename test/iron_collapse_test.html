@@ -30,11 +30,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <template id="horizontal">
-    <iron-collapse id="collapse" opened horizontal  style="width:100px;">
+    <iron-collapse id="collapse" opened horizontal>
       <div>
         Lorem ipsum
       </div>
     </iron-collapse>
   </template>
+
+  <template id="nested">
+    <iron-collapse id="outer-collapse">
+      <div style="height:100px;">
+        Lorem ipsum
+      </div>
+
+      <iron-collapse id="inner-collapse-vertical">
+        <div style="height:100px;">
+          consectetur adipiscing elit
+        </div>
+      </iron-collapse>
+
+      <iron-collapse id="inner-collapse-horizontal" horizontal style="display: inline-block">
+        <div style="width:100px;">
+          consectetur adipiscing elit
+        </div>
+      </iron-collapse>
+    </iron-collapse>
+  </template>
+
 </body>
 </html>

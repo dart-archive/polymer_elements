@@ -49,6 +49,10 @@ class GoogleMapMarker extends HtmlElement with CustomElementProxyMixin, PolymerB
   bool get clickEvents => jsElement[r'clickEvents'];
   set clickEvents(bool value) { jsElement[r'clickEvents'] = value; }
 
+  /// When true, marker drag* events are automatically registered.
+  bool get dragEvents => jsElement[r'dragEvents'];
+  set dragEvents(bool value) { jsElement[r'dragEvents'] = value; }
+
   /// Image URL for the marker icon.
   get icon => jsElement[r'icon'];
   set icon(value) { jsElement[r'icon'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}

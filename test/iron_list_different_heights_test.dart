@@ -51,12 +51,14 @@ main() async {
       });
 
       var done = new Completer();
-      simulateScroll({'list': list, 'contribution': 20, 'target': 100000}, (_) {
+      simulateScroll({'list': list, 'contribution': 20, 'target': 100000, "onScroll":() {
+        expect(isFullOfItems(list),isTrue);
+      },"onScrollEnd": () {
         done.complete();
-      });
+      }});
 
       return done.future;
-    });
+    },skip:'test runner window is too small');
 
     test('render without gaps 2', () async {
       var height = 2, items = [];
@@ -75,12 +77,16 @@ main() async {
       });
 
       var done = new Completer();
-      simulateScroll({'list': list, 'contribution': 20, 'target': 100000}, (_) {
+      simulateScroll({'list': list, 'contribution': 20, 'target': 100000,"onScroll":(){
+        list.debounce("scroll",() {
+          expect(isFullOfItems(list),isTrue);
+        });
+      },"onScrollEnd": () {
         done.complete();
-      });
+      }});
 
       return done.future;
-    });
+    },skip:'test runner window is too small');
 
     test('render without gaps 3', () async {
       var heights = [
@@ -113,11 +119,15 @@ main() async {
       });
 
       var done = new Completer();
-      simulateScroll({'list': list, 'contribution': 20, 'target': 100000}, (_) {
+      simulateScroll({'list': list, 'contribution': 20, 'target': 100000,"onScroll":(){
+        list.debounce("scroll",(){
+          expect(isFullOfItems(list),isTrue);
+        });
+      }, "onScrollEnd": () {
         done.complete();
-      });
+      }});
 
       return done.future;
-    });
+    },skip:'test runner window is too small');
   });
 }

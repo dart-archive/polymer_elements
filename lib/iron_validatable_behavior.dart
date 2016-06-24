@@ -40,7 +40,9 @@ abstract class IronValidatableBehavior implements CustomElementProxyMixin {
   String get validator => jsElement[r'validator'];
   set validator(String value) { jsElement[r'validator'] = value; }
 
-  /// Namespace for this validator.
+  /// Namespace for this validator. This property is deprecated and should
+  /// not be used. For all intents and purposes, please consider it a
+  /// read-only, config-time property.
   String get validatorType => jsElement[r'validatorType'];
   set validatorType(String value) { jsElement[r'validatorType'] = value; }
 
@@ -54,4 +56,7 @@ abstract class IronValidatableBehavior implements CustomElementProxyMixin {
   ///     to the validator's `validate()` function, if a validator is set.
   bool validate(value) =>
       jsElement.callMethod('validate', [value]);
+
+  registered() =>
+      jsElement.callMethod('registered', []);
 }

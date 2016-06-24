@@ -86,10 +86,7 @@ main() async {
         var done = new Completer();
 
         ajax.on['request'].take(1).listen((event) {
-          expect(
-              new JsObject.fromBrowserObject(event)['detail']['options']
-                  ['method'],
-              'GET');
+          expect(new JsObject.fromBrowserObject(event)['detail']['options']['method'], 'GET');
 
           ajax.method = 'POST';
           ajax.url = 'fixtures/responds_to_post_with_json.json';
@@ -99,10 +96,7 @@ main() async {
           // working as intended?
           new Future(() {}).then((_) {
             ajax.on['request'].take(1).listen((event) {
-              expect(
-                  new JsObject.fromBrowserObject(event)['detail']['options']
-                      ['method'],
-                  'POST');
+              expect(new JsObject.fromBrowserObject(event)['detail']['options']['method'], 'POST');
               done.complete();
             });
 
@@ -124,8 +118,7 @@ main() async {
       test('correctly adds params to a URL that already has some', () {
         ajax.url += '?a=b';
         ajax.params = {'c': 'd'};
-        expect(ajax.requestUrl,
-            'fixtures/responds_to_get_with_json.json?a=b&c=d');
+        expect(ajax.requestUrl, 'fixtures/responds_to_get_with_json.json?a=b&c=d');
       });
 
       test('encodes params properly', () {
@@ -135,7 +128,9 @@ main() async {
       });
 
       test('encodes array params properly', () {
-        ajax.params = {'a b': ['c','d e', 'f']};
+        ajax.params = {
+          'a b': ['c', 'd e', 'f']
+        };
 
         expect(ajax.queryString, 'a%20b=c&a%20b=d%20e&a%20b=f');
       });
@@ -145,10 +140,25 @@ main() async {
 
         expect(ajax.loading, true);
 
-        return jsPromiseToFuture(request.completes)
-            .then((_) => wait(1))
-            .then((_) {
+        return jsPromiseToFuture(request.completes).then((_) => wait(1)).then((_) {
           expect(ajax.loading, false);
+        });
+      });
+
+      test('the loading-changed event gets fired twice', () {
+        var count = 0;
+        ajax.on['loading-changed'].listen((_) {
+          count++;
+        });
+
+        var request = ajax.generateRequest();
+
+        //server.respond();
+
+        return jsPromiseToFuture(request.completes).then((_) {
+          return wait(1);
+        }).then((_) {
+          $expect(count).to.be.equal(2);
         });
       });
     });
@@ -166,8 +176,7 @@ main() async {
           echoAjax.params = {'order': i + 1};
           requests.add(ajax.generateRequest());
         }
-        allRequestsDone =
-            Future.wait(requests.map((r) => jsPromiseToFuture(r.completes)));
+        allRequestsDone = Future.wait(requests.map((r) => jsPromiseToFuture(r.completes)));
       });
 
       test('holds all requests in the `activeRequests` Array', () async {
@@ -184,6 +193,53 @@ main() async {
       // TODO(jakemac): add 'avoids race conditions with last response' and
       // '`loading` is true while the last one is loading' tests once we can
       // mock server responses.
+/*
+      test('avoids race conditions with last response', () {
+        $expect(echoAjax.lastResponse).to.be.equal(null);
+
+        // Resolving the oldest request doesn't update lastResponse.
+        //respondToEchoRequest(server.requests[0]);
+        return jsPromiseToFuture(requests[0].completes).then((_) {
+          $expect(echoAjax.lastResponse).to.be.equal(null);
+
+          // Resolving the most recent request does!
+          //respondToEchoRequest(server.requests[2]);
+          return jsPromiseToFuture(requests[2].completes);
+        }).then((_) {
+          $expect(echoAjax.lastResponse).to.be.deep.eql({'url': '/echoes_request_url?order=3'});
+
+          // Resolving an out of order stale request after does nothing!
+          //respondToEchoRequest(server.requests[1]);
+          return jsPromiseToFuture(requests[1].completes);
+        }).then((_) {
+          $expect(echoAjax.lastResponse).to.be.deep.eql({'url': '/echoes_request_url?order=3'});
+        });
+      });
+
+      test('`loading` is true while the last one is loading', () {
+        $expect(echoAjax.loading).to.be.equal(true);
+
+        //respondToEchoRequest(server.requests[0]);
+        return jsPromiseToFuture(requests[0].completes).then((_) {
+          // We're still loading because requests[2] is the most recently
+          // made request.
+          $expect(echoAjax.loading).to.be.equal(true);
+
+          //respondToEchoRequest(server.requests[2]);
+          return jsPromiseToFuture(requests[2].completes);
+        }).then((_) {
+          // Now we're done loading.
+          $expect(echoAjax.loading).to.be.eql(false);
+
+          // Resolving an out of order stale request after should have
+          // no effect.
+          //respondToEchoRequest(server.requests[1]);
+          return jsPromiseToFuture(requests[1].completes);
+        }).then((_) {
+          $expect(echoAjax.loading).to.be.eql(false);
+        });
+      });
+      */
     });
 
     group('when params are changed', () {
@@ -192,15 +248,13 @@ main() async {
         var done = new Completer();
 
         ajax.on['request'].take(1).listen((event) {
-          expect(convertToDart(event).detail['options']['url'],
-              'fixtures/responds_to_get_with_json.json?a=a');
+          expect(convertToDart(event).detail['options']['url'], 'fixtures/responds_to_get_with_json.json?a=a');
 
           // If we don't do this inside a future, then the outer stream isn't
           // cancelled yet and it gets called twice.
           new Future(() {}).then((_) {
             ajax.on['request'].take(1).listen((event) {
-              expect(convertToDart(event).detail['options']['url'],
-                  'fixtures/responds_to_get_with_json.json?b=b');
+              expect(convertToDart(event).detail['options']['url'], 'fixtures/responds_to_get_with_json.json?b=b');
               done.complete();
             });
 
@@ -256,6 +310,21 @@ main() async {
         ajax.headers = {'X-Foo': 'Bar'};
         return done.future;
       });
+
+      testAsync('automatically generates new request when a sub-property of params is changed', (done) {
+        /*ajax.addEventListener('request', () {
+      server.respond();
+      });*/
+
+        ajax.params = {'foo': 'bar'};
+        ajax.on['response'].take(1).listen((_) {
+          ajax.on['request'].take(1).listen((_) {
+            done();
+          });
+
+          ajax.set('params.foo', 'xyz');
+        });
+      });
     });
 
     group('the last response', () {
@@ -294,8 +363,7 @@ main() async {
         var done = new Completer();
 
         ajax.on['request'].take(1).listen((event) {
-          var options = new JsObject.fromBrowserObject(event)['detail']
-              ['options'];
+          var options = new JsObject.fromBrowserObject(event)['detail']['options'];
           expect(options['body'], requestBody);
           expect(request.xhr['status'], 200);
           done.complete();
@@ -369,6 +437,19 @@ main() async {
           // expect(server.requests[0].requestBody, 'bar=baz');
         }, skip: 'https://github.com/dart-lang/polymer-dart/issues/618');
       });
+
+      suite('and `contentType` isn\'t set', () {
+        test('we don\'t try to encode an ArrayBuffer', () {
+          var requestObj/*= new ArrayBuffer()*/;
+          ajax.body = requestObj;
+          ajax.generateRequest();
+
+          //$expect(server.requests[0]).to.be.ok;
+          // We give the browser the ArrayBuffer directly, without trying
+          // to encode it.
+          //$expect(server.requests[0].requestBody).to.be.equal(requestObj);
+        });
+      }, skip: 'Array buffer in dart ? ');
     });
 
     group('when debouncing requests', () {
@@ -520,8 +601,7 @@ main() async {
 
         ajax.body = requestBody;
         return jsPromiseToFuture(ajax.generateRequest().completes).then((_) {
-          expect(ajax.lastResponse['headers']['Content-Type'],
-              matches(r'^multipart/form-data; boundary=.*$'));
+          expect(ajax.lastResponse['headers']['Content-Type'], matches(r'^multipart/form-data; boundary=.*$'));
 
           expect(ajax.lastResponse['form']['a'], 'foo');
           expect(ajax.lastResponse['form']['b'], 'bar');
@@ -532,8 +612,7 @@ main() async {
         ajax.body = JSON.encode({'a': 'foo', 'b': 'bar'});
         ajax.contentType = 'application/json';
         return jsPromiseToFuture(ajax.generateRequest().completes).then((_) {
-          expect(ajax.lastResponse['headers']['Content-Type'],
-              matches(r'^application\/json(;.*)?$'));
+          expect(ajax.lastResponse['headers']['Content-Type'], matches(r'^application\/json(;.*)?$'));
           expect(ajax.lastResponse['json']['a'], 'foo');
           expect(ajax.lastResponse['json']['b'], 'bar');
         });
@@ -542,8 +621,7 @@ main() async {
       test('urlencoded data is handled correctly', () {
         ajax.body = 'a=foo&b=bar';
         return jsPromiseToFuture(ajax.generateRequest().completes).then((_) {
-          expect(ajax.lastResponse['headers']['Content-Type'],
-              matches(r'^application/x-www-form-urlencoded(;.*)?$'));
+          expect(ajax.lastResponse['headers']['Content-Type'], matches(r'^application/x-www-form-urlencoded(;.*)?$'));
 
           expect(ajax.lastResponse['form']['a'], 'foo');
           expect(ajax.lastResponse['form']['b'], 'bar');
@@ -557,16 +635,14 @@ main() async {
         xmlDoc.documentElement.append(node);
         ajax.body = xmlDoc;
         return jsPromiseToFuture(ajax.generateRequest().completes).then((_) {
-          expect(ajax.lastResponse['headers']['Content-Type'],
-              matches(r'^application\/xml(;.*)?$'));
-          expect(ajax.lastResponse['data'],
-              matches(r'<foo\s*><bar\s+name="baz"\s*\/><\/foo\s*>'));
+          expect(ajax.lastResponse['headers']['Content-Type'], matches(r'^application\/xml(;.*)?$'));
+          expect(ajax.lastResponse['data'], matches(r'<foo\s*><bar\s+name="baz"\s*\/><\/foo\s*>'));
         });
       });
     });
 
     group('when setting timeout', () {
-      test('it is present in the request xhr object',  () {
+      test('it is present in the request xhr object', () {
         ajax.url = 'responds_to_get_with_json.json';
         ajax.timeout = 5000; // 5 Seconds
 
@@ -574,7 +650,7 @@ main() async {
         expect(request.xhr['timeout'], 5000); // 5 Seconds
       });
 
-      test('it fails once that timeout is reached',  () {
+      test('it fails once that timeout is reached', () {
         var ajax = fixture('Delay');
         ajax.timeout = 1; // 1 Millisecond
 
@@ -591,6 +667,43 @@ main() async {
           expect(ajax.lastResponse, isNull);
           expect(ajax.lastError, isNotNull);
         });
+      });
+    });
+
+    suite('when using the bubbles attribute', () {
+      setup(() {
+        //server.restore();
+      });
+      testAsync('the request and response events should bubble to window', (done) {
+        //server.restore();
+        var total = 0;
+        incrementTotal(_) {
+          total++;
+          if (total == 2) {
+            done();
+          }
+        }
+        window.on['request'].listen(incrementTotal);
+        window.on['error'].listen(incrementTotal);
+        var ajax = fixture('Bubbles')[0];
+        ajax.generateRequest();
+        //server.respond();
+      });
+
+      testAsync('the request and error events should bubble to window', (done) {
+        //server.restore();
+        var total = 0;
+        incrementTotal(_) {
+          total++;
+          if (total == 2) {
+            done();
+          }
+        }
+        window.on['request'].listen(incrementTotal);
+        window.on['error'].listen(incrementTotal);
+        var ajax = fixture('Bubbles')[1];
+        ajax.generateRequest();
+        //server.respond();
       });
     });
   });

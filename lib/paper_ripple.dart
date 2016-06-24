@@ -118,7 +118,7 @@ class PaperRipple extends HtmlElement with CustomElementProxyMixin, PolymerBase,
   addRipple() =>
       jsElement.callMethod('addRipple', []);
 
-  animate() =>
+  validate([_,__]) => //() =>
       jsElement.callMethod('animate', []);
 
   /// Provokes a ripple down effect via a UI event,

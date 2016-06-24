@@ -34,7 +34,7 @@ class HeroAnimation extends HtmlElement with CustomElementProxyMixin, PolymerBas
   HeroAnimation.created() : super.created();
   factory HeroAnimation() => new Element.tag('hero-animation');
 
-  complete(config) =>
+  complete([config]) => //(config) =>
       jsElement.callMethod('complete', [config]);
 
   configure(config) =>

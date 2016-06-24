@@ -30,7 +30,7 @@ import 'firebase_query_behavior.dart';
 ///           data="{{dinosaurs}}"></firebase-collection>
 ///         <template is="dom-repeat" items="[[dinosaurs]]" as="dinosaur">
 ///           <h4>[[dinosaur.__firebaseKey__]]</h4>
-///           <span>Height: </span><span>[[dinosaur.height]]</span><span>m</span>
+///           Height: <span>[[dinosaur.height]]</span>m
 ///         </template>
 ///       </template>
 ///

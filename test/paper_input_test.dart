@@ -13,6 +13,8 @@ import 'package:polymer_elements/paper_input_char_counter.dart';
 import 'package:polymer_elements/paper_input_container.dart';
 
 import 'common.dart';
+import 'package:polymer/polymer.dart';
+import 'package:polymer_elements/iron_input.dart';
 
 main() async {
   await initWebComponents();
@@ -29,9 +31,20 @@ main() async {
         PaperInput input = fixture('placeholder');
         expect(input.inputElement.placeholder, equals(input.placeholder));
         expect(input.noLabelFloat, isFalse);
-        var floatingLabel = (input.$$('paper-input-container')
-            as PaperInputContainer).$$('.label-is-floating');
+        var floatingLabel = (input.$$('paper-input-container') as PaperInputContainer).$$('.label-is-floating');
         expect(floatingLabel, isNotNull);
+      });
+
+      test('special types autofloat the label', () {
+        PaperInput input = fixture('date');
+        // Browsers that don't support special <input> types like `date` fallback
+        // to `text`, so make sure to only test if type is still preserved after
+        // the element is attached.
+        if (input.inputElement.type == "date") {
+          $assert.equal(input.alwaysFloatLabel, true);
+          var floatingLabel = new PolymerDom((new PolymerDom(input.root).querySelector('paper-input-container') as PaperInputContainer).root).querySelector('.label-is-floating');
+          $assert.ok(floatingLabel);
+        }
       });
 
       test('always-float-label attribute works without placeholder', () {
@@ -62,8 +75,7 @@ main() async {
         forceXIfStamp(input);
         PaperInputCharCounter counter = input.$$('paper-input-char-counter');
         expect(counter, isNotNull);
-        expect(
-            counter.jsElement['_charCounterStr'], equals(input.value.length));
+        expect(counter.jsElement['_charCounterStr'], equals(input.value.length.toString()));
       });
 
       test('validator is used', () {
@@ -108,6 +120,40 @@ main() async {
         expect(nFocusEvents >= 1, isTrue);
         expect(nBlurEvents >= 1, isTrue);
       });
+
+      test('focus events fired on host element if nested element is focused', () {
+        input.on['focus'].take(1).listen((event) {
+          $assert.isTrue(input.focused, 'input is focused');
+        });
+        focus(input.inputElement);
+      });
+
+      test('blur events fired on host element', () {
+        focus(input);
+        input.on['blur'].take(1).listen((event) {
+          $assert.isTrue(!input.focused, 'input is blurred');
+        });
+        blur(input);
+      });
+
+      test('blur events fired on host element nested element is blurred', () {
+        focus(input);
+        input.on['blur'].take(1).listen((event) {
+          $assert.isTrue(!input.focused, 'input is blurred');
+        });
+        blur(input.inputElement);
+      });
+
+      test('focusing then bluring sets the focused attribute correctly', () {
+        focus(input);
+        $assert.isTrue(input.focused, 'input is focused');
+        blur(input);
+        $assert.isTrue(!input.focused, 'input is blurred');
+        focus(input.inputElement);
+        $assert.isTrue(input.focused, 'input is focused');
+        blur(input.inputElement);
+        $assert.isTrue(!input.focused, 'input is blurred');
+      });
     });
 
     group('focused styling (integration test)', () {
@@ -135,21 +181,31 @@ main() async {
     });
 
     group('a11y', () {
-      test('has aria-labelledby', () {
-        PaperInput input = fixture('label');
-        expect(input.inputElement.attributes.containsKey('aria-labelledby'),
-            isTrue);
-        expect(input.inputElement.attributes['aria-labelledby'],
-            equals(input.$$('label').id));
+      test('has aria-labelledby, which is monotonically increasing', () {
+        var inputs = fixture('multiple-inputs');
+
+        // Find the first index of the input in this fixture. Since the label
+        // ids monotonically increase every time a new input is created, and
+        // this fixture isn't the first one in the document, we're going to start
+        // at an ID > 1.
+        String firstLabel = Polymer.dom(inputs[0].root).querySelector('label').id;
+        var index = parseInt(firstLabel.substring(firstLabel.lastIndexOf('-') + 1));
+
+        for (var i = 0; i < inputs.length; i++) {
+          IronInput input = inputs[i].inputElement;
+          var label = Polymer.dom(inputs[i].root).querySelector('label').id;
+
+          $assert.isTrue(input.attributes.containsKey('aria-labelledby'));
+          $assert.equal(label, 'paper-input-label-${index++}');
+          $assert.equal(input.getAttribute('aria-labelledby'), label);
+        }
       });
 
       test('has aria-describedby for error message', () {
         PaperInput input = fixture('required');
         forceXIfStamp(input);
-        expect(input.inputElement.attributes.containsKey('aria-describedby'),
-            isTrue);
-        expect(input.inputElement.attributes['aria-describedby'],
-            equals(input.$$('paper-input-error').id));
+        expect(input.inputElement.attributes.containsKey('aria-describedby'), isTrue);
+        expect(input.inputElement.attributes['aria-describedby'], equals(input.$$('paper-input-error').id));
       });
 
       test('has aria-describedby for character counter', () {
@@ -157,8 +213,7 @@ main() async {
         forceXIfStamp(input);
         var inputElement = input.$['input'];
         expect(inputElement.attributes.containsKey('aria-describedby'), isTrue);
-        expect(inputElement.attributes['aria-describedby'],
-            equals(input.$$('paper-input-char-counter').id));
+        expect(inputElement.attributes['aria-describedby'], equals(input.$$('paper-input-char-counter').id));
       });
 
       test('has aria-describedby for character counter and error', () {
@@ -166,11 +221,7 @@ main() async {
         forceXIfStamp(input);
         var inputElement = input.$['input'];
         expect(inputElement.attributes.containsKey('aria-describedby'), isTrue);
-        expect(
-            inputElement.attributes['aria-describedby'],
-            equals(input.$$('paper-input-error').id +
-                ' ' +
-                input.$$('paper-input-char-counter').id));
+        expect(inputElement.attributes['aria-describedby'], equals(input.$$('paper-input-error').id + ' ' + input.$$('paper-input-char-counter').id));
       });
 
       test('focus an input with tabindex', () async {
@@ -178,8 +229,7 @@ main() async {
         await wait(1);
         focus(input);
         await wait(1);
-        expect(input.shadowRoot != null ? input.shadowRoot.activeElement :
-            document.activeElement, input.jsElement['_focusableElement']);
+        expect(input.shadowRoot != null ? input.shadowRoot.activeElement : document.activeElement, input.jsElement['_focusableElement']);
       });
     });
   });

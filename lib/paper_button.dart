@@ -13,9 +13,8 @@ import 'iron_button_state.dart';
 import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
 import 'paper_ripple_behavior.dart';
-import 'paper_material.dart';
-import 'paper_ripple.dart';
 import 'iron_flex_layout.dart';
+import 'paper_material.dart';
 
 /// Material design: [Buttons](https://www.google.com/design/spec/components/buttons.html)
 ///
@@ -41,6 +40,14 @@ import 'iron_flex_layout.dart';
 ///       <iron-icon icon="favorite"></iron-icon>
 ///       custom button content
 ///     </paper-button>
+///
+/// To use `paper-button` as a link, wrap it in an anchor tag. Since `paper-button` will already
+/// receive focus, you may want to prevent the anchor tag from receiving focus as well by setting
+/// its tabindex to -1.
+///
+///     <a href="https://www.polymer-project.org/" tabindex="-1">
+///       <paper-button raised>Polymer Project</paper-button>
+///     </a>
 ///
 /// ### Styling
 ///

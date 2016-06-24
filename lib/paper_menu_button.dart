@@ -11,10 +11,10 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
 import 'iron_dropdown.dart';
-import 'paper_material.dart';
-import 'default_theme.dart';
 import 'neon_animation/animations/fade_in_animation.dart';
 import 'neon_animation/animations/fade_out_animation.dart';
+import 'default_theme.dart';
+import 'shadow.dart';
 import 'paper_menu_button_animations.dart';
 
 /// Material design: [Dropdown buttons](https://www.google.com/design/spec/components/buttons.html#buttons-dropdown-buttons)
@@ -48,7 +48,7 @@ import 'paper_menu_button_animations.dart';
 ///
 /// Custom property | Description | Default
 /// ----------------|-------------|----------
-/// `--paper-menu-button-dropdown-background` | Background color of the paper-menu-button dropdown | `#fff`
+/// `--paper-menu-button-dropdown-background` | Background color of the paper-menu-button dropdown | `--primary-background-color`
 /// `--paper-menu-button` | Mixin applied to the paper-menu-button | `{}`
 /// `--paper-menu-button-disabled` | Mixin applied to the paper-menu-button when disabled | `{}`
 /// `--paper-menu-button-dropdown` | Mixin applied to the paper-menu-button dropdown | `{}`
@@ -115,4 +115,8 @@ class PaperMenuButton extends HtmlElement with CustomElementProxyMixin, PolymerB
   /// to the dropdown trigger.
   open() =>
       jsElement.callMethod('open', []);
+
+  /// Toggles the drowpdown content between opened and closed.
+  toggle() =>
+      jsElement.callMethod('toggle', []);
 }

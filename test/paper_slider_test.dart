@@ -181,5 +181,17 @@ main() async {
       await wait(1);
       expect(slider.markers.length, 10);
     });
+
+    test('decimal markers', when((done) async {
+      slider.min = 0;
+      slider.max = 0.7;
+      slider.jsElement['snap'] = true;
+      slider.step = 0.1;
+      slider.maxMarkers = 10;
+      await wait(1);
+      $assert.equal(slider.markers.length, 7);
+      done();
+    }));
+
   });
 }

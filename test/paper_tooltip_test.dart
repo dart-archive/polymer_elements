@@ -57,6 +57,20 @@ main() async {
       expect(isHidden(actualTooltip), isFalse);
     });
 
+    test('tooltip doesn\'t throw an exception if it has no offsetParent', () {
+      var f = fixture('no-offset-parent');
+      var target = f.querySelector('#target');
+      var tooltip = f.querySelector('paper-tooltip');
+
+      var actualTooltip = Polymer.dom(tooltip.root).querySelector('#tooltip');
+      $assert.isTrue(isHidden(actualTooltip));
+      tooltip.updatePosition();
+      tooltip.show();
+
+      // Doesn't get shown since there's no position computed.
+      $assert.isTrue(isHidden(actualTooltip));
+    });
+
     test('tooltip is positioned correctly (bottom)', () async {
       HtmlElement f = fixture('basic');
       await new Future(() {});
@@ -85,10 +99,8 @@ main() async {
       expect(contentRect.top, approximatelyEquals(20 + 14));
 
       // Also check the math, just in case.
-      expect(contentRect.left,
-          approximatelyEquals((divRect.width - contentRect.width) / 2));
-      expect(contentRect.top,
-          approximatelyEquals(divRect.height + tooltip.offset));
+      expect(contentRect.left, approximatelyEquals((divRect.width - contentRect.width) / 2));
+      expect(contentRect.top, approximatelyEquals(divRect.height + tooltip.tooltipOffset));
     });
 
     test('tooltip is positioned correctly (top)', () async {
@@ -119,10 +131,8 @@ main() async {
       expect(contentRect.top, approximatelyEquals(0 - 30 - 14));
 
       // Also check the math, just in case.
-      expect(contentRect.left,
-          approximatelyEquals((divRect.width - contentRect.width) / 2));
-      expect(contentRect.top,
-          approximatelyEquals(0 - contentRect.height - tooltip.offset));
+      expect(contentRect.left, approximatelyEquals((divRect.width - contentRect.width) / 2));
+      expect(contentRect.top, approximatelyEquals(0 - contentRect.height - tooltip.tooltipOffset));
     });
 
     test('tooltip is positioned correctly (right)', () async {
@@ -153,10 +163,8 @@ main() async {
       expect(contentRect.top, approximatelyEquals((20 - 30) / 2));
 
       // Also check the math, just in case.
-      expect(contentRect.left,
-          approximatelyEquals(divRect.width + tooltip.offset));
-      expect(contentRect.top,
-          approximatelyEquals((divRect.height - contentRect.height) / 2));
+      expect(contentRect.left, approximatelyEquals(divRect.width + tooltip.tooltipOffset));
+      expect(contentRect.top, approximatelyEquals((divRect.height - contentRect.height) / 2));
     });
 
     test('tooltip is positioned correctly (left)', () async {
@@ -187,10 +195,8 @@ main() async {
       expect(contentRect.top, approximatelyEquals((20 - 30) / 2));
 
       // Also check the math, just in case.
-      expect(contentRect.left,
-          approximatelyEquals(0 - contentRect.width - tooltip.offset));
-      expect(contentRect.top,
-          approximatelyEquals((divRect.height - contentRect.height) / 2));
+      expect(contentRect.left, approximatelyEquals(0 - contentRect.width - tooltip.tooltipOffset));
+      expect(contentRect.top, approximatelyEquals((divRect.height - contentRect.height) / 2));
     });
 
     test('tooltip is fitted correctly if out of bounds', () async {
@@ -212,12 +218,10 @@ main() async {
 
       // Should be fitted on the left side.
       expect(contentRect.left, approximatelyEquals(0));
-      expect(contentRect.top,
-          approximatelyEquals(divRect.height + tooltip.offset));
+      expect(contentRect.top, approximatelyEquals(divRect.height + tooltip.tooltipOffset));
     });
 
-    test('tooltip is positioned correctly after being dynamically set',
-        () async {
+    test('tooltip is positioned correctly after being dynamically set', () async {
       HtmlElement f = fixture('dynamic');
       await new Future(() {});
       DivElement target = f.querySelector('#target');
@@ -265,7 +269,7 @@ main() async {
       expect(isHidden(actualTooltip), isFalse);
 
       blur(target);
-      
+
       // Dart Note: `neon-animation-finished` event wasn't consistently firing
       // so we are just using a delay instead.
       await wait(100);
@@ -337,10 +341,8 @@ main() async {
       expect(contentRect.top, approximatelyEquals(20 + 14));
 
       // Also check the math, just in case.
-      expect(contentRect.left,
-          approximatelyEquals((divRect.width - contentRect.width) / 2));
-      expect(contentRect.top,
-          approximatelyEquals(divRect.height + tooltip.offset));
+      expect(contentRect.left, approximatelyEquals((divRect.width - contentRect.width) / 2));
+      expect(contentRect.top, approximatelyEquals(divRect.height + tooltip.tooltipOffset));
     });
   });
 

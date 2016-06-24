@@ -19,7 +19,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <!--<script type="application/dart" src="paper_radio_button_basic_test.dart"></script>-->
     <!--<script src="packages/browser/dart.js"></script>-->
     <script src="packages/test/dart.js"></script>
-
+    <style is="custom-style">
+        paper-radio-button.large {
+            --paper-radio-button-size: 48px;
+        }
+        paper-radio-button.medium {
+            --paper-radio-button-size: 24px;
+        }
+        paper-radio-button.small {
+            --paper-radio-button-size: 12px;
+        }
+    </style>
 </head>
 <body>
 
@@ -34,6 +44,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <template id="AriaLabel">
     <paper-radio-button aria-label="Batman">Robin</paper-radio-button>
 </template>
+
+
+    <template id="WithDifferentSizes">
+        <paper-radio-button class="small" checked></paper-radio-button>
+        <paper-radio-button class="medium" checked></paper-radio-button>
+        <paper-radio-button class="large" checked></paper-radio-button>
+    </template>
 
 
 </body>

@@ -8,8 +8,11 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
-import 'iron_a11y_keys_behavior.dart';
+import 'iron_menubar_behavior.dart';
+import 'iron_menu_behavior.dart';
+import 'iron_multi_selectable.dart';
 import 'iron_selectable.dart';
+import 'iron_a11y_keys_behavior.dart';
 import 'paper_radio_button.dart';
 
 /// Material design: [Radio button](https://www.google.com/design/spec/components/selection-controls.html#selection-controls-radio-button)
@@ -40,8 +43,13 @@ import 'paper_radio_button.dart';
 ///
 /// See <a href="paper-radio-button">paper-radio-button</a> for more
 /// information about `paper-radio-button`.
+///
+///
+/// Custom property | Description | Default
+/// ----------------|-------------|----------
+/// `--paper-radio-group-item-padding` | The padding of the item | `12px`
 @CustomElementProxy('paper-radio-group')
-class PaperRadioGroup extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronSelectableBehavior {
+class PaperRadioGroup extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronSelectableBehavior, IronMultiSelectableBehavior, IronA11yKeysBehavior, IronMenuBehavior, IronMenubarBehavior {
   PaperRadioGroup.created() : super.created();
   factory PaperRadioGroup() => new Element.tag('paper-radio-group');
 
@@ -52,9 +60,6 @@ class PaperRadioGroup extends HtmlElement with CustomElementProxyMixin, PolymerB
   /// Overriden from Polymer.IronSelectableBehavior
   String get attrForSelected => jsElement[r'attrForSelected'];
   set attrForSelected(String value) { jsElement[r'attrForSelected'] = value; }
-
-  get keyBindings => jsElement[r'keyBindings'];
-  set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Overriden from Polymer.IronSelectableBehavior
   String get selectable => jsElement[r'selectable'];
@@ -67,14 +72,4 @@ class PaperRadioGroup extends HtmlElement with CustomElementProxyMixin, PolymerB
   /// Selects the given value.
   select(value) =>
       jsElement.callMethod('select', [value]);
-
-  /// Selects the next item. If the next item is disabled, then it is
-  /// skipped, and the next item after it is selected.
-  selectNext() =>
-      jsElement.callMethod('selectNext', []);
-
-  /// Selects the previous item. If the previous item is disabled, then it is
-  /// skipped, and its previous item is selected
-  selectPrevious() =>
-      jsElement.callMethod('selectPrevious', []);
 }

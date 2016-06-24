@@ -7,6 +7,8 @@ import 'dart:async';
 import 'dart:html';
 import 'dart:js';
 import 'package:polymer_elements/iron_test_helpers.dart' as test_helpers;
+import 'package:test/test.dart' as T;
+import 'package:polymer/polymer.dart';
 
 /// Used imports: [test_helpers]
 final JsObject _MockInteractionsJs = context['MockInteractions'];
@@ -25,34 +27,28 @@ class Point {
   JsObject toJsObject() => new JsObject.jsify(toMap());
 
   bool isApproximatelyEqualTo(other) {
-    return this.x.round() == other.x.round() &&
-        this.y.round() == other.y.round();
+    return this.x.round() == other.x.round() && this.y.round() == other.y.round();
   }
 }
 
-Point middleOfNode(node) => new Point.fromJsObject(
-    _MockInteractionsJs.callMethod('middleOfNode', [node]));
+Point middleOfNode(node) => new Point.fromJsObject(_MockInteractionsJs.callMethod('middleOfNode', [node]));
 
-Point topLeftOfNode(Node node) => new Point.fromJsObject(
-    _MockInteractionsJs.callMethod('topLeftOfNode', [node]));
+Point topLeftOfNode(Node node) => new Point.fromJsObject(_MockInteractionsJs.callMethod('topLeftOfNode', [node]));
 
 void makeEvent(String type, Point xy, Node node) {
   _MockInteractionsJs.callMethod('makeEvent', [type, xy.toJsObject(), node]);
 }
 
 void down(Node node, [Point xy]) {
-  _MockInteractionsJs.callMethod(
-      'down', [node, xy == null ? null : xy.toJsObject()]);
+  _MockInteractionsJs.callMethod('down', [node, xy == null ? null : xy.toJsObject()]);
 }
 
 void move(Node node, Point fromXY, Point toXY, int steps) {
-  _MockInteractionsJs.callMethod(
-      'move', [fromXY.toJsObject(), toXY.toJsObject(), steps]);
+  _MockInteractionsJs.callMethod('move', [fromXY.toJsObject(), toXY.toJsObject(), steps]);
 }
 
 void up(Node node, [Point xy]) {
-  _MockInteractionsJs.callMethod(
-      'up', [node, xy == null ? null : xy.toJsObject()]);
+  _MockInteractionsJs.callMethod('up', [node, xy == null ? null : xy.toJsObject()]);
 }
 
 void tap(Node node) {
@@ -76,8 +72,7 @@ void track(Node target, int dx, int dy, [int steps]) {
   _MockInteractionsJs.callMethod('track', [target, dx, dy, steps]);
 }
 
-Event keyboardEventFor(String type, int keyCode) =>
-    _MockInteractionsJs.callMethod('keyboardEventFor', [type, keyCode]);
+Event keyboardEventFor(String type, int keyCode) => _MockInteractionsJs.callMethod('keyboardEventFor', [type, keyCode]);
 
 void keyEventOn(Node target, String type, int keyCode) {
   _MockInteractionsJs.callMethod('keyEventOn', [target, type, keyCode]);
@@ -91,8 +86,8 @@ void keyUpOn(Node target, int keyCode) {
   _MockInteractionsJs.callMethod('keyUpOn', [target, keyCode]);
 }
 
-void pressAndReleaseKeyOn(Node target, int keyCode) {
-  _MockInteractionsJs.callMethod('pressAndReleaseKeyOn', [target, keyCode]);
+void pressAndReleaseKeyOn(Node target, int keyCode, [List modifiers = const [], String name]) {
+  _MockInteractionsJs.callMethod('pressAndReleaseKeyOn', [target, keyCode, modifiers, name]);
 }
 
 void pressEnter(Node target) {
@@ -114,8 +109,7 @@ void forceXIfStamp(Node target) {
 }
 
 void fireEvent(String type, Map props, Node node) {
-  _TestHelpersJs.callMethod('fireEvent',
-      [type, props == null ? props : new JsObject.jsify(props), node]);
+  _TestHelpersJs.callMethod('fireEvent', [type, props == null ? props : new JsObject.jsify(props), node]);
 }
 
 fixture(String id) {
@@ -128,9 +122,7 @@ fixture(String id) {
 
   container.children.clear();
 
-  var elements = new List.from((document.importNode(
-          (querySelector('#$id') as TemplateElement).content, true)
-      as DocumentFragment).children);
+  var elements = new List.from((document.importNode((querySelector('#$id') as TemplateElement).content, true) as DocumentFragment).children);
   for (var element in elements) {
     container.append(element);
   }
@@ -145,7 +137,7 @@ fixture(String id) {
 Future jsPromiseToFuture(JsObject promise) {
   var completer = new Completer();
   var done = new JsFunction.withThis((_, __) {
-    completer.complete();
+    completer.complete(__);
   });
   var error = new JsFunction.withThis((error, _) {
     completer.completeError(error);
@@ -167,3 +159,202 @@ Future requestAnimationFrame() {
 }
 
 List keysOf(JsObject object) => context['Object'].callMethod('keys', [object]);
+
+// Helper to let porting JS tests faster
+
+Function when(x(void p_done([e]))) => () {
+      Completer _done = new Completer();
+      x(([e]) {
+        if (e != null) {
+          _done.completeError(e);
+        } else {
+          _done.complete(true);
+        }
+      });
+      return _done.future;
+    };
+
+suite(title, test(), {skip}) => T.group(title, test, skip: skip);
+
+setup(fn) => T.setUp(fn);
+
+teardown(fn) => T.tearDown(fn);
+
+class Assert {
+  const Assert();
+
+  equal(a, b, [reason]) => T.expect(a, b, reason: reason);
+
+  strictEqual(a, b, [reason]) => T.expect(a, b, reason: reason);
+
+  deepEqual(a, b, [reason]) => T.expect(a, b, reason: reason); // TODO:  a better way to implement this ?
+
+  isFalse(a, [reason]) => T.expect(a, T.isFalse, reason: reason);
+
+  isUndefined(x, [reason]) => T.expect(x, T.isNull, reason: reason);
+
+  void isTrue(bool x, [reason]) => T.expect(x, T.isTrue, reason: reason);
+
+  void ok(x, [reason]) => T.expect(x, T.isNotNull, reason: reason);
+
+  void isAbove(num x, num what, [reason]) => T.expect(x, T.greaterThan(what), reason: reason);
+  void isBelow(num x, num what, [reason]) => T.expect(x, T.lessThan(what), reason: reason);
+
+  void isOk(thing, [reason]) => ok(thing, reason);
+
+  void notEqual(x, what, [reason]) => T.expect(x, T.isNot(what), reason: reason);
+
+  void isNotOk(x, [reason]) => T.expect(x, T.isNull, reason: reason);
+
+  void lengthOf(List list, int len, [reason]) => T.expect(list.length, len, reason: reason);
+
+  void call(x, [reason]) => $assert.isTrue(x, reason);
+
+  void isNotNull(thing, [reason]) => T.expect(thing, T.isNotNull, reason: reason);
+
+  void isFunction(f) => T.expect(f, const T.isInstanceOf<Function>());
+}
+
+void testAsync(name, body(done()), {skip}) {
+  T.test(name, when((done) {
+    body(done);
+  }), skip: skip);
+}
+
+const Assert $assert = const Assert();
+
+void showTestRunnerFrame() {
+  // Make testrunner iFrame visible otherwise transitions not get fired ...
+
+  WindowBase w = window.parent;
+
+  JsObject doc = new JsObject.fromBrowserObject(w)['document'];
+
+  JsObject res = doc.callMethod("querySelector", ['iframe']);
+  res['style']['visibility'] = 'visible';
+}
+
+void hideTestRunnerFrame() {
+  WindowBase w = window.parent;
+
+  JsObject doc = new JsObject.fromBrowserObject(w)['document'];
+
+  JsObject res = doc.callMethod("querySelector", ['iframe']);
+  res['style']['visibility'] = '';
+}
+
+$$assert(x, [reason]) => $assert.isTrue(x, reason);
+
+jsDeepEquals(JsObject a, JsObject b) {
+  List<String> x = context['Object']['keys'].apply([a]);
+  return x.every((x) {
+    if (a[x] is JsObject || b[x] is JsObject) {
+      return jsDeepEquals(a[x], b[x]);
+    } else {
+      T.expect(a[x], b[x]);
+      return a[x] == b[x];
+    }
+  });
+}
+
+class _expect {
+  var something;
+  bool _deep = false;
+
+  _expect(this.something);
+
+  _expect get to => this;
+
+  _expect get be => this;
+
+  get $true => T.expect(something, T.isTrue);
+
+  get $false => T.expect(something, T.isFalse);
+
+  get ok => T.expect(something, T.isNotNull);
+
+  _expect get deep {
+    _deep = true;
+    return this;
+  }
+
+  equal(expected) {
+    if ((something is JsObject || expected is JsObject) && _deep) {
+      if (!(expected is JsObject)) {
+        expected = new JsObject.jsify(expected);
+      }
+      var s = something;
+      if (!(something is JsObject)) {
+        s = new JsObject.jsify(something);
+      }
+      T.expect(jsDeepEquals(s, expected), T.isTrue);
+    } else {
+      T.expect(something, expected);
+    }
+  }
+
+  _not get not => new _not(this);
+
+  greaterThan(num i) => T.expect(something, T.greaterThan(i));
+
+  void eql(x) => equal(x);
+
+  void match(String regexp) => T.expect(something, T.matches(new RegExp(regexp)));
+
+  void eq(x) => equal(x);
+}
+
+class _not {
+  _expect _exp;
+  _not(this._exp);
+
+  _not get be => this;
+  _not get to => this;
+
+  get $null => T.expect(_exp.something, T.isNotNull);
+
+  get ok => T.expect(_exp.something, T.isNull);
+
+  equal(expected) => T.expect(_exp.something, T.isNot(expected));
+
+  void eql(resources, [reason]) => T.expect(_exp.something, T.isNot(resources), reason: reason);
+}
+
+_expect $expect(something) => new _expect(something);
+
+num parseFloat(String dimension) {
+  return num.parse(dimension.replaceAll(new RegExp("[^0-9.]+"), ""));
+}
+
+int parseInt(x, [_]) => parseFloat(x).floor();
+
+Future flush(cb) async {
+  PolymerDom.flush();
+  await wait(1);
+  await cb();
+}
+
+Future $async(cb, [delay = 1]) async {
+  await wait(delay);
+  return await cb();
+}
+
+bool sameCSS(Element el, String css) {
+  DivElement dummy = new DivElement();
+  dummy.style.cssText = css;
+  document.body.children.add(dummy);
+  CssStyleDeclaration expected = dummy.getComputedStyle();
+  CssStyleDeclaration actual = el.getComputedStyle();
+
+  return css.split(";").every((String style) {
+    if (style.trim().isEmpty) {
+      return true;
+    }
+    List<String> p = style.split(":");
+    String name = p[0].trim();
+    String val1 = actual.getPropertyValue(name);
+    String val2 = expected.getPropertyValue(name);
+    if (val1 != null && val1.isNotEmpty) T.expect(val1, val2);
+    return true;
+  });
+}

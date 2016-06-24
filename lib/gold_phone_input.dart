@@ -71,8 +71,8 @@ class GoldPhoneInput extends HtmlElement with CustomElementProxyMixin, PolymerBa
   String get phoneNumberPattern => jsElement[r'phoneNumberPattern'];
   set phoneNumberPattern(String value) { jsElement[r'phoneNumberPattern'] = value; }
 
-  get value => jsElement[r'value'];
-  set value(value) { jsElement[r'value'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+  String get value => jsElement[r'value'];
+  set value(String value) { jsElement[r'value'] = value; }
 
   /// Overidden from Polymer.PaperInputBehavior.
   validate() =>

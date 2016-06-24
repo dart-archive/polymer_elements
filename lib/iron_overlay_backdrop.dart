@@ -31,7 +31,7 @@ class IronOverlayBackdrop extends HtmlElement with CustomElementProxyMixin, Poly
   bool get opened => jsElement[r'opened'];
   set opened(bool value) { jsElement[r'opened'] = value; }
 
-  /// Hides the backdrop if needed.
+  /// Hides the backdrop.
   close() =>
       jsElement.callMethod('close', []);
 
@@ -39,11 +39,11 @@ class IronOverlayBackdrop extends HtmlElement with CustomElementProxyMixin, Poly
   complete() =>
       jsElement.callMethod('complete', []);
 
-  /// Shows the backdrop if needed.
+  /// Shows the backdrop.
   open() =>
       jsElement.callMethod('open', []);
 
-  /// Appends the backdrop to document body and sets its `z-index` to be below the latest overlay.
+  /// Appends the backdrop to document body if needed.
   prepare() =>
       jsElement.callMethod('prepare', []);
 }

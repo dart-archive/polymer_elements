@@ -62,9 +62,17 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   get body => jsElement[r'body'];
   set body(value) { jsElement[r'body'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
+  /// By default, these events do not bubble largely because the `error` event has special
+  /// meaning in the window object. Setting this attribute will cause iron-ajax's request,
+  /// response, and error events to bubble to the window object.
+  bool get bubbles => jsElement[r'bubbles'];
+  set bubbles(bool value) { jsElement[r'bubbles'] = value; }
+
   /// Content type to use when sending data. If the `contentType` property
   /// is set and a `Content-Type` header is specified in the `headers`
   /// property, the `headers` property value will take precedence.
+  ///
+  /// Varies the handling of the `body` param.
   String get contentType => jsElement[r'contentType'];
   set contentType(String value) { jsElement[r'contentType'] = value; }
 
