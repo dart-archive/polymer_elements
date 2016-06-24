@@ -16,6 +16,7 @@ import 'dart:html';
 import 'package:polymer/polymer.dart';
 import 'dart:js';
 import 'package:polymer_elements/app_layout/app_toolbar/app_toolbar.dart';
+import 'package:polymer_elements/app_layout_helpers.dart';
 
 /// Used tests: [IronIcon], [iron_icons]
 main() async {
@@ -57,18 +58,18 @@ main() async {
     }
   }
 
-  $assertHeaderIsFullSized(Element header) {
+  assertHeaderIsFullSized(Element header) {
     Rectangle headerClientRect = header.getBoundingClientRect();
     $assert.equal(headerClientRect.top, 0);
     $assert.equal(headerClientRect.bottom, headerClientRect.height);
   }
 
-  $assertHeaderIsCondensed(AppHeader header) {
+  assertHeaderIsCondensed(AppHeader header) {
     var headerClientRect = header.getBoundingClientRect();
     $assert.equal(headerClientRect.top + headerClientRect.height, header.jsElement['_primaryEl'].offsetHeight);
   }
 
-  $assertHeaderIsHidden(header) {
+  assertHeaderIsHidden(header) {
     var headerClientRect = header.getBoundingClientRect();
     $assert.isBelow(headerClientRect.bottom, 0);
   }
@@ -81,7 +82,7 @@ main() async {
 
     setUpAll(() {
       testEffect = {'setUp':sinon.spy(), 'tearDown': sinon.spy(), 'run': sinon.spy()};
-      context['Polymer']['AppLayout'].callMethod('registerEffect', ['test-effect', new JsObject.jsify(testEffect)]);
+      AppLayout.registerEffect('test-effect', new JsObject.jsify(testEffect));
       showTestRunnerFrame();
     });
 
@@ -113,31 +114,31 @@ main() async {
           {
             'y': 0,
             'callback': () {
-              $assertHeaderIsFullSized(header);
+              assertHeaderIsFullSized(header);
             }
           },
           {
             'y': toolbar.offsetHeight,
             'callback': () {
-              $assertHeaderIsCondensed(header);
+              assertHeaderIsCondensed(header);
             }
           },
           {
             'y': toolbar.offsetHeight * 10,
             'callback': () {
-              $assertHeaderIsHidden(header);
+              assertHeaderIsHidden(header);
             }
           },
           {
             'y': toolbar.offsetHeight * 5,
             'callback': () {
-              $assertHeaderIsHidden(header);
+              assertHeaderIsHidden(header);
             }
           },
           {
             'y': 0,
             'callback': () {
-              $assertHeaderIsFullSized(header);
+              assertHeaderIsFullSized(header);
               done();
             }
           }
@@ -153,13 +154,13 @@ main() async {
           {
             'y': 0,
             'callback': () {
-              $assertHeaderIsFullSized(header);
+              assertHeaderIsFullSized(header);
             }
           },
           {
             'y': toolbar.offsetHeight * 10,
             'callback': () {
-              $assertHeaderIsFullSized(header);
+              assertHeaderIsFullSized(header);
               done();
             }
           }
@@ -175,19 +176,19 @@ main() async {
           {
             'y': 0,
             'callback': () {
-              $assertHeaderIsFullSized(header);
+              assertHeaderIsFullSized(header);
             }
           },
           {
             'y': toolbar.offsetHeight * 10,
             'callback': () {
-              $assertHeaderIsHidden(header);
+              assertHeaderIsHidden(header);
             }
           },
           {
             'y': toolbar.offsetHeight * 5,
             'callback': () {
-              $assertHeaderIsFullSized(header);
+              assertHeaderIsFullSized(header);
               done();
             }
           }
@@ -204,31 +205,31 @@ main() async {
           {
             'y': 0,
             'callback': () {
-              $assertHeaderIsFullSized(header);
+              assertHeaderIsFullSized(header);
             }
           },
           {
             'y': toolbar.offsetHeight,
             'callback': () {
-              $assertHeaderIsCondensed(header);
+              assertHeaderIsCondensed(header);
             }
           },
           {
             'y': toolbar.offsetHeight * 10,
             'callback': () {
-              $assertHeaderIsHidden(header);
+              assertHeaderIsHidden(header);
             }
           },
           {
             'y': toolbar.offsetHeight * 5,
             'callback': () {
-              $assertHeaderIsCondensed(header);
+              assertHeaderIsCondensed(header);
             }
           },
           {
             'y': 0,
             'callback': () {
-              $assertHeaderIsFullSized(header);
+              assertHeaderIsFullSized(header);
               done();
             }
           }
@@ -245,19 +246,19 @@ main() async {
           {
             'y': 0,
             'callback': () {
-              $assertHeaderIsFullSized(header);
+              assertHeaderIsFullSized(header);
             }
           },
           {
             'y': toolbar.offsetHeight,
             'callback': () {
-              $assertHeaderIsCondensed(header);
+              assertHeaderIsCondensed(header);
             }
           },
           {
             'y': toolbar.offsetHeight * 10,
             'callback': () {
-              $assertHeaderIsCondensed(header);
+              assertHeaderIsCondensed(header);
               done();
             }
           }
@@ -457,20 +458,20 @@ main() async {
           {
             'y': 0,
             'callback': () {
-              $assertHeaderIsFullSized(header);
+              assertHeaderIsFullSized(header);
             }
           },
           {
             'y': 1000,
             'callback': () {
-              $assertHeaderIsCondensed(header);
+              assertHeaderIsCondensed(header);
             }
           },
           {
             'y': 980,
             'callback': () async {
               await wait(100);
-              $assertHeaderIsFullSized(header);
+              assertHeaderIsFullSized(header);
               done();
             }
           }

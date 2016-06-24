@@ -1,3 +1,4 @@
+<!doctype html>
 <!--
 @license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
@@ -7,33 +8,38 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-<!Doctype html>
-
 <html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <title>gold-cc-ccv-input-test</title>
+  <title>paper-fab basic tests</title>
 
   <script src="packages/web_components/webcomponents-lite.js"></script>
-  <link rel="x-dart-test" href="gold_cc_ccv_input_test.dart">
-  <!-- <script type="application/dart" src="gold_cc_ccv_input_test.dart"></script> -->
-  <!-- <script src="packages/browser/dart.js"></script> -->
+  <link rel="x-dart-test" href="app_localize_behavior_test.dart">
   <script src="packages/test/dart.js"></script>
+
+
 </head>
 <body>
 
-  <template id="basic">
-    <gold-cc-cvc-input></gold-cc-cvc-input>
-  </template>
 
-  <template id="amex">
-    <gold-cc-cvc-input card-type="amex" required error-message="error"></gold-cc-cvc-input>
-  </template>
 
-  <template id="required">
-    <gold-cc-cvc-input auto-validate required error-message="error"></gold-cc-cvc-input>
-  </template>
+    <template id="basic">
+        <x-translate></x-translate>
+    </template>
+
+    <template id="basic2">
+        <x-translate></x-translate>
+    </template>
+
+    <template id="interpolated">
+        <x-translate2></x-translate2>
+    </template>
+
+    <template id="only-imperative">
+        <x-translate-only-imperative></x-translate-only-imperative>
+    </template>
+
 
 </body>
 </html>

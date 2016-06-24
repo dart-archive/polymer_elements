@@ -137,7 +137,7 @@ fixture(String id) {
 Future jsPromiseToFuture(JsObject promise) {
   var completer = new Completer();
   var done = new JsFunction.withThis((_, __) {
-    completer.complete();
+    completer.complete(__);
   });
   var error = new JsFunction.withThis((error, _) {
     completer.completeError(error);
@@ -178,7 +178,9 @@ suite(title, test(), {skip}) => T.group(title, test, skip: skip);
 
 setup(fn) => T.setUp(fn);
 
-class Assert {
+teardown(fn) => T.tearDown(fn);
+
+class Assert  {
   const Assert();
 
   equal(a, b, [reason]) => T.expect(a, b, reason: reason);
@@ -211,6 +213,7 @@ class Assert {
   void isNotNull(thing, [reason]) => T.expect(thing, T.isNotNull, reason: reason);
 
   void isNull(selectedItem, [reason]) => T.expect(selectedItem, T.isNull, reason: reason);
+  void isFunction(f) => T.expect(f, const T.isInstanceOf<Function>());
 }
 
 void testAsync(name, body(done()), {skip}) {
@@ -243,8 +246,21 @@ void hideTestRunnerFrame() {
 
 $$assert(x, [reason]) => $assert.isTrue(x, reason);
 
+jsDeepEquals(JsObject a, JsObject b) {
+  List<String> x = context['Object']['keys'].apply([a]);
+  return x.every((x) {
+    if (a[x] is JsObject || b[x] is JsObject) {
+      return jsDeepEquals(a[x], b[x]);
+    } else {
+      T.expect(a[x], b[x]);
+      return a[x] == b[x];
+    }
+  });
+}
+
 class _expect {
   var something;
+  bool _deep = false;
 
   _expect(this.something);
 
@@ -258,13 +274,35 @@ class _expect {
 
   get ok => T.expect(something, T.isNotNull);
 
-  equal(expected) => T.expect(something, expected);
+  _expect get deep {
+    _deep = true;
+    return this;
+  }
+
+  equal(expected) {
+    if ((something is JsObject || expected is JsObject) && _deep) {
+      if (!(expected is JsObject)) {
+        expected = new JsObject.jsify(expected);
+      }
+      var s = something;
+      if (!(something is JsObject)) {
+        s = new JsObject.jsify(something);
+      }
+      T.expect(jsDeepEquals(s, expected), T.isTrue);
+    } else {
+      T.expect(something, expected);
+    }
+  }
 
   _not get not => new _not(this);
 
   greaterThan(num i) => T.expect(something, T.greaterThan(i));
 
-  void eql(x) => T.expect(something, x);
+  void eql(x) => equal(x);
+
+  void match(String regexp) => T.expect(something, T.matches(new RegExp(regexp)));
+
+  void eq(x) => equal(x);
 }
 
 class _not {
@@ -279,9 +317,12 @@ class _not {
   get ok => T.expect(_exp.something, T.isNull);
 
   equal(expected) => T.expect(_exp.something, T.isNot(expected));
+
+  void eql(resources, [reason]) => T.expect(_exp.something, T.isNot(resources), reason: reason);
 }
 
 _expect $expect(something) => new _expect(something);
+
 
 num parseFloat(String dimension) {
   return num.parse(dimension.replaceAll(new RegExp("[^0-9.]+"), ""));
@@ -298,4 +339,24 @@ Future flush(cb) async {
 Future $async(cb, [delay = 1]) async {
   await wait(delay);
   return await cb();
+}
+
+bool sameCSS(Element el, String css) {
+  DivElement dummy = new DivElement();
+  dummy.style.cssText = css;
+  document.body.children.add(dummy);
+  CssStyleDeclaration expected = dummy.getComputedStyle();
+  CssStyleDeclaration actual = el.getComputedStyle();
+
+  return css.split(";").every((String style) {
+    if (style.trim().isEmpty) {
+      return true;
+    }
+    List<String> p = style.split(":");
+    String name = p[0].trim();
+    String val1 = actual.getPropertyValue(name);
+    String val2 = expected.getPropertyValue(name);
+    if (val1 != null && val1.isNotEmpty) T.expect(val1, val2);
+    return true;
+  });
 }

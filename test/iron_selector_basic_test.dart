@@ -135,6 +135,8 @@ main() async {
     });
 
     group('items changing', () {
+
+
       test('cause iron-items-changed to fire', () async {
         var newItem = document.createElement('div');
         var changeCount = 0;
@@ -159,6 +161,27 @@ main() async {
         expect(changeCount, 2);
 
         sub.cancel();
+      });
+
+      testAsync('updates selected item', (done) {
+        IronSelector s1;
+        s1 = fixture('defaults');
+
+
+        s1.on['iron-items-changed'].take(1).listen((_) {
+          Element firstElementChild = new PolymerDom(s1).firstElementChild;
+          $expect(firstElementChild).to.be.equal(s1.selectedItem);
+          $expect(firstElementChild.classes.contains('iron-selected')).to.be.eql(true);
+          new PolymerDom(s1).removeChild(s1.selectedItem);
+
+          s1.on['iron-items-changed'].listen((_) {
+            firstElementChild = new PolymerDom(s1).firstElementChild;
+            $expect(firstElementChild).to.be.equal(s1.selectedItem);
+            $expect(firstElementChild.classes.contains('iron-selected')).to.be.eql(true);
+            done();
+          });
+        });
+        s1.selected = 0;
       });
     });
 

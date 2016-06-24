@@ -52,8 +52,21 @@ files_to_generate:
       omit_imports:
         - promise-polyfill-lite.html
         - promise-polyfill.html
+  - app-storage/app-localstorage/app-localstorage-document.html:
+      name_substitutions:
+       save: "save([key]) => //"
+  - app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html:
+     omit_imports:
+      - app-indexeddb-mirror-client.html
   - app-layout/app-box/app-box.html
   - app-layout/app-scroll-effects/app-scroll-effects-behavior.html
+  - app-layout/app-scroll-effects/effects/blend-background.html
+  - app-layout/app-scroll-effects/effects/fade-background.html
+  - app-layout/app-scroll-effects/effects/material.html
+  - app-layout/app-scroll-effects/effects/parallax-background.html
+  - app-layout/app-scroll-effects/effects/resize-snapped-title.html
+  - app-layout/app-scroll-effects/effects/resize-title.html
+  - app-layout/app-scroll-effects/effects/waterfall.html
   - app-layout/app-drawer/app-drawer.html
   - app-layout/app-scroll-effects/app-scroll-effects.html
   - app-layout/app-drawer-layout/app-drawer-layout.html  

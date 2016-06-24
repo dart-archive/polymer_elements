@@ -20,109 +20,147 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <!--<script src="packages/browser/dart.js"></script>-->
     <script src="packages/test/dart.js"></script>
 
-    <style is="custom-style"
-           include="iron-flex iron-flex-reverse iron-flex-factors iron-flex-alignment iron-positioning">
+    <style >
         body {
             margin: 0;
             padding: 0;
-        }
-
-        .container {
-            width: 300px;
-            min-height: 50px;
-            background-color: #ccc;
-        }
-
-        .container > div {
-            width: 50px;
-            min-height: 50px; /* so that it can grow in vertical layouts. */
-        }
-
-        /* IE11 does not calculate flex proportions correctly in a vertical
-         * layout if the children just have a min-height. For those tests,
-         * use a fixed height instead. */
-        .container > div.fixed-height {
-            min-height: 0;
-            height: 50px;
-        }
-
-        .container.relative > div {
-            min-width: 50px;
-            min-height: 50px;
-            width: inherit;
-        }
-
-        .container.small {
-            width: 120px;
-        }
-
-        .container.tall {
-            height: 300px;
-        }
-
-        #c1 {
-            background-color: #E91E63;
-        }
-
-        #c2 {
-            background-color: #03A9F4;
-        }
-
-        #c3 {
-            background-color: #CDDC39;
-        }
-
-        #c4 {
-            background-color: #03A9F4;
-        }
-
-        #c5 {
-            background-color: #E91E63;
         }
     </style>
 </head>
 <body>
 
+<dom-module id="test-styles">
+    <template>
+        <style
+               include="iron-flex iron-flex-reverse iron-flex-factors iron-flex-alignment iron-positioning">
+            .container {
+                width: 300px;
+                min-height: 50px;
+                background-color: #ccc;
+            }
+
+            .container > div {
+                width: 50px;
+                min-height: 50px; /* so that it can grow in vertical layouts. */
+            }
+
+            /* IE11 does not calculate flex proportions correctly in a vertical
+             * layout if the children just have a min-height. For those tests,
+             * use a fixed height instead. */
+            .container > div.fixed-height {
+                min-height: 0;
+                height: 50px;
+            }
+
+            .container.relative > div {
+                min-width: 50px;
+                min-height: 50px;
+                width: inherit;
+            }
+
+            .container.small {
+                width: 120px;
+            }
+
+            .container.tall {
+                height: 300px;
+            }
+
+            #c1 {
+                background-color: #E91E63;
+            }
+
+            #c2 {
+                background-color: #03A9F4;
+            }
+
+            #c3 {
+                background-color: #CDDC39;
+            }
+
+            #c4 {
+                background-color: #03A9F4;
+            }
+
+            #c5 {
+                background-color: #E91E63;
+            }
+        </style>
+    </template>
+
+</dom-module>
+
+<dom-module id="basic-test">
+    <template>
+        <style include="test-styles"></style>
+        <div class="container layout">
+            <div id="c1"></div>
+            <div id="c2"></div>
+            <div id="c3"></div>
+        </div>
+    </template>
+</dom-module>
+
 <template id="basic">
-    <div class="container layout">
-        <div id="c1"></div>
-        <div id="c2"></div>
-        <div id="c3"></div>
-    </div>
+    <basic-test></basic-test>
 </template>
 
+<dom-module id="flex-test">
+    <template>
+        <style include="test-styles"></style>
+        <div class="container layout">
+            <div id="c1" class="fixed-height"></div>
+            <div id="c2" class="fixed-height"></div>
+            <div id="c3" class="fixed-height"></div>
+        </div>
+    </template>
+</dom-module>
 
 <template id="flex">
-    <div class="container layout">
-        <div id="c1" class="fixed-height"></div>
-        <div id="c2" class="fixed-height"></div>
-        <div id="c3" class="fixed-height"></div>
-    </div>
+    <flex-test></flex-test>
 </template>
 
+<dom-module id="single-child-test">
+    <template>
+        <style include="test-styles"></style>
+        <div class="container layout">
+            <div id="c1"></div>
+        </div>
+    </template>
+</dom-module>
 
 <template id="single-child">
-    <div class="container layout">
-        <div id="c1"></div>
-    </div>
+    <single-child-test></single-child-test>
 </template>
 
+<dom-module id="positioning-test">
+    <template>
+        <style include="test-styles"></style>
+        <div class="container layout relative">
+            <div id="c1"></div>
+        </div>
+    </template>
+</dom-module>
 
 <template id="positioning">
-    <div class="container layout relative">
-        <div id="c1"></div>
-    </div>
+    <positioning-test></positioning-test>
 </template>
 
+<dom-module id="align-content-test">
+    <template>
+        <style include="test-styles"></style>
+        <div class="container layout">
+            <div id="c1"></div>
+            <div id="c2"></div>
+            <div id="c3"></div>
+            <div id="c4"></div>
+            <div id="c5"></div>
+        </div>
+    </template>
+</dom-module>
 
 <template id="align-content">
-    <div class="container layout">
-        <div id="c1"></div>
-        <div id="c2"></div>
-        <div id="c3"></div>
-        <div id="c4"></div>
-        <div id="c5"></div>
-    </div>
+    <align-content-test></align-content-test>
 </template>
 
 </body>
