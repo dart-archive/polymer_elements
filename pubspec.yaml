@@ -22,18 +22,33 @@ transformers:
     entry_points:
     - test/app_drawer_layout_test.html
     - test/app_drawer_test.html
+    - test/app_example_1_test.html
     - test/app_header_test.html
     - test/app_header_layout_test.html
+    - test/app_indexeddb_mirror_test.html
+    - test/app_layout_helpers_register_effect_test.html
+    - test/app_layout_helpers_scroll_test.html
+    - test/app_localize_behavior_test.html
+    - test/app_location_test.html
     - test/app_pouchdb_document_test.html
+    - test/app_route_converter_test.html
+    - test/app_route_test.html
     - test/app_scroll_effects_behavior_test.html
+    - test/app_scroll_effects_blend_background_test.html
+    - test/app_scroll_effects_fade_background_test.html
+    - test/app_scroll_effects_parallax_background_test.html
+    - test/app_scroll_effects_resize_snapped_title_test.html
+    - test/app_scroll_effects_resize_title_test.html
+    - test/app_scroll_effects_waterfall_test.html
     - test/app_scrollpos_control_test.html
+    - test/app_storage_test.html
     - test/app_toolbar_test.html
     - test/carbon_location_test.html
     - test/carbon_route_converter_test.html
     - test/carbon_route_test.html
     - test/firebase_auth_test.html
     - test/firebase_collection_test.html
-    - test/gold_cc_ccv_input_test.html
+    - test/gold_cc_cvc_input_test.html
     - test/gold_cc_expiration_input_test.html
     - test/gold_cc_input_test.html
     - test/gold_email_input_test.html
@@ -66,9 +81,11 @@ transformers:
     - test/iron_component_page_test.html
     - test/iron_demo_helpers_test.html
     - test/iron_doc_viewer_test.html
+    - test/iron_dropdown_scroll_manager_test.html
     - test/iron_dropdown_test.html
     - test/iron_fit_behavior_test.html
     - test/iron_flex_layout_classes_test.html
+    - test/iron_flex_layout_test.html
     - test/iron_form_test.html
     - test/iron_form_element_behavior_test.html
     - test/iron_icon_test.html
@@ -162,6 +179,7 @@ transformers:
     - test/paper_scroll_header_panel_basic_test.html
     - test/paper_scroll_header_panel_header_state_test.html
     - test/paper_scroll_header_panel_scroll_test.html
+    - test/paper_slider_a11y_test.html
     - test/paper_slider_test.html
     - test/paper_spinner_test.html
     - test/paper_submenu_test.html
