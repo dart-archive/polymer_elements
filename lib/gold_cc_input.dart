@@ -64,6 +64,6 @@ class GoldCcInput extends HtmlElement with CustomElementProxyMixin, PolymerBase,
 
   /// Returns true if the element has a valid value, and sets the visual
   /// error state.
-  bool validate() =>
+  bool validate([_]) => //() =>
       jsElement.callMethod('validate', []);
 }

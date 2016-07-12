@@ -60,17 +60,21 @@ main() async {
       expect(clickHandler.callCount, 1);
     });
 
-    test('click triggers a click event', () async {
-      tap(item);
-      await wait(1);
-      expect(clickHandler.callCount, 1);
-    });
+    test('enter triggers a click event', when((done) {
+      pressEnter(item);
+      $async(() {
+        // You need two ticks, one for the MockInteractions event, and one
+        // for the button event.
+        $async(() {
+          $expect(clickHandler.callCount).to.be.equal(1);
+          done();
+        }, 1);
+      }, 1);
+    }));
   });
 
   group('clickable element inside item', () {
-    test(
-        'paper-item: space in child native input does not trigger a click event',
-        () async {
+    test('paper-item: space in child native input does not trigger a click event', () async {
       var f = fixture('item-with-input');
       var outerItem = f.querySelector('paper-item');
       var innerInput = f.querySelector('input');
@@ -84,9 +88,7 @@ main() async {
       expect(itemClickHandler.callCount, 0);
     });
 
-    test(
-        'paper-item: space in child paper-input does not trigger a click event',
-        () async {
+    test('paper-item: space in child paper-input does not trigger a click event', () async {
       var f = fixture('item-with-paper-input');
       var outerItem = f.querySelector('paper-item');
       var innerInput = f.querySelector('paper-input');
@@ -100,8 +102,7 @@ main() async {
       expect(itemClickHandler.callCount, 0);
     });
 
-    test('paper-icon-item: space in child input does not trigger a click event',
-        () async {
+    test('paper-icon-item: space in child input does not trigger a click event', () async {
       var f = fixture('iconItem-with-input');
       var outerItem = f.querySelector('paper-icon-item');
       var innerInput = f.querySelector('input');
@@ -124,13 +125,11 @@ main() async {
     });
 
     test('item has role="listitem"', () {
-      expect(item.attributes['role'], equals('option'),
-          reason: 'should have role="item"');
+      expect(item.attributes['role'], equals('option'), reason: 'should have role="item"');
     });
 
     test('icon item has role="listitem"', () {
-      expect(iconItem.getAttribute('role'), equals('option'),
-          reason: 'should have role="item"');
+      expect(iconItem.getAttribute('role'), equals('option'), reason: 'should have role="item"');
     });
 
     // TODO(jakemac): Investigate these

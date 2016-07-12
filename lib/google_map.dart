@@ -171,7 +171,7 @@ class GoogleMap extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   set zoom(num value) { jsElement[r'zoom'] = value; }
 
   /// Clears all markers from the map.
-  clear() =>
+  clearMarkers() =>
       jsElement.callMethod('clear', []);
 
   /// Explicitly resizes the map, updating its center. This is useful if the

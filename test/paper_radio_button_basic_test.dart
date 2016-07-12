@@ -9,6 +9,7 @@ import 'package:test/test.dart';
 import 'package:web_components/web_components.dart';
 import 'package:polymer_elements/paper_radio_button.dart';
 import 'common.dart';
+import 'dart:html';
 
 main() async {
   await initWebComponents();
@@ -53,6 +54,25 @@ main() async {
 
       expect(r1.attributes['aria-checked'], 'true');
       expect(r1.checked, isTrue);
+    });
+
+    test('can be styled with different sizes', () {
+      var r2 = fixture('WithDifferentSizes');
+      Rectangle small = r2[0].getBoundingClientRect();
+      Rectangle medium = r2[1].getBoundingClientRect();
+      Rectangle large = r2[2].getBoundingClientRect();
+
+      //console.log(small.width, medium.width, large.width);
+
+      $assert.isTrue(4 < small.height);
+      $assert.isTrue(small.height < medium.height);
+      $assert.isTrue(medium.height < large.height);
+      $assert.isTrue(large.height < 72);
+
+      $assert.isTrue(4 < small.width);
+      $assert.isTrue(small.width < medium.width);
+      $assert.isTrue(medium.width < large.width);
+      $assert.isTrue(large.width < 72);
     });
   });
 

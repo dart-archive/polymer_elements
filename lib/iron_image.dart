@@ -27,7 +27,7 @@ import 'iron_flex_layout.dart';
 ///
 /// Examples:
 ///
-///   Basically identical to &lt;img src="..."&gt; tag:
+///   Basically identical to `<img src="...">` tag:
 ///
 ///     <iron-image src="http://lorempixel.com/400/400"></iron-image>
 ///
@@ -66,8 +66,13 @@ class IronImage extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronImage.created() : super.created();
   factory IronImage() => new Element.tag('iron-image');
 
-  bool get canLoad => jsElement[r'canLoad'];
-  set canLoad(bool value) { jsElement[r'canLoad'] = value; }
+  /// A short text alternative for the image.
+  String get alt => jsElement[r'alt'];
+  set alt(String value) { jsElement[r'alt'] = value; }
+
+  /// Read-only value that indicates that the last set `src` failed to load.
+  bool get error => jsElement[r'error'];
+  set error(bool value) { jsElement[r'error'] = value; }
 
   /// When `preload` is true, setting `fade` to true will cause the image to
   /// fade into place.
@@ -108,9 +113,6 @@ class IronImage extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   /// be invalid, to prevent 404 requests.
   bool get preventLoad => jsElement[r'preventLoad'];
   set preventLoad(bool value) { jsElement[r'preventLoad'] = value; }
-
-  bool get requiresPreload => jsElement[r'requiresPreload'];
-  set requiresPreload(bool value) { jsElement[r'requiresPreload'] = value; }
 
   /// Sets a sizing option for the image.  Valid values are `contain` (full
   /// aspect ratio of the image is contained within the element and

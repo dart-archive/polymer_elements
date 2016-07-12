@@ -38,6 +38,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         .wide {
             width: 200px;
         }
+
+        [hidden] {
+            display: none;
+        }
     </style>
 </head>
 
@@ -73,6 +77,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <template id="custom">
         <test-button></test-button>
+    </template>
+
+    <template id="no-offset-parent">
+
+            <div>
+                <div id="target"></div>
+                <paper-tooltip for="target" animation-delay="0" hidden></paper-tooltip>
+            </div>
+
     </template>
 
 </body>

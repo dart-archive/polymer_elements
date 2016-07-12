@@ -19,7 +19,7 @@ import '../../neon_animation_behavior.dart';
 ///   name: 'cascaded-animation',
 ///   animation: <animation-name>,
 ///   nodes: <array-of-nodes>,
-///   nodedelay: <node-delay-in-ms>,
+///   nodeDelay: <node-delay-in-ms>,
 ///   timing: <animation-timing>
 /// }
 /// ```

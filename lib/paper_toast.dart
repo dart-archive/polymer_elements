@@ -12,7 +12,6 @@ import 'iron_overlay_behavior.dart';
 import 'iron_fit_behavior.dart';
 import 'iron_resizable_behavior.dart';
 import 'iron_a11y_announcer.dart';
-import 'typography.dart';
 
 /// Material design: [Snackbards & toasts](https://www.google.com/design/spec/components/snackbars-toasts.html)
 ///
@@ -29,8 +28,14 @@ import 'typography.dart';
 ///
 /// Example:
 ///
-///     <paper-toast id="toast0" text="Welcome back!"></paper-toast>
-///     <button onclick="document.querySelector('#toast0').open()">Login</button>
+///     <paper-button on-click="openToast">Open Toast</paper-button>
+///     <paper-toast id="toast" text="Hello world!"></paper-toast>
+///
+///     ...
+///
+///     openToast: function() {
+///       this.$.toast.open();
+///     }
 ///
 /// Set `duration` to 0, a negative number or Infinity to persist the toast on screen:
 ///
@@ -48,6 +53,9 @@ import 'typography.dart';
 /// ----------------|-------------|----------
 /// `--paper-toast-background-color` | The paper-toast background-color | `#323232`
 /// `--paper-toast-color` | The paper-toast color | `#f1f1f1`
+///
+/// This element applies the mixin `--paper-font-common-base` but does not import `paper-styles/typography.html`.
+/// In order to apply the `Roboto` font to this element, make sure you've imported `paper-styles/typography.html`.
 @CustomElementProxy('paper-toast')
 class PaperToast extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronFitBehavior, IronResizableBehavior, IronOverlayBehavior {
   PaperToast.created() : super.created();
@@ -59,6 +67,23 @@ class PaperToast extends HtmlElement with CustomElementProxyMixin, PolymerBase, 
   num get duration => jsElement[r'duration'];
   set duration(num value) { jsElement[r'duration'] = value; }
 
+  /// The element to fit `this` into.
+  /// Overridden from `Polymer.IronFitBehavior`.
+  get fitInto => jsElement[r'fitInto'];
+  set fitInto(value) { jsElement[r'fitInto'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+
+  /// The orientation against which to align the dropdown content
+  /// horizontally relative to `positionTarget`.
+  /// Overridden from `Polymer.IronFitBehavior`.
+  String get horizontalAlign => jsElement[r'horizontalAlign'];
+  set horizontalAlign(String value) { jsElement[r'horizontalAlign'] = value; }
+
+  /// Overridden from `IronOverlayBehavior`.
+  /// Set to true to disable auto-focusing the toast or child nodes with
+  /// the `autofocus` attribute` when the overlay is opened.
+  bool get noAutoFocus => jsElement[r'noAutoFocus'];
+  set noAutoFocus(bool value) { jsElement[r'noAutoFocus'] = value; }
+
   /// Overridden from `IronOverlayBehavior`.
   /// Set to false to enable closing of the toast by clicking outside it.
   bool get noCancelOnOutsideClick => jsElement[r'noCancelOnOutsideClick'];
@@ -68,6 +93,12 @@ class PaperToast extends HtmlElement with CustomElementProxyMixin, PolymerBase, 
   String get text => jsElement[r'text'];
   set text(String value) { jsElement[r'text'] = value; }
 
+  /// The orientation against which to align the dropdown content
+  /// vertically relative to `positionTarget`.
+  /// Overridden from `Polymer.IronFitBehavior`.
+  String get verticalAlign => jsElement[r'verticalAlign'];
+  set verticalAlign(String value) { jsElement[r'verticalAlign'] = value; }
+
   /// Read-only. Deprecated. Use `opened` from `IronOverlayBehavior`.
   get visible => jsElement[r'visible'];
 
@@ -75,7 +106,9 @@ class PaperToast extends HtmlElement with CustomElementProxyMixin, PolymerBase, 
   hide() =>
       jsElement.callMethod('hide', []);
 
-  /// Show the toast. Same as `open()` from `IronOverlayBehavior`.
-  show() =>
-      jsElement.callMethod('show', []);
+  /// Show the toast. Without arguments, this is the same as `open()` from `IronOverlayBehavior`.
+  /// [properties]: Properties to be set before opening the toast.
+  ///     e.g. `toast.show('hello')` or `toast.show({text: 'hello', duration: 3000})`
+  show(properties) =>
+      jsElement.callMethod('show', [properties]);
 }

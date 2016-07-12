@@ -7,15 +7,65 @@ library polymer_elements.test.src.sinon;
 import 'dart:js';
 import 'package:web_components/web_components.dart';
 import 'dart:html';
+import 'dart:async';
 
 JsObject _Sinon = context['sinon'];
 
 Spy spy([JsObject object, String methodName]) =>
     new Spy(_Sinon.callMethod('spy', [object, methodName]));
 
+
 match(Map options) => _Sinon.callMethod('match', [new JsObject.jsify(options)]);
 
 get matchAny => _Sinon['match']['any'];
+
+class Stub {
+  int calls=0;
+
+  void call([_]) {
+    calls++;
+  }
+
+  bool get calledOnce => calls==1;
+
+}
+
+class DartSpyEventHandler {
+  List<Event> calls = [];
+
+  bool get called => calls.isNotEmpty;
+
+  get callCount => calls.length;
+  void call([Event e]) {
+    calls.add(e);
+  }
+
+  DartSpyEventHandler();
+
+  factory DartSpyEventHandler.on(EventTarget target,String eventName,[int max])  =>
+    new DartSpyEventHandler()
+      ..attach(target,eventName,max);
+
+  StreamSubscription _sub;
+
+  void attach(EventTarget target,String eventName,[int max=null]) {
+    if (max!=null) {
+      _sub = target.on[eventName].take(max).listen(this);
+    } else {
+      _sub = target.on[eventName].listen(this);
+    }
+  }
+
+  void detach() {
+    _sub.cancel();
+    _sub=null;
+  }
+
+  void reset() {
+    calls.clear();
+  }
+}
+
 
 class Spy {
   JsObject jsObject;
@@ -33,11 +83,15 @@ class Spy {
 
   reset() => jsObject.callMethod('reset');
 
+  SpyCall get lastCall => new SpyCall(jsObject['lastCall']);
+
   SpyCall getCall(int arg) => new SpyCall(jsObject.callMethod("getCall",[arg]));
 
   EventListener get eventListener => (Event e) => (jsObject as JsFunction).apply([e]);
 
   bool calledAfter(Spy otherSpy) => jsObject.callMethod("calledAfter", [otherSpy.jsObject]);
+
+  call([a,b]) => (jsObject as JsFunction).apply([a,b]);
 }
 
 class SpyCall {

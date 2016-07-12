@@ -86,7 +86,7 @@ main() async {
       expect(selectEventCounter, 1);
       expect(deselectEventCounter, 1);
     });
-    
+
     test('fires selected-values-changed when selection changes', () {
       var selectedValuesChangedEventCounter = 0;
 
@@ -138,6 +138,48 @@ main() async {
       expect(s.selectedItems.length, 1);
     });
 
+    suite('`select()` and `selectIndex()`', () {
+      var selector;
+
+      setup(() {
+        selector = fixture('valueById');
+      });
+
+      test('`select()` selects an item with the given value', () {
+        selector.select('item1');
+        $assert.equal(selector.selectedValues.length, 1);
+        $assert.equal(selector.selectedValues.indexOf('item1'), 0);
+
+        selector.select('item3');
+        $assert.equal(selector.selectedValues.length, 2);
+        $assert.isTrue(selector.selectedValues.indexOf('item3') >= 0);
+
+        selector.select('item2');
+        $assert.equal(selector.selectedValues.length, 3);
+        $assert.isTrue(selector.selectedValues.indexOf('item2') >= 0);
+      });
+
+      test('`selectIndex()` selects an item with the given index', () {
+        selector.selectIndex(1);
+        $assert.equal(selector.selectedValues.length, 1);
+        $assert.isTrue(selector.selectedValues.indexOf('item1') >= 0);
+        $assert.equal(selector.selectedItems.length, 1);
+        $assert.isTrue(selector.selectedItems.indexOf(selector.items[1]) >= 0);
+
+        selector.selectIndex(3);
+        $assert.equal(selector.selectedValues.length, 2);
+        $assert.isTrue(selector.selectedValues.indexOf('item3') >= 0);
+        $assert.equal(selector.selectedItems.length, 2);
+        $assert.isTrue(selector.selectedItems.indexOf(selector.items[3]) >= 0);
+
+        selector.selectIndex(0);
+        $assert.equal(selector.selectedValues.length, 3);
+        $assert.isTrue(selector.selectedValues.indexOf('item0') >= 0);
+        $assert.equal(selector.selectedItems.length, 3);
+        $assert.isTrue(selector.selectedItems.indexOf(selector.items[0]) >= 0);
+      });
+    });
+
     /* test('toggle multi from true to false', () {
       // set selected
       s.selected = [0, 2];
@@ -149,6 +191,5 @@ main() async {
       // selected should be the first value from the old array
       expect(s.selected, first);
     }); */
-
   });
 }

@@ -20,7 +20,6 @@ main() async {
   await initPolymer();
 
   group('basic', () {
-
     test('clicking dialog does not cancel the dialog', () {
       var done = new Completer();
       var dialog = fixture('basic');
@@ -53,6 +52,32 @@ main() async {
       return done.future;
     });
 
+    testAsync('dialog-dismiss on a custom element is handled', (done) {
+      TestDialog dialog = fixture('custom-element-button');
+      runAfterOpen(dialog, () {
+        dialog.on['iron-overlay-closed'].take(1).listen((event) {
+          event = convertToDart(event);
+          $assert.isFalse(event.detail['canceled'], 'dialog is not canceled');
+          $assert.isFalse(event.detail['confirmed'], 'dialog is not confirmed');
+          done();
+        });
+        tap(new PolymerDom(dialog).querySelector('[dialog-dismiss]'));
+      });
+    });
+
+    testAsync('dialog-dismiss button inside a custom element is handled', (done) {
+      TestDialog dialog = fixture('buttons');
+      runAfterOpen(dialog, () {
+        dialog.on['iron-overlay-closed'].take(1).listen((event) {
+          event = convertToDart(event);
+          $assert.isFalse(event.detail['canceled'], 'dialog is not canceled');
+          $assert.isFalse(event.detail['confirmed'], 'dialog is not confirmed');
+          done();
+        });
+        tap((new PolymerDom(dialog).querySelector('test-buttons') as TestButtons).$['dismiss']);
+      });
+    });
+
     test('clicking dialog-confirm button closes the dialog with confirmation', () {
       var done = new Completer();
       var dialog = fixture('basic');
@@ -63,25 +88,117 @@ main() async {
           expect(event.detail['confirmed'], isTrue, reason: 'dialog is confirmed');
           done.complete();
         });
-        Polymer.dom(dialog).querySelector('[dialog-confirm]').click();
+        new PolymerDom(dialog).querySelector('[dialog-confirm]').click();
       });
     });
 
-    test('with-backdrop works', () {
-      var dialog = fixture('backdrop');
+    testAsync('dialog-confirm on a custom element handled', (done) {
+      TestDialog dialog = fixture('custom-element-button');
       runAfterOpen(dialog, () {
-        expect(dialog.backdropElement.opened, isTrue, reason: 'backdrop is open');
+        dialog.on['iron-overlay-closed'].take(1).listen((event) {
+          event = convertToDart(event);
+          $assert.isFalse(event.detail['canceled'], 'dialog is not canceled');
+          $assert.isTrue(event.detail['confirmed'], 'dialog is confirmed');
+          done();
+        });
+        tap(new PolymerDom(dialog).querySelector('[dialog-confirm]'));
       });
     });
 
-    test('modal dialog has backdrop', () {
-      var dialog = fixture('modal');
-      expect(dialog.withBackdrop, isTrue, reason: 'withBackdrop is true');
+    testAsync('dialog-confirm button inside a custom element is handled', (done) {
+      var dialog = fixture('buttons');
+      runAfterOpen(dialog, () {
+        dialog.on['iron-overlay-closed'].take(1).listen((event) {
+          event = convertToDart(event);
+          $assert.isFalse(event.detail['canceled'], 'dialog is not canceled');
+          $assert.isTrue(event.detail['confirmed'], 'dialog is confirmed');
+          done();
+        });
+        tap((new PolymerDom(dialog).querySelector('test-buttons') as TestButtons).$['confirm']);
+      });
     });
 
-    test('modal dialog has no-cancel-on-outside-click', () {
-      var dialog = fixture('modal');
-      expect(dialog.noCancelOnOutsideClick, isTrue, reason: 'noCancelOnOutsideClick is true');
+    testAsync('clicking dialog-dismiss button closes only the dialog where is contained', (done) async {
+      var dialog = fixture('nestedmodals');
+      TestDialog innerDialog = new PolymerDom(dialog).querySelector('test-dialog');
+      tap(new PolymerDom(innerDialog).querySelector('[dialog-dismiss]'));
+      await wait(10);
+      $assert.isFalse(innerDialog.opened, 'inner dialog is closed');
+      $assert.isTrue(dialog.opened, 'dialog is still open');
+      done();
+    });
+
+    testAsync('clicking dialog-confirm button closes only the dialog where is contained', (done) async {
+      TestDialog dialog = fixture('nestedmodals');
+      TestDialog innerDialog = new PolymerDom(dialog).querySelector('test-dialog');
+      tap(new PolymerDom(innerDialog).querySelector('[dialog-confirm]'));
+      await wait(10);
+      $assert.isFalse(innerDialog.opened, 'inner dialog is closed');
+      $assert.isTrue(dialog.opened, 'dialog is still open');
+      done();
+    });
+
+    List<String> properties = ['noCancelOnEscKey', 'noCancelOnOutsideClick', 'withBackdrop'];
+
+    // Could use polymer accessors or underlining js props but this way is more a 'dartish'
+    getProperty(TestDialog x, propName) {
+      Map<String, Function> getters = {
+        'noCancelOnEscKey': (TestDialog x) => x.noCancelOnEscKey,
+        'noCancelOnOutsideClick': (TestDialog x) => x.noCancelOnOutsideClick,
+        'withBackdrop': (TestDialog x) => x.withBackdrop
+      };
+
+      return getters[propName](x);
+    }
+
+    setProperty(TestDialog x, propName, val) {
+      Map<String, Function> setters = {
+        'noCancelOnEscKey': (TestDialog x, val) => x.noCancelOnEscKey = val,
+        'noCancelOnOutsideClick': (TestDialog x, val) => x.noCancelOnOutsideClick = val,
+        'withBackdrop': (TestDialog x, val) => x.withBackdrop = val
+      };
+
+      setters[propName](x, val);
+    }
+
+    properties.forEach((String property) {
+      test('modal sets ' + property + ' to true', () {
+        TestDialog dialog = fixture('modal');
+        $assert.isTrue(getProperty(dialog, property), property);
+      });
+
+      test('modal toggling keeps current value of ' + property, () {
+        var dialog = fixture('modal');
+        // Changed to false while modal is true.
+        setProperty(dialog, property, false);
+        dialog.modal = false;
+        $assert.isFalse(getProperty(dialog, property), property + ' is false');
+      });
+
+      test('modal toggling keeps previous value of ' + property, () {
+        var dialog = fixture('basic');
+        // Changed before modal is true.
+        setProperty(dialog, property, true);
+        // Toggle twice to trigger observer.
+        dialog.modal = true;
+        dialog.modal = false;
+        $assert.isTrue(getProperty(dialog, property), property + ' is still true');
+      });
+
+      test('default modal does not override ' + property + ' (attribute)', () {
+        // Property is set on ready from attribute.
+        var dialog = fixture('like-modal');
+        $assert.isTrue(getProperty(dialog, property), property + ' is true');
+      });
+
+      test('modal toggling keeps previous value of ' + property + ' (attribute)', () {
+        // Property is set on ready from attribute.
+        var dialog = fixture('like-modal');
+        // Toggle twice to trigger observer.
+        dialog.modal = true;
+        dialog.modal = false;
+        $assert.isTrue(getProperty(dialog, property), property + ' is still true');
+      });
     });
 
     test('clicking outside a modal dialog does not move focus from dialog', () {
@@ -112,55 +229,84 @@ main() async {
       return done.future;
     });
 
+    test('multiple modal dialogs opened, handle focus change', when((done) {
+      var dialogs = fixture('multiple');
+
+      runAfterOpen(dialogs[0], () {
+        runAfterOpen(dialogs[1], () async {
+          // Each modal dialog will trap the focus within its children.
+          // Multiple modal dialogs doing it might result in an infinite loop
+          // dialog1 focus -> dialog2 focus -> dialog1 focus -> dialog2 focus...
+          // causing a "Maximum call stack size exceeded" error.
+          // Wait 50ms and verify this does not happen.
+          await wait(50);
+          done();
+        });
+      });
+    }));
+
+    test('multiple modal dialogs opened, handle outside click', when((done) {
+      var dialogs = fixture('multiple');
+
+      runAfterOpen(dialogs[0], () {
+        runAfterOpen(dialogs[1], () async {
+          // Click should be handled only by dialogs[1].
+          tap(document.body);
+          // Each modal dialog will trap the focus within its children.
+          // Multiple modal dialogs doing it might result in an infinite loop
+          // dialog1 focus -> dialog2 focus -> dialog1 focus -> dialog2 focus...
+          // causing a "Maximum call stack size exceeded" error.
+          // Wait 50ms and verify this does not happen.
+          await wait(50);
+          // Should not enter in an infinite loop.
+          done();
+        });
+      });
+    }));
+
+    test('focus is given to the autofocus element when clicking on backdrop', when((done) {
+      TestDialog dialog = fixture('modal');
+
+      onSecondOpen(_) async {
+        tap(document.body);
+        await wait(10);
+        $assert.equal(document.activeElement, Polymer.dom(dialog).querySelector('[autofocus]'), 'document.activeElement is the autofocused button');
+        done();
+      }
+
+      onFirstClose(_) {
+        dialog.on['iron-overlay-opened'].take(1).listen(onSecondOpen);
+        dialog.open();
+      }
+
+      onFirstOpen(_) {
+        dialog.on['iron-overlay-closed'].take(1).listen(onFirstClose);
+        // Set the focus on dismiss button
+        focus(new PolymerDom(dialog).querySelector('[dialog-dismiss]'));
+        // Close the dialog
+        dialog.close();
+      }
+
+      dialog.on['iron-overlay-opened'].take(1).listen(onFirstOpen);
+      dialog.open();
+    }));
   });
 
   group('a11y', () {
-
     test('dialog has role="dialog"', () {
       var dialog = fixture('basic');
-      expect(dialog.getAttribute('role'), 'dialog', reason: 'has role="dialog"');
+      $assert.equal(dialog.attributes['role'], 'dialog', 'has role="dialog"');
     });
 
     test('dialog has aria-modal=false', () {
       var dialog = fixture('basic');
-      expect(dialog.getAttribute('aria-modal'), 'false', reason: 'has aria-modal="false"');
+      $assert.equal(dialog.attributes['aria-modal'], 'false', 'has aria-modal="false"');
     });
 
     test('modal dialog has aria-modal=true', () {
       var dialog = fixture('modal');
-      expect(dialog.getAttribute('aria-modal'), 'true', reason: 'has aria-modal="true"');
+      $assert.equal(dialog.attributes['aria-modal'], 'true', 'has aria-modal="true"');
     });
-
-    test('dialog with header has aria-labelledby', () async {
-      var dialog = fixture('header');
-      await new Future(() {});
-      var header = Polymer.dom(dialog).querySelector('h2');
-      expect(header.getAttribute('id'), isNotNull, reason: 'header has auto-generated id');
-      expect(dialog.getAttribute('aria-labelledby'), header.getAttribute('id'), reason: 'aria-labelledby is set to header id');
-    });
-
-    test('dialog with lazily created header has aria-labelledby', () {
-      var done = new Completer();
-      var dialog = fixture('basic');
-      var header = document.createElement('h2');
-      Polymer.dom(dialog).append(header);
-      PolymerDom.flush();
-      wait(10).then((_) {
-        expect(header.getAttribute('id'), isNotNull, reason: 'header has auto-generated id');
-        expect(dialog.getAttribute('aria-labelledby'), header.getAttribute('id'), reason: 'aria-labelledby is set to header id');
-        done.complete();
-      });
-      return done.future;
-    });
-
-    test('dialog with header with id preserves id and has aria-labelledby', () async {
-      var dialog = fixture('header-with-id');
-      await new Future(() {});
-      var header = Polymer.dom(dialog).querySelector('h2');
-      expect(header.getAttribute('id'), 'header', reason: 'header has preset id');
-      expect(dialog.getAttribute('aria-labelledby'), 'header', reason: 'aria-labelledby is set to header id');
-    });
-
   });
 }
 
@@ -172,11 +318,11 @@ runAfterOpen(TestDialog dialog, cb) {
 }
 
 @PolymerRegister('test-dialog')
-class TestDialog extends PolymerElement
-    with
-        IronFitBehavior,
-        IronResizableBehavior,
-        IronOverlayBehavior,
-        PaperDialogBehavior {
+class TestDialog extends PolymerElement with IronFitBehavior, IronResizableBehavior, IronOverlayBehavior, PaperDialogBehavior {
   TestDialog.created() : super.created();
+}
+
+@PolymerRegister('test-buttons')
+class TestButtons extends PolymerElement {
+  TestButtons.created() : super.created();
 }

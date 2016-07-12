@@ -17,7 +17,7 @@ class OpaqueAnimation extends HtmlElement with CustomElementProxyMixin, PolymerB
   OpaqueAnimation.created() : super.created();
   factory OpaqueAnimation() => new Element.tag('opaque-animation');
 
-  complete(config) =>
+  complete([config]) => //(config) =>
       jsElement.callMethod('complete', [config]);
 
   configure(config) =>

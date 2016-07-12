@@ -33,6 +33,6 @@ abstract class IronMultiSelectableBehavior implements CustomElementProxyMixin, I
   /// Selects the given value. If the `multi` property is true, then the selected state of the
   /// `value` will be toggled; otherwise the `value` will be selected.
   /// [value]: the value to select.
-  select(String value) =>
+  select(value) =>
       jsElement.callMethod('select', [value]);
 }

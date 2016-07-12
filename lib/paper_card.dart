@@ -8,9 +8,10 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
-import 'paper_material.dart';
 import 'iron_flex_layout.dart';
 import 'iron_image.dart';
+import 'paper_material.dart';
+import 'default_theme.dart';
 
 /// Material design: [Cards](https://www.google.com/design/spec/components/cards.html)
 ///
@@ -41,6 +42,7 @@ import 'iron_image.dart';
 ///
 /// Custom property | Description | Default
 /// ----------------|-------------|----------
+/// `--paper-card-background-color` | The background color of the card | `--primary-background-color`
 /// `--paper-card-header-color` | The color of the header text | `#000`
 /// `--paper-card-header` | Mixin applied to the card header section | `{}`
 /// `--paper-card-header-text` | Mixin applied to the title in the card header section | `{}`

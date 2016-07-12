@@ -142,6 +142,14 @@ class PaperDrawerPanel extends HtmlElement with CustomElementProxyMixin, Polymer
   bool get dragging => jsElement[r'dragging'];
   set dragging(bool value) { jsElement[r'dragging'] = value; }
 
+  /// The CSS selector for the element that should receive focus when the drawer is open.
+  /// By default, when the drawer opens, it focuses the first tabbable element. That is,
+  /// the first element that can receive focus.
+  ///
+  /// To disable this behavior, you can set `drawerFocusSelector` to `null` or an empty string.
+  String get drawerFocusSelector => jsElement[r'drawerFocusSelector'];
+  set drawerFocusSelector(String value) { jsElement[r'drawerFocusSelector'] = value; }
+
   /// The attribute on elements that should toggle the drawer on tap, also elements will
   /// automatically be hidden in wide layout.
   String get drawerToggleAttribute => jsElement[r'drawerToggleAttribute'];
@@ -187,8 +195,8 @@ class PaperDrawerPanel extends HtmlElement with CustomElementProxyMixin, Polymer
 
   /// The panel that is being selected. `drawer` for the drawer panel and
   /// `main` for the main panel.
-  String get selected => jsElement[r'selected'];
-  set selected(String value) { jsElement[r'selected'] = value; }
+  get selected => jsElement[r'selected'];
+  set selected(value) { jsElement[r'selected'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Closes the drawer.
   closeDrawer() =>

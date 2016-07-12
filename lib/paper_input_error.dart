@@ -9,7 +9,7 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'paper_input_addon_behavior.dart';
-import 'color.dart';
+import 'default_theme.dart';
 import 'typography.dart';
 
 /// `<paper-input-error>` is an error message for use with `<paper-input-container>`. The error is
@@ -26,7 +26,7 @@ import 'typography.dart';
 ///
 /// Custom property | Description | Default
 /// ----------------|-------------|----------
-/// `--paper-input-container-invalid-color` | The foreground color of the error | `--google-red-500`
+/// `--paper-input-container-invalid-color` | The foreground color of the error | `--error-color`
 /// `--paper-input-error`                   | Mixin applied to the error        | `{}`
 @CustomElementProxy('paper-input-error')
 class PaperInputError extends HtmlElement with CustomElementProxyMixin, PolymerBase, PaperInputAddonBehavior {
@@ -37,6 +37,10 @@ class PaperInputError extends HtmlElement with CustomElementProxyMixin, PolymerB
   bool get invalid => jsElement[r'invalid'];
   set invalid(bool value) { jsElement[r'invalid'] = value; }
 
+  /// This overrides the update function in PaperInputAddonBehavior.
+  /// [state]: inputElement: The input element.
+  ///         value: The input value.
+  ///         invalid: True if the input value is invalid.
   update(state) =>
       jsElement.callMethod('update', [state]);
 }

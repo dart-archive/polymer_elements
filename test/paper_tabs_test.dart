@@ -180,4 +180,167 @@ main() async {
       });
     });
   });
+
+  ensureDocumentHasFocus() {
+
+  }
+
+  suite('accessibility', ()
+  {
+    const int LEFT = 37;
+    const int RIGHT = 39;
+    PaperTabs tabs;
+
+    setup(() async {
+      tabs = fixture('basic');
+      await wait(1);
+    });
+
+    test('paper-tabs has role tablist', () {
+      $assert.equal(tabs.getAttribute('role'), 'tablist');
+    });
+
+    test('paper-tab has role tab', () {
+      tabs.items.forEach((tab) {
+        $assert.equal(tab.getAttribute('role'), 'tab');
+      });
+    });
+
+    test('without autoselect, tabs are not automatically selected',
+             when((done) async {
+               ensureDocumentHasFocus();
+               await wait(100);
+               tabs.select(0);
+               pressAndReleaseKeyOn(tabs.selectedItem, RIGHT);
+               await wait(100);
+               $assert.equal(tabs.selected, 0);
+
+               pressAndReleaseKeyOn(tabs.selectedItem, LEFT);
+               await wait(100);
+               $assert.equal(tabs.selected, 0);
+
+               pressAndReleaseKeyOn(tabs.selectedItem, LEFT);
+               await wait(100);
+               $assert.equal(tabs.selected, 0);
+               done();
+             }));
+
+    test('with autoselect, tabs are selected when moved to using arrow ' +
+             'keys', when((done) async {
+      ensureDocumentHasFocus();
+      await wait(100);
+      tabs.autoselect = true;
+      tabs.select(0);
+      pressAndReleaseKeyOn(tabs.selectedItem, RIGHT);
+      await wait(100);
+      $assert.equal(tabs.selected, 1);
+
+      pressAndReleaseKeyOn(tabs.selectedItem, RIGHT);
+      await wait(100);
+      $assert.equal(tabs.selected, 2);
+
+      pressAndReleaseKeyOn(tabs.selectedItem, LEFT);
+      await wait(100);
+      $assert.equal(tabs.selected, 1);
+      done();
+    }));
+
+    test('with autoselect, tabs are selected when moved to using arrow ' +
+             'keys (RTL)', when((done) async {
+      ensureDocumentHasFocus();
+      await wait(100);
+      tabs.setAttribute('dir', 'rtl');
+
+      tabs.autoselect = true;
+      tabs.select(0);
+      pressAndReleaseKeyOn(tabs.selectedItem, LEFT);
+      await wait(100);
+      $assert.equal(tabs.selected, 1);
+
+      pressAndReleaseKeyOn(tabs.selectedItem, LEFT);
+      await wait(100);
+      $assert.equal(tabs.selected, 2);
+
+      pressAndReleaseKeyOn(tabs.selectedItem, RIGHT);
+      await wait(100);
+      $assert.equal(tabs.selected, 1);
+      done();
+    }));
+
+    test('with autoselect-delay zero, tabs are selected with ' +
+             'microtask timing after the keyup', when((done) async {
+      ensureDocumentHasFocus();
+      await wait(100);
+      tabs.autoselect = true;
+      tabs.autoselectDelay = 0;
+      tabs.select(0);
+
+      keyDownOn(tabs.selectedItem, RIGHT);
+      await wait(100);
+      $assert.equal(tabs.selected, 0);
+      $assert.equal(tabs.items.indexOf(tabs.focusedItem), 1);
+
+      // No keyup between keydown events: the key is being held.
+      keyDownOn(tabs.selectedItem, RIGHT);
+      await wait(100);
+      $assert.equal(tabs.selected, 0);
+      $assert.equal(tabs.items.indexOf(tabs.focusedItem), 2);
+
+      keyUpOn(tabs.selectedItem, RIGHT);
+      $assert.equal(tabs.selected, 0);
+      await wait(100);
+      $assert.equal(tabs.selected, 2);
+      $assert.equal(tabs.items.indexOf(tabs.focusedItem), 2);
+
+      keyDownOn(tabs.selectedItem, LEFT);
+      await wait(100);
+      $assert.equal(tabs.selected, 2);
+      $assert.equal(tabs.items.indexOf(tabs.focusedItem), 1);
+
+      keyUpOn(tabs.selectedItem, LEFT);
+      $assert.equal(tabs.selected, 2);
+      await wait(100);
+      $assert.equal(tabs.selected, 1);
+      done();
+    }));
+
+    test('with autoselect-delay positive, tabs are selected with ' +
+             'microtask timing after the keyup and delay', when((done) async {
+      ensureDocumentHasFocus();
+      await wait(100);
+      var DELAY = 100;
+
+      tabs.autoselect = true;
+      tabs.autoselectDelay = DELAY;
+      tabs.select(0);
+
+      keyDownOn(tabs.selectedItem, RIGHT);
+      await wait(100);
+      $assert.equal(tabs.selected, 0);
+      $assert.equal(tabs.items.indexOf(tabs.focusedItem), 1);
+
+      // No keyup between keydown events: the key is being held.
+      keyDownOn(tabs.selectedItem, RIGHT);
+      await wait(100);
+      $assert.equal(tabs.selected, 0);
+      $assert.equal(tabs.items.indexOf(tabs.focusedItem), 2);
+
+      keyUpOn(tabs.selectedItem, RIGHT);
+      $assert.equal(tabs.selected, 0);
+      await wait(100);
+      $assert.equal(tabs.selected, 2);
+      $assert.equal(tabs.items.indexOf(tabs.focusedItem), 2);
+
+      keyDownOn(tabs.selectedItem, LEFT);
+      await wait(100);
+      $assert.equal(tabs.selected, 2);
+      $assert.equal(tabs.items.indexOf(tabs.focusedItem), 1);
+
+      keyUpOn(tabs.selectedItem, LEFT);
+      $assert.equal(tabs.selected, 2);
+      await wait(100);
+      $assert.equal(tabs.selected, 1);
+      done();
+    }));
+  });
 }

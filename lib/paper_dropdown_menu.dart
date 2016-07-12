@@ -13,12 +13,13 @@ import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
 import 'iron_form_element_behavior.dart';
 import 'iron_validatable_behavior.dart';
-import 'default_theme.dart';
+import 'iron_icon.dart';
 import 'paper_input.dart';
 import 'paper_menu_button.dart';
 import 'paper_ripple.dart';
-import 'iron_icons.dart';
-import 'iron_icon.dart';
+import 'default_theme.dart';
+import 'paper_dropdown_menu_icons.dart';
+import 'paper_dropdown_menu_shared_styles.dart';
 
 /// Material design: [Dropdown menus](https://www.google.com/design/spec/components/buttons.html#buttons-dropdown-buttons)
 ///
@@ -27,25 +28,31 @@ import 'iron_icon.dart';
 /// item is displayed in the control. If no item is selected, the `label` is
 /// displayed instead.
 ///
-/// The child element with the class `dropdown-content` will be used as the dropdown
-/// menu. It could be a `paper-menu` or element that triggers `iron-select` when
-/// selecting its children.
-///
 /// Example:
 ///
 ///     <paper-dropdown-menu label="Your favourite pastry">
-///       <paper-menu class="dropdown-content">
+///       <paper-listbox class="dropdown-content">
 ///         <paper-item>Croissant</paper-item>
 ///         <paper-item>Donut</paper-item>
 ///         <paper-item>Financier</paper-item>
 ///         <paper-item>Madeleine</paper-item>
-///       </paper-menu>
+///       </paper-listbox>
 ///     </paper-dropdown-menu>
 ///
 /// This example renders a dropdown menu with 4 options.
 ///
-/// Similarly to using `iron-select`, `iron-deselect` events will cause the
-/// current selection of the `paper-dropdown-menu` to be cleared.
+/// The child element with the class `dropdown-content` is used as the dropdown
+/// menu. This can be a [`paper-listbox`](paper-listbox), or any other or
+/// element that acts like an [`iron-selector`](iron-selector).
+///
+/// Specifically, the menu child must fire an
+/// [`iron-select`](iron-selector#event-iron-select) event when one of its
+/// children is selected, and an [`iron-deselect`](iron-selector#event-iron-deselect)
+/// event when a child is deselected. The selected or deselected item must
+/// be passed as the event's `detail.item` property.
+///
+/// Applications can listen for the `iron-select` and `iron-deselect` events
+/// to react when options are selected and deselected.
 ///
 /// ### Styling
 ///
@@ -75,6 +82,10 @@ class PaperDropdownMenu extends HtmlElement with CustomElementProxyMixin, Polyme
 
   /// The content element that is contained by the dropdown menu, if any.
   get contentElement => jsElement[r'contentElement'];
+
+  /// The error message to display when invalid.
+  String get errorMessage => jsElement[r'errorMessage'];
+  set errorMessage(String value) { jsElement[r'errorMessage'] = value; }
 
   /// The orientation against which to align the menu dropdown
   /// horizontally relative to the dropdown trigger.

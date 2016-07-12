@@ -65,23 +65,9 @@ class IronDropdown extends HtmlElement with CustomElementProxyMixin, PolymerBase
 
   /// The orientation against which to align the dropdown content
   /// horizontally relative to the dropdown trigger.
+  /// Overridden from `Polymer.IronFitBehavior`.
   String get horizontalAlign => jsElement[r'horizontalAlign'];
   set horizontalAlign(String value) { jsElement[r'horizontalAlign'] = value; }
-
-  /// A pixel value that will be added to the position calculated for the
-  /// given `horizontalAlign`, in the direction of alignment. You can think
-  /// of it as increasing or decreasing the distance to the side of the
-  /// screen given by `horizontalAlign`.
-  ///
-  /// If `horizontalAlign` is "left", this offset will increase or decrease
-  /// the distance to the left side of the screen: a negative offset will
-  /// move the dropdown to the left; a positive one, to the right.
-  ///
-  /// Conversely if `horizontalAlign` is "right", this offset will increase
-  /// or decrease the distance to the right side of the screen: a negative
-  /// offset will move the dropdown to the right; a positive one, to the left.
-  num get horizontalOffset => jsElement[r'horizontalOffset'];
-  set horizontalOffset(num value) { jsElement[r'horizontalOffset'] = value; }
 
   /// Set to true to disable animations when opening and closing the
   /// dropdown.
@@ -93,28 +79,9 @@ class IronDropdown extends HtmlElement with CustomElementProxyMixin, PolymerBase
   get openAnimationConfig => jsElement[r'openAnimationConfig'];
   set openAnimationConfig(value) { jsElement[r'openAnimationConfig'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
-  /// The element that should be used to position the dropdown when
-  /// it is opened.
-  get positionTarget => jsElement[r'positionTarget'];
-  set positionTarget(value) { jsElement[r'positionTarget'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
-
   /// The orientation against which to align the dropdown content
   /// vertically relative to the dropdown trigger.
+  /// Overridden from `Polymer.IronFitBehavior`.
   String get verticalAlign => jsElement[r'verticalAlign'];
   set verticalAlign(String value) { jsElement[r'verticalAlign'] = value; }
-
-  /// A pixel value that will be added to the position calculated for the
-  /// given `verticalAlign`, in the direction of alignment. You can think
-  /// of it as increasing or decreasing the distance to the side of the
-  /// screen given by `verticalAlign`.
-  ///
-  /// If `verticalAlign` is "top", this offset will increase or decrease
-  /// the distance to the top side of the screen: a negative offset will
-  /// move the dropdown upwards; a positive one, downwards.
-  ///
-  /// Conversely if `verticalAlign` is "bottom", this offset will increase
-  /// or decrease the distance to the bottom side of the screen: a negative
-  /// offset will move the dropdown downwards; a positive one, upwards.
-  num get verticalOffset => jsElement[r'verticalOffset'];
-  set verticalOffset(num value) { jsElement[r'verticalOffset'] = value; }
 }

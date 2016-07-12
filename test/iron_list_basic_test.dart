@@ -13,6 +13,7 @@ import 'package:web_components/web_components.dart';
 import 'common.dart';
 import 'iron_list_test_helpers.dart';
 import 'fixtures/x_list.dart';
+import 'dart:math' as Math;
 
 /// Uses [XList].
 main() async {
@@ -28,9 +29,13 @@ main() async {
     });
 
     test('defaults', () {
-      expect(list.items, null);
-      expect(list.as, 'item');
-      expect(list.indexAs, 'index');
+      expect(list.items, null, reason: "items");
+      expect(list.as, 'item', reason: "as");
+      expect(list.indexAs, 'index', reason: "indexAs");
+      expect(list.selectedAs, 'selected', reason: 'selectedAs');
+      expect(list.scrollTarget, list, reason: 'scrollTarget');
+      expect(list.selectionEnabled, isFalse, reason: 'selectionEnabled');
+      expect(list.multiSelection, isFalse, reason: 'multiSelection');
     });
 
     test('check items length', () {
@@ -59,46 +64,30 @@ main() async {
     });
 
     test('first visible index', () {
-      var done = new Completer();
-      container.set('data', buildDataSet(100));
-      new Future(() {}).then((_) {
-        var rowHeight = list.jsElement['_physicalItems'][0].offsetHeight;
-        var viewportHeight = list.offsetHeight;
-        var scrollToItem;
-        checkFirstVisible() {
-          expect(list.firstVisibleIndex, scrollToItem);
-          expect(getFirstItemFromList(list).text, scrollToItem.toString());
-        }
-        doneScrollUp([_]) {
-          checkFirstVisible();
-          done.complete();
-        }
-        doneScrollDown([_]) {
-          checkFirstVisible();
-          scrollToItem = 1;
-          new Future(() {}).then((_) {
-            simulateScroll({
-              'list': list,
-              'contribution': rowHeight,
-              'target': scrollToItem * rowHeight
-            }, doneScrollUp);
-          });
-        }
-        scrollToItem = 50;
-        simulateScroll({
-          'list': list,
-          'contribution': 50,
-          'target': scrollToItem * rowHeight
-        }, doneScrollDown);
-      });
-      return done.future;
+      container.set('data',buildDataSet(100));
+      PolymerDom.flush();
+      $assert.equal(list.firstVisibleIndex, 0);
+      list.scroll(0, container.itemHeight * 10);
+      list.fire('scroll');
+      $assert.equal(list.firstVisibleIndex, 10);
+      list.scroll(0, container.itemHeight * 50);
+      list.fire('scroll');
+      $assert.equal(list.firstVisibleIndex, 50);
+      list.scrollToIndex(60);
+      PolymerDom.flush();
+      $assert.equal(list.firstVisibleIndex, 60);
+      list.scrollToIndex(0);
+      PolymerDom.flush();
+      $assert.equal(list.firstVisibleIndex, 0);
     });
 
-    test('scroll to index', () {
-      var done = new Completer();
+    test('scroll to index', () async {
+      //var done = new Completer();
       list.items = buildDataSet(100);
 
-      new Future(() {}).then((_) {
+      await new Future.delayed(new Duration(milliseconds: 100));
+
+      {
         list.scrollToIndex(30);
         expect(list.firstVisibleIndex, 30);
         list.scrollToIndex(0);
@@ -110,16 +99,65 @@ main() async {
         expect(list.firstVisibleIndex, list.items.length - itemsPerViewport);
         // make the height of the viewport same as the height of the row
         // and scroll to the last item
-        list.style.height =
-            '${list.jsElement['_physicalItems'][0].offsetHeight}px';
-        wait(100).then((_) {
+        list.style.height = '${list.jsElement['_physicalItems'][0].offsetHeight}px';
+
+        await new Future.delayed(new Duration(milliseconds: 100));
+
+        {
           list.scrollToIndex(99);
           expect(list.firstVisibleIndex, 99);
-          done.complete();
-        });
-      });
-      return done.future;
+        }
+      }
     });
+
+    test('scroll to item', when((done) async {
+      list.items = buildDataSet(100);
+
+      await wait(100);
+      list.scrollToItem(list.items[30]);
+      $assert.equal(list.firstVisibleIndex, 30);
+
+      list.scrollToItem(list.items[0]);
+      $assert.equal(list.firstVisibleIndex, 0);
+
+      var rowHeight = getFirstItemFromList(list).offsetHeight;
+      var viewportHeight = list.offsetHeight;
+      var itemsPerViewport = (viewportHeight / rowHeight).floor();
+
+      list.scrollToItem(list.items[99]);
+      $assert.equal(list.firstVisibleIndex, list.items.length - itemsPerViewport);
+
+      // make the height of the viewport same as the height of the row
+      // and scroll to the last item
+      list.style.height = '${list.jsElement['_physicalItems'][0].offsetHeight}px';
+
+      await wait(100);
+      list.scrollToItem(list.items[99]);
+      $assert.equal(list.firstVisibleIndex, 99);
+      done();
+    }));
+
+    test('scroll to top', when((done) async {
+      list.items = buildDataSet(100);
+      PolymerDom.flush();
+      list.scrollToIndex(99);
+      PolymerDom.flush();
+      list.scroll(0, 0);
+      await wait(100);
+      $assert.equal(list.jsElement['_scrollTop'], 0, 'scrollTop = 0');
+      done();
+    }));
+
+    test('scroll to a given scrollTop', when((done) async {
+      list.items = buildDataSet(100);
+      PolymerDom.flush();
+      list.scrollToIndex(99);
+      PolymerDom.flush();
+      list.scroll(0, 500);
+      await wait(100);
+      $assert.equal(list.jsElement['_scrollTop'], 500, 'scrollTop = 500');
+      done();
+    }));
 
     test('reset items', () async {
       list.items = buildDataSet(100);
@@ -131,11 +169,11 @@ main() async {
       list.items = null;
 
       await wait(1);
-      expect(getFirstItemFromList(list), isNot(firstItem));
+      expect(getFirstItemFromList(list).text, isNot('0'));
       list.items = buildDataSet(100);
 
       await wait(1);
-      expect(getFirstItemFromList(list), firstItem);
+      expect(getFirstItemFromList(list).text, '0');
     });
   });
 }

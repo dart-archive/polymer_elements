@@ -36,7 +36,7 @@ import 'iron_a11y_keys_behavior.dart';
 ///     <paper-ripple id="ripple" style="pointer-events: none;"></paper-ripple>
 ///     ...
 ///     downAction: function(e) {
-///       this.$.ripple.downAction({x: e.x, y: e.y});
+///       this.$.ripple.downAction({detail: {x: e.x, y: e.y}});
 ///     },
 ///     upAction: function(e) {
 ///       this.$.ripple.upAction();
@@ -118,7 +118,7 @@ class PaperRipple extends HtmlElement with CustomElementProxyMixin, PolymerBase,
   addRipple() =>
       jsElement.callMethod('addRipple', []);
 
-  animate() =>
+  validate([_,__]) => //() =>
       jsElement.callMethod('animate', []);
 
   /// Provokes a ripple down effect via a UI event,

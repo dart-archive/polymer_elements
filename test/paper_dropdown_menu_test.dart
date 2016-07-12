@@ -15,6 +15,14 @@ import 'common.dart';
 main() async {
   await initWebComponents();
 
+  runAfterOpen(PaperDropdownMenu menu, callback()) {
+    menu.$['menuButton'].$['dropdown'].on['iron-overlay-opened'].listen((_) async {
+      await wait(1);
+      callback();
+    });
+    tap(menu);
+  }
+
   group('<paper-dropdown-menu>', () {
     PaperDropdownMenu dropdownMenu;
     PaperListbox content;
@@ -33,38 +41,43 @@ main() async {
       tap(dropdownMenu);
       expect(dropdownMenu.opened, true);
 
-      await wait(1);
-      contentRect = content.getBoundingClientRect();
+      await runAfterOpen(dropdownMenu, () {
+        contentRect = content.getBoundingClientRect();
 
-      expect(dropdownMenu.opened, true);
+        expect(dropdownMenu.opened, true);
 
-      expect(contentRect.width, greaterThan(0));
-      expect(contentRect.height, greaterThan(0));
+        expect(contentRect.width, greaterThan(0));
+        expect(contentRect.height, greaterThan(0));
+      });
+
+      $expect(dropdownMenu.opened).to.be.equal(true);
     });
 
-    test('closes when an item is activated', () async {
-      tap(dropdownMenu);
+    test('closes when an item is activated', when((done) {
+      runAfterOpen(dropdownMenu, () {
+        var firstItem = Polymer.dom(content).querySelector('paper-item');
 
-      await wait(1);
-      var firstItem = Polymer.dom(content).querySelector('paper-item');
+        tap(firstItem);
 
-      tap(firstItem);
+        $async(() {
+          $expect(dropdownMenu.opened).to.be.equal(false);
+          done();
+        });
+      });
+    }));
 
-      await wait(1);
-      expect(dropdownMenu.opened, false);
-    });
+    test('sets selected item to the activated item', when((done) {
+      runAfterOpen(dropdownMenu, () {
+        var firstItem = Polymer.dom(content).querySelector('paper-item');
 
-    test('sets selected item to the activated item', () async {
-      tap(dropdownMenu);
+        tap(firstItem);
 
-      await wait(1);
-      var firstItem = Polymer.dom(content).querySelector('paper-item');
-
-      tap(firstItem);
-
-      await wait(1);
-      expect(dropdownMenu.selectedItem, firstItem);
-    });
+        $async(() {
+          $expect(dropdownMenu.selectedItem).to.be.equal(firstItem);
+          done();
+        });
+      });
+    }));
 
     group('when a value is preselected', () {
       setUp(() async {
@@ -74,12 +87,11 @@ main() async {
 
       test('the input area shows the correct selection', () {
         PolymerDom.flush();
-        var secondItem =
-            Polymer.dom(dropdownMenu).querySelectorAll('paper-item')[1];
+        var secondItem = Polymer.dom(dropdownMenu).querySelectorAll('paper-item')[1];
         expect(dropdownMenu.selectedItem, secondItem);
       });
     });
-    
+
     group('deselecting', () {
       var menu;
 

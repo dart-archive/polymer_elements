@@ -10,7 +10,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import '../../neon_animation_behavior.dart';
 
-/// `<slide-down-animation>` animates the transform of an element from `translateY(-100%)` to `none`.
+/// `<slide-down-animation>` animates the transform of an element from `none` `translateY(100%)`.
 /// The `transformOrigin` defaults to `50% 0`.
 ///
 /// Configuration:

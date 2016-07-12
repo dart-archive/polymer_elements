@@ -10,7 +10,6 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_fit_behavior.dart';
 import 'iron_resizable_behavior.dart';
-import 'iron_overlay_backdrop.dart';
 
 /// Use `Polymer.IronOverlayBehavior` to implement an element that can be hidden or shown, and displays
 /// on top of other content. It includes an optional backdrop, and can be used to implement a variety
@@ -45,14 +44,21 @@ import 'iron_overlay_backdrop.dart';
 @BehaviorProxy(const ['Polymer', 'IronOverlayBehavior'])
 abstract class IronOverlayBehavior implements CustomElementProxyMixin, IronFitBehavior, IronResizableBehavior {
 
+  /// Set to true to keep overlay always on top.
+  bool get alwaysOnTop => jsElement[r'alwaysOnTop'];
+  set alwaysOnTop(bool value) { jsElement[r'alwaysOnTop'] = value; }
+
   /// The backdrop element.
-  get backdropElement => jsElement[r'backdropElement'];
+  Element get backdropElement => jsElement[r'backdropElement'];
+  set backdropElement(Element value) { jsElement[r'backdropElement'] = value; }
 
   /// True if the overlay was canceled when it was last closed.
   bool get canceled => jsElement[r'canceled'];
   set canceled(bool value) { jsElement[r'canceled'] = value; }
 
-  /// Returns the reason this dialog was last closed.
+  /// Contains the reason(s) this overlay was last closed (see `iron-overlay-closed`).
+  /// `IronOverlayBehavior` provides the `canceled` reason; implementers of the
+  /// behavior can provide other reasons in addition to `canceled`.
   get closingReason => jsElement[r'closingReason'];
   set closingReason(value) { jsElement[r'closingReason'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
@@ -73,13 +79,18 @@ abstract class IronOverlayBehavior implements CustomElementProxyMixin, IronFitBe
   bool get opened => jsElement[r'opened'];
   set opened(bool value) { jsElement[r'opened'] = value; }
 
+  /// Set to true to enable restoring of focus when overlay is closed.
+  bool get restoreFocusOnClose => jsElement[r'restoreFocusOnClose'];
+  set restoreFocusOnClose(bool value) { jsElement[r'restoreFocusOnClose'] = value; }
+
   /// Set to true to display a backdrop behind the overlay.
   bool get withBackdrop => jsElement[r'withBackdrop'];
   set withBackdrop(bool value) { jsElement[r'withBackdrop'] = value; }
 
   /// Cancels the overlay.
-  cancel() =>
-      jsElement.callMethod('cancel', []);
+  /// [event]: The original event
+  cancel(event) =>
+      jsElement.callMethod('cancel', [event]);
 
   /// Close the overlay.
   close() =>
@@ -92,7 +103,4 @@ abstract class IronOverlayBehavior implements CustomElementProxyMixin, IronFitBe
   /// Toggle the opened state of the overlay.
   toggle() =>
       jsElement.callMethod('toggle', []);
-
-  registered() =>
-      jsElement.callMethod('registered', []);
 }

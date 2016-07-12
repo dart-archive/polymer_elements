@@ -18,6 +18,10 @@ abstract class NeonAnimationBehavior implements CustomElementProxyMixin {
   get animationTiming => jsElement[r'animationTiming'];
   set animationTiming(value) { jsElement[r'animationTiming'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
+  /// Can be used to determine that elements implement this behavior.
+  bool get isNeonAnimation => jsElement[r'isNeonAnimation'];
+  set isNeonAnimation(bool value) { jsElement[r'isNeonAnimation'] = value; }
+
   /// Called when the animation finishes.
   complete() =>
       jsElement.callMethod('complete', []);
@@ -30,7 +34,4 @@ abstract class NeonAnimationBehavior implements CustomElementProxyMixin {
   /// by the animation.
   timingFromConfig(config) =>
       jsElement.callMethod('timingFromConfig', [config]);
-
-  registered() =>
-      jsElement.callMethod('registered', []);
 }

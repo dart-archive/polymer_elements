@@ -42,6 +42,7 @@ main() async {
 
     test('right arrow advances the selection', () async {
       PaperRadioGroup g = fixture('WithSelection');
+      focus(g);
       await new Future(() {});
       var items = g.items;
       expect(items[0].checked, isTrue);
@@ -58,6 +59,7 @@ main() async {
 
     test('left arrow reverses the selection', () async {
       PaperRadioGroup g = fixture('WithSelection');
+      focus(g);
       await new Future(() {});
       var items = g.items;
       expect(items[0].checked, isTrue);
@@ -75,6 +77,7 @@ main() async {
 
     test('selection should skip disabled items', () async {
       PaperRadioGroup g = fixture('WithDisabled');
+      focus(g);
       await new Future(() {});
       var items = g.items;
       expect(items[0].checked, isTrue);
@@ -91,6 +94,7 @@ main() async {
 
     test('clicking should change the selection', () async {
       PaperRadioGroup g = fixture('WithSelection');
+      focus(g);
       await new Future(() {});
       var items = g.items;
       expect(items[0].checked, isTrue);
@@ -107,6 +111,7 @@ main() async {
 
     test('clicking the selected item should not deselect', () async {
       PaperRadioGroup g = fixture('WithSelection');
+      focus(g);
       await new Future(() {});
       var items = g.items;
       expect(items[0].checked, isTrue);
@@ -143,6 +148,7 @@ main() async {
     test('arrow keys cause iron-activate events', () async {
       var done = new Completer();
       var g = fixture('WithSelection');
+      focus(g);
 
       // Needs to be async since the underlying iron-selector uses observeNodes.
       await wait(1);

@@ -38,55 +38,51 @@ main() async {
     });
 
     test('supports repeated items', () {
-      return wait(1).then((_) {
-        // check items
-        expect(s.items.length, 4);
-        // check selected
-        expect(s.selected, '1');
-        // check selected item
-        var item = s.selectedItem;
-        expect(s.items[1], item);
-        // check selected class
-        expect(item.classes.contains('iron-selected'), isTrue);
-      });
+      t.render();
+      // check items
+      expect(s.items.length, 4);
+      // check selected
+      expect(s.selected, '1');
+      // check selected item
+      var item = s.selectedItem;
+      expect(s.items[1], item);
+      // check selected class
+      expect(item.classes.contains('iron-selected'), isTrue);
     });
 
     test('update items', () {
-      var done = new Completer();
-      wait(1).then((_) {
-        // check items
-        expect(s.items.length, 4);
-        // check selected
-        expect(s.selected, '1');
-        // update items
-        t.items = [
-          {'name': 'foo'},
-          {'name': 'bar'}
-        ];
-        wait(1).then((_) {
-          // check items
-          expect(s.items.length, 2);
-          // check selected (should still honor the selected)
-          expect(s.selected, '1');
-          // check selected class
-          expect(s.querySelector('#bar').classes.contains('iron-selected'),
-              isTrue);
-          done.complete();
-        });
-      });
-      return done.future;
+      t.render();
+      // check items
+      expect(s.items.length, 4);
+      // check selected
+      expect(s.selected, '1');
+      // update items
+      t.items = [
+        {'name': 'foo'},
+        {'name': 'bar'}
+      ];
+      t.render();
+      // check items
+      expect(s.items.length, 2);
+      // check selected (should still honor the selected)
+      expect(s.selected, '1');
+      // check selected class
+      expect(s
+                 .querySelector('#bar')
+                 .classes
+                 .contains('iron-selected'),
+                 isTrue);
     });
 
     test('set selected to something else', () {
-      return wait(1).then((_) {
-        // set selected to something else
-        s.selected = 3;
-        // check selected item
-        var item = s.selectedItem;
-        expect(s.items[3], item);
-        // check selected class
-        expect(item.classes.contains('iron-selected'), isTrue);
-      });
+      t.render();
+      // set selected to something else
+      s.selected = 3;
+      // check selected item
+      var item = s.selectedItem;
+      expect(s.items[3], item);
+      // check selected class
+      expect(item.classes.contains('iron-selected'), isTrue);
     });
   });
 }

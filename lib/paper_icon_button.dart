@@ -14,10 +14,7 @@ import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
 import 'paper_ripple_behavior.dart';
 import 'iron_icon.dart';
-import 'iron_flex_layout.dart';
 import 'default_theme.dart';
-import 'paper_button_behavior.dart';
-import 'paper_ripple.dart';
 
 /// Material design: [Icon toggles](https://www.google.com/design/spec/components/buttons.html#buttons-toggle-buttons)
 ///
@@ -29,7 +26,7 @@ import 'paper_ripple.dart';
 ///
 ///     <paper-icon-button icon="menu"></paper-icon-button>
 ///
-/// See [`iron-iconset`](#iron-iconset) for more information about
+/// See [`iron-iconset`](iron-iconset) for more information about
 /// how to use a custom icon set.
 ///
 /// Example:
@@ -38,6 +35,14 @@ import 'paper_ripple.dart';
 ///
 ///     <paper-icon-button icon="favorite"></paper-icon-button>
 ///     <paper-icon-button src="star.png"></paper-icon-button>
+///
+/// To use `paper-icon-button` as a link, wrap it in an anchor tag. Since `paper-icon-button`
+/// will already receive focus, you may want to prevent the anchor tag from receiving focus
+/// as well by setting its tabindex to -1.
+///
+///     <a href="https://www.polymer-project.org" tabindex="-1">
+///       <paper-icon-button icon="polymer"></paper-icon-button>
+///     </a>
 ///
 /// ### Styling
 ///

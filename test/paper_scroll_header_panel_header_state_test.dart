@@ -34,14 +34,14 @@ main() async {
       scrollHeaderPanel = fixture('trivialProgress');
       toolbar = Polymer.dom(scrollHeaderPanel).querySelector('paper-toolbar');
       scrollHeaderPanel.measureHeaderHeight();
-      scrollHeaderPanel.scroll(0, null);
+      scrollHeaderPanel.scrollAt(0, null);
     });
 
     test('HEADER_STATE_EXPANDED', () {
       expect(scrollHeaderPanel.headerState,
           Polymer_PaperScrollHeaderPanel_HEADER_STATE_EXPANDED);
 
-      scrollHeaderPanel.scroll(1, null);
+      scrollHeaderPanel.scrollAt(1, null);
 
       return wait(1).then((_) {
         expect(scrollHeaderPanel.headerState,
@@ -50,14 +50,14 @@ main() async {
     });
 
     test('HEADER_STATE_HIDDEN', () {
-      scrollHeaderPanel.scroll(toolbar.offsetHeight + 1, null);
+      scrollHeaderPanel.scrollAt(toolbar.offsetHeight + 1, null);
 
       expect(scrollHeaderPanel.headerState,
           Polymer_PaperScrollHeaderPanel_HEADER_STATE_HIDDEN);
     });
 
     test('HEADER_STATE_CONDENSED', () {
-      scrollHeaderPanel.scroll(
+      scrollHeaderPanel.scrollAt(
           toolbar.offsetHeight - scrollHeaderPanel.condensedHeaderHeight, null);
 
       return wait(100).then((_) {
@@ -67,7 +67,7 @@ main() async {
     });
 
     test('HEADER_STATE_INTERPOLATED', () async {
-      scrollHeaderPanel.scroll(1, null);
+      scrollHeaderPanel.scrollAt(1, null);
 
       await wait(1);
       expect(scrollHeaderPanel.headerState,

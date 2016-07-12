@@ -9,7 +9,6 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_flex_layout.dart';
-import 'color.dart';
 import 'default_theme.dart';
 import 'typography.dart';
 
@@ -23,6 +22,9 @@ import 'typography.dart';
 ///       <label>Your name</label>
 ///       <input is="iron-input">
 ///     </paper-input-container>
+///
+/// Do not wrap `<paper-input-container>` around elements that already include it, such as `<paper-input>`.
+/// Doing so may cause events to bounce infintely between the container and its contained element.
 ///
 /// ### Listening for input changes
 ///
@@ -41,6 +43,11 @@ import 'typography.dart';
 ///       <label>Social security number</label>
 ///       <ssn-input class="paper-input-input"></ssn-input>
 ///     </paper-input-container>
+///
+///
+/// If you're using a `<paper-input-container>` imperatively, it's important to make sure
+/// that you attach its children (the `iron-input` and the optional `label`) before you
+/// attach the `<paper-input-container>` itself, so that it can be set up correctly.
 ///
 /// ### Validation
 ///
@@ -72,8 +79,8 @@ import 'typography.dart';
 /// Custom property | Description | Default
 /// ----------------|-------------|----------
 /// `--paper-input-container-color` | Label and underline color when the input is not focused | `--secondary-text-color`
-/// `--paper-input-container-focus-color` | Label and underline color when the input is focused | `--default-primary-color`
-/// `--paper-input-container-invalid-color` | Label and underline color when the input is is invalid | `--google-red-500`
+/// `--paper-input-container-focus-color` | Label and underline color when the input is focused | `--primary-color`
+/// `--paper-input-container-invalid-color` | Label and underline color when the input is is invalid | `--error-color`
 /// `--paper-input-container-input-color` | Input foreground color | `--primary-text-color`
 /// `--paper-input-container` | Mixin applied to the container | `{}`
 /// `--paper-input-container-disabled` | Mixin applied to the container when it's disabled | `{}`

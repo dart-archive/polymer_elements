@@ -8,28 +8,127 @@ files_to_generate:
   - prism-element/prism-highlighter.html:
       omit_imports:
         - prism-import.html
-
+# Carbon
+#  - carbon-route/carbon-location.html
+#  - carbon-route/carbon-route-converter.html
+#  - carbon-route/carbon-route.html
+# App
+  - app-route/app-location.html  
+  - app-route/app-route-converter-behavior.html  
+  - app-route/app-route-converter.html  
+  - app-route/app-route.html
+  - app-localize-behavior/app-localize-behavior.html
+  - app-pouchdb/app-pouchdb-database-behavior.html:
+     omit_imports:
+      - pouchdb.html
+      - pouchdb.find.html
+  - app-pouchdb/app-pouchdb-document.html:
+     omit_imports:
+      - pouchdb.html
+      - pouchdb.find.html
+  - app-pouchdb/app-pouchdb-query.html:
+     omit_imports:
+      - pouchdb.html
+      - pouchdb.find.html
+     name_substitutions:
+       query: queryConfig
+  - app-pouchdb/app-pouchdb-index.html:
+     omit_imports:
+      - pouchdb.html
+      - pouchdb.find.html
+  - app-pouchdb/app-pouchdb-conflict-resolution.html:
+     omit_imports:
+      - pouchdb.html
+      - pouchdb.find.html
+  - app-pouchdb/app-pouchdb-sync.html:
+     omit_imports:
+      - pouchdb.html
+      - pouchdb.find.html
+  - app-storage/app-network-status-behavior.html:
+     omit_imports:
+      - pouchdb.html
+      - pouchdb.find.html
+  - app-storage/app-storage-behavior.html:
+      omit_imports:
+        - promise-polyfill-lite.html
+        - promise-polyfill.html
+  - app-storage/app-localstorage/app-localstorage-document.html:
+      name_substitutions:
+       save: "save([key]) => //"
+  - app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html:
+     omit_imports:
+      - app-indexeddb-mirror-client.html
+  - app-layout/app-box/app-box.html
+  - app-layout/app-scroll-effects/app-scroll-effects-behavior.html
+  - app-layout/app-scroll-effects/effects/blend-background.html
+  - app-layout/app-scroll-effects/effects/fade-background.html
+  - app-layout/app-scroll-effects/effects/material.html
+  - app-layout/app-scroll-effects/effects/parallax-background.html
+  - app-layout/app-scroll-effects/effects/resize-snapped-title.html
+  - app-layout/app-scroll-effects/effects/resize-title.html
+  - app-layout/app-scroll-effects/effects/waterfall.html
+  - app-layout/app-drawer/app-drawer.html
+  - app-layout/app-scroll-effects/app-scroll-effects.html
+  - app-layout/app-drawer-layout/app-drawer-layout.html  
+  - app-layout/app-scrollpos-control/app-scrollpos-control.html
+  - app-layout/app-header/app-header.html
+  - app-layout/app-toolbar/app-toolbar.html
+  - app-layout/app-header-layout/app-header-layout.html  
+  - app-layout/helpers/helpers.html
+  - app-layout/app-scroll-effects/effects/blend-background.html
+  - app-layout/app-scroll-effects/effects/fade-background.html
+  - app-layout/app-scroll-effects/effects/material.html
+  - app-layout/app-scroll-effects/effects/parallax-background.html
+  - app-layout/app-scroll-effects/effects/resize-snapped-title.html
+  - app-layout/app-scroll-effects/effects/resize-title.html
+  - app-layout/app-scroll-effects/effects/waterfall.html
 #   Google Web Components https://elements.polymer-project.org/browse?package=google-web-components
-  - firebase-element/firebase-auth.html:
+  - polymerfire/firebase-common-behavior.html:
       omit_imports:
         - firebase.html
-  - firebase-element/firebase-collection.html:
+  - polymerfire/firebase-app.html:
+      omit_imports:
+        - firebase.html
+  - polymerfire/firebase-auth.html:
+      omit_imports:
+        - firebase.html
+  - polymerfire/firebase-database-behavior.html:
+      omit_imports:
+        - firebase.html
+  - polymerfire/firebase-document.html:
+      omit_imports:
+        - firebase.html
+      name_substitutions:
+       save: "save([String parentPath, key]) => //"
+  - polymerfire/firebase.html:
+      omit_imports:
+        - firebase.html
+  - polymerfire/firebase-query.html:
       omit_imports:
         - firebase.html
       name_substitutions:
         query: queryObject
-        remove: firebaseRemove
-        add: firebaseAdd
-  - firebase-element/firebase-document.html:
-      omit_imports:
-        - firebase.html
-      name_substitutions:
-        query: queryObject
-  - firebase-element/firebase-query-behavior.html:
-      omit_imports:
-        - firebase.html
-      name_substitutions:
-        query: queryObject
+
+#  - firebase-element/firebase-auth.html:
+#      omit_imports:
+#        - firebase.html
+#  - firebase-element/firebase-query-behavior.html:
+#      omit_imports:
+#        - firebase.html
+#      name_substitutions:
+#        query: queryObject
+#  - firebase-element/firebase-collection.html:
+#      omit_imports:
+#        - firebase.html
+#      name_substitutions:
+#        query: queryObject
+#        remove: firebaseRemove
+#        add: firebaseAdd
+#  - firebase-element/firebase-document.html:
+#      omit_imports:
+#        - firebase.html
+#      name_substitutions:
+#        query: queryObject
   - google-analytics/google-analytics.html
   - google-analytics/google-analytics-chart.html:
       omit_imports:
@@ -57,12 +156,22 @@ files_to_generate:
   - google-castable-video/google-castable-video.html:
       omit_imports:
         - google-cast-sender-api.html
-  - google-chart/google-chart.html
+      name_substitutions:
+       pause: "pause([cast]) => //"
+       play: "play([cast]) => //"
+  - google-chart/google-chart.html:
+      omit_imports:
+        - promise-polyfill-lite.html
+  - google-chart/charts-loader.html:
+      omit_imports:
+        - promise-polyfill-lite.html
   - google-feeds/google-feeds.html:
       name_substitutions:
         query: queryObject
   - google-hangout-button/google-hangout-button.html
-  - google-map/google-map.html
+  - google-map/google-map.html:
+     name_substitutions:
+      clear: clearMarkers
   - google-map/google-map-directions.html
   - google-map/google-map-marker.html
   - google-map/google-map-point.html
@@ -82,10 +191,14 @@ files_to_generate:
 
   # Gold Elements https://elements.polymer-project.org/browse?package=gold-elements
   - gold-cc-cvc-input/gold-cc-cvc-input.html
-  - gold-cc-expiration-input/date-input.html
+  - gold-cc-expiration-input/date-input.html:
+     name_substitutions:
+      validate: "validate([_]) => //"
   - gold-cc-expiration-input/date-validator.html
   - gold-cc-expiration-input/gold-cc-expiration-input.html
-  - gold-cc-input/gold-cc-input.html
+  - gold-cc-input/gold-cc-input.html:
+     name_substitutions:
+      validate: "validate([_]) => //"
   - gold-email-input/gold-email-input.html
   - gold-phone-input/gold-phone-input.html
   - gold-zip-input/gold-zip-input.html
@@ -103,7 +216,9 @@ files_to_generate:
   - iron-ajax/iron-request.html:
       omit_imports:
         - promise-polyfill-lite.html
-  - iron-autogrow-textarea/iron-autogrow-textarea.html
+  - iron-autogrow-textarea/iron-autogrow-textarea.html:
+      name_substitutions:
+       validate: "validate([_]) => //"
   - iron-behaviors/iron-button-state.html
   - iron-behaviors/iron-control-state.html
   - iron-checked-element-behavior/iron-checked-element-behavior.html
@@ -120,6 +235,7 @@ files_to_generate:
         - iron-dropdown-scroll-manager.html
   - iron-fit-behavior/iron-fit-behavior.html
   - iron-flex-layout/iron-flex-layout.html
+  - iron-flex-layout/iron-flex-layout-classes.html
   - iron-flex-layout/classes/iron-flex-layout.html
   - iron-flex-layout/classes/iron-shadow-flex-layout.html
   - iron-form/iron-form.html
@@ -139,7 +255,9 @@ files_to_generate:
   - iron-iconset/iron-iconset.html
   - iron-iconset-svg/iron-iconset-svg.html
   - iron-image/iron-image.html
-  - iron-input/iron-input.html
+  - iron-input/iron-input.html:
+      name_substitutions:
+       validate: "validate([_]) => //"
   - iron-jsonp-library/iron-jsonp-library.html
   - iron-label/iron-label.html:
       name_substitutions:
@@ -147,6 +265,10 @@ files_to_generate:
   - iron-list/iron-list.html:
       omit_imports:
         - templatizer.html # Part of `polymer_interop.dart`
+  - iron-location/iron-location.html:
+      name_substitutions:
+        query: locationQuery
+  - iron-location/iron-query-params.html
   - iron-localstorage/iron-localstorage.html
   - iron-media-query/iron-media-query.html:
       name_substitutions:
@@ -170,6 +292,8 @@ files_to_generate:
           value:
             type: any
   - iron-resizable-behavior/iron-resizable-behavior.html
+  - iron-scroll-target-behavior/iron-scroll-target-behavior.html
+  - iron-scroll-threshold/iron-scroll-threshold.html
   - iron-selector/iron-multi-selectable.html
   - iron-selector/iron-selectable.html:
       type_overrides:
@@ -204,9 +328,13 @@ files_to_generate:
   - neon-animation/animations/hero-animation.html:
       omit_imports:
         - web-animations.html
+      name_substitutions:
+        complete: "complete([config]) => //"
   - neon-animation/animations/opaque-animation.html:
       omit_imports:
         - web-animations.html
+      name_substitutions:
+        complete: "complete([config]) => //"
   - neon-animation/animations/reverse-ripple-animation.html:
       omit_imports:
         - web-animations.html
@@ -217,6 +345,12 @@ files_to_generate:
       omit_imports:
         - web-animations.html
   - neon-animation/animations/scale-up-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/slide-from-bottom-animation.html:
+      omit_imports:
+        - web-animations.html
+  - neon-animation/animations/slide-from-top-animation.html:
       omit_imports:
         - web-animations.html
   - neon-animation/animations/slide-down-animation.html:
@@ -268,6 +402,9 @@ files_to_generate:
   - paper-dialog-scrollable/paper-dialog-scrollable.html
   - paper-drawer-panel/paper-drawer-panel.html
   - paper-dropdown-menu/paper-dropdown-menu.html
+  - paper-dropdown-menu/paper-dropdown-menu-light.html
+  - paper-dropdown-menu/paper-dropdown-menu-icons.html  
+  - paper-dropdown-menu/paper-dropdown-menu-shared-styles.html
   - paper-fab/paper-fab.html
   - paper-header-panel/paper-header-panel.html
   - paper-icon-button/paper-icon-button.html
@@ -300,10 +437,15 @@ files_to_generate:
   - paper-progress/paper-progress.html
   - paper-radio-button/paper-radio-button.html
   - paper-radio-group/paper-radio-group.html
-  - paper-ripple/paper-ripple.html
-  - paper-scroll-header-panel/paper-scroll-header-panel.html
+  - paper-ripple/paper-ripple.html:
+      name_substitutions:
+       animate: "validate([_,__]) => //"
+  - paper-scroll-header-panel/paper-scroll-header-panel.html:
+      name_substitutions:
+       scroll: "scrollAt"
   - paper-slider/paper-slider.html
   - paper-spinner/paper-spinner.html
+  - paper-spinner/paper-spinner-lite.html
   - paper-spinner/paper-spinner-behavior.html
   - paper-spinner/paper-spinner-styles.html
   - paper-styles/color.html
@@ -318,11 +460,7 @@ files_to_generate:
   - paper-styles/classes/shadow-layout.html
   - paper-styles/classes/typography.html
   - paper-tabs/paper-tab.html
-  - paper-tabs/paper-tabs.html:
-      type_overrides:
-        PaperTabs:
-          selected:
-            type: any
+  - paper-tabs/paper-tabs.html
   - paper-tabs/paper-tabs-icons.html
   - paper-toast/paper-toast.html
   - paper-toggle-button/paper-toggle-button.html
@@ -330,6 +468,7 @@ files_to_generate:
   - paper-tooltip/paper-tooltip.html:
       name_substitutions:
         for: forId
+        offset: tooltipOffset
 
 # TODO(jakemac): https://github.com/dart-lang/polymer_elements/issues/12
 #  # Platinum Elements https://elements.polymer-project.org/browse?package=platinum-elements
@@ -344,7 +483,7 @@ files_to_load:
   - package:polymer_interop/src/js/debug/src/lib/template/templatizer.html
 deletion_patterns:
   - metadata\.html$
-  - index\.html$
+  - /index\.html$
   - demo\.html$
   - demos$
   - demo$
@@ -353,4 +492,6 @@ deletion_patterns:
   - ^webcomponentsjs$
   - .gitignore$
   - .travis.yml$
+  - .github
+  - site$
   - CONTRIBUTING\.md$

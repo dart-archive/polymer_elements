@@ -35,8 +35,16 @@ import 'iron_flex_layout.dart';
 /// `--paper-tab` | Mixin applied to the tab | `{}`
 /// `--paper-tab-content` | Mixin applied to the tab content | `{}`
 /// `--paper-tab-content-unselected` | Mixin applied to the tab content when the tab is not selected | `{}`
+///
+/// This element applies the mixin `--paper-font-common-base` but does not import `paper-styles/typography.html`.
+/// In order to apply the `Roboto` font to this element, make sure you've imported `paper-styles/typography.html`.
 @CustomElementProxy('paper-tab')
 class PaperTab extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, IronButtonState, PaperRippleBehavior {
   PaperTab.created() : super.created();
   factory PaperTab() => new Element.tag('paper-tab');
+
+  /// If true, the tab will forward keyboard clicks (enter/space) to
+  /// the first anchor element found in its descendants
+  bool get link => jsElement[r'link'];
+  set link(bool value) { jsElement[r'link'] = value; }
 }

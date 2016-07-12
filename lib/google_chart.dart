@@ -8,8 +8,8 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
-import 'iron_ajax.dart';
-import 'google_legacy_loader.dart';
+import 'iron_request.dart';
+import 'charts_loader.dart';
 
 /// `google-chart` encapsulates Google Charts as a web component, allowing you to easily visualize
 /// data. From simple line charts to complex hierarchical tree maps, the chart element provides a
@@ -44,6 +44,14 @@ import 'google_legacy_loader.dart';
 ///   data, in JSON format:
 ///
 ///       data='http://example.com/chart-data.json'
+///
+/// - Via the `data` attribute, passing in a Google DataTable object:
+///
+///       data='{{dataTable}}'
+///
+/// - Via the `view` attribute, passing in a Google DataView object:
+///
+///       view='{{dataView}}'
 @CustomElementProxy('google-chart')
 class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleChart.created() : super.created();
@@ -94,6 +102,16 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   get options => jsElement[r'options'];
   set options(value) { jsElement[r'options'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
+  /// A Promise for the Google Visualization library.
+  ///
+  /// Example:
+  /// <pre>myChart.pkg.then(function(viz) {
+  ///   // `viz` is equivalent to `google.visualization`
+  ///   myChart.view = new viz.DataView(myData);
+  /// });</pre>
+  get pkg => jsElement[r'pkg'];
+  set pkg(value) { jsElement[r'pkg'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+
   /// Sets the data rows for this object.
   ///
   /// When specifying data with `rows` you must also specify `cols`, and
@@ -133,10 +151,19 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   String get type => jsElement[r'type'];
   set type(String value) { jsElement[r'type'] = value; }
 
-  /// Draws the chart.
+  /// Sets the entire dataset for this object to a Google DataView.
   ///
-  /// Called automatically on first load and whenever one of the attributes
-  /// changes. Can be called manually to handle e.g. page resizes.
+  /// See <a href="https://google-developers.appspot.com/chart/interactive/docs/reference#dataview-class">Google Visualization API reference (DataView)</a>
+  /// for details.
+  ///
+  /// When specifying data with `view` you must not specify `data`, `cols` or `rows`.
+  get view => jsElement[r'view'];
+  set view(value) { jsElement[r'view'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+
+  /// Redraws the chart.
+  ///
+  /// Called automatically when data/type/selection attributes change.
+  /// Call manually to handle view updates, page resizes, etc.
   drawChart() =>
       jsElement.callMethod('drawChart', []);
 

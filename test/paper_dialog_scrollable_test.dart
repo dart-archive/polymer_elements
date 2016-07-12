@@ -6,14 +6,17 @@ library polymer_elements.test.paper_dialog_scrollable_test;
 
 import 'dart:async';
 import 'dart:html';
+// IGNORE : unused_import
 import 'package:polymer_elements/iron_flex_layout.dart';
 import 'package:polymer_elements/paper_dialog_scrollable.dart';
 import 'package:web_components/web_components.dart';
 import 'package:test/test.dart';
 import 'common.dart';
+import 'package:polymer/polymer.dart';
+import 'package:polymer_elements/paper_dialog.dart';
 
 main() async {
-  await initWebComponents();
+  await initPolymer();
 
   Matcher anyNoneMatch = anyOf('""', "''", '', 'none');
 
@@ -44,11 +47,13 @@ main() async {
 
       HtmlElement container = fixture('basic');
       PaperDialogScrollable scrollable =
-          container.querySelector('paper-dialog-scrollable');
+      container.querySelector('paper-dialog-scrollable');
 
       wait(10).then((_) {
         runAfterScroll(scrollable.scrollTarget, 10, () {
-          expect(scrollable.getComputedStyle('::before').content, isNotNull);
+          expect(scrollable
+                     .getComputedStyle('::before')
+                     .content, isNotNull);
           done.complete();
         });
       });
@@ -62,11 +67,13 @@ main() async {
 
       wait(10).then((_) {
         PaperDialogScrollable scrollable =
-            container.querySelector('paper-dialog-scrollable');
+        container.querySelector('paper-dialog-scrollable');
 
         window.requestAnimationFrame((_) {
-          expect(scrollable.getComputedStyle('::after').content, isNotNull,
-              reason: '::after should have content');
+          expect(scrollable
+                     .getComputedStyle('::after')
+                     .content, isNotNull,
+                     reason: '::after should have content');
           done.complete();
         });
       });
@@ -78,16 +85,18 @@ main() async {
 
       HtmlElement container = fixture('basic');
       PaperDialogScrollable scrollable =
-          container.querySelector('paper-dialog-scrollable');
+      container.querySelector('paper-dialog-scrollable');
 
       wait(10).then((_) {
         runAfterScroll(
             scrollable.scrollTarget,
             scrollable.scrollTarget.scrollHeight -
                 scrollable.scrollTarget.offsetHeight, () {
-          var content = scrollable.getComputedStyle('::after').content;
+          var content = scrollable
+              .getComputedStyle('::after')
+              .content;
           expect(content, anyNoneMatch,
-              reason: '::after should not have content');
+                     reason: '::after should not have content');
           done.complete();
         });
       });
@@ -99,17 +108,21 @@ main() async {
 
       HtmlElement container = fixture('only-child');
       PaperDialogScrollable scrollable =
-          container.querySelector('paper-dialog-scrollable');
+      container.querySelector('paper-dialog-scrollable');
 
       wait(10).then((_) {
         runAfterScroll(scrollable.scrollTarget, 10, () {
-          var contentBefore = scrollable.getComputedStyle('::before').content;
+          var contentBefore = scrollable
+              .getComputedStyle('::before')
+              .content;
           expect(contentBefore, anyNoneMatch,
-              reason: '::before should not have content');
+                     reason: '::before should not have content');
 
-          var contentAfter = scrollable.getComputedStyle('::after').content;
+          var contentAfter = scrollable
+              .getComputedStyle('::after')
+              .content;
           expect(contentAfter, anyNoneMatch,
-              reason: '::after should not have content');
+                     reason: '::after should not have content');
           done.complete();
         });
       });
@@ -121,15 +134,57 @@ main() async {
 
       HtmlElement container = fixture('short');
       PaperDialogScrollable scrollable =
-          container.querySelector('paper-dialog-scrollable');
+      container.querySelector('paper-dialog-scrollable');
 
       wait(10).then((_) {
-        var contentAfter = scrollable.getComputedStyle('::after').content;
+        var contentAfter = scrollable
+            .getComputedStyle('::after')
+            .content;
         expect(contentAfter, anyNoneMatch,
-            reason: '::after should not have content');
+                   reason: '::after should not have content');
         done.complete();
       });
       return done.future;
     });
+
+    test('can be added dynamically', when((done) async {
+      PaperDialogScrollable scrollable = document.createElement('paper-dialog-scrollable');
+      document.body.children.add(scrollable);
+      await wait(10);
+      $assert.isTrue(scrollable.dialogElement == document.body, 'dialogElement is body');
+      document.body.children.remove(scrollable);
+      done();
+    }));
+
+    test('correctly sized (container = section)', () async {
+      HtmlElement container = fixture('basic');
+      await wait(1);
+      PaperDialogScrollable scrollable = new PolymerDom(container).querySelector('paper-dialog-scrollable');
+      var cRect = container.getBoundingClientRect();
+      var sRect = scrollable.getBoundingClientRect();
+      var stRect = scrollable.scrollTarget.getBoundingClientRect();
+      $assert.equal(sRect.width, cRect.width, 'scrollable width ok');
+      $assert.isAbove(sRect.height, 0, 'scrollable height bigger than 0');
+      $assert.isBelow(sRect.height, cRect.height, 'scrollable height contained in container height');
+      $assert.equal(stRect.width, sRect.width, 'scrollTarget width ok');
+      $assert.equal(stRect.height, sRect.height, 'scrollTarget height ok');
+    },skip: "--layout flex not woriking in test runner ?");
+
+    test('correctly sized (container = paper-dialog[opened])', when((done) {
+      PaperDialog dialog = fixture('dialog');
+      PaperDialogScrollable scrollable = Polymer.dom(dialog).querySelector('paper-dialog-scrollable');
+      // Wait for dialog to be opened and styles applied.
+      dialog.on['iron-overlay-opened'].take(1).listen((_) {
+        var dRect = dialog.getBoundingClientRect();
+        var sRect = scrollable.getBoundingClientRect();
+        var stRect = scrollable.scrollTarget.getBoundingClientRect();
+        $assert.equal(sRect.width, dRect.width, 'scrollable width ok');
+        $assert.isAbove(sRect.height, 0, 'scrollable height bigger than 0');
+        $assert.isBelow(sRect.height, dRect.height, 'scrollable height contained in dialog height');
+        $assert.equal(stRect.width, sRect.width, 'scrollTarget width ok');
+        $assert.equal(stRect.height, sRect.height, 'scrollTarget height ok');
+        done();
+      });
+    }));
   });
 }

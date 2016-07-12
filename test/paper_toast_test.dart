@@ -14,6 +14,7 @@ import 'package:web_components/web_components.dart';
 
 import 'common.dart';
 import 'sinon/sinon.dart' as sinon;
+import 'dart:js';
 
 main() async {
   await initWebComponents();
@@ -31,44 +32,106 @@ main() async {
       expect(toast.opened, isTrue, reason: '`opened` is true');
     });
 
-    test('show() will update `opened`', () {
+    test('show() will open toast', () {
       toast = fixture('basic');
-      toast.show();
+      toast.show({});
       expect(toast.opened, isTrue, reason: '`opened` is true');
     });
 
-    test('show() will auto-close toast after `duration` milliseconds', () async {
-      toast = fixture('basic');
-      toast.duration = 10;
-      var debounceSpy = sinon.spy(toast.jsElement, 'debounce');
-      toast.show();
-      expect(debounceSpy.called, isTrue, reason: '`debounce` was called');
-      await wait(12);
-      expect(toast.opened, isFalse, reason: '`opened` is false');
+    test('hide() will close toast', () {
+      toast = fixture('show');
+      toast.hide();
+      $assert.isFalse(toast.opened, '`opened` is false');
     });
 
-    group('disable auto-close', (){
-      sinon.Spy spy;
-      setUp((){
-        toast = fixture('basic');
-        spy = sinon.spy(toast.jsElement, 'debounce');
+    test('toast auto-close after 10ms', when((done) async {
+      toast = fixture('basic');
+      toast.duration = 10;
+      toast.show({});
+      await wait(12);
+      $assert.isFalse(toast.opened, '`opened` is false');
+      done();
+    }));
+
+    test('toast fires opened event', when((done) {
+      toast = fixture('show');
+      toast.on['iron-overlay-opened'].take(1).listen((_) {
+        done();
       });
-      test('duration = Infinity', () {
-        toast.duration = 999999;
-        toast.show();
-        expect(spy.called, isTrue, reason: '`debounce` was not called');
+    }), skip: "iron-overlay-opened not get fired ?");
+
+    test('toast does not get focused', when((done) {
+      toast = fixture('show');
+      sinon.Spy spy = sinon.spy(toast.jsElement, 'focus');
+      $assert.isTrue(toast.noAutoFocus, 'no-auto-focus is true');
+      toast.on['iron-overlay-opened'].take(1).listen((_) {
+        $assert.isFalse(spy.called, 'toast is not focused');
+        done();
+      });
+    }), skip: "iron-overlay-opened not get fired ?");
+
+    test('toast fires closed event', when((done) {
+      toast = fixture('basic');
+      toast.show({"duration": 350});
+      toast.on['iron-overlay-closed'].take(1).listen((_) {
+        done();
+      });
+    }), skip: "iron-overlay-opened not get fired ?");
+
+    test('show() accepts valid properties', () {
+      toast = fixture('basic');
+      toast.show(new JsObject.jsify({"text": 'hello world', "duration": 20}));
+      $assert.isTrue(toast.opened, '`opened` is true');
+      $assert.equal(toast.text, 'hello world', '`text` is correct');
+      $assert.equal(toast.duration, 20, '`duration` is correct');
+    });
+
+    test('show() does not accept invalid properties', () {
+      toast = fixture('basic');
+      toast.show({"foo": 'bar'});
+      $assert.isUndefined(toast.jsElement['foo'], '`foo` is not a valid property and will not be set');
+      $assert.isTrue(toast.opened, '`opened` is true');
+    });
+
+    test('show() does not accept private properties', () {
+      toast = fixture('basic');
+      var temp = toast.jsElement['_manager'];
+      toast.show({"_manager": 'bar'});
+      $assert.equal(toast.jsElement['_manager'], temp, '`_manager` is a private property and will not be set');
+      $assert.isTrue(toast.opened, '`opened` is true');
+    });
+
+    test('show() accepts a string argument as the text parameter', () {
+      toast = fixture('basic');
+      toast.show('hello world 2');
+      $assert.equal(toast.text, 'hello world 2', '`text is correct`');
+    });
+
+    group('disable auto-close', () {
+      sinon.Spy spy;
+      setUp(() {
+        toast = fixture('basic');
+        spy = sinon.spy(toast.jsElement, 'async');
+      });
+      test('duration = Infinity', () async {
+        toast.duration = context['Infinity'];
+        toast.show({});
+        $assert.isFalse(spy.calledWith([toast.jsElement['close']]), '`async` was not called with `close()`');
+        $assert.isFalse(spy.calledWith([toast.jsElement['hide']]), '`async` was not called with `hide()`');
       });
 
       test('duration = 0', () {
         toast.duration = 0;
-        toast.show();
-        expect(spy.called, isFalse, reason: '`debounce` was not called');
+        toast.show({});
+        $assert.isFalse(spy.calledWith([toast.jsElement['close']]), '`async` was not called with `close()`');
+        $assert.isFalse(spy.calledWith([toast.jsElement['hide']]), '`async` was not called with `hide()`');
       });
 
       test('duration = -10', () {
         toast.duration = -10;
-        toast.show();
-        expect(spy.called, isFalse, reason: '`debounce` was not called');
+        toast.show({});
+        $assert.isFalse(spy.calledWith([toast.jsElement['close']]), '`async` was not called with `close()`');
+        $assert.isFalse(spy.calledWith([toast.jsElement['hide']]), '`async` was not called with `hide()`');
       });
     });
 
@@ -84,5 +147,57 @@ main() async {
       expect(toast2.opened, isTrue, reason: 'toast2 is now opened');
     });
 
+    test('auto-close is correctly reset', when((done) async {
+      toast = fixture('basic');
+      toast.duration = 10;
+      toast.show({});
+      // a bit later (before the auto-close), toast is reset
+      await wait(5);
+      toast.hide();
+      // keep toast opened
+      toast.duration = 0;
+      toast.show({});
+      await wait(10);
+      $assert.isTrue(toast.opened, 'toast is still open');
+      done();
+    }));
+
+    test('toast is positioned according at the bottom left of its fitInto', when((done) {
+      var f = fixture('contained');
+      PaperToast toast = f[0];
+      DivElement container = f[1];
+      toast.fitInto = container;
+      toast.open();
+      // Wait for it to be opened, so it will be sized correctly.
+      toast.on['iron-overlay-opened'].take(1).listen((_) {
+        var rect = toast.getBoundingClientRect();
+        $assert.equal(rect.left, 50, 'left ok');
+        // 150px from top, (100px of height + 50px of margin-top)
+        $assert.equal(rect.bottom, 150, 'bottom');
+        done();
+      });
+    }),skip: "iron-overlay-opened not get fired ?");
+
+    suite('a11y', () {
+      test('show() will announce text', () {
+        toast = fixture('basic');
+        sinon.Spy spy = sinon.spy(toast.jsElement, 'fire');
+        toast.text = 'announce!';
+        toast.show(null);
+        $assert.isTrue(
+            spy.calledWith(new JsArray.from([
+              'iron-announce',
+              new JsObject.jsify({"text": 'announce!'})
+            ])),
+            'text announced');
+      });
+
+      test('hide() will not announce text', () {
+        toast = fixture('show');
+        sinon.Spy spy = sinon.spy(toast.jsElement, 'fire');
+        toast.hide();
+        $assert.isFalse(spy.calledWith(['iron-announce']), 'text not announced');
+      });
+    });
   });
 }

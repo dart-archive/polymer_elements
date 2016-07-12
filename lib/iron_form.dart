@@ -12,7 +12,8 @@ import 'iron_ajax.dart';
 
 /// `<iron-form>` is an HTML `<form>` element that can validate and submit any custom
 /// elements that implement `Polymer.IronFormElementBehavior`, as well as any
-/// native HTML elements.
+/// native HTML elements. For more information on which attributes are
+/// available on the native form element, see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form
 ///
 /// It supports both `get` and `post` methods, and uses an `iron-ajax` element to
 /// submit the form data to the action URL.
@@ -61,7 +62,16 @@ class IronForm extends FormElement with CustomElementProxyMixin, PolymerBase {
   IronForm.created() : super.created();
   factory IronForm() => new Element.tag('form', 'iron-form');
 
-  /// Content type to use when sending data.
+  /// Content type to use when sending data. If the `contentType` property
+  /// is set and a `Content-Type` header is specified in the `headers`
+  /// property, the `headers` property value will take precedence.
+  /// If Content-Type is set to a value listed below, then
+  /// the `body` (typically used with POST requests) will be encoded accordingly.
+  ///
+  ///    * `content-type="application/json"`
+  ///      * body is encoded like `{"foo":"bar baz","x":1}`
+  ///    * `content-type="application/x-www-form-urlencoded"`
+  ///      * body is encoded like `foo=bar+baz&x=1`
   String get contentType => jsElement[r'contentType'];
   set contentType(String value) { jsElement[r'contentType'] = value; }
 
@@ -73,7 +83,7 @@ class IronForm extends FormElement with CustomElementProxyMixin, PolymerBase {
   bool get disableNativeValidationUi => jsElement[r'disableNativeValidationUi'];
   set disableNativeValidationUi(bool value) { jsElement[r'disableNativeValidationUi'] = value; }
 
-  /// HTTP request headers to send
+  /// HTTP request headers to send.
   ///
   /// Note: setting a `Content-Type` header here will override the value
   /// specified by the `contentType` property of this element.
@@ -102,4 +112,7 @@ class IronForm extends FormElement with CustomElementProxyMixin, PolymerBase {
   /// Validates all the required elements (custom and native) in the form.
   bool validate() =>
       jsElement.callMethod('validate', []);
+
+  registered() =>
+      jsElement.callMethod('registered', []);
 }

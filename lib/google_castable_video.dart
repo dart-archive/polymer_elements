@@ -38,9 +38,9 @@ class GoogleCastableVideo extends VideoElement with CustomElementProxyMixin, Pol
 
   get bothPaused => jsElement[r'bothPaused'];
 
-  get casting => jsElement[r'casting'];
-
   get castMedia => jsElement[r'castMedia'];
+
+  get casting => jsElement[r'casting'];
 
   get receiverAvailable => jsElement[r'receiverAvailable'];
 
@@ -52,10 +52,10 @@ class GoogleCastableVideo extends VideoElement with CustomElementProxyMixin, Pol
       jsElement.callMethod('launchSessionManager', []);
 
   /// Call the `pause` method from your controls.
-  pause(cast) =>
+  pause([cast]) => //(cast) =>
       jsElement.callMethod('pause', [cast]);
 
   /// Call the `play` method from your controls.
-  play(cast) =>
+  play([cast]) => //(cast) =>
       jsElement.callMethod('play', [cast]);
 }

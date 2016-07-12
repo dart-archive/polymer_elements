@@ -31,6 +31,10 @@ class PaperInputCharCounter extends HtmlElement with CustomElementProxyMixin, Po
   PaperInputCharCounter.created() : super.created();
   factory PaperInputCharCounter() => new Element.tag('paper-input-char-counter');
 
+  /// This overrides the update function in PaperInputAddonBehavior.
+  /// [state]: inputElement: The input element.
+  ///         value: The input value.
+  ///         invalid: True if the input value is invalid.
   update(state) =>
       jsElement.callMethod('update', [state]);
 }
