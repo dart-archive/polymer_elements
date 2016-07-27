@@ -73,8 +73,8 @@ main() async {
 
       $assert.equal(app1.language, 'en');
       $assert.equal(app2.language, 'en');
-      $assert.equal(app1.localize.apply(['greeting']), 'hello');
-      $assert.equal(app2.localize.apply(['intro', 'name', 'robin', 'numCats', 17]), 'my name is robin. i have 17 cats.');
+      $assert.equal(app1.localize('greeting'), 'hello');
+      $assert.equal(app2.localize('intro', ['name', 'robin', 'numCats', 17]), 'my name is robin. i have 17 cats.');
 
       app1.set('language', 'fr');
       app2.set('language', 'fr');

@@ -116,7 +116,6 @@ abstract class AppLocalizeBehavior implements CustomElementProxyMixin {
 
   /// Translates a string to the current `language`. Any parameters to the
   /// string should be passed in order, as follows:
-  /// `localize(stringKey, param1Name, param1Value, param2Name, param2Value)`
-  localize() =>
-      jsElement.callMethod('localize', []);
+  /// `localize(stringKey, [param1Name, param1Value, param2Name, param2Value])`
+  localize(String stringKey,[List<String> args]) => jsElement.callMethod('localize',[stringKey]..addAll((args==null ? [] : args) as List));
 }

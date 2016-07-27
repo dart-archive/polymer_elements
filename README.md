@@ -24,3 +24,22 @@ Import into HTML:
 Import into Dart:
 
     import 'package:polymer_elements/iron_input.dart';
+
+### platinum-elements
+
+For `platinum-sw-register` to work properly the following requirements should be met:
+
+ 1. you have to provide an `ws-import.js`
+   script in the root of your application containing only the following line:
+
+
+    importScripts('packages/polymer_elements/src/platinum-sw/service-worker.js');
+
+ 2. `baseUri` should be set to point to *'packages/polymer_elements/src/platinum-sw/'* (with trailing slash), for example :
+
+
+    <platinum-sw-register base-uri='packages/polymer_elements/src/platinum-sw/'>
+     <platinum-sw-cache></platinum-sw-cache>
+    </platinum-sw-register>
+
+

@@ -8,7 +8,6 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
-import 'promise_polyfill.dart';
 
 /// `<platinum-push-messaging>` sets up a [push messaging][1] subscription
 /// and allows you to define what happens when a push message is received.
