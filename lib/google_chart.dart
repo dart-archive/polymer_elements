@@ -9,7 +9,6 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_request.dart';
-import 'google_chart_loader.dart';
 
 /// `google-chart` encapsulates Google Charts as a web component, allowing you to easily visualize
 /// data. From simple line charts to complex hierarchical tree maps, the chart element provides a
