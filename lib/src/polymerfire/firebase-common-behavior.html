@@ -12,7 +12,8 @@ https://github.com/firebase/polymerfire/blob/master/LICENSE
 <script>
   (function() {
     'use strict';
-    /** @polymerBehavior Polymer.FirebaseCommonBehaviorImpl */
+
+    /** @polymerBehavior Polymer.FirebaseCommonBehavior */
     Polymer.FirebaseCommonBehaviorImpl = {
       properties: {
         app: {
@@ -54,7 +55,7 @@ https://github.com/firebase/polymerfire/blob/master/LICENSE
       }
     };
 
-    /** @polymerBehavior Polymer.FirebaseCommonBehavior */
+    /** @polymerBehavior */
     Polymer.FirebaseCommonBehavior = [
       Polymer.AppNetworkStatusBehavior,
       Polymer.FirebaseCommonBehaviorImpl

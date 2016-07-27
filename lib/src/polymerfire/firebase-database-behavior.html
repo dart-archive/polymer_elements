@@ -13,7 +13,8 @@ https://github.com/firebase/polymerfire/blob/master/LICENSE
 <script>
   (function() {
     'use strict';
-    /** @polymerBehavior Polymer.FirebaseDatabaseBehaviorImpl */
+
+    /** @polymerBehavior Polymer.FirebaseDatabaseBehavior */
     Polymer.FirebaseDatabaseBehaviorImpl = {
       properties: {
         db: {
@@ -26,6 +27,9 @@ https://github.com/firebase/polymerfire/blob/master/LICENSE
           computed: '__computeRef(db, path)'
         },
 
+        /**
+         * Path to a Firebase root or endpoint. N.B. `path` is case sensitive.
+         */
         path: {
           type: String,
           observer: '__pathChanged',
@@ -88,7 +92,8 @@ https://github.com/firebase/polymerfire/blob/master/LICENSE
         }
       }
     };
-    /** @polymerBehavior Polymer.FirebaseDatabaseBehavior */
+
+    /** @polymerBehavior */
     Polymer.FirebaseDatabaseBehavior = [
       Polymer.AppStorageBehavior,
       Polymer.FirebaseCommonBehavior,

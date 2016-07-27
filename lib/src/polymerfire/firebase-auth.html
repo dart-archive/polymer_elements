@@ -122,6 +122,18 @@ defined as the default provider.
 
           return this._handleSignIn(this.auth.signInAnonymously());
         },
+        
+        /**
+         * Authenticates a Firebase client using a custom JSON Web Token.
+         *
+         * @return {Promise} Promise that handles success and failure.
+         */
+        signInWithCustomToken: function(token) {
+          if (!this.auth) {
+            return Promise.reject('No app configured for firebase-auth!');
+          }
+          return this._handleSignIn(this.auth.signInWithCustomToken(token));
+        },
 
         /**
          * Authenticates a Firebase client using a popup-based OAuth flow.
@@ -133,7 +145,7 @@ defined as the default provider.
          * @return {Promise} Promise that handles success and failure.
          */
         signInWithPopup: function(provider) {
-          return this._attemptProviderSignIn(provider, this.auth.signInWithPopup);
+          return this._attemptProviderSignIn(this._normalizeProvider(provider), this.auth.signInWithPopup);
         },
 
         /**
@@ -149,7 +161,7 @@ defined as the default provider.
          * before the redirect).
          */
         signInWithRedirect: function(provider) {
-          return this._attemptProviderSignIn(provider, this.auth.signInWithRedirect);
+          return this._attemptProviderSignIn(this._normalizeProvider(provider), this.auth.signInWithRedirect);
         },
 
         /**
@@ -209,9 +221,17 @@ defined as the default provider.
           }
         },
 
+        _normalizeProvider: function(provider) {
+          if (typeof provider === 'string') {
+            return this._providerFromName(provider);
+          }
+          return provider;
+        },
+
         _handleSignIn: function(promise) {
           return promise.catch(function(err) {
             this.fire('error', err);
+            throw err;
           }.bind(this));
         },
 

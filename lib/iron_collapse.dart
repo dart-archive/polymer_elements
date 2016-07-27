@@ -41,6 +41,14 @@ import 'iron_resizable_behavior.dart';
 ///         <div>Content goes here...</div>
 ///       </div>
 ///     </iron-collapse>
+///
+/// ### Styling
+///
+/// The following custom properties and mixins are available for styling:
+///
+/// Custom property | Description | Default
+/// ----------------|-------------|----------
+/// `--iron-collapse-transition-duration` | Animation transition duration | `300ms`
 @CustomElementProxy('iron-collapse')
 class IronCollapse extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronResizableBehavior {
   IronCollapse.created() : super.created();
@@ -78,6 +86,6 @@ class IronCollapse extends HtmlElement with CustomElementProxyMixin, PolymerBase
   /// Updates the size of the element.
   /// [size]: The new value for `maxWidth`/`maxHeight` as css property value, usually `auto` or `0px`.
   /// [animated]: if `true` updates the size with an animation, otherwise without.
-  updateSize(size, animated) =>
+  updateSize(String size, animated) =>
       jsElement.callMethod('updateSize', [size, animated]);
 }

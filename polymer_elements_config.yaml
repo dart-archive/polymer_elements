@@ -12,6 +12,20 @@ files_to_generate:
 #  - carbon-route/carbon-location.html
 #  - carbon-route/carbon-route-converter.html
 #  - carbon-route/carbon-route.html
+# Platinum
+  - platinum-bluetooth/platinum-bluetooth-characteristic.html
+  - platinum-bluetooth/platinum-bluetooth-device.html
+  - platinum-bluetooth/platinum-bluetooth-elements.html
+  - platinum-bluetooth/platinum-bluetooth-service.html
+  - platinum-https-redirect/platinum-https-redirect.html
+  - platinum-push-messaging/platinum-push-messaging.html
+  - platinum-sw/platinum-sw-cache.html
+  - platinum-sw/platinum-sw-elements.html
+  - platinum-sw/platinum-sw-fetch.html
+  - platinum-sw/platinum-sw-import-script.html
+  - platinum-sw/platinum-sw-offline-analytics.html
+  - platinum-sw/platinum-sw-register.html
+
 # App
   - app-route/app-location.html  
   - app-route/app-route-converter-behavior.html  

@@ -13,7 +13,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 ///
 ///     <iron-request id="xhr"></iron-request>
 ///     ...
-///     this.$.xhr.send({url: url, params: params});
+///     this.$.xhr.send({url: url, body: params});
 @CustomElementProxy('iron-request')
 class IronRequest extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronRequest.created() : super.created();
@@ -85,7 +85,7 @@ class IronRequest extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   /// [options]: url The url to which the request is sent.
   ///         method The HTTP method to use, default is GET.
   ///         async By default, all requests are sent asynchronously. To send synchronous requests,
-  ///             set to true.
+  ///             set to false.
   ///         body The content for the request body for POST method.
   ///         headers HTTP request headers.
   ///         handleAs The response type. Default is 'text'.

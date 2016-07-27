@@ -43,7 +43,7 @@ import 'app_network_status_behavior.dart';
 /// provider since there was no provider argument specified and since `"google"` was
 /// defined as the default provider.
 @CustomElementProxy('firebase-auth')
-class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase, AppNetworkStatusBehavior, FirebaseCommonBehaviorImpl, FirebaseCommonBehavior {
+class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase, AppNetworkStatusBehavior, FirebaseCommonBehavior {
   FirebaseAuth.created() : super.created();
   factory FirebaseAuth() => new Element.tag('firebase-auth');
 
@@ -88,6 +88,10 @@ class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase
   /// Authenticates a Firebase client using a new, temporary guest account.
   signInAnonymously() =>
       jsElement.callMethod('signInAnonymously', []);
+
+  /// Authenticates a Firebase client using a custom JSON Web Token.
+  signInWithCustomToken(token) =>
+      jsElement.callMethod('signInWithCustomToken', [token]);
 
   /// Authenticates a Firebase client using an email / password combination.
   /// [email]: Email address corresponding to the user account.
