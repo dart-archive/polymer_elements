@@ -8,6 +8,8 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
+import 'src/_utils.dart';
+import 'dart:async';
 
 /// `<platinum-push-messaging>` sets up a [push messaging][1] subscription
 /// and allows you to define what happens when a push message is received.
@@ -187,13 +189,13 @@ class PlatinumPushMessaging extends HtmlElement with CustomElementProxyMixin, Po
   String get workerUrl => jsElement[r'workerUrl'];
   set workerUrl(String value) { jsElement[r'workerUrl'] = value; }
 
-  /// Request push messaging to be disabled.
-  disable() =>
-      jsElement.callMethod('disable', []);
+  /// Request push messaging to be disable.
+  Future disable() =>
+    jsPromiseToFuture(jsElement.callMethod('disable',[]));
 
   /// Request push messaging to be enabled.
-  enable() =>
-      jsElement.callMethod('enable', []);
+  Future enable() =>
+    jsPromiseToFuture(jsElement.callMethod('enable',[]));
 
   /// Programmatically trigger a push message
   /// [message]: {Object} the message payload

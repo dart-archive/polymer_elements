@@ -21,6 +21,20 @@ files_to_generate:
   - platinum-push-messaging/platinum-push-messaging.html:
      omit_imports:
       - promise-polyfill.html
+     extra_imports:
+      - "src/_utils.dart"
+      - "dart:async"
+     overrides:
+      PlatinumPushMessaging:
+       enable:
+        - "/// Request push messaging to be enabled."
+        - "Future enable() =>"
+        - "  jsPromiseToFuture(jsElement.callMethod('enable',[]));"
+       disable:
+        - "/// Request push messaging to be disable."
+        - "Future disable() =>"
+        - "  jsPromiseToFuture(jsElement.callMethod('disable',[]));"
+
   - platinum-sw/platinum-sw-cache.html
   - platinum-sw/platinum-sw-elements.html
   - platinum-sw/platinum-sw-fetch.html
