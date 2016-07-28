@@ -8,7 +8,7 @@ dependencies:
   web_components: ^0.12.0
 dev_dependencies:
   browser: ^0.10.0
-  custom_element_apigen: ^0.2.2
+  custom_element_apigen: ^0.2.3
   html5lib: ">=0.11.0 <0.13.0"
   path: ^1.0.0
   polymer: ^1.0.0-rc.15
