@@ -185,14 +185,13 @@ files_to_generate:
   - google-chart/google-chart.html:
       omit_imports:
         - promise-polyfill-lite.html
-        - chart-loader.html
 #  - google-chart/charts-loader.html:
 #      omit_imports:
 #        - promise-polyfill-lite.html
-#  - google-chart/google-charts-loader.html:
-#      omit_imports:
-#        - promise-polyfill-lite.html
-#        - google-chart-loader.html
+  - google-chart/google-chart-loader.html:
+      omit_imports:
+        - promise-polyfill-lite.html
+        - chart-loader.html
   - google-feeds/google-feeds.html:
       name_substitutions:
         query: queryObject
