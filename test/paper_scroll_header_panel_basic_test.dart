@@ -32,19 +32,20 @@ main() async {
     });
 
     test('check default', () {
-      expect(scrollHeaderPanel.header, toolbar);
-      expect(scrollHeaderPanel.content, content);
-      expect(scrollHeaderPanel.condenses, false);
-      expect(scrollHeaderPanel.noReveal, false);
-      expect(scrollHeaderPanel.fixed, false);
-      expect(scrollHeaderPanel.scroller, isNotNull);
-      expect(scrollHeaderPanel.keepCondensedHeader, false);
-      expect(scrollHeaderPanel.keepCondensedHeader, false);
-
-      scrollHeaderPanel.measureHeaderHeight();
-      expect(scrollHeaderPanel.headerHeight, toolbar.offsetHeight);
-      expect(scrollHeaderPanel.condensedHeaderHeight,
-          (toolbar.offsetHeight * 1 / 3).round());
+      flush(() {
+        expect(scrollHeaderPanel.header, toolbar);
+        expect(scrollHeaderPanel.content, content);
+        expect(scrollHeaderPanel.condenses, false);
+        expect(scrollHeaderPanel.noReveal, false);
+        expect(scrollHeaderPanel.fixed, false);
+        expect(scrollHeaderPanel.scroller, isNotNull);
+        expect(scrollHeaderPanel.keepCondensedHeader, false);
+        expect(scrollHeaderPanel.keepCondensedHeader, false);
+        scrollHeaderPanel.measureHeaderHeight();
+        expect(scrollHeaderPanel.headerHeight, toolbar.offsetHeight);
+        expect(scrollHeaderPanel.condensedHeaderHeight,
+                   (toolbar.offsetHeight * 1 / 3).round());
+      });
     });
 
     test('condensation', () {

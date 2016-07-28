@@ -143,6 +143,21 @@ main() async {
         ripple.downAction(null);
         ripple.upAction(null);
       });
+
+      testAsync('reuse a paper-ripple', (done) {
+        PaperRipple ripple = document.createElement('paper-ripple');
+        new PolymerDom(rippleContainer).append(ripple);
+        new PolymerDom(rippleContainer).removeChild(ripple);
+
+        ripple.on['transitionend'].listen((_) {
+          $expect(ripple.parentNode).to.be.ok;
+          new PolymerDom(document.body).removeChild(ripple);
+          done();
+        });
+        new PolymerDom(document.body).append(ripple);
+        ripple.downAction(null);
+        ripple.upAction(null);
+      });
     });
 
     suite('avoid double transitionend event', () {

@@ -34,11 +34,9 @@ main() async {
       expect(contentRect.width, equals(0));
       expect(contentRect.height, equals(0));
 
-
-
-      menuButton.on['paper-dropdown-open'].take(1).listen( (_) {
-      $expect(menuButton.opened).to.be.equal(true);
-      done.complete();
+      menuButton.on['paper-dropdown-open'].take(1).listen((_) {
+        $expect(menuButton.opened).to.be.equal(true);
+        done.complete();
       });
 
       tap(trigger);
@@ -47,15 +45,14 @@ main() async {
     });
 
     test('closes when trigger is clicked again', when((done) {
-      menuButton.on['paper-dropdown-open'].take(1).listen((_)async  {
-      menuButton.on['paper-dropdown-close'].take(1).listen((_)  {
-      $expect(menuButton.opened).to.be.equal(false);
-      done();
-      });
+      menuButton.on['paper-dropdown-open'].take(1).listen((_) async {
+        menuButton.on['paper-dropdown-close'].take(1).listen((_) {
+          $expect(menuButton.opened).to.be.equal(false);
+          done();
+        });
 
-      await wait(1);
-      tap(trigger);
-
+        await wait(1);
+        tap(trigger);
       });
 
       tap(trigger);
@@ -77,6 +74,33 @@ main() async {
       expect(menuButton.getAttribute('aria-haspopup'), isNotNull);
     });
 
+    testAsync('closes on iron-activate if close-on-activate is true', (done) {
+      menuButton.closeOnActivate = true;
+
+      menuButton.on['paper-dropdown-open'].listen((_) {
+        menuButton.on['paper-dropdown-close'].listen((_) {
+          done();
+        });
+
+        content.dispatchEvent(new CustomEvent('iron-activate', canBubble: true, cancelable: true));
+      });
+
+      tap(trigger);
+    });
+
+    test('allowOutsideScroll propagates to <iron-dropdown>', () {
+      menuButton.allowOutsideScroll = false;
+      $expect(menuButton.$['dropdown'].allowOutsideScroll).to.be.equal(false);
+      menuButton.allowOutsideScroll = true;
+      $expect(menuButton.$['dropdown'].allowOutsideScroll).to.be.equal(true);
+    });
+
+    test('restoreFocusOnClose propagates to <iron-dropdown>', () {
+      menuButton.restoreFocusOnClose = false;
+      $expect(menuButton.$['dropdown'].restoreFocusOnClose).to.be.equal(false);
+      menuButton.restoreFocusOnClose = true;
+      $expect(menuButton.$['dropdown'].restoreFocusOnClose).to.be.equal(true);
+    });
 
     suite('when there are two buttons', () {
       PaperMenuButton menuButton;
@@ -108,17 +132,16 @@ main() async {
           var firstClosed = false;
           var secondOpened = false;
 
-          menuButton.on['paper-dropdown-close'].take(1).listen( (_) {
+          menuButton.on['paper-dropdown-close'].take(1).listen((_) {
             firstClosed = true;
           });
 
-          otherButton.on['paper-dropdown-open'].take(1).listen( (_) {
+          otherButton.on['paper-dropdown-open'].take(1).listen((_) {
             secondOpened = true;
           });
 
           await wait(1);
           tap(otherTrigger);
-
 
           await wait(1);
           $expect(firstClosed).to.be.equal(true);
@@ -130,6 +153,5 @@ main() async {
         tap(trigger);
       }));
     });
-    
   });
 }
