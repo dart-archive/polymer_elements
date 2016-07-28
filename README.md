@@ -29,7 +29,7 @@ Import into Dart:
 
 For `platinum-sw-register` to work properly the following requirements should be met:
 
- 1. you have to provide an `ws-import.js`
+ 1. you have to provide an `sw-import.js`
    script in the root of your application containing only the following line:
 
 
