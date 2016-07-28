@@ -27,6 +27,36 @@ intersects(Rectangle r1, Rectangle r2) {
 main() async {
   await initPolymer();
 
+  suite('basic', () {
+    var el;
+    setup(() {
+      el = fixture('basic');
+    });
+
+    test('position() works without autoFitOnAttach', () {
+      el.verticalAlign = 'top';
+      el.horizontalAlign = 'left';
+      el.position();
+      var rect = el.getBoundingClientRect();
+      $assert.equal(rect.top, 0, 'top ok');
+      $assert.equal(rect.left, 0, 'left ok');
+    });
+
+    test('constrain() works without autoFitOnAttach', () {
+      el.constrain();
+      var style = el.getComputedStyle();
+      $assert.equal(style.maxWidth, '${window.innerWidth}px', 'maxWidth ok');
+      $assert.equal(style.maxHeight, '${window.innerHeight}px', 'maxHeight ok');
+    });
+
+    test('center() works without autoFitOnAttach', () {
+      el.center();
+      var rect = el.getBoundingClientRect();
+      $assert.closeTo(rect.left - (window.innerWidth - rect.right), 0, 5, 'centered horizontally');
+      $assert.closeTo(rect.top - (window.innerHeight - rect.bottom), 0, 5, 'centered vertically');
+    });
+  });
+
   group('manual positioning', () {
     test('css positioned element is not re-positioned', () {
       TestFit el = fixture('positioned-xy');
@@ -256,8 +286,10 @@ main() async {
   });
 
   suite('horizontal/vertical align', () {
-    DivElement parent;Rectangle parentRect;
-    TestFit el;Rectangle elRect;
+    DivElement parent;
+    Rectangle parentRect;
+    TestFit el;
+    Rectangle elRect;
     Rectangle fitRect = new Rectangle(0, 0, window.innerWidth, window.innerHeight);
 
     setup(() {
@@ -359,7 +391,7 @@ main() async {
         var rect = el.getBoundingClientRect();
         $assert.equal(rect.bottom, parentRect.bottom, 'bottom ok');
         $assert.equal(rect.height, elRect.height, 'no cropping');
-      },skip:'https://github.com/dart-lang/polymer_elements/issues/53');
+      }, skip: 'https://github.com/dart-lang/polymer_elements/issues/53');
 
       test('element is aligned to the positionTarget bottom without overlapping it', () {
         el.verticalAlign = 'bottom';
@@ -368,7 +400,7 @@ main() async {
         var rect = el.getBoundingClientRect();
         $assert.isFalse(intersects(rect, parentRect), 'no overlap');
         $assert.equal(rect.height, elRect.height, 'no cropping');
-      },skip:'https://github.com/dart-lang/polymer_elements/issues/53');
+      }, skip: 'https://github.com/dart-lang/polymer_elements/issues/53');
 
       test('element margin is considered as offset', () {
         el.verticalAlign = 'bottom';
@@ -383,7 +415,7 @@ main() async {
         rect = el.getBoundingClientRect();
         $assert.equal(rect.bottom, parentRect.bottom + 10, 'bottom ok');
         $assert.equal(rect.height, elRect.height, 'no cropping');
-      },skip:'https://github.com/dart-lang/polymer_elements/issues/53');
+      }, skip: 'https://github.com/dart-lang/polymer_elements/issues/53');
 
       test('verticalOffset is applied', () {
         el.verticalAlign = 'bottom';
@@ -392,7 +424,7 @@ main() async {
         var rect = el.getBoundingClientRect();
         $assert.equal(rect.bottom, parentRect.bottom - 10, 'bottom ok');
         $assert.equal(rect.height, elRect.height, 'no cropping');
-      },skip:'https://github.com/dart-lang/polymer_elements/issues/53');
+      }, skip: 'https://github.com/dart-lang/polymer_elements/issues/53');
 
       test('element max-height is updated', () {
         parent.style.top = '${(100 - parentRect.height)}px';
@@ -690,7 +722,7 @@ main() async {
         var rect = el.getBoundingClientRect();
         $assert.equal(rect.left, parentRect.left, 'left ok');
         $assert.equal(rect.top, parentRect.bottom, 'top ok');
-      },skip:'https://github.com/dart-lang/polymer_elements/issues/53');
+      }, skip: 'https://github.com/dart-lang/polymer_elements/issues/53');
 
       test('top-right aligns to target bottom-right', () {
         el.verticalAlign = 'top';
@@ -699,7 +731,7 @@ main() async {
         var rect = el.getBoundingClientRect();
         $assert.equal(rect.right, parentRect.right, 'right ok');
         $assert.equal(rect.top, parentRect.bottom, 'top ok');
-      },skip:'https://github.com/dart-lang/polymer_elements/issues/53');
+      }, skip: 'https://github.com/dart-lang/polymer_elements/issues/53');
 
       test('bottom-left aligns to target top-left', () {
         el.verticalAlign = 'bottom';
