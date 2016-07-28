@@ -20,7 +20,6 @@ import 'package:polymer_elements/iron_request.dart';
 import 'package:polymer_elements/paper_input.dart';
 import 'package:polymer_elements/paper_textarea.dart';
 
-
 /// [SimpleElement] used.
 main() async {
   await initPolymer();
@@ -58,7 +57,6 @@ main() async {
       await new Future(() {});
       expect(f.jsElement['_customElements'].length, 1);
 
-
       SimpleElement simpleElement = f.jsElement['_customElements'][0];
 
       expect(f.validate(), isFalse);
@@ -92,9 +90,7 @@ main() async {
 
       // Since the elements don't have names, they don't get serialized.
       var json = f.serialize();
-      expect(context['Object']
-                 .callMethod('keys', [json])
-                 .length, 0);
+      expect(context['Object'].callMethod('keys', [json]).length, 0);
     });
 
     test('custom elements are validated if they have a name', () async {
@@ -138,9 +134,38 @@ main() async {
       var json = f.serialize();
       expect(context['Object'].callMethod('keys', [json]).length, 1);
     });
+
+    test('non-required custom elements are validated', () {
+      IronForm f = fixture('FormValidateNonRequiredCustomElements');
+      var elements = f.getEffectiveChildren();
+      PaperInput input = elements[0];
+
+      $assert.equal(elements.length, 1);
+
+      $assert.isTrue(f.validate());
+      $assert.isTrue(input.validate());
+
+      input.value = "abcdefg";
+
+      $assert.isFalse(f.validate());
+      $assert.isFalse(input.validate());
+    });
+
+    test('non-required native elements are validated', () {
+      IronForm f = fixture('FormValidateNonRequiredElements');
+      $assert.equal(f.children.length, 1);
+
+      InputElement input = f.children[0];
+
+      $assert.isTrue(f.validate());
+      $assert.isTrue(input.validity.valid);
+
+      input.value = "012345";
+
+      $assert.isFalse(f.validate());
+      $assert.isFalse(input.validity.valid);
+    });
   });
-
-
 
   group('serializing', () {
     IronForm f;
@@ -228,7 +253,6 @@ main() async {
       expect(json['zig'], 'zag');
     });
 
-
     test('nested elements can be submitted if parents aren\'t submittable', () {
       IronForm f = fixture('NestedSubmittable');
 
@@ -243,7 +267,7 @@ main() async {
       Completer done = new Completer();
       IronForm form = fixture('FormForResetting');
 
-       // Initial values.
+      // Initial values.
       SimpleElement customElement = form.querySelector('simple-element');
       var input = form.querySelector('input[name="foo"]');
       var checkbox1 = form.querySelectorAll('input[type="checkbox"]')[0];
@@ -343,7 +367,7 @@ main() async {
       expect(form.validate(), isFalse);
       expect(customElement.invalid, isTrue);
 
-      form.on['iron-form-reset'].take(1).listen((Event event){
+      form.on['iron-form-reset'].take(1).listen((Event event) {
         // Cleared validation messages.
         expect(customElement.invalid, isFalse);
         done.complete();
