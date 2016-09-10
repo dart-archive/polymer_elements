@@ -60,7 +60,7 @@ class IronCollapse extends HtmlElement with CustomElementProxyMixin, PolymerBase
   bool get horizontal => jsElement[r'horizontal'];
   set horizontal(bool value) { jsElement[r'horizontal'] = value; }
 
-  /// Set noAnimation to true to disable animations
+  /// Set noAnimation to true to disable animations.
   bool get noAnimation => jsElement[r'noAnimation'];
   set noAnimation(bool value) { jsElement[r'noAnimation'] = value; }
 

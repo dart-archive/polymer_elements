@@ -19,6 +19,12 @@ abstract class FirebaseDatabaseBehavior implements CustomElementProxyMixin, AppS
   get db => jsElement[r'db'];
   set db(value) { jsElement[r'db'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
+  /// When true, Firebase listeners won't be activated. This can be useful
+  /// in situations where elements are loaded into the DOM before they're
+  /// ready to be activated (e.g. navigation, initialization scenarios).
+  bool get disabled => jsElement[r'disabled'];
+  set disabled(bool value) { jsElement[r'disabled'] = value; }
+
   /// Path to a Firebase root or endpoint. N.B. `path` is case sensitive.
   String get path => jsElement[r'path'];
   set path(String value) { jsElement[r'path'] = value; }

@@ -130,15 +130,15 @@ class PaperTabs extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   bool get noBar => jsElement[r'noBar'];
   set noBar(bool value) { jsElement[r'noBar'] = value; }
 
-  /// If true, the slide effect for the bottom bar is disabled.
-  bool get noSlide => jsElement[r'noSlide'];
-  set noSlide(bool value) { jsElement[r'noSlide'] = value; }
-
   /// If true, ink ripple effect is disabled. When this property is changed,
   /// all descendant `<paper-tab>` elements have their `noink` property
   /// changed to the new value as well.
   bool get noink => jsElement[r'noink'];
   set noink(bool value) { jsElement[r'noink'] = value; }
+
+  /// If true, the slide effect for the bottom bar is disabled.
+  bool get noSlide => jsElement[r'noSlide'];
+  set noSlide(bool value) { jsElement[r'noSlide'] = value; }
 
   /// If true, tabs are scrollable and the tab width is based on the label width.
   bool get scrollable => jsElement[r'scrollable'];

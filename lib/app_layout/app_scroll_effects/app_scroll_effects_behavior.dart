@@ -123,6 +123,19 @@ abstract class AppScrollEffectsBehavior implements CustomElementProxyMixin, Iron
   get effectsConfig => jsElement[r'effectsConfig'];
   set effectsConfig(value) { jsElement[r'effectsConfig'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
+  /// Allows to set a `scrollTop` threshold. When greater than 0, `thresholdTriggered`
+  /// is true only when the scroll target's `scrollTop` has reached this value.
+  ///
+  /// For example, if `threshold = 100`, `thresholdTriggered` is true when the `scrollTop`
+  /// is at least `100`.
+  num get threshold => jsElement[r'threshold'];
+  set threshold(num value) { jsElement[r'threshold'] = value; }
+
+  /// True if the `scrollTop` threshold (set in `scrollTopThreshold`) has
+  /// been reached.
+  bool get thresholdTriggered => jsElement[r'thresholdTriggered'];
+  set thresholdTriggered(bool value) { jsElement[r'thresholdTriggered'] = value; }
+
   /// Creates an effect object from an effect's name that can be used to run
   /// effects programmatically.
   /// [effectName]: The effect's name registered via `Polymer.AppLayout.registerEffect`.

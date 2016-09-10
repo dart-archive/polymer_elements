@@ -78,6 +78,11 @@ class MarkedElement extends HtmlElement with CustomElementProxyMixin, PolymerBas
   bool get smartypants => jsElement[r'smartypants'];
   set smartypants(bool value) { jsElement[r'smartypants'] = value; }
 
+  /// Callback function invoked by Marked after HTML has been rendered.
+  /// It must take two arguments: err and text and must return the resulting text.
+  callback() =>
+      jsElement.callMethod('callback', []);
+
   /// Renders `markdown` into this element's DOM.
   ///
   /// This is automatically called whenever the `markdown` property is changed.

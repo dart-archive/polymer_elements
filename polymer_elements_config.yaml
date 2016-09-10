@@ -96,6 +96,7 @@ files_to_generate:
      omit_imports:
       - app-indexeddb-mirror-client.html
   - app-layout/app-box/app-box.html
+  - app-layout/app-grid/app-grid-style.html
   - app-layout/app-scroll-effects/app-scroll-effects-behavior.html
   - app-layout/app-scroll-effects/effects/blend-background.html
   - app-layout/app-scroll-effects/effects/fade-background.html

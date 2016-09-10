@@ -31,17 +31,17 @@ import 'package:polymer_interop/polymer_interop.dart';
 /// Now I can access that element (and it's metadata) from any iron-meta instance
 /// via the byKey method, e.g.
 ///
-///     meta.byKey('info').getAttribute('value');
+///     meta.byKey('info');
 ///
 /// Pure imperative form would be like:
 ///
-///     document.createElement('iron-meta').byKey('info').getAttribute('value');
+///     document.createElement('iron-meta').byKey('info');
 ///
 /// Or, in a Polymer element, you can include a meta in your template:
 ///
 ///     <iron-meta id="meta"></iron-meta>
 ///     ...
-///     this.$.meta.byKey('info').getAttribute('value');
+///     this.$.meta.byKey('info');
 @CustomElementProxy('iron-meta')
 class IronMeta extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronMeta.created() : super.created();
@@ -103,17 +103,17 @@ class IronMeta extends HtmlElement with CustomElementProxyMixin, PolymerBase {
 /// Now I can access that element (and it's metadata) from any iron-meta instance
 /// via the byKey method, e.g.
 ///
-///     meta.byKey('info').getAttribute('value');
+///     meta.byKey('info');
 ///
 /// Pure imperative form would be like:
 ///
-///     document.createElement('iron-meta').byKey('info').getAttribute('value');
+///     document.createElement('iron-meta').byKey('info');
 ///
 /// Or, in a Polymer element, you can include a meta in your template:
 ///
 ///     <iron-meta id="meta"></iron-meta>
 ///     ...
-///     this.$.meta.byKey('info').getAttribute('value');
+///     this.$.meta.byKey('info');
 @CustomElementProxy('iron-meta-query')
 class IronMetaQuery extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronMetaQuery.created() : super.created();

@@ -22,7 +22,7 @@ import 'google_map_marker.dart';
 ///         height: 600px;
 ///       }
 ///     </style>
-///     <google-map latitude="37.77493" longitude="-122.41942"></google-map>
+///     <google-map latitude="37.77493" longitude="-122.41942" api-key="1234"></google-map>
 ///
 /// <b>Example</b> - add markers to the map and ensure they're in view:
 ///
@@ -47,9 +47,19 @@ import 'google_map_marker.dart';
 /// <b>Example</b> - with Google directions, using data-binding inside another Polymer element
 ///
 ///     <google-map map="{{map}}"></google-map>
-///     <google-map-directions map="{{map}}"
+///     <google-map-directions map="[[map]]"
 ///         start-address="San Francisco" end-address="Mountain View">
 ///     </google-map-directions>
+///
+/// Disable dragging by adding `draggable="false"` on the `google-map` element.
+///
+/// <b>Example</b> - loading the Maps API from another origin (China)
+///
+///     <google-map maps-url="http://maps.google.cn/maps/api/js?callback=%%callback%%">
+///
+/// ###  Tips
+///
+/// If you're seeing the message "You have included the Google Maps API multiple times on this page. This may cause unexpected errors." it probably means you're loading other maps elements on the page (`<google-maps-directions>`). Each maps element must include the same set of configuration options (`apiKey`, `clientId`, `language`, `version`, etc.) so the Maps API is loaded from the same URL.
 @CustomElementProxy('google-map')
 class GoogleMap extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronResizableBehavior {
   GoogleMap.created() : super.created();
@@ -67,7 +77,7 @@ class GoogleMap extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   get additionalMapOptions => jsElement[r'additionalMapOptions'];
   set additionalMapOptions(value) { jsElement[r'additionalMapOptions'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
-  /// A Maps API key. To obtain an API key, see developers.google.com/maps/documentation/javascript/tutorial#api_key.
+  /// A Maps API key. To obtain an API key, see https://developers.google.com/maps/documentation/javascript/tutorial#api_key.
   String get apiKey => jsElement[r'apiKey'];
   set apiKey(String value) { jsElement[r'apiKey'] = value; }
 
@@ -75,7 +85,7 @@ class GoogleMap extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   bool get clickEvents => jsElement[r'clickEvents'];
   set clickEvents(bool value) { jsElement[r'clickEvents'] = value; }
 
-  /// A Maps API for Business Client ID. To obtain a Maps API for Business Client ID, see developers.google.com/maps/documentation/business/.
+  /// A Maps API for Business Client ID. To obtain a Maps API for Business Client ID, see https://developers.google.com/maps/documentation/business/.
   /// If set, a Client ID will take precedence over an API Key.
   String get clientId => jsElement[r'clientId'];
   set clientId(String value) { jsElement[r'clientId'] = value; }
@@ -83,6 +93,10 @@ class GoogleMap extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   /// If set, removes the map's default UI controls.
   bool get disableDefaultUi => jsElement[r'disableDefaultUi'];
   set disableDefaultUi(bool value) { jsElement[r'disableDefaultUi'] = value; }
+
+  /// If set, removes the map's 'map type' UI controls.
+  bool get disableMapTypeControl => jsElement[r'disableMapTypeControl'];
+  set disableMapTypeControl(bool value) { jsElement[r'disableMapTypeControl'] = value; }
 
   /// If true, prevent the user from zooming the map interactively.
   bool get disableZoom => jsElement[r'disableZoom'];
@@ -119,6 +133,10 @@ class GoogleMap extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   /// A Maps API object.
   get map => jsElement[r'map'];
   set map(value) { jsElement[r'map'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+
+  /// Overrides the origin the Maps API is loaded from. Defaults to `https://maps.googleapis.com`.
+  String get mapsUrl => jsElement[r'mapsUrl'];
+  set mapsUrl(String value) { jsElement[r'mapsUrl'] = value; }
 
   /// Map type to display. One of 'roadmap', 'satellite', 'hybrid', 'terrain'.
   String get mapType => jsElement[r'mapType'];
@@ -158,7 +176,7 @@ class GoogleMap extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   set singleInfoWindow(bool value) { jsElement[r'singleInfoWindow'] = value; }
 
   /// If set, custom styles can be applied to the map.
-  /// For style documentation see developers.google.com/maps/documentation/javascript/reference#MapTypeStyle
+  /// For style documentation see https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyle
   get styles => jsElement[r'styles'];
   set styles(value) { jsElement[r'styles'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
