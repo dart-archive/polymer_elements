@@ -171,7 +171,7 @@ main() async {
     });
   });
 
-  ObjectKeys(x) => context['Object']['keys'].apply([x]);
+  ObjectKeys(x) => context['Object']['keys'].applyData([x]);
 
   suite('json loading and caching', () {
     testAsync('loads the same json only file once', (done) {

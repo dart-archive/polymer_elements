@@ -250,7 +250,7 @@ void hideTestRunnerFrame() {
 $$assert(x, [reason]) => $assert.isTrue(x, reason);
 
 jsDeepEquals(JsObject a, JsObject b) {
-  List<String> x = context['Object']['keys'].apply([a]);
+  List<String> x = context['Object']['keys'].applyData([a]);
   return x.every((x) {
     if (a[x] is JsObject || b[x] is JsObject) {
       return jsDeepEquals(a[x], b[x]);

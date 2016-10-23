@@ -49,7 +49,7 @@ main() async {
 
         var request = new JsObject.jsify({
           'execute': new JsFunction.withThis((_, callback) {
-            callback.apply([response]);
+            callback.applyData([response]);
           })
         });
         // Stub out calendar request call.
