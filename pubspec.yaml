@@ -15,8 +15,6 @@ dev_dependencies:
   test: ^0.12.5+1
   yaml: ">=1.0.0 <3.0.0"
 
-environment:
-  sdk: '>=1.6.0 <2.0.0'
 transformers:
 - polymer:
     entry_points:
