@@ -73,6 +73,10 @@ class AppDrawer extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   bool get swipeOpen => jsElement[r'swipeOpen'];
   set swipeOpen(bool value) { jsElement[r'swipeOpen'] = value; }
 
+  /// The transition duration of the drawer in milliseconds.
+  num get transitionDuration => jsElement[r'transitionDuration'];
+  set transitionDuration(num value) { jsElement[r'transitionDuration'] = value; }
+
   /// Closes the drawer.
   close() =>
       jsElement.callMethod('close', []);
@@ -85,9 +89,8 @@ class AppDrawer extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   open() =>
       jsElement.callMethod('open', []);
 
-  /// Resets the layout. If you changed the size of app-header via CSS
-  /// you can notify the changes by either firing the `iron-resize` event
-  /// or calling `resetLayout` directly.
+  /// Resets the layout. The event fired is used by app-drawer-layout to position the
+  /// content.
   resetLayout() =>
       jsElement.callMethod('resetLayout', []);
 

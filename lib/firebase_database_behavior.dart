@@ -11,25 +11,24 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'app_storage_behavior.dart';
 import 'firebase_common_behavior.dart';
 import 'app_network_status_behavior.dart';
-import 'firebase_database_behavior.dart';
 
 
-@BehaviorProxy(const ['Polymer', 'FirebaseDatabaseBehaviorImpl'])
-abstract class FirebaseDatabaseBehaviorImpl implements CustomElementProxyMixin {
+@BehaviorProxy(const ['Polymer', 'FirebaseDatabaseBehavior'])
+abstract class FirebaseDatabaseBehavior implements CustomElementProxyMixin, AppStorageBehavior, FirebaseCommonBehavior {
 
   get db => jsElement[r'db'];
   set db(value) { jsElement[r'db'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
+  /// When true, Firebase listeners won't be activated. This can be useful
+  /// in situations where elements are loaded into the DOM before they're
+  /// ready to be activated (e.g. navigation, initialization scenarios).
+  bool get disabled => jsElement[r'disabled'];
+  set disabled(bool value) { jsElement[r'disabled'] = value; }
+
+  /// Path to a Firebase root or endpoint. N.B. `path` is case sensitive.
   String get path => jsElement[r'path'];
   set path(String value) { jsElement[r'path'] = value; }
 
   get ref => jsElement[r'ref'];
   set ref(value) { jsElement[r'ref'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
-}
-
-
-
-
-@BehaviorProxy(const ['Polymer', 'FirebaseDatabaseBehavior'])
-abstract class FirebaseDatabaseBehavior implements CustomElementProxyMixin, AppStorageBehavior, FirebaseCommonBehavior, FirebaseDatabaseBehaviorImpl {
 }

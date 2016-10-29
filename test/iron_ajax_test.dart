@@ -79,6 +79,32 @@ main() async {
           return wait(1);
         });
       });
+
+      test('requestUrl remains empty despite valid queryString', () {
+        ajax = fixture('BlankUrl');
+        $expect(ajax.url).to.be.equal(null);
+        $expect(ajax.queryString).to.be.equal('');
+        $expect(ajax.requestUrl).to.be.equal('');
+
+        ajax.params = {'a': 'b', 'c': 'd'};
+
+        $expect(ajax.queryString).to.be.equal('a=b&c=d');
+        $expect(ajax.requestUrl).to.be.equal('?a=b&c=d');
+      });
+
+      // TODO(dam0vm3nt): update this once we can actually spy on requests
+      test('generateRequest works with empty URL and valid queryString', () {
+        ajax = fixture('BlankUrl');
+        $expect(ajax.url).to.be.equal(null);
+
+        ajax.generateRequest();
+        //$expect(server.requests[0].url).to.be.eql('');
+
+        ajax.params = {'a': 'b', 'c': 'd'};
+
+        ajax.generateRequest();
+        //$expect(server.requests[1].url).to.be.eql('?a=b&c=d');
+      });
     });
 
     group('when properties are changed', () {
@@ -679,12 +705,15 @@ main() async {
         var total = 0;
         incrementTotal(_) {
           total++;
-          if (total == 2) {
+          if (total == 4) {
             done();
           }
         }
         window.on['request'].listen(incrementTotal);
-        window.on['error'].listen(incrementTotal);
+        window.on['iron-ajax-request'].listen(incrementTotal);
+        window.on['response'].listen(incrementTotal);
+        window.on['iron-ajax-response'].listen(incrementTotal);
+
         var ajax = fixture('Bubbles')[0];
         ajax.generateRequest();
         //server.respond();
@@ -695,12 +724,16 @@ main() async {
         var total = 0;
         incrementTotal(_) {
           total++;
-          if (total == 2) {
+          if (total == 4) {
             done();
           }
         }
+
         window.on['request'].listen(incrementTotal);
+        window.on['iron-ajax-request'].listen(incrementTotal);
         window.on['error'].listen(incrementTotal);
+        window.on['iron-ajax-error'].listen(incrementTotal);
+
         var ajax = fixture('Bubbles')[1];
         ajax.generateRequest();
         //server.respond();

@@ -10,7 +10,8 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 
 /// The firebase-app element is used for initializing and configuring your
-/// connection to firebase.
+/// connection to firebase. It is permanently initialized once attached and
+/// should not be dynamically bound.
 @CustomElementProxy('firebase-app')
 class FirebaseApp extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   FirebaseApp.created() : super.created();
@@ -54,4 +55,11 @@ class FirebaseApp extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   /// In that case the name is used as a key to lookup the configuration.
   String get name => jsElement[r'name'];
   set name(String value) { jsElement[r'name'] = value; }
+
+  /// The Firebase Storage bucket for your project. You can find this
+  /// in the Firebase Console under "Web Setup".
+  ///
+  /// For example: `polymerfire-test.appspot.com`
+  String get storageBucket => jsElement[r'storageBucket'];
+  set storageBucket(String value) { jsElement[r'storageBucket'] = value; }
 }

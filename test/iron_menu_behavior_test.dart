@@ -38,6 +38,18 @@ main() async {
         expect(activeElement, menu.children.first, reason: 'menu.firstElementChild is focused');
       });
 
+      testAsync('first item gets focus when menu is focused in a single item menu', (done) {
+        TestMenu menu = fixture('single-item');
+        focus(menu);
+        $async(() {
+          var ownerRoot = new PolymerDom(menu.children.first).getOwnerRoot();
+          if (ownerRoot == null) ownerRoot = document;
+          var activeElement = Polymer.dom(ownerRoot).activeElement;
+          $assert.equal(activeElement, menu.children.first, 'menu.firstElementChild is focused');
+          done();
+        });
+      });
+
       test('selected item gets focus when menu is focused', () async {
         menu.selected = 1;
         focus(menu);
@@ -280,7 +292,7 @@ main() async {
         Map tabIndexCounts = {};
         for (var i = 0; i < nodes.length; i++) {
           var tabIndex = nodes[i].tabIndex.toString();
-          if (tabIndexCounts[tabIndex]!=null) {
+          if (tabIndexCounts[tabIndex] != null) {
             tabIndexCounts[tabIndex]++;
           } else {
             tabIndexCounts[tabIndex] = 1;

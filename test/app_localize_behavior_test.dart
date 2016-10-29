@@ -73,24 +73,24 @@ main() async {
 
       $assert.equal(app1.language, 'en');
       $assert.equal(app2.language, 'en');
-      $assert.equal(app1.localize.apply(['greeting']), 'hello');
-      $assert.equal(app2.localize.apply(['intro', 'name', 'robin', 'numCats', 17]), 'my name is robin. i have 17 cats.');
+      $assert.equal(app1.localize('greeting'), 'hello');
+      $assert.equal(app2.localize('intro', ['name', 'robin', 'numCats', 17]), 'my name is robin. i have 17 cats.');
 
       app1.set('language', 'fr');
       app2.set('language', 'fr');
       $assert.equal(app1.language, 'fr');
       $assert.equal(app2.language, 'fr');
 
-      $assert.equal(app1.localize.apply(['greeting']), 'bonjour');
-      $assert.equal(app2.localize.apply(['intro', 'name', 'robin', 'numCats', 17]), 'je m\'apelle robin. j\'ai 17 chats.');
+      $assert.equal(app1.localize('greeting'), 'bonjour');
+      $assert.equal(app2.localize('intro', ['name', 'robin', 'numCats', 17]), 'je m\'apelle robin. j\'ai 17 chats.');
 
       app1.set('language', 'it');
       app2.set('language', 'it');
       $assert.equal(app1.language, 'it');
       $assert.equal(app2.language, 'it');
 
-      $assert.equal(app1.localize.apply(['greeting']), 'ciao');
-      $assert.equal(app2.localize.apply(['intro', 'name', 'robin', 'numCats', 17]), 'Io mi chiamo robin. Ho 17 gatti.');
+      $assert.equal(app1.localize('greeting'), 'ciao');
+      $assert.equal(app2.localize('intro', ['name', 'robin', 'numCats', 17]), 'Io mi chiamo robin. Ho 17 gatti.');
     });
   });
 
@@ -153,15 +153,15 @@ main() async {
       app1.on['app-resources-loaded'].listen((_) {
         $assert.equal(app1.language, 'en');
         $assert.equal(app2.language, 'en');
-        $assert.equal(app1.localize.apply(['greeting']), 'hello');
-        $assert.equal(app2.localize.apply(['intro', 'name', 'robin', 'numCats', 17]), 'my name is robin. i have 17 cats.');
+        $assert.equal(app1.localize('greeting'), 'hello');
+        $assert.equal(app2.localize('intro', ['name', 'robin', 'numCats', 17]), 'my name is robin. i have 17 cats.');
 
         app1.set('language','fr');
         app2.set('language','fr');
         $assert.equal(app1.language, 'fr');
         $assert.equal(app2.language, 'fr');
-        $assert.equal(app1.localize.apply(['greeting']), 'bonjour');
-        $assert.equal(app2.localize.apply(['intro', 'name', 'robin', 'numCats', 17]), 'je m\'apelle robin. j\'ai 17 chats.');
+        $assert.equal(app1.localize('greeting'), 'bonjour');
+        $assert.equal(app2.localize('intro', ['name', 'robin', 'numCats', 17]), 'je m\'apelle robin. j\'ai 17 chats.');
 
         done();
       });
@@ -283,13 +283,13 @@ main() async {
       resetStringsCache(app);
 
       // Translating one string should add it to the cache.
-      $assert.equal(app.localize.apply(['greeting']), 'hello');
+      $assert.equal(app.localize('greeting'), 'hello');
       $assert.equal(1, ObjectKeys(getStringsCache(app)).length, 'there is 1 string cached');
       var cachedString = getStringsCache(app)['greetinghello'];
       $assert.isNotNull(cachedString, 'cached string has an object');
 
       // Translating the same string again should re-use it from the cache.
-      $assert.equal(app.localize.apply(['greeting']), 'hello');
+      $assert.equal(app.localize('greeting'), 'hello');
       $assert.equal(1, ObjectKeys(getStringsCache(app)).length, 'there is still 1 string cached');
       $assert.equal(cachedString, getStringsCache(app)['greetinghello'], 'cached string is the same');
 
@@ -298,7 +298,7 @@ main() async {
       $assert.equal(0, ObjectKeys(getStringsCache(app)).length, 'the cache is empty');
 
       // But translating a new string will re-add it to the cache.
-      $assert.equal(app.localize.apply(['greeting']), 'bonjour');
+      $assert.equal(app.localize('greeting'), 'bonjour');
       $assert.equal(1, ObjectKeys(getStringsCache(app)).length, 'there is 1 string cached');
       var newCachedString = getStringsCache(app)['greetinghello'];
       $assert.notEqual(cachedString, newCachedString, 'cached string is different than before');

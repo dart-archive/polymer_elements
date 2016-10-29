@@ -214,6 +214,9 @@ class Assert  {
 
   void isNull(selectedItem, [reason]) => T.expect(selectedItem, T.isNull, reason: reason);
   void isFunction(f) => T.expect(f, const T.isInstanceOf<Function>());
+
+  void closeTo(what, num val, num range, [String message]) => T.expect(what,T.closeTo(val,range),reason:message);
+
 }
 
 void testAsync(name, body(done()), {skip}) {

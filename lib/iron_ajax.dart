@@ -14,8 +14,8 @@ import 'iron_request.dart';
 ///
 ///     <iron-ajax
 ///         auto
-///         url="http://gdata.youtube.com/feeds/api/videos/"
-///         params='{"alt":"json", "q":"chrome"}'
+///         url="https://www.googleapis.com/youtube/v3/search"
+///         params='{"part":"snippet", "q":"polymer", "key": "YOUTUBE_API_KEY", "type": "video"}'
 ///         handle-as="json"
 ///         on-response="handleResponse"
 ///         debounce-duration="300"></iron-ajax>
@@ -62,9 +62,14 @@ class IronAjax extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   get body => jsElement[r'body'];
   set body(value) { jsElement[r'body'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
-  /// By default, these events do not bubble largely because the `error` event has special
-  /// meaning in the window object. Setting this attribute will cause iron-ajax's request,
-  /// response, and error events to bubble to the window object.
+  /// By default, iron-ajax's events do not bubble. Setting this attribute will cause its
+  /// request and response events as well as its iron-ajax-request, -response,  and -error
+  /// events to bubble to the window object. The vanilla error event never bubbles when
+  /// using shadow dom even if this.bubbles is true because a scoped flag is not passed with
+  /// it (first link) and because the shadow dom spec did not used to allow certain events,
+  /// including events named error, to leak outside of shadow trees (second link).
+  /// https://www.w3.org/TR/shadow-dom/#scoped-flag
+  /// https://www.w3.org/TR/2015/WD-shadow-dom-20151215/#events-that-are-not-leaked-into-ancestor-trees
   bool get bubbles => jsElement[r'bubbles'];
   set bubbles(bool value) { jsElement[r'bubbles'] = value; }
 

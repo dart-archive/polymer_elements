@@ -32,7 +32,7 @@ import 'app_network_status_behavior.dart';
 /// Set this configuration by adding a `<firebase-app>` element anywhere in your
 /// app.
 @CustomElementProxy('firebase-document')
-class FirebaseDocument extends HtmlElement with CustomElementProxyMixin, PolymerBase, AppStorageBehavior, AppNetworkStatusBehavior, FirebaseCommonBehaviorImpl, FirebaseCommonBehavior, FirebaseDatabaseBehaviorImpl, FirebaseDatabaseBehavior {
+class FirebaseDocument extends HtmlElement with CustomElementProxyMixin, PolymerBase, AppStorageBehavior, AppNetworkStatusBehavior, FirebaseCommonBehavior, FirebaseDatabaseBehavior {
   FirebaseDocument.created() : super.created();
   factory FirebaseDocument() => new Element.tag('firebase-document');
 

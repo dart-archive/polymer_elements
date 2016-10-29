@@ -52,6 +52,10 @@ class GoogleMapDirections extends HtmlElement with CustomElementProxyMixin, Poly
   get map => jsElement[r'map'];
   set map(value) { jsElement[r'map'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
+  /// Overrides the origin the Maps API is loaded from. Defaults to `https://maps.googleapis.com`.
+  String get mapsUrl => jsElement[r'mapsUrl'];
+  set mapsUrl(String value) { jsElement[r'mapsUrl'] = value; }
+
   /// Options for the display of results
   get rendererOptions => jsElement[r'rendererOptions'];
   set rendererOptions(value) { jsElement[r'rendererOptions'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}

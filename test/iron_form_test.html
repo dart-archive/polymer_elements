@@ -101,6 +101,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </form>
   </template>
 
+  <template id="FormValidateNonRequiredCustomElements">
+      <form is="iron-form" action="/responds_with_json" method="post">
+        <paper-input label="numbers" pattern="^[0-9]$" ></paper-input>
+      </form>
+  </template>
+
+  <template id="FormValidateNonRequiredElements">
+      <form is="iron-form" action="/responds_with_json" method="post">
+        <input type="text" name="letters" pattern="^[a-z]$" >
+      </form>
+  </template>
+
   <template id="FormForResetting">
     <form is="iron-form">
       <simple-element name="zig" value="zag"></simple-element>

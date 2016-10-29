@@ -31,6 +31,13 @@ main() async {
         expect(keys.keyCount, 1);
       });
 
+      test('keyEventTarget can be null, and disables listeners', () {
+        keys.keyEventTarget = null;
+        pressSpace(keys);
+
+        $expect(keys.keyCount).to.be.equal(0);
+      });
+
       test(
           'trigger the handler when the specified key is pressed together '
           'with a modifier', () async {
@@ -304,6 +311,15 @@ main() async {
         expect(shiftASpy.called, isTrue);
         expect(aSpy.called, isFalse);
       });
+    });
+  });
+
+  suite('remove key behavior with null target', () {
+    test('add and remove a iron-a11y-keys-behavior', () {
+      XA11yBasicKeys element = new Element.tag('x-a11y-basic-keys');
+      element.keyEventTarget = null;
+      document.body.children.add(element);
+      document.body.children.remove(element);
     });
   });
 }

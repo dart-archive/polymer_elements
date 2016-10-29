@@ -43,10 +43,10 @@ class GoogleCalendarList extends HtmlElement with CustomElementProxyMixin, Polym
 /// ##### Example
 ///
 ///     <google-calendar-busy-now
-///         calendarId="YOUR_CAL_ID"
-///         apiKey="YOUR_API_KEY"
-///         busyLabel="Do not disturb"
-///         freeLabel="I'm free, talk to me!">
+///         calendar-id="YOUR_CAL_ID"
+///         api-key="YOUR_API_KEY"
+///         busy-label="Do not disturb"
+///         free-label="I'm free, talk to me!">
 ///     </google-calendar-busy-now>
 @CustomElementProxy('google-calendar-busy-now')
 class GoogleCalendarBusyNow extends HtmlElement with CustomElementProxyMixin, PolymerBase {
