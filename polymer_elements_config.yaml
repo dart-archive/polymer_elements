@@ -205,6 +205,7 @@ files_to_generate:
   - google-chart/google-chart-loader.html:
       omit_imports:
         - promise-polyfill-lite.html
+        - promise-polyfill.html
         - chart-loader.html
   - google-feeds/google-feeds.html:
       name_substitutions:
