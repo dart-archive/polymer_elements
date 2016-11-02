@@ -317,6 +317,7 @@ files_to_generate:
   - iron-menu-behavior/iron-menu-behavior.html
   - iron-menu-behavior/iron-menubar-behavior.html
   - iron-meta/iron-meta.html
+  - iron-overlay-behavior/iron-focusables-helper.html
   - iron-overlay-behavior/iron-overlay-behavior.html:
       omit_imports:
         - iron-overlay-manager.html
