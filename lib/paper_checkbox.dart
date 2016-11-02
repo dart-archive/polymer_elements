@@ -52,6 +52,7 @@ import 'default_theme.dart';
 /// `--paper-checkbox-label-checked` | Mixin applied to the label when the input is checked | `{}`
 /// `--paper-checkbox-error-color` | Checkbox color when invalid | `--error-color`
 /// `--paper-checkbox-size` | Size of the checkbox | `18px`
+/// `--paper-checkbox-ink-size` | Size of the ripple | `48px`
 /// `--paper-checkbox-margin` | Margin around the checkbox container | `initial`
 /// `--paper-checkbox-vertical-align` | Vertical alignment of the checkbox container | `middle`
 ///

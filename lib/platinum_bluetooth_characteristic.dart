@@ -11,9 +11,11 @@ import 'package:polymer_interop/polymer_interop.dart';
 
 /// The `<platinum-bluetooth-characteristic>` element allows you to [read
 /// and write characteristics on nearby bluetooth devices][1] thanks to the
-/// young [Web Bluetooth API][2]. It is currently only partially implemented
-/// in Chrome OS 45 and Chrome 49 for Android behind the experimental flag
-/// `chrome://flags/#enable-web-bluetooth`.
+/// young [Web Bluetooth API][2]. It is currently partially implemented
+/// behind the experimental flag `chrome://flags/#enable-web-bluetooth`. It
+/// is also now available in Chrome 53 as an [origin trial][3] for Chrome
+/// OS, Android M, and Mac.
+///
 ///
 /// `<platinum-bluetooth-characteristic>` needs to be a child of a
 /// `<platinum-bluetooth-service>` element.
@@ -134,7 +136,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 /// <platinum-bluetooth-device services-filter='["heart_rate"]'>
 ///   <platinum-bluetooth-service service='heart_rate'>
 ///     <platinum-bluetooth-characteristic characteristic='heart_rate_control_point'
-///                                               auto-write>
+///                                        auto-write>
 ///     </platinum-bluetooth-characteristic>
 ///   </platinum-bluetooth-service>
 /// </platinum-bluetooth-device>
@@ -159,6 +161,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 ///
 /// [1]: https://developers.google.com/web/updates/2015/07/interact-with-ble-devices-on-the-web
 /// [2]: https://github.com/WebBluetoothCG/web-bluetooth
+/// [3]: https://developers.google.com/web/updates/2015/07/interact-with-ble-devices-on-the-web#available-for-origin-trials
 @CustomElementProxy('platinum-bluetooth-characteristic')
 class PlatinumBluetoothCharacteristic extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   PlatinumBluetoothCharacteristic.created() : super.created();

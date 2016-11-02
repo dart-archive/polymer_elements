@@ -15,7 +15,7 @@ import 'iron_jsonp_library.dart';
 /// Example:
 ///
 ///     <iron-jsonp-library
-///       library-url="https://apis.google.com/js/plusone.js?onload=%callback%"
+///       library-url="https://apis.google.com/js/plusone.js?onload=%%callback%%"
 ///       notify-event="api-load"
 ///       library-loaded="{{loaded}}"></iron-jsonp-library>
 ///
@@ -33,11 +33,11 @@ class IronJsonpLibrary extends HtmlElement with CustomElementProxyMixin, Polymer
   String get callbackName => jsElement[r'callbackName'];
   set callbackName(String value) { jsElement[r'callbackName'] = value; }
 
-  /// Library url. Must contain string `%callback%`.
+  /// Library url. Must contain string `%%callback%%`.
   ///
-  /// `%callback%` is a placeholder for jsonp wrapper function name
+  /// `%%callback%%` is a placeholder for jsonp wrapper function name
   ///
-  /// Ex: https://maps.googleapis.com/maps/api/js?callback=%callback%
+  /// Ex: https://maps.googleapis.com/maps/api/js?callback=%%callback%%
   String get libraryUrl => jsElement[r'libraryUrl'];
   set libraryUrl(String value) { jsElement[r'libraryUrl'] = value; }
 

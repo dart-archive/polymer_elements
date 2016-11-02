@@ -42,6 +42,9 @@ import 'default_theme.dart';
 /// `--paper-toggle-button-checked-bar-color` | Slider button color when the input is checked | `--primary-color`
 /// `--paper-toggle-button-checked-button-color` | Button color when the input is checked | `--primary-color`
 /// `--paper-toggle-button-checked-ink-color` | Selected/focus ripple color when the input is checked | `--primary-color`
+/// `--paper-toggle-button-invalid-bar-color` | Slider button color when the input is invalid | `--error-color`
+/// `--paper-toggle-button-invalid-button-color` | Button color when the input is invalid | `--error-color`
+/// `--paper-toggle-button-invalid-ink-color` | Selected/focus ripple color when the input is invalid | `--error-color`
 /// `--paper-toggle-button-unchecked-bar` | Mixin applied to the slider when the input is not checked | `{}`
 /// `--paper-toggle-button-unchecked-button` | Mixin applied to the slider button when the input is not checked | `{}`
 /// `--paper-toggle-button-checked-bar` | Mixin applied to the slider when the input is checked | `{}`

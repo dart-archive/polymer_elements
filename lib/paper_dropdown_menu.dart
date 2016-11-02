@@ -90,6 +90,13 @@ class PaperDropdownMenu extends HtmlElement with CustomElementProxyMixin, Polyme
   /// The content element that is contained by the dropdown menu, if any.
   get contentElement => jsElement[r'contentElement'];
 
+  /// If true, the `horizontalAlign` and `verticalAlign` properties will
+  /// be considered preferences instead of strict requirements when
+  /// positioning the dropdown and may be changed if doing so reduces
+  /// the area of the dropdown falling outside of `fitInto`.
+  bool get dynamicAlign => jsElement[r'dynamicAlign'];
+  set dynamicAlign(bool value) { jsElement[r'dynamicAlign'] = value; }
+
   /// The error message to display when invalid.
   String get errorMessage => jsElement[r'errorMessage'];
   set errorMessage(String value) { jsElement[r'errorMessage'] = value; }

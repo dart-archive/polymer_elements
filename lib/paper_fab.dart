@@ -51,6 +51,7 @@ import 'default_theme.dart';
 /// `--paper-fab-mini` | Mixin applied to a mini button | `{}`
 /// `--paper-fab-disabled` | Mixin applied to a disabled button | `{}`
 /// `--paper-fab-iron-icon` | Mixin applied to the iron-icon within the button | `{}`
+/// `--paper-fab-label` | Mixin applied to the label within the button | `{}`
 @CustomElementProxy('paper-fab')
 class PaperFab extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperRippleBehavior, PaperButtonBehavior {
   PaperFab.created() : super.created();

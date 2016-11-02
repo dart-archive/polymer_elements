@@ -58,19 +58,27 @@ import 'color.dart';
 ///       --paper-progress-transition-transition-delay: 0s;
 ///     }
 ///
+/// To change the duration of the indeterminate cycle:
+///
+///     paper-progress {
+///       --paper-progress-indeterminate-cycle-duration: 2s;
+///     }
+///
 /// The following mixins are available for styling:
 ///
-/// Custom property                               | Description                                 | Default
-/// ----------------------------------------------|---------------------------------------------|--------------
-/// `--paper-progress-container-color`            | Mixin applied to container                  | `--google-grey-300`
-/// `--paper-progress-transition-duration`        | Duration of the transition                  | `0.008s`
-/// `--paper-progress-transition-timing-function` | The timing function for the transition      | `ease`
-/// `--paper-progress-transition-delay`           | delay for the transition                    | `0s`
-/// `--paper-progress-active-color`               | The color of the active bar                 | `--google-green-500`
-/// `--paper-progress-secondary-color`            | The color of the secondary bar              | `--google-green-100`
-/// `--paper-progress-disabled-active-color`      | The color of the active bar if disabled     | `--google-grey-500`
-/// `--paper-progress-disabled-secondary-color`   | The color of the secondary bar if disabled  | `--google-grey-300`
-/// `--paper-progress-height`                     | The height of the progress bar              | `4px`
+/// Custom property                                  | Description                                 | Default
+/// -------------------------------------------------|---------------------------------------------|--------------
+/// `--paper-progress-container`                     | Mixin applied to container                  | `{}`
+/// `--paper-progress-transition-duration`           | Duration of the transition                  | `0.008s`
+/// `--paper-progress-transition-timing-function`    | The timing function for the transition      | `ease`
+/// `--paper-progress-transition-delay`              | delay for the transition                    | `0s`
+/// `--paper-progress-container-color`               | Color of the container                      | `--google-grey-300`
+/// `--paper-progress-active-color`                  | The color of the active bar                 | `--google-green-500`
+/// `--paper-progress-secondary-color`               | The color of the secondary bar              | `--google-green-100`
+/// `--paper-progress-disabled-active-color`         | The color of the active bar if disabled     | `--google-grey-500`
+/// `--paper-progress-disabled-secondary-color`      | The color of the secondary bar if disabled  | `--google-grey-300`
+/// `--paper-progress-height`                        | The height of the progress bar              | `4px`
+/// `--paper-progress-indeterminate-cycle-duration`  | Duration of an indeterminate cycle          | `2s`
 @CustomElementProxy('paper-progress')
 class PaperProgress extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronRangeBehavior {
   PaperProgress.created() : super.created();

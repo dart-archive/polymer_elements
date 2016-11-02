@@ -72,8 +72,8 @@ import 'iron_flex_layout.dart';
 /// </paper-toolbar>
 /// ```
 ///
-/// When inside a `paper-header-panel` element, the class `.animate` is toggled to animate
-/// the height change in the toolbar.
+/// When inside a `paper-header-panel` element with `mode="waterfall-tall"`,
+/// the class `.animate` is toggled to animate the height change in the toolbar.
 ///
 /// ### Styling
 ///

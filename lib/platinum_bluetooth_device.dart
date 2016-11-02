@@ -11,9 +11,9 @@ import 'package:polymer_interop/polymer_interop.dart';
 
 /// The `<platinum-bluetooth-device>` element allows you to [discover nearby
 /// bluetooth devices][1] thanks to the young [Web Bluetooth API][2]. It is
-/// currently only partially implemented in Chrome OS 45 and Chrome 49 for
-/// Android behind the experimental flag
-/// `chrome://flags/#enable-web-bluetooth`.
+/// currently partially implemented behind the experimental flag
+/// `chrome://flags/#enable-web-bluetooth`. It is also now available in
+/// Chrome 53 as an [origin trial][3] for Chrome OS, Android M, and Mac.
 ///
 /// `<platinum-bluetooth-device>` is used as a parent element for
 /// `<platinum-bluetooth-service>` child elements.
@@ -75,6 +75,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 ///
 /// [1]: https://developers.google.com/web/updates/2015/07/interact-with-ble-devices-on-the-web
 /// [2]: https://github.com/WebBluetoothCG/web-bluetooth
+/// [3]: https://developers.google.com/web/updates/2015/07/interact-with-ble-devices-on-the-web#available-for-origin-trials
 @CustomElementProxy('platinum-bluetooth-device')
 class PlatinumBluetoothDevice extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   PlatinumBluetoothDevice.created() : super.created();

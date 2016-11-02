@@ -14,6 +14,7 @@ import 'paper_icon_button.dart';
 import 'color.dart';
 import 'shadow.dart';
 import 'prism_highlighter.dart';
+import 'prism_theme_default.dart';
 
 /// `demo-snippet` is a helper element that displays the source of a code snippet and
 /// its rendered demo. It can be used for both native elements and

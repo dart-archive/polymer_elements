@@ -55,4 +55,9 @@ abstract class IronScrollTargetBehavior implements CustomElementProxyMixin {
   /// [top]: The top position
   scroll(num left, num top) =>
       jsElement.callMethod('scroll', [left, top]);
+
+  /// Enables or disables the scroll event listener.
+  /// [yes]: True to add the event, False to remove it.
+  toggleScrollListener(bool yes) =>
+      jsElement.callMethod('toggleScrollListener', [yes]);
 }

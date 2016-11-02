@@ -8,6 +8,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
+import 'promise_polyfill.dart';
 import 'charts_loader.dart';
 
 
@@ -19,8 +20,8 @@ class GoogleChartLoader extends HtmlElement with CustomElementProxyMixin, Polyme
   /// Adds packages to the list of packages to load.
   ///
   /// This is an array consisting of any Google Visualization package names.
-  List get packages => jsElement[r'packages'];
-  set packages(List value) { jsElement[r'packages'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
+  get packages => jsElement[r'packages'];
+  set packages(value) { jsElement[r'packages'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Loads the package for the chart type specified.
   ///
@@ -59,11 +60,15 @@ class GoogleChartLoader extends HtmlElement with CustomElementProxyMixin, Polyme
   ///   likely due to a bug or bad data. If one wants an empty DataTable, pass
   ///   no arguments.
   /// - Anything else
+  ///
+  /// See <a href="https://developers.google.com/chart/interactive/docs/reference#datatable-class">the docs</a> for more details.
   /// [data]: the data with which we should use to construct the new DataTable object
   dataTable(data) =>
       jsElement.callMethod('dataTable', [data]);
 
   /// Creates a DataView object from a DataTable for use with a chart.
+  ///
+  /// See <a href="https://developers.google.com/chart/interactive/docs/reference#dataview-class">the docs</a> for more details.
   /// [data]: the DataTable to use
   dataView(data) =>
       jsElement.callMethod('dataView', [data]);
@@ -82,4 +87,12 @@ class GoogleChartLoader extends HtmlElement with CustomElementProxyMixin, Polyme
   /// [opt_once]: whether to listen only one time
   fireOnChartEvent(chart, String eventName, opt_once) =>
       jsElement.callMethod('fireOnChartEvent', [chart, eventName, opt_once]);
+
+  /// Creates a Query object to be sent to a DataSource protocol implementation.
+  ///
+  /// See <a href="https://developers.google.com/chart/interactive/docs/reference#query-classes">the docs</a> for more details.
+  /// [url]: the URL of the DataSource protocol implementer
+  /// [opt_options]: options for the Query object
+  query(String url, opt_options) =>
+      jsElement.callMethod('query', [url, opt_options]);
 }

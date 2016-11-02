@@ -10,7 +10,8 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 
 /// The firebase-app element is used for initializing and configuring your
-/// connection to firebase.
+/// connection to firebase. It is permanently initialized once attached and
+/// should not be dynamically bound.
 @CustomElementProxy('firebase-app')
 class FirebaseApp extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   FirebaseApp.created() : super.created();

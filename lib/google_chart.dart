@@ -20,7 +20,7 @@ import 'google_chart_loader.dart';
 ///       options='{"title": "Distribution of days in 2001Q1"}'
 ///       cols='[{"label":"Month", "type":"string"}, {"label":"Days", "type":"number"}]'
 ///       rows='[["Jan", 31],["Feb", 28],["Mar", 31]]'>
-///     </google-chart>j
+///     </google-chart>
 ///
 /// Note: if you're passing JSON as attributes, single quotes are necessary to be valid JSON.
 /// See https://www.polymer-project.org/1.0/docs/devguide/properties#configuring-object-and-array-properties.
@@ -55,6 +55,11 @@ import 'google_chart_loader.dart';
 /// - Via the `view` attribute, passing in a Google DataView object:
 ///
 ///       view='{{dataView}}'
+///
+/// You can display the charts in locales other than "en" by setting the `lang` attribute
+/// on the `html` tag of your document.
+///
+///     <html lang="ja">
 @CustomElementProxy('google-chart')
 class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleChart.created() : super.created();
@@ -95,6 +100,17 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   bool get drawn => jsElement[r'drawn'];
   set drawn(bool value) { jsElement[r'drawn'] = value; }
 
+  /// Enumerates the chart events that should be fired.
+  ///
+  /// Charts support a variety of events. By default, this element only
+  /// fires on `ready` and `select`. If you would like to be notified of
+  /// other chart events, use this property to list them.
+  /// Events `ready` and `select` are always fired.
+  /// Changes to this property are _not_ observed. Events are attached only
+  /// at chart construction time.
+  List get events => jsElement[r'events'];
+  set events(List value) { jsElement[r'events'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
+
   /// Returns the chart serialized as an image URI.
   ///
   /// Call this after the chart is drawn (google-chart-render event).
@@ -111,6 +127,11 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   /// };</pre>
   /// See <a href="https://google-developers.appspot.com/chart/interactive/docs/gallery">Google Visualization API reference (Chart Gallery)</a>
   /// for the options available to each chart type.
+  ///
+  /// This property is observed via a deep object observer.
+  /// If you would like to make changes to a sub-property, be sure to use the
+  /// Polymer method `set`: `googleChart.set('options.vAxis.logScale', true)`
+  /// (Note: Missing parent properties are not automatically created.)
   get options => jsElement[r'options'];
   set options(value) { jsElement[r'options'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 

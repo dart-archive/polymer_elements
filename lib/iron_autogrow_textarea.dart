@@ -51,14 +51,18 @@ class IronAutogrowTextarea extends HtmlElement with CustomElementProxyMixin, Pol
   String get inputmode => jsElement[r'inputmode'];
   set inputmode(String value) { jsElement[r'inputmode'] = value; }
 
+  /// The maximum length of the input value.
+  num get maxlength => jsElement[r'maxlength'];
+  set maxlength(num value) { jsElement[r'maxlength'] = value; }
+
   /// The maximum number of rows this element can grow to until it
   /// scrolls. 0 means no maximum.
   num get maxRows => jsElement[r'maxRows'];
   set maxRows(num value) { jsElement[r'maxRows'] = value; }
 
-  /// The maximum length of the input value.
-  num get maxlength => jsElement[r'maxlength'];
-  set maxlength(num value) { jsElement[r'maxlength'] = value; }
+  /// The minimum length of the input value.
+  num get minlength => jsElement[r'minlength'];
+  set minlength(num value) { jsElement[r'minlength'] = value; }
 
   /// Bound to the textarea's `placeholder` attribute.
   String get placeholder => jsElement[r'placeholder'];
@@ -80,7 +84,7 @@ class IronAutogrowTextarea extends HtmlElement with CustomElementProxyMixin, Pol
   get selectionEnd => jsElement[r'selectionEnd'];
   set selectionEnd(value) { jsElement[r'selectionEnd'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
-  /// Sets the textarea's selection start.
+  /// Returns textarea's selection start.
   get selectionStart => jsElement[r'selectionStart'];
   set selectionStart(value) { jsElement[r'selectionStart'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 

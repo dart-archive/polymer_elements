@@ -10,6 +10,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_fit_behavior.dart';
 import 'iron_resizable_behavior.dart';
+import 'iron_focusables_helper.dart';
 
 /// Use `Polymer.IronOverlayBehavior` to implement an element that can be hidden or shown, and displays
 /// on top of other content. It includes an optional backdrop, and can be used to implement a variety
@@ -103,6 +104,11 @@ abstract class IronOverlayBehavior implements CustomElementProxyMixin, IronFitBe
   /// Close the overlay.
   close() =>
       jsElement.callMethod('close', []);
+
+  /// Invalidates the cached tabbable nodes. To be called when any of the focusable
+  /// content changes (e.g. a button is disabled).
+  invalidateTabbables() =>
+      jsElement.callMethod('invalidateTabbables', []);
 
   /// Open the overlay.
   open() =>

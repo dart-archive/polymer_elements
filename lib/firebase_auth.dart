@@ -73,6 +73,10 @@ class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase
   bool get signedIn => jsElement[r'signedIn'];
   set signedIn(bool value) { jsElement[r'signedIn'] = value; }
 
+  /// When true, login status can be determined by checking `user` property.
+  bool get statusKnown => jsElement[r'statusKnown'];
+  set statusKnown(bool value) { jsElement[r'statusKnown'] = value; }
+
   /// The currently-authenticated user with user-related metadata. See
   /// the [`firebase.User`](https://firebase.google.com/docs/reference/js/firebase.User)
   /// documentation for the spec.
@@ -88,6 +92,10 @@ class FirebaseAuth extends HtmlElement with CustomElementProxyMixin, PolymerBase
   /// Authenticates a Firebase client using a new, temporary guest account.
   signInAnonymously() =>
       jsElement.callMethod('signInAnonymously', []);
+
+  /// Authenticates a Firebase client using an oauth id_token.
+  signInWithCredential(credential) =>
+      jsElement.callMethod('signInWithCredential', [credential]);
 
   /// Authenticates a Firebase client using a custom JSON Web Token.
   signInWithCustomToken(token) =>

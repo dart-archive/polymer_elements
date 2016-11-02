@@ -14,7 +14,7 @@ import 'iron_a11y_keys_behavior.dart';
 import 'iron_control_state.dart';
 import 'paper_ripple_behavior.dart';
 import 'iron_flex_layout.dart';
-import 'paper_material.dart';
+import 'paper_material_shared_styles.dart';
 
 /// Material design: [Buttons](https://www.google.com/design/spec/components/buttons.html)
 ///

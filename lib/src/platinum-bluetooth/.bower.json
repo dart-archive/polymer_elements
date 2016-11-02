@@ -1,6 +1,6 @@
 {
   "name": "platinum-bluetooth",
-  "version": "2.1.0",
+  "version": "2.1.2",
   "private": true,
   "license": "http://polymer.github.io/LICENSE.txt",
   "authors": [
@@ -34,11 +34,11 @@
     "paper-styles": "PolymerElements/paper-styles#^1.0.0",
     "web-component-tester": "^4.0.0"
   },
-  "_release": "2.1.0",
+  "_release": "2.1.2",
   "_resolution": {
     "type": "version",
-    "tag": "2.1.0",
-    "commit": "bf15bb63f6ddb4a708b038570219e3706b99aa09"
+    "tag": "v2.1.2",
+    "commit": "f0d5e6e52ab308e9a553034a15f4bd71f2143125"
   },
   "_source": "git://github.com/PolymerElements/platinum-bluetooth.git",
   "_target": "^2.0.0",
