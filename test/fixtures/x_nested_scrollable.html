@@ -8,22 +8,20 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 <dom-module id="x-nested-scrollable">
-
-    <style>
-
-        :host {
-            display: block;
-        }
-
-        #xRegion {
-            width: 100px;
-            height: 100px;
-            overflow: auto;
-        }
-
-    </style>
-
     <template>
+        <style>
+
+            :host {
+                display: block;
+            }
+
+            #xRegion {
+                width: 100px;
+                height: 100px;
+                overflow: auto;
+            }
+
+        </style>
         <div id="xRegion">
             <x-scrollable id="xScrollable" scroll-target="xRegion"></x-scrollable>
         </div>

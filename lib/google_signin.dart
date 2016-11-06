@@ -114,8 +114,8 @@ class GoogleSignin extends HtmlElement with CustomElementProxyMixin, PolymerBase
   /// The height to use for the button.
   ///
   /// Available options: short, standard, tall.
-  get height => jsElement[r'height'];
-  set height(value) { jsElement[r'height'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+  String get height => jsElement[r'height'];
+  set height(String value) { jsElement[r'height'] = value; }
 
   /// The Google Apps domain to which users must belong to sign in.
   /// See the relevant [docs](https://developers.google.com/identity/sign-in/web/reference) for more information.
@@ -188,14 +188,14 @@ class GoogleSignin extends HtmlElement with CustomElementProxyMixin, PolymerBase
   /// The theme to use for the button.
   ///
   /// Available options: light, dark.
-  get theme => jsElement[r'theme'];
-  set theme(value) { jsElement[r'theme'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+  String get theme => jsElement[r'theme'];
+  set theme(String value) { jsElement[r'theme'] = value; }
 
   /// The width to use for the button.
   ///
   /// Available options: iconOnly, standard, wide.
-  get width => jsElement[r'width'];
-  set width(value) { jsElement[r'width'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+  String get width => jsElement[r'width'];
+  set width(String value) { jsElement[r'width'] = value; }
 
   /// Sign in user. Opens the authorization dialog for signing in.
   /// The dialog will be blocked by a popup blocker unless called inside click handler.

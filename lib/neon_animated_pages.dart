@@ -12,7 +12,6 @@ import 'iron_resizable_behavior.dart';
 import 'iron_selectable.dart';
 import 'neon_animation_runner_behavior.dart';
 import 'neon_animatable_behavior.dart';
-import 'neon_animation/animations/opaque_animation.dart';
 
 /// Material design: [Meaningful transitions](https://www.google.com/design/spec/animation/meaningful-transitions.html)
 ///

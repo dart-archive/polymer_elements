@@ -28,14 +28,16 @@ main() async {
       NeonAnimatedPages animatedPages = fixture('animate-initial-selection');
 
       List<JsArray> calls = [];
-      animatedPages.jsElement['_completeAnimations'] = (JsArray args) {
+      JsFunction orig = animatedPages.jsElement['_complete'];
+      animatedPages.jsElement['_complete'] = (JsArray args) {
         calls.add(args);
+        orig.apply(args,thisArg: animatedPages.jsElement);
       };
       $assert.isUndefined(animatedPages.selected);
       var pages = Polymer
           .dom(animatedPages)
           .children;
-      animatedPages.on['neon-animation-finish'].listen((_) {
+      animatedPages.on['neon-animation-finish'].take(2).listen((_) {
         CustomEvent event = new CustomEventWrapper(_);
         if (animatedPages.selected == 0) {
           animatedPages.selected = 1;
@@ -44,10 +46,10 @@ main() async {
         $assert.strictEqual(animatedPages.selected, 1);
         $assert.equal(event.detail['fromPage'], pages[0]);
         $assert.equal(event.detail['toPage'], pages[1]);
-        $assert.isTrue(calls.length == 2);
+        $assert.equal(calls.length,2);
         var a$ = calls[1];
-        $assert.isTrue((a$[0]['animation'] as NeonAnimationBehavior).isNeonAnimation, 'entry animation is not a registered animation');
-        $assert.isTrue((a$[1]['animation'] as NeonAnimationBehavior).isNeonAnimation, 'exit animation is not a registered animation');
+        $assert.isTrue((a$[0]['neonAnimation'] as NeonAnimationBehavior).isNeonAnimation, 'entry animation is not a registered animation');
+        $assert.isTrue((a$[1]['neonAnimation'] as NeonAnimationBehavior).isNeonAnimation, 'exit animation is not a registered animation');
 
         done();
       });

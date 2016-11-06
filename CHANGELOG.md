@@ -1,3 +1,8 @@
+## 1.0.0-rc.10
+
+* Update elements at 20160726
+ * added support for `platinum-elements`
+
 ## 1.0.0-rc.9
 
 * Updated elements at 20160616:

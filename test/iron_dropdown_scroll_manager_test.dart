@@ -90,15 +90,6 @@ main() async {
         expect(IronDropdownScrollManager.elementIsScrollLocked(parent), false);
       });
 
-      test('does not check locked elements when there are no locking elements', () {
-        Spy s = spy(IronDropdownScrollManager.jsProxy, 'elementIsScrollLocked');
-        childOne.dispatchEvent(new CustomEvent('wheel', canBubble: true, cancelable: true));
-        expect(s.callCount, 1);
-        IronDropdownScrollManager.removeScrollLock(childOne);
-        childOne.dispatchEvent(new CustomEvent('wheel', canBubble: true, cancelable: true));
-        expect(s.callCount, 1);
-      });
-
       group('various scroll events', () {
         var scrollEvents;
         var events;
@@ -107,7 +98,7 @@ main() async {
           scrollEvents = ['wheel', 'mousewheel', 'DOMMouseScroll', 'touchmove'];
 
           events = scrollEvents.map((scrollEvent) {
-            return new CustomEvent(scrollEvent, canBubble: true, cancelable: true);
+            return new WheelEvent(scrollEvent, canBubble: true, cancelable: true, deltaX: 0, deltaY: 10);
           });
         });
 
@@ -118,11 +109,31 @@ main() async {
           });
         });
 
+        test('allows wheel events when there are no locking elements', () {
+          IronDropdownScrollManager.removeScrollLock(childOne);
+          events.forEach((event) {
+            childTwo.dispatchEvent(event);
+            $expect(event.defaultPrevented).to.be.eql(false);
+          });
+        });
+
         test('allows wheel events from unlocked elements', () {
           events.forEach((event) {
             childOne.dispatchEvent(event);
             expect(event.defaultPrevented, false);
           });
+        });
+
+        test('touchstart is prevented if dispatched by an element outside the locking element', () {
+          var event = new CustomEvent('touchstart', canBubble: true, cancelable: true);
+          childTwo.dispatchEvent(event);
+          $expect(event.defaultPrevented).to.be.eql(true);
+        });
+
+        test('touchstart is not prevented if dispatched by an element inside the locking element', () {
+          var event = new CustomEvent('touchstart', canBubble: true, cancelable: true);
+          grandChildOne.dispatchEvent(event);
+          $expect(event.defaultPrevented).to.be.eql(false);
         });
       });
     });

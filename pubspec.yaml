@@ -1,5 +1,5 @@
 name: polymer_elements
-version: 1.0.0-rc.9
+version: 1.0.0-rc.10
 author: Polymer.dart Authors <web-ui-dev@dartlang.org>
 description: Polymer polymer-elements for Dart
 homepage: https://github.com/dart-lang/polymer_elements
@@ -8,7 +8,7 @@ dependencies:
   web_components: ^0.12.0
 dev_dependencies:
   browser: ^0.10.0
-  custom_element_apigen: ^0.2.1+1
+  custom_element_apigen: ^0.2.3
   html5lib: ">=0.11.0 <0.13.0"
   path: ^1.0.0
   polymer: ^1.0.0-rc.15
@@ -189,6 +189,8 @@ transformers:
     - test/paper_toast_test.html
     - test/paper_toolbar_test.html
     - test/paper_tooltip_test.html
+    - test/platinum_push_messaging_supported_test.html
+    - test/platinum_push_messaging_unsupported_test.html
     $include: test/**_test{.*,}.{dart,html}
 - test/pub_serve:
     $include: test/**_test{.*,}.dart

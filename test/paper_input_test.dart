@@ -15,6 +15,7 @@ import 'package:polymer_elements/paper_input_container.dart';
 import 'common.dart';
 import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/iron_input.dart';
+import 'sinon/sinon.dart' as sinon;
 
 main() async {
   await initWebComponents();
@@ -78,6 +79,14 @@ main() async {
         expect(counter.jsElement['_charCounterStr'], equals(input.value.length.toString()));
       });
 
+      test('character counter is correct for type=number', () {
+        var input = fixture('type-number-char-counter');
+        forceXIfStamp(input);
+        PaperInputCharCounter counter = new PolymerDom(input.root).querySelector('paper-input-char-counter');
+        $assert.ok(counter, 'paper-input-char-counter exists');
+        $assert.equal(counter.jsElement['_charCounterStr'], "${input.value.toString().length}", 'character counter shows the value length');
+      });
+
       test('validator is used', () {
         PaperInput input = fixture('validator');
         expect(input.inputElement.invalid, isTrue);
@@ -92,6 +101,29 @@ main() async {
         input.updateValueAndPreserveCaret('nanananabatman');
         expect(ironInput.selectionStart, equals(2));
         expect(ironInput.selectionEnd, equals(2));
+      });
+
+      testAsync('setting autofocus to true implictly acquires focus', (done) async {
+        var input = fixture('basic');
+        var inputFocusSpy = sinon.spy(input.inputElement.jsElement, 'focus');
+        input.autofocus = true;
+        await wait(50);
+        $assert(inputFocusSpy.called);
+        done();
+      });
+
+      testAsync('autofocus doesn\'t grab focus if another element already has it', (done) async {
+        var inputs = fixture('multiple-inputs');
+        var inputFocusSpies = inputs.map((input) {
+          return sinon.spy(input.inputElement.jsElement, 'focus');
+        }).toList();
+        inputs[0].autofocus = true;
+        inputs[1].autofocus = true; // Shouldn't cause focus to change
+
+        await wait(10);
+        $assert(inputFocusSpies[0].called, 'first autofocus input with grabbed focus');
+        $assert(!inputFocusSpies[1].called, 'second autofocus input let first input keep focus');
+        done();
       });
     });
 
@@ -153,6 +185,16 @@ main() async {
         $assert.isTrue(input.focused, 'input is focused');
         blur(input.inputElement);
         $assert.isTrue(!input.focused, 'input is blurred');
+      });
+
+      test('focusing then bluring with shift-tab removes the focused attribute correctly', () {
+        focus(input);
+        $assert(input.focused, 'input is focused');
+
+        // Fake a shift-tab induced blur by forcing the flag.
+        input.jsElement['_shiftTabPressed'] = true;
+        blur(input.inputElement);
+        $assert(!input.focused, 'input is blurred');
       });
     });
 

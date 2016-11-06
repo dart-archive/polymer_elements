@@ -214,6 +214,9 @@ class Assert  {
 
   void isNull(selectedItem, [reason]) => T.expect(selectedItem, T.isNull, reason: reason);
   void isFunction(f) => T.expect(f, const T.isInstanceOf<Function>());
+
+  void closeTo(what, num val, num range, [String message]) => T.expect(what,T.closeTo(val,range),reason:message);
+
 }
 
 void testAsync(name, body(done()), {skip}) {
@@ -247,7 +250,7 @@ void hideTestRunnerFrame() {
 $$assert(x, [reason]) => $assert.isTrue(x, reason);
 
 jsDeepEquals(JsObject a, JsObject b) {
-  List<String> x = context['Object']['keys'].apply([a]);
+  List<String> x = context['Object']['keys'].applyData([a]);
   return x.every((x) {
     if (a[x] is JsObject || b[x] is JsObject) {
       return jsDeepEquals(a[x], b[x]);

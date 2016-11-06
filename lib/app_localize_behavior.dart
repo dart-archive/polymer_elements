@@ -24,7 +24,7 @@ import 'iron_ajax.dart';
 ///
 ///     <dom-module id="x-app">
 ///        <template>
-///         <div>{{localize('hello', 'Batman')}}</div>
+///         <div>{{localize('hello', 'name', 'Batman')}}</div>
 ///        </template>
 ///        <script>
 ///           Polymer({
@@ -51,7 +51,7 @@ import 'iron_ajax.dart';
 ///
 ///     <dom-module id="x-app">
 ///        <template>
-///         <div>{{localize('hello', 'Batman')}}</div>
+///         <div>{{localize('hello', 'name', 'Batman')}}</div>
 ///        </template>
 ///        <script>
 ///           Polymer({
@@ -93,12 +93,6 @@ abstract class AppLocalizeBehavior implements CustomElementProxyMixin {
   String get language => jsElement[r'language'];
   set language(String value) { jsElement[r'language'] = value; }
 
-  /// Translates a string to the current `language`. Any parameters to the
-  /// string should be passed in order, as follows:
-  /// `localize(stringKey, param1Name, param1Value, param2Name, param2Value)`
-  get localize => jsElement[r'localize'];
-  set localize(value) { jsElement[r'localize'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
-
   /// The path to the dictionary of localized messages. The format is the
   /// same as the `resources` array, only saved as an external json file.
   /// Note that using a path will populate the `resources` property, and override
@@ -119,4 +113,9 @@ abstract class AppLocalizeBehavior implements CustomElementProxyMixin {
 
   loadResources(path) =>
       jsElement.callMethod('loadResources', [path]);
+
+    /// Translates a string to the current `language`. Any parameters to the
+    /// string should be passed in order, as follows:
+    /// `localize(stringKey, [param1Name, param1Value, param2Name, param2Value])`
+    localize(String stringKey,[List<String> args]) => jsElement.callMethod('localize',[stringKey]..addAll((args==null ? [] : args) as List));
 }

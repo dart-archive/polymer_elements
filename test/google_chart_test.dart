@@ -23,7 +23,7 @@ main() async {
 
     test('fires google-chart-render event for initial load', () {
       var done = new Completer();
-      chart.on['google-chart-render'].take(1).listen((event) {
+      chart.on['google-chart-ready'].take(1).listen((event) {
         event = convertToDart(event);
         expect(event.detail, isNotNull);
         done.complete();
@@ -33,12 +33,12 @@ main() async {
 
     test('fires google-chart-render event for drawChart call', () {
       var done = new Completer();
-      chart.on['google-chart-render'].take(1).listen((event) {
+      chart.on['google-chart-ready'].take(1).listen((event) {
         event = convertToDart(event);
         expect(event.detail, isNotNull);
         done.complete();
       });
-      chart.drawChart();
+      chart.redraw(); // drawChart is no more public ? Using redraw
       return done.future;
     });
 
