@@ -88,6 +88,7 @@ import 'typography.dart';
 /// `--paper-input-container-label-focus` | Mixin applied to the label when the input is focused | `{}`
 /// `--paper-input-container-label-floating` | Mixin applied to the label when floating | `{}`
 /// `--paper-input-container-input` | Mixin applied to the input | `{}`
+/// `--paper-input-container-input-webkit-spinner` | Mixin applied to the webkit spinner | `{}`
 /// `--paper-input-container-underline` | Mixin applied to the underline | `{}`
 /// `--paper-input-container-underline-focus` | Mixin applied to the underline when the input is focused | `{}`
 /// `--paper-input-container-underline-disabled` | Mixin applied to the underline when the input is disabled | `{}`

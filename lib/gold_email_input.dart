@@ -55,8 +55,8 @@ class GoldEmailInput extends HtmlElement with CustomElementProxyMixin, PolymerBa
   String get regex => jsElement[r'regex'];
   set regex(String value) { jsElement[r'regex'] = value; }
 
-  get value => jsElement[r'value'];
-  set value(value) { jsElement[r'value'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+  String get value => jsElement[r'value'];
+  set value(String value) { jsElement[r'value'] = value; }
 
   /// Returns true if the element has a valid value, and sets the visual error
   /// state.

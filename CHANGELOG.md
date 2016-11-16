@@ -1,9 +1,8 @@
-## 1.0.0-rc.11
-
-* Update elements at 20161102
-
 ## 1.0.0-rc.10
 
+* Update Elements at 20161116
+  * `app-elements` 0.10.0
+* Update elements at 20161102
 * Update elements at 20160726
  * added support for `platinum-elements`
 
