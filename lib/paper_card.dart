@@ -28,7 +28,7 @@ import 'default_theme.dart';
 ///
 /// Example - top card image:
 ///
-///     <paper-card heading="Card Title" image="/path/to/image.png">
+///     <paper-card heading="Card Title" image="/path/to/image.png" alt="image">
 ///       ...
 ///     </paper-card>
 ///
@@ -56,6 +56,10 @@ class PaperCard extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   PaperCard.created() : super.created();
   factory PaperCard() => new Element.tag('paper-card');
 
+  /// The text alternative of the card's title image.
+  String get alt => jsElement[r'alt'];
+  set alt(String value) { jsElement[r'alt'] = value; }
+
   /// Read-only property used to pass down the `animatedShadow` value to
   /// the underlying paper-material style (since they have different names).
   bool get animated => jsElement[r'animated'];
@@ -82,6 +86,11 @@ class PaperCard extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   /// The url of the title image of the card.
   String get image => jsElement[r'image'];
   set image(String value) { jsElement[r'image'] = value; }
+
+  /// This image will be used as a background/placeholder until the src image has
+  /// loaded. Use of a data-URI for placeholder is encouraged for instant rendering.
+  String get placeholderImage => jsElement[r'placeholderImage'];
+  set placeholderImage(String value) { jsElement[r'placeholderImage'] = value; }
 
   /// When `true`, any change to the image url property will cause the
   /// `placeholder` image to be shown until the image is fully rendered.

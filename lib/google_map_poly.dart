@@ -38,13 +38,13 @@ class GoogleMapPoly extends HtmlElement with CustomElementProxyMixin, PolymerBas
   GoogleMapPoly.created() : super.created();
   factory GoogleMapPoly() => new Element.tag('google-map-poly');
 
-  /// When true, the google-map-poly-*click events will be automatically registered.
-  bool get clickEvents => jsElement[r'clickEvents'];
-  set clickEvents(bool value) { jsElement[r'clickEvents'] = value; }
-
   /// When true, the poly will generate mouse events.
   bool get clickable => jsElement[r'clickable'];
   set clickable(bool value) { jsElement[r'clickable'] = value; }
+
+  /// When true, the google-map-poly-*click events will be automatically registered.
+  bool get clickEvents => jsElement[r'clickEvents'];
+  set clickEvents(bool value) { jsElement[r'clickEvents'] = value; }
 
   /// When true, the path will be closed by connecting the last point to the first one and
   /// treating the poly as a polygon.

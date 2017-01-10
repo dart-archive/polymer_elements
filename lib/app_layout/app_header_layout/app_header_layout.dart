@@ -20,7 +20,7 @@ import '../../iron_flex_layout.dart';
 /// <app-header-layout>
 ///   <app-header fixed condenses effects="waterfall">
 ///     <app-toolbar>
-///       <div title>App name</div>
+///       <div main-title>App name</div>
 ///     </app-toolbar>
 ///   </app-header>
 ///   <div>
@@ -35,12 +35,20 @@ import '../../iron_flex_layout.dart';
 /// <app-header-layout has-scrolling-region style="width: 300px; height: 400px;">
 ///   <app-header fixed condenses effects="waterfall">
 ///     <app-toolbar>
-///       <div title>App name</div>
+///       <div main-title>App name</div>
 ///     </app-toolbar>
 ///   </app-header>
 ///   <div>
 ///     main content
 ///   </div>
+/// </app-header-layout>
+/// ```
+///
+/// Add the `fullbleed` attribute to app-header-layout to make it fit the size of its container:
+///
+/// ```html
+/// <app-header-layout fullbleed>
+///  ...
 /// </app-header-layout>
 /// ```
 @CustomElementProxy('app-header-layout')

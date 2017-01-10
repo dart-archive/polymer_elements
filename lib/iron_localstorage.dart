@@ -52,7 +52,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 /// ### Tech notes:
 ///
 /// * `value.*` is observed, and saved on modifications. You must use
-///     path change notifification methods such as `set()` to modify value
+///     path change notification methods such as `set()` to modify value
 ///     for changes to be observed.
 ///
 /// * Set `auto-save-disabled` to prevent automatic saving.

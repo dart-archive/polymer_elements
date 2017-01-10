@@ -50,11 +50,9 @@ import 'iron_scroll_target_behavior.dart';
 ///
 /// ```html
 /// <iron-scroll-threshold on-lower-threshold="loadMoreData">
-///   <dom-repeat items="[[items]]">
-///     <template>
-///       <div>[[index]]</div>
-///     </template>
-///   </dom-repeat>
+///   <template is="dom-repeat" items="[[items]]">
+///     <div>[[index]]</div>
+///   </template>
 /// </iron-scroll-threshold>
 /// ```
 ///
@@ -96,10 +94,13 @@ class IronScrollThreshold extends HtmlElement with CustomElementProxyMixin, Poly
   bool get upperTriggered => jsElement[r'upperTriggered'];
   set upperTriggered(bool value) { jsElement[r'upperTriggered'] = value; }
 
-  /// Checks the scroll thresholds.
-  /// This method is automatically called by iron-scroll-threshold.
   checkScrollThesholds() =>
       jsElement.callMethod('checkScrollThesholds', []);
+
+  /// Checks the scroll thresholds.
+  /// This method is automatically called by iron-scroll-threshold.
+  checkScrollThresholds() =>
+      jsElement.callMethod('checkScrollThresholds', []);
 
   /// Clear the upper and lower threshold states.
   clearTriggers() =>

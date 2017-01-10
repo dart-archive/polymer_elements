@@ -13,7 +13,7 @@ import 'default_theme.dart';
 import 'typography.dart';
 
 /// `<paper-input-container>` is a container for a `<label>`, an `<input is="iron-input">` or
-/// `<iron-autogrow-textarea>` and optional add-on elements such as an error message or character
+/// `<textarea>` and optional add-on elements such as an error message or character
 /// counter, used to implement Material Design text fields.
 ///
 /// For example:
@@ -88,6 +88,7 @@ import 'typography.dart';
 /// `--paper-input-container-label-focus` | Mixin applied to the label when the input is focused | `{}`
 /// `--paper-input-container-label-floating` | Mixin applied to the label when floating | `{}`
 /// `--paper-input-container-input` | Mixin applied to the input | `{}`
+/// `--paper-input-container-input-webkit-spinner` | Mixin applied to the webkit spinner | `{}`
 /// `--paper-input-container-underline` | Mixin applied to the underline | `{}`
 /// `--paper-input-container-underline-focus` | Mixin applied to the underline when the input is focused | `{}`
 /// `--paper-input-container-underline-disabled` | Mixin applied to the underline when the input is disabled | `{}`

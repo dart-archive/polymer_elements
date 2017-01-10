@@ -10,7 +10,55 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_meta.dart';
 
-
+/// The `iron-iconset` element allows users to define their own icon set using
+/// an image file. (To create an iconset using SVG icons, see [`iron-iconset-svg`](iron-iconset-svg).)
+///
+/// The `src` property specifies the url of the icon image. Multiple icons may
+/// be included in this image and they may be organized into rows.
+/// The `icons` property is a space separated list of names corresponding to the
+/// icons. The names must be ordered as the icons are ordered in the icon image.
+/// Icons are expected to be square and are the size specified by the `size`
+/// property. The `width` property corresponds to the width of the icon image
+/// and must be specified if icons are arranged into multiple rows in the image.
+///
+/// All `iron-iconset` elements are available for use by other `iron-iconset`
+/// elements via a database keyed by id. Typically, an element author that wants
+/// to support a set of custom icons uses a `iron-iconset` to retrieve
+/// and use another, user-defined icon set, or simply uses the [`iron-icon`](iron-icon)
+/// element to display an icon by specifying its icon set name and id.
+///
+/// Example:
+///
+///     <iron-iconset id="my-icons" src="my-icons.png" width="96" size="24"
+///         icons="location place starta stopb bus car train walk">
+///     </iron-iconset>
+///
+/// This will automatically register the icon set "my-icons" to the iconset
+/// database.  To use these icons from within another element, make a
+/// `iron-iconset` element and call the `byId` method to retrieve a
+/// given iconset. To apply a particular icon to an element, use the
+/// `applyIcon` method. For example:
+///
+///     iconset.applyIcon(iconNode, 'car');
+///
+/// Themed icon sets are also supported. The `iron-iconset` can contain child
+/// `property` elements that specify a theme with an offsetX and offsetY of the
+/// theme within the icon resource. For example.
+///
+///     <iron-iconset id="my-icons" src="my-icons.png" width="96" size="24"
+///         icons="location place starta stopb bus car train walk">
+///       <property theme="special" offsetX="256" offsetY="24"></property>
+///     </iron-iconset>
+///
+/// Then a themed icon can be applied like this:
+///
+///     iconset.applyIcon(iconNode, 'car', 'special');
+///
+/// See also:
+///
+/// -   [`iron-iconset-svg`](iron-iconset-svg). Build icon sets with SVG elements.
+/// -   [`iron-icons`](iron-icons). Predefined icon sets.
+/// -   [`iron-icon`](iron-icon). Simple element to display an icon.
 @CustomElementProxy('iron-iconset')
 class IronIconset extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   IronIconset.created() : super.created();

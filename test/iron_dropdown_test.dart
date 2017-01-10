@@ -31,6 +31,19 @@ Future runAfterOpen(IronDropdown overlay, Function cb) async {
   await cb();
 }
 
+fireWheel(node, deltaX, deltaY) {
+  // IE 11 doesn't support WheelEvent, use CustomEvent.
+  var event = new WheelEvent('wheel', cancelable: true, canBubble: true,deltaX:deltaX,deltaY:deltaY);
+  node.dispatchEvent(event);
+  return event;
+}
+
+dispatchScroll(target, scrollLeft, scrollTop) {
+  target.scrollLeft = scrollLeft;
+  target.scrollTop = scrollTop;
+  target.dispatchEvent(new CustomEvent('scroll', canBubble: true));
+}
+
 main() async {
   await initPolymer();
 
@@ -90,8 +103,33 @@ main() async {
     group('locking scroll', () {
       var dropdown;
 
+      DivElement bigDiv;
+      var scrollTarget;
+      setUpAll(() {
+        bigDiv = document.createElement('div');
+        bigDiv.classes.add('big');
+        document.body.children.add(bigDiv);
+        // Need to discover if html or body is scrollable.
+        // Here we are sure the page is scrollable.
+        document.documentElement.scrollTop = 1;
+        if (document.documentElement.scrollTop == 1) {
+          document.documentElement.scrollTop = 0;
+          scrollTarget = document.documentElement;
+        } else {
+          scrollTarget = document.body;
+        }
+      });
+
+      tearDownAll(() {
+        document.body.children.remove(bigDiv);
+      });
+
       setUp(() {
         dropdown = fixture('TrivialDropdown');
+      });
+
+      teardown(() {
+        dispatchScroll(scrollTarget, 0, 0);
       });
 
       test('should lock, only once', () async {
@@ -99,6 +137,7 @@ main() async {
           await runAfterOpen(dropdown, () async {
             expect(IronDropdownScrollManager.jsProxy['_lockingElements'].length, 1);
             expect(IronDropdownScrollManager.elementIsScrollLocked(document.body), isTrue);
+            $expect(fireWheel(document.body, 0, 10).defaultPrevented).to.be.equal(true);
 
             if (openCount == 0) {
               // This triggers a second `pushScrollLock` with the same element, however
@@ -108,6 +147,25 @@ main() async {
             }
           });
         }
+      });
+
+      testAsync('should lock scroll', (done) {
+        runAfterOpen(dropdown, () {
+          dispatchScroll(scrollTarget, 10, 10);
+          $assert.equal(scrollTarget.scrollTop, 0, 'scrollTop ok');
+          $assert.equal(scrollTarget.scrollLeft, 0, 'scrollLeft ok');
+          done();
+        });
+      });
+
+      testAsync('can be disabled with `allowOutsideScroll`', (done) {
+        dropdown.allowOutsideScroll = true;
+        runAfterOpen(dropdown, () {
+          dispatchScroll(scrollTarget, 10, 10);
+          $assert.equal(scrollTarget.scrollTop, 10, 'scrollTop ok');
+          $assert.equal(scrollTarget.scrollLeft, 10, 'scrollLeft ok');
+          done();
+        });
       });
     });
 
@@ -121,6 +179,7 @@ main() async {
       test('can be disabled with `allowOutsideScroll`', () async {
         await runAfterOpen(dropdown, () async {
           expect(IronDropdownScrollManager.elementIsScrollLocked(document.body), isFalse);
+          $expect(fireWheel(document.body, 0, 10).defaultPrevented).to.be.equal(false);
         });
       });
     });
@@ -133,26 +192,22 @@ main() async {
       setUp(() {
         parent = fixture('AlignedDropdown');
         dropdown = parent.querySelector('iron-dropdown');
+        parentRect = parent.getBoundingClientRect();
       });
 
       test('can be re-aligned to the right and the top', () async {
-
-
         await runAfterOpen(dropdown, () async {
           dropdownRect = dropdown.getBoundingClientRect();
-          parentRect = parent.getBoundingClientRect();
           expect(dropdownRect.top, parentRect.top, reason: 'top ok');
           expect(dropdownRect.left, 0, reason: 'left ok');
-          expect(dropdownRect.bottom, document.documentElement.clientHeight, reason: 'bottom ok');
+          expect(dropdownRect.bottom, window.innerHeight, reason: 'bottom ok');
           expect(dropdownRect.right, parentRect.right, reason: 'right ok');
         });
       });
 
       test('can be re-aligned to the bottom', () async {
-
         dropdown.verticalAlign = 'bottom';
         await runAfterOpen(dropdown, () {
-          parentRect = parent.getBoundingClientRect();
           dropdownRect = dropdown.getBoundingClientRect();
           expect(dropdownRect.top, 0, reason: 'top ok');
           expect(dropdownRect.left, 0, reason: 'left ok');
@@ -166,10 +221,9 @@ main() async {
         parent.style.transform = 'translateZ(0)';
         await runAfterOpen(dropdown, () async {
           dropdownRect = dropdown.getBoundingClientRect();
-          parentRect = parent.getBoundingClientRect();
           expect(dropdownRect.top, parentRect.top, reason: 'top ok');
           expect(dropdownRect.left, 0, reason: 'left ok');
-          expect(dropdownRect.bottom, document.documentElement.clientHeight, reason: 'bottom ok');
+          expect(dropdownRect.bottom, window.innerHeight, reason: 'bottom ok');
           expect(dropdownRect.right, parentRect.right, reason: 'right ok');
         });
       });

@@ -66,6 +66,7 @@ import 'iron_flex_layout.dart';
 ///
 /// Custom property | Description | Default
 /// ----------------|-------------|----------
+/// `--iron-icon` | Mixin applied to the icon | {}
 /// `--iron-icon-width` | Width of the icon | `24px`
 /// `--iron-icon-height` | Height of the icon | `24px`
 /// `--iron-icon-fill-color` | Fill color of the svg icon | `currentcolor`

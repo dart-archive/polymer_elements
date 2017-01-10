@@ -9,7 +9,7 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_request.dart';
-import 'charts_loader.dart';
+import 'google_chart_loader.dart';
 
 /// `google-chart` encapsulates Google Charts as a web component, allowing you to easily visualize
 /// data. From simple line charts to complex hierarchical tree maps, the chart element provides a
@@ -21,6 +21,9 @@ import 'charts_loader.dart';
 ///       cols='[{"label":"Month", "type":"string"}, {"label":"Days", "type":"number"}]'
 ///       rows='[["Jan", 31],["Feb", 28],["Mar", 31]]'>
 ///     </google-chart>
+///
+/// Note: if you're passing JSON as attributes, single quotes are necessary to be valid JSON.
+/// See https://www.polymer-project.org/1.0/docs/devguide/properties#configuring-object-and-array-properties.
 ///
 /// Height and width are specified as style attributes:
 ///
@@ -52,6 +55,11 @@ import 'charts_loader.dart';
 /// - Via the `view` attribute, passing in a Google DataView object:
 ///
 ///       view='{{dataView}}'
+///
+/// You can display the charts in locales other than "en" by setting the `lang` attribute
+/// on the `html` tag of your document.
+///
+///     <html lang="ja">
 @CustomElementProxy('google-chart')
 class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   GoogleChart.created() : super.created();
@@ -67,8 +75,8 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   ///  {label: "Value", type: "number"}]</pre>
   /// See <a href="https://google-developers.appspot.com/chart/interactive/docs/reference#DataTable_addColumn">Google Visualization API reference (addColumn)</a>
   /// for column definition format.
-  List get cols => jsElement[r'cols'];
-  set cols(List value) { jsElement[r'cols'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
+  get cols => jsElement[r'cols'];
+  set cols(value) { jsElement[r'cols'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Sets the entire dataset for this object.
   /// Can be used to provide the data directly, or to provide a URL from
@@ -88,6 +96,26 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   get data => jsElement[r'data'];
   set data(value) { jsElement[r'data'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
+  /// Whether the chart is currently rendered.
+  bool get drawn => jsElement[r'drawn'];
+  set drawn(bool value) { jsElement[r'drawn'] = value; }
+
+  /// Enumerates the chart events that should be fired.
+  ///
+  /// Charts support a variety of events. By default, this element only
+  /// fires on `ready` and `select`. If you would like to be notified of
+  /// other chart events, use this property to list them.
+  /// Events `ready` and `select` are always fired.
+  /// Changes to this property are _not_ observed. Events are attached only
+  /// at chart construction time.
+  List get events => jsElement[r'events'];
+  set events(List value) { jsElement[r'events'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
+
+  /// Returns the chart serialized as an image URI.
+  ///
+  /// Call this after the chart is drawn (google-chart-render event).
+  get imageURI => jsElement[r'imageURI'];
+
   /// Sets the options for the chart.
   ///
   /// Example:
@@ -99,18 +127,13 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   /// };</pre>
   /// See <a href="https://google-developers.appspot.com/chart/interactive/docs/gallery">Google Visualization API reference (Chart Gallery)</a>
   /// for the options available to each chart type.
+  ///
+  /// This property is observed via a deep object observer.
+  /// If you would like to make changes to a sub-property, be sure to use the
+  /// Polymer method `set`: `googleChart.set('options.vAxis.logScale', true)`
+  /// (Note: Missing parent properties are not automatically created.)
   get options => jsElement[r'options'];
   set options(value) { jsElement[r'options'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
-
-  /// A Promise for the Google Visualization library.
-  ///
-  /// Example:
-  /// <pre>myChart.pkg.then(function(viz) {
-  ///   // `viz` is equivalent to `google.visualization`
-  ///   myChart.view = new viz.DataView(myData);
-  /// });</pre>
-  get pkg => jsElement[r'pkg'];
-  set pkg(value) { jsElement[r'pkg'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Sets the data rows for this object.
   ///
@@ -122,10 +145,10 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   ///  ["Category 2", 1.1]]</pre>
   /// See <a href="https://google-developers.appspot.com/chart/interactive/docs/reference#addrow">Google Visualization API reference (addRow)</a>
   /// for row format.
-  List get rows => jsElement[r'rows'];
-  set rows(List value) { jsElement[r'rows'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
+  get rows => jsElement[r'rows'];
+  set rows(value) { jsElement[r'rows'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
-  /// Selected datapoint(s) in the map.
+  /// Selected datapoint(s) in the chart.
   ///
   /// An array of objects, each with a numeric row and/or column property.
   /// `row` and `column` are the zero-based row or column number of an item
@@ -138,8 +161,8 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   /// <pre>
   ///   [{row:0,column:1}, {row:1, column:null}]
   /// </pre>
-  List get selection => jsElement[r'selection'];
-  set selection(List value) { jsElement[r'selection'] = (value != null && value is! JsArray) ? new JsObject.jsify(value) : value;}
+  get selection => jsElement[r'selection'];
+  set selection(value) { jsElement[r'selection'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// Sets the type of the chart.
   ///
@@ -147,7 +170,8 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   /// - `area`, `bar`, `bubble`, `candlestick`, `column`, `combo`, `geo`,
   ///   `histogram`, `line`, `pie`, `scatter`, `stepped-area`, `treemap`
   ///
-  /// See <a href="https://google-developers.appspot.com/chart/interactive/docs/gallery">Google Visualization API reference (Chart Gallery)</a> for details.
+  /// See <a href="https://google-developers.appspot.com/chart/interactive/docs/gallery">Google Visualization API reference (Chart Gallery)</a>
+  /// for details.
   String get type => jsElement[r'type'];
   set type(String value) { jsElement[r'type'] = value; }
 
@@ -164,12 +188,6 @@ class GoogleChart extends HtmlElement with CustomElementProxyMixin, PolymerBase 
   ///
   /// Called automatically when data/type/selection attributes change.
   /// Call manually to handle view updates, page resizes, etc.
-  drawChart() =>
-      jsElement.callMethod('drawChart', []);
-
-  /// Returns the chart serialized as an image URI.
-  ///
-  /// Call this after the chart is drawn (google-chart-render event).
-  String getImageURI() =>
-      jsElement.callMethod('getImageURI', []);
+  redraw() =>
+      jsElement.callMethod('redraw', []);
 }

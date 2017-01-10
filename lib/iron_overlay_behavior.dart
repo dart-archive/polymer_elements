@@ -10,14 +10,18 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
 import 'iron_fit_behavior.dart';
 import 'iron_resizable_behavior.dart';
+import 'iron_focusables_helper.dart';
 
 /// Use `Polymer.IronOverlayBehavior` to implement an element that can be hidden or shown, and displays
 /// on top of other content. It includes an optional backdrop, and can be used to implement a variety
 /// of UI controls including dialogs and drop downs. Multiple overlays may be displayed at once.
 ///
+/// See the [demo source code](https://github.com/PolymerElements/iron-overlay-behavior/blob/master/demo/simple-overlay.html)
+/// for an example.
+///
 /// ### Closing and canceling
 ///
-/// A dialog may be hidden by closing or canceling. The difference between close and cancel is user
+/// An overlay may be hidden by closing or canceling. The difference between close and cancel is user
 /// intent. Closing generally implies that the user acknowledged the content on the overlay. By default,
 /// it will cancel whenever the user taps outside it or presses the escape key. This behavior is
 /// configurable with the `no-cancel-on-esc-key` and the `no-cancel-on-outside-click` properties.
@@ -35,6 +39,10 @@ import 'iron_resizable_behavior.dart';
 /// Set the `with-backdrop` attribute to display a backdrop behind the overlay. The backdrop is
 /// appended to `<body>` and is of type `<iron-overlay-backdrop>`. See its doc page for styling
 /// options.
+///
+/// In addition, `with-backdrop` will wrap the focus within the content in the light DOM.
+/// Override the [`_focusableNodes` getter](#Polymer.IronOverlayBehavior:property-_focusableNodes)
+/// to achieve a different behavior.
 ///
 /// ### Limitations
 ///
@@ -83,7 +91,8 @@ abstract class IronOverlayBehavior implements CustomElementProxyMixin, IronFitBe
   bool get restoreFocusOnClose => jsElement[r'restoreFocusOnClose'];
   set restoreFocusOnClose(bool value) { jsElement[r'restoreFocusOnClose'] = value; }
 
-  /// Set to true to display a backdrop behind the overlay.
+  /// Set to true to display a backdrop behind the overlay. It traps the focus
+  /// within the light DOM of the overlay.
   bool get withBackdrop => jsElement[r'withBackdrop'];
   set withBackdrop(bool value) { jsElement[r'withBackdrop'] = value; }
 
@@ -95,6 +104,11 @@ abstract class IronOverlayBehavior implements CustomElementProxyMixin, IronFitBe
   /// Close the overlay.
   close() =>
       jsElement.callMethod('close', []);
+
+  /// Invalidates the cached tabbable nodes. To be called when any of the focusable
+  /// content changes (e.g. a button is disabled).
+  invalidateTabbables() =>
+      jsElement.callMethod('invalidateTabbables', []);
 
   /// Open the overlay.
   open() =>

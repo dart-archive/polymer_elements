@@ -51,6 +51,7 @@ import 'color.dart';
 /// `--paper-slider-disabled-knob-color` | The disabled knob color | `--paper-grey-400`
 /// `--paper-slider-pin-color` | The pin color | `--google-blue-700`
 /// `--paper-slider-font-color` | The pin's text color | `#fff`
+/// `--paper-slider-markers-color` | The snaps markers color | `#000`
 /// `--paper-slider-disabled-active-color` | The disabled progress bar color | `--paper-grey-400`
 /// `--paper-slider-disabled-secondary-color` | The disabled secondary progress bar color | `--paper-grey-400`
 /// `--paper-slider-knob-start-color` | The fill color of the knob at the far left | `transparent`

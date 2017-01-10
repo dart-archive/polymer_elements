@@ -20,11 +20,11 @@ import 'iron_query_params.dart';
 /// elements.
 ///
 /// An example of the public API of a route object that describes the URL
-/// `https://elements.polymer-project.org/elements/app-route-converter?foo=bar&baz=qux`:
+/// `https://elements.polymer-project.org/elements/app-location`:
 ///
 ///     {
 ///       prefix: '',
-///       path: '/elements/app-route-converter'
+///       path: '/elements/app-location'
 ///     }
 ///
 /// Example Usage:
@@ -52,6 +52,13 @@ import 'iron_query_params.dart';
 /// `app-location` fires a `location-changed` event on `window` when it updates the
 /// location. It also listens for that same event, and re-reads the URL when it's
 /// fired. This makes it very easy to interop with other routing code.
+///
+/// So for example if you want to navigate to `/new_path` imperatively you could
+/// call `window.location.pushState` or `window.location.replaceState` followed by
+/// firing a `location-changed` event on `window`. i.e.
+///
+///     window.history.pushState({}, null, '/new_path');
+///     window.dispatchEvent(new CustomEvent('location-changed'));
 @CustomElementProxy('app-location')
 class AppLocation extends HtmlElement with CustomElementProxyMixin, PolymerBase, AppRouteConverterBehavior {
   AppLocation.created() : super.created();

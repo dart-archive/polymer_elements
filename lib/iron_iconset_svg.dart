@@ -48,6 +48,16 @@ class IronIconsetSvg extends HtmlElement with CustomElementProxyMixin, PolymerBa
   String get name => jsElement[r'name'];
   set name(String value) { jsElement[r'name'] = value; }
 
+  /// Set to true to enable mirroring of icons where specified when they are
+  /// stamped. Icons that should be mirrored should be decorated with a
+  /// `mirror-in-rtl` attribute.
+  ///
+  /// NOTE: For performance reasons, direction will be resolved once per
+  /// document per iconset, so moving icons in and out of RTL subtrees will
+  /// not cause their mirrored state to change.
+  bool get rtlMirroring => jsElement[r'rtlMirroring'];
+  set rtlMirroring(bool value) { jsElement[r'rtlMirroring'] = value; }
+
   /// The size of an individual icon. Note that icons must be square.
   num get size => jsElement[r'size'];
   set size(num value) { jsElement[r'size'] = value; }
@@ -56,6 +66,12 @@ class IronIconsetSvg extends HtmlElement with CustomElementProxyMixin, PolymerBa
   ///
   /// An svg icon is prepended to the element's shadowRoot if it exists,
   /// otherwise to the element itself.
+  ///
+  /// If RTL mirroring is enabled, and the icon is marked to be mirrored in
+  /// RTL, the element will be tested (once and only once ever for each
+  /// iconset) to determine the direction of the subtree the element is in.
+  /// This direction will apply to all future icon applications, although only
+  /// icons marked to be mirrored will be affected.
   /// [element]: Element to which the icon is applied.
   /// [iconName]: Name of the icon to apply.
   applyIcon(Element element, String iconName) =>

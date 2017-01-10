@@ -8,6 +8,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
+import 'iron_resizable_behavior.dart';
 import 'google_maps_api.dart';
 
 /// Element for generating a Google Maps Street View Panorama.
@@ -40,7 +41,7 @@ import 'google_maps_api.dart';
 ///       disable-default-ui>
 ///     </google-streetview-pano>
 @CustomElementProxy('google-streetview-pano')
-class GoogleStreetviewPano extends HtmlElement with CustomElementProxyMixin, PolymerBase {
+class GoogleStreetviewPano extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronResizableBehavior {
   GoogleStreetviewPano.created() : super.created();
   factory GoogleStreetviewPano() => new Element.tag('google-streetview-pano');
 

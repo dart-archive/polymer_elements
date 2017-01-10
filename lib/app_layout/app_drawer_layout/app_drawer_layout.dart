@@ -53,7 +53,7 @@ import '../../app_layout/app_drawer/app_drawer.dart';
 ///   <app-header-layout>
 ///     <app-header>
 ///       <app-toolbar>
-///         <div title>App name</div>
+///         <div main-title>App name</div>
 ///       </app-toolbar>
 ///     </app-header>
 ///
@@ -74,7 +74,7 @@ import '../../app_layout/app_drawer/app_drawer.dart';
 ///     <app-header>
 ///       <app-toolbar>
 ///         <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-///         <div title>App name</div>
+///         <div main-title>App name</div>
 ///       </app-toolbar>
 ///     </app-header>
 ///
@@ -118,6 +118,10 @@ class AppDrawerLayout extends HtmlElement with CustomElementProxyMixin, PolymerB
   /// elements based on the layout.
   bool get narrow => jsElement[r'narrow'];
   set narrow(bool value) { jsElement[r'narrow'] = value; }
+
+  /// If true, the drawer will initially be opened when in narrow layout mode.
+  bool get openedWhenNarrow => jsElement[r'openedWhenNarrow'];
+  set openedWhenNarrow(bool value) { jsElement[r'openedWhenNarrow'] = value; }
 
   /// If the viewport's width is smaller than this value, the panel will change to narrow
   /// layout. In the mode the drawer will be closed.

@@ -75,6 +75,13 @@ class PaperDropdownMenu extends HtmlElement with CustomElementProxyMixin, Polyme
   PaperDropdownMenu.created() : super.created();
   factory PaperDropdownMenu() => new Element.tag('paper-dropdown-menu');
 
+  /// By default, the dropdown will constrain scrolling on the page
+  /// to itself when opened.
+  /// Set to true in order to prevent scroll from being constrained
+  /// to the dropdown when it opens.
+  bool get allowOutsideScroll => jsElement[r'allowOutsideScroll'];
+  set allowOutsideScroll(bool value) { jsElement[r'allowOutsideScroll'] = value; }
+
   /// Set to true to always float the label. Bind this to the
   /// `<paper-input-container>`'s `alwaysFloatLabel` property.
   bool get alwaysFloatLabel => jsElement[r'alwaysFloatLabel'];
@@ -82,6 +89,13 @@ class PaperDropdownMenu extends HtmlElement with CustomElementProxyMixin, Polyme
 
   /// The content element that is contained by the dropdown menu, if any.
   get contentElement => jsElement[r'contentElement'];
+
+  /// If true, the `horizontalAlign` and `verticalAlign` properties will
+  /// be considered preferences instead of strict requirements when
+  /// positioning the dropdown and may be changed if doing so reduces
+  /// the area of the dropdown falling outside of `fitInto`.
+  bool get dynamicAlign => jsElement[r'dynamicAlign'];
+  set dynamicAlign(bool value) { jsElement[r'dynamicAlign'] = value; }
 
   /// The error message to display when invalid.
   String get errorMessage => jsElement[r'errorMessage'];

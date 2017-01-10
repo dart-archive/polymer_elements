@@ -118,6 +118,8 @@ class PaperRipple extends HtmlElement with CustomElementProxyMixin, PolymerBase,
   addRipple() =>
       jsElement.callMethod('addRipple', []);
 
+  /// This conflicts with Element#antimate().
+  /// https://developer.mozilla.org/en-US/docs/Web/API/Element/animate
   validate([_,__]) => //() =>
       jsElement.callMethod('animate', []);
 

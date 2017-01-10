@@ -58,13 +58,32 @@ class PaperMenuButton extends HtmlElement with CustomElementProxyMixin, PolymerB
   PaperMenuButton.created() : super.created();
   factory PaperMenuButton() => new Element.tag('paper-menu-button');
 
+  /// By default, the dropdown will constrain scrolling on the page
+  /// to itself when opened.
+  /// Set to true in order to prevent scroll from being constrained
+  /// to the dropdown when it opens.
+  bool get allowOutsideScroll => jsElement[r'allowOutsideScroll'];
+  set allowOutsideScroll(bool value) { jsElement[r'allowOutsideScroll'] = value; }
+
   /// An animation config. If provided, this will be used to animate the
   /// closing of the dropdown.
   get closeAnimationConfig => jsElement[r'closeAnimationConfig'];
   set closeAnimationConfig(value) { jsElement[r'closeAnimationConfig'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
+  /// Set to true to enable automatically closing the dropdown after an
+  /// item has been activated, even if the selection did not change.
+  bool get closeOnActivate => jsElement[r'closeOnActivate'];
+  set closeOnActivate(bool value) { jsElement[r'closeOnActivate'] = value; }
+
   /// The content element that is contained by the menu button, if any.
   get contentElement => jsElement[r'contentElement'];
+
+  /// If true, the `horizontalAlign` and `verticalAlign` properties will
+  /// be considered preferences instead of strict requirements when
+  /// positioning the dropdown and may be changed if doing so reduces
+  /// the area of the dropdown falling outside of `fitInto`.
+  bool get dynamicAlign => jsElement[r'dynamicAlign'];
+  set dynamicAlign(bool value) { jsElement[r'dynamicAlign'] = value; }
 
   /// The orientation against which to align the menu dropdown
   /// horizontally relative to the dropdown trigger.
@@ -87,6 +106,11 @@ class PaperMenuButton extends HtmlElement with CustomElementProxyMixin, PolymerB
   bool get noAnimations => jsElement[r'noAnimations'];
   set noAnimations(bool value) { jsElement[r'noAnimations'] = value; }
 
+  /// If true, the dropdown will be positioned so that it doesn't overlap
+  /// the button.
+  bool get noOverlap => jsElement[r'noOverlap'];
+  set noOverlap(bool value) { jsElement[r'noOverlap'] = value; }
+
   /// An animation config. If provided, this will be used to animate the
   /// opening of the dropdown.
   get openAnimationConfig => jsElement[r'openAnimationConfig'];
@@ -95,6 +119,10 @@ class PaperMenuButton extends HtmlElement with CustomElementProxyMixin, PolymerB
   /// True if the content is currently displayed.
   bool get opened => jsElement[r'opened'];
   set opened(bool value) { jsElement[r'opened'] = value; }
+
+  /// Whether focus should be restored to the button when the menu closes.
+  bool get restoreFocusOnClose => jsElement[r'restoreFocusOnClose'];
+  set restoreFocusOnClose(bool value) { jsElement[r'restoreFocusOnClose'] = value; }
 
   /// The orientation against which to align the menu dropdown
   /// vertically relative to the dropdown trigger.

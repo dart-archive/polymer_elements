@@ -12,12 +12,49 @@ files_to_generate:
 #  - carbon-route/carbon-location.html
 #  - carbon-route/carbon-route-converter.html
 #  - carbon-route/carbon-route.html
+# Platinum
+  - platinum-bluetooth/platinum-bluetooth-characteristic.html
+  - platinum-bluetooth/platinum-bluetooth-device.html
+  - platinum-bluetooth/platinum-bluetooth-elements.html
+  - platinum-bluetooth/platinum-bluetooth-service.html
+  - platinum-https-redirect/platinum-https-redirect.html
+  - platinum-push-messaging/platinum-push-messaging.html:
+     omit_imports:
+      - promise-polyfill.html
+     extra_imports:
+      - "src/_utils.dart"
+      - "dart:async"
+     overrides:
+      PlatinumPushMessaging:
+       enable:
+        - "/// Request push messaging to be enabled."
+        - "Future enable() =>"
+        - "  jsPromiseToFuture(jsElement.callMethod('enable',[]));"
+       disable:
+        - "/// Request push messaging to be disable."
+        - "Future disable() =>"
+        - "  jsPromiseToFuture(jsElement.callMethod('disable',[]));"
+
+  - platinum-sw/platinum-sw-cache.html
+  - platinum-sw/platinum-sw-elements.html
+  - platinum-sw/platinum-sw-fetch.html
+  - platinum-sw/platinum-sw-import-script.html
+  - platinum-sw/platinum-sw-offline-analytics.html
+  - platinum-sw/platinum-sw-register.html
+
 # App
   - app-route/app-location.html  
   - app-route/app-route-converter-behavior.html  
   - app-route/app-route-converter.html  
   - app-route/app-route.html
-  - app-localize-behavior/app-localize-behavior.html
+  - app-localize-behavior/app-localize-behavior.html:
+     overrides:
+      AppLocalizeBehavior:
+       localize: 
+        - "  /// Translates a string to the current `language`. Any parameters to the"
+        - "  /// string should be passed in order, as follows:"
+        - "  /// `localize(stringKey, [param1Name, param1Value, param2Name, param2Value])`"
+        - "  localize(String stringKey,[List<String> args]) => jsElement.callMethod('localize',[stringKey]..addAll((args==null ? [] : args) as List));"
   - app-pouchdb/app-pouchdb-database-behavior.html:
      omit_imports:
       - pouchdb.html
@@ -162,9 +199,14 @@ files_to_generate:
   - google-chart/google-chart.html:
       omit_imports:
         - promise-polyfill-lite.html
-  - google-chart/charts-loader.html:
+#  - google-chart/charts-loader.html:
+#      omit_imports:
+#        - promise-polyfill-lite.html
+  - google-chart/google-chart-loader.html:
       omit_imports:
         - promise-polyfill-lite.html
+        - promise-polyfill.html
+        - chart-loader.html
   - google-feeds/google-feeds.html:
       name_substitutions:
         query: queryObject
@@ -276,6 +318,7 @@ files_to_generate:
   - iron-menu-behavior/iron-menu-behavior.html
   - iron-menu-behavior/iron-menubar-behavior.html
   - iron-meta/iron-meta.html
+  - iron-overlay-behavior/iron-focusables-helper.html
   - iron-overlay-behavior/iron-overlay-behavior.html:
       omit_imports:
         - iron-overlay-manager.html
