@@ -14,6 +14,7 @@ import 'iron_control_state.dart';
 import 'paper_ripple_behavior.dart';
 import 'iron_form_element_behavior.dart';
 import 'iron_validatable_behavior.dart';
+import 'iron_icon.dart';
 import 'paper_menu_button.dart';
 import 'default_theme.dart';
 import 'paper_dropdown_menu_icons.dart';

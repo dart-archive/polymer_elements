@@ -39,7 +39,7 @@ import 'neon_animation/animations/opaque_animation.dart';
 /// hidden until the dropdown element has `opened` set to true, or when the `open`
 /// method is called on the element.
 @CustomElementProxy('iron-dropdown')
-class IronDropdown extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, IronFitBehavior, IronResizableBehavior, IronOverlayBehavior, NeonAnimatableBehavior, NeonAnimationRunnerBehavior {
+class IronDropdown extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronControlState, IronA11yKeysBehavior, IronFitBehavior, IronResizableBehavior, IronOverlayBehaviorImpl, IronOverlayBehavior, NeonAnimatableBehavior, NeonAnimationRunnerBehavior {
   IronDropdown.created() : super.created();
   factory IronDropdown() => new Element.tag('iron-dropdown');
 
@@ -51,7 +51,9 @@ class IronDropdown extends HtmlElement with CustomElementProxyMixin, PolymerBase
   set allowOutsideScroll(bool value) { jsElement[r'allowOutsideScroll'] = value; }
 
   /// An animation config. If provided, this will be used to animate the
-  /// closing of the dropdown.
+  /// closing of the dropdown. Pass an Array for multiple animations.
+  /// See `neon-animation` documentation for more animation configuration
+  /// details.
   get closeAnimationConfig => jsElement[r'closeAnimationConfig'];
   set closeAnimationConfig(value) { jsElement[r'closeAnimationConfig'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
@@ -75,7 +77,9 @@ class IronDropdown extends HtmlElement with CustomElementProxyMixin, PolymerBase
   set noAnimations(bool value) { jsElement[r'noAnimations'] = value; }
 
   /// An animation config. If provided, this will be used to animate the
-  /// opening of the dropdown.
+  /// opening of the dropdown. Pass an Array for multiple animations.
+  /// See `neon-animation` documentation for more animation configuration
+  /// details.
   get openAnimationConfig => jsElement[r'openAnimationConfig'];
   set openAnimationConfig(value) { jsElement[r'openAnimationConfig'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 

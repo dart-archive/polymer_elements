@@ -47,8 +47,8 @@ abstract class IronScrollTargetBehavior implements CustomElementProxyMixin {
   /// ```js
   /// appHeader.scrollTarget = document.querySelector('#scrollable-element');
   /// ```
-  get scrollTarget => jsElement[r'scrollTarget'];
-  set scrollTarget(value) { jsElement[r'scrollTarget'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+  Element get scrollTarget => jsElement[r'scrollTarget'];
+  set scrollTarget(Element value) { jsElement[r'scrollTarget'] = value; }
 
   /// Scrolls the content to a particular place.
   /// [left]: The left position

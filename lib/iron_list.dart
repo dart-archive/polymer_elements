@@ -102,7 +102,7 @@ import 'iron_scroll_target_behavior.dart';
 /// <body>
 ///   <template is="dom-bind">
 ///     <app-toolbar>App name</app-toolbar>
-///     <iron-list target="document" items="[[items]]">
+///     <iron-list scroll-target="document" items="[[items]]">
 ///       <template>
 ///         ...
 ///       </template>

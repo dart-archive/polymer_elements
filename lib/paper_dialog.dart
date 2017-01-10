@@ -65,7 +65,7 @@ import 'paper_dialog_shared_styles.dart';
 /// See the docs for `Polymer.PaperDialogBehavior` for accessibility features implemented by this
 /// element.
 @CustomElementProxy('paper-dialog')
-class PaperDialog extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronFitBehavior, IronResizableBehavior, IronOverlayBehavior, PaperDialogBehavior, NeonAnimatableBehavior, NeonAnimationRunnerBehavior {
+class PaperDialog extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronFitBehavior, IronResizableBehavior, IronOverlayBehaviorImpl, IronOverlayBehavior, PaperDialogBehavior, NeonAnimatableBehavior, NeonAnimationRunnerBehavior {
   PaperDialog.created() : super.created();
   factory PaperDialog() => new Element.tag('paper-dialog');
 }

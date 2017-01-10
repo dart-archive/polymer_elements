@@ -24,4 +24,23 @@ import 'package:polymer_interop/polymer_interop.dart';
 class PrismHighlighter extends HtmlElement with CustomElementProxyMixin, PolymerBase {
   PrismHighlighter.created() : super.created();
   factory PrismHighlighter() => new Element.tag('prism-highlighter');
+
+  /// Adds languages outside of the core Prism languages.
+  ///
+  /// Prism includes a few languages in the core library:
+  ///   - JavaScript
+  ///   - Markup
+  ///   - CSS
+  ///   - C-Like
+  /// Use this property to extend the core set with other Prism
+  /// components and custom languages.
+  ///
+  /// Example:
+  ///   ```
+  ///   <!-- with languages = {'custom': myCustomPrismLang}; -->
+  ///   <!-- or languages = Prism.languages; -->
+  ///   <prism-highlighter languages="[[languages]]"></prism-highlighter>
+  ///   ```
+  get languages => jsElement[r'languages'];
+  set languages(value) { jsElement[r'languages'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 }

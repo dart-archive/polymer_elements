@@ -111,6 +111,11 @@ abstract class AppLocalizeBehavior implements CustomElementProxyMixin {
   get resources => jsElement[r'resources'];
   set resources(value) { jsElement[r'resources'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
+  /// If true, will use the provided key when
+  /// the translation does not exist for that key.
+  bool get useKeyIfMissing => jsElement[r'useKeyIfMissing'];
+  set useKeyIfMissing(bool value) { jsElement[r'useKeyIfMissing'] = value; }
+
   loadResources(path) =>
       jsElement.callMethod('loadResources', [path]);
 

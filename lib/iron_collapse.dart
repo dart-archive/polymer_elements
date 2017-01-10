@@ -68,6 +68,11 @@ class IronCollapse extends HtmlElement with CustomElementProxyMixin, PolymerBase
   bool get opened => jsElement[r'opened'];
   set opened(bool value) { jsElement[r'opened'] = value; }
 
+  /// When true, the element is transitioning its opened state. When false,
+  /// the element has finished opening/closing.
+  bool get transitioning => jsElement[r'transitioning'];
+  set transitioning(bool value) { jsElement[r'transitioning'] = value; }
+
   /// enableTransition() is deprecated, but left over so it doesn't break existing code.
   /// Please use `noAnimation` property instead.
   enableTransition(enabled) =>
