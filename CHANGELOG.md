@@ -1,25 +1,26 @@
 ## 1.0.0-rc.10
 
-* Update Elements at 20161116
-  * `app-elements` 0.10.0
-* Update elements at 20161102
-* Update elements at 20160726
+ * Update Elements at 20161116
+ * `app-elements` 0.10.0
+ * Update elements at 20161102
+ * Update elements at 20160726
  * added support for `platinum-elements`
+ * fixed pubspec for dart 1.23.0
 
 ## 1.0.0-rc.9
 
-* Updated elements at 20160616:
-   * `iron-elements` 1.0.10
-   * `paper-elements` 1.0.7
-   * `gold-elements` 1.0.1
-   * `neon-elements` 1.0.0
-   * `app-elements` 0.9.0  **brand new!!!**
-   * `google-web-components` 1.1.0
+ * Updated elements at 20160616:
+ * `iron-elements` 1.0.10
+ * `paper-elements` 1.0.7
+ * `gold-elements` 1.0.1
+ * `neon-elements` 1.0.0
+ * `app-elements` 0.9.0  **brand new!!!**
+ * `google-web-components` 1.1.0
 
-* Many bug fix and enhancements
-* Many new components : `app-*` , `paper-spinner-light`, `paper-dropdown-menu--light`
-* Support for `firebase` protocol v.3 (v.2 deprecated)
-* Better support for singletons: `IronOverlayManager`, `IronDropdownScrollManager`
+ * Many bug fix and enhancements
+ * Many new components : `app-*` , `paper-spinner-light`, `paper-dropdown-menu--light`
+ * Support for `firebase` protocol v.3 (v.2 deprecated)
+ * Better support for singletons: `IronOverlayManager`, `IronDropdownScrollManager`
 
 
 ## 1.0.0-rc.8
