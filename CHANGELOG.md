@@ -1,3 +1,7 @@
+## 1.0.0-rc.10
+
+* fix duplicate environment keys in pubspec
+
 ## 1.0.0-rc.9
 
 * Updated elements at 20160616:
