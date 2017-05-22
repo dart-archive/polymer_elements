@@ -81,6 +81,10 @@ class GoogleMapMarker extends HtmlElement with CustomElementProxyMixin, PolymerB
   bool get mouseEvents => jsElement[r'mouseEvents'];
   set mouseEvents(bool value) { jsElement[r'mouseEvents'] = value; }
 
+  /// When true, map drag* events are automatically registered.
+  bool get dragEvents => jsElement[r'dragEvents'];
+  set dragEvents(bool value) { jsElement[r'dragEvents'] = value; }
+
   /// Specifies whether the InfoWindow is open or not
   bool get open => jsElement[r'open'];
   set open(bool value) { jsElement[r'open'] = value; }
