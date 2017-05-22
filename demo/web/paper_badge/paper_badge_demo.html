@@ -1,0 +1,97 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<dom-module id="paper-badge-demo">
+  <template>
+    <style>
+      .horizontal-section {
+        min-width: 120px;
+      }
+
+      .with-badge {
+        display: inline-block;
+        margin-bottom: 30px;
+        overflow: hidden;
+      }
+
+      .red {
+        --paper-badge-background: var(--paper-red-300);
+      }
+      .orange {
+        --paper-badge-background: var(--paper-amber-300);
+      }
+      .green {
+        --paper-badge-background: var(--paper-green-300);
+      }
+
+      paper-icon-button, test-button {
+        background-color: #ddd;
+        padding: 3px;
+        border-radius: 3px;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
+      .with-badge > paper-badge {
+        --paper-badge-margin-left: 20px;
+        --paper-badge-margin-bottom: 0px;
+      }
+
+    </style>
+    <style include="demo-elements"></style>
+
+    <div class="horizontal-section-container">
+      <div>
+        <h4>Badging direct sibling</h4>
+        <div class="horizontal-section">
+          <div class="with-badge" tabindex="0">
+            <span>Oxygen</span>
+            <paper-badge label="8"></paper-badge>
+          </div>
+          <br>
+          <div class="with-badge" tabindex="0">
+            <span>Carbon</span>
+            <paper-badge label="6"></paper-badge>
+          </div>
+          <br>
+          <div class="with-badge" tabindex="0">
+            <span>Hydrogen</span>
+            <paper-badge label="1"></paper-badge>
+          </div>
+          <br>
+          <div class="with-badge" tabindex="0">
+            <span>Nitrogen</span>
+            <paper-badge label="7"></paper-badge>
+          </div>
+          <br>
+          <div class="with-badge" tabindex="0">
+            <span>Calcium</span>
+            <paper-badge label="20"></paper-badge>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4>Badging element by id</h4>
+        <div class="horizontal-section">
+          <test-button></test-button>
+
+          <paper-icon-button id="heart" icon="favorite" alt="heart"></paper-icon-button>
+          <paper-badge class="red" for="heart" label="♣︎"></paper-badge>
+
+          <paper-icon-button id="back" icon="arrow-back" alt="go back"></paper-icon-button>
+          <paper-badge class="orange" for="back" label="♥"></paper-badge>
+
+          <paper-icon-button id="fwd" icon="arrow-forward" alt="go forward"></paper-icon-button>
+          <paper-badge class="green" for="fwd" label="♦"></paper-badge>
+        </div>
+      </div>
+    </div>
+
+  </template>
+</dom-module>

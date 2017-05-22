@@ -1,0 +1,101 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<dom-module id="iron-validator-behavior-demo">
+  <template>
+    <style>
+      h1 {
+        margin-left: 30px;
+      }
+
+      .centered {
+        padding: 0;
+      }
+
+      .valid {
+        color: var(--google-green-500);
+      }
+
+      .invalid {
+        color: var(--google-red-500);
+      }
+
+      fieldset {
+        background-color: var(--google-grey-100);
+        border: none;
+        margin: 10px 0;
+        padding: 10px 30px;
+      }
+
+      legend {
+        float: left;
+        width: 100%;
+      }
+
+      input, select {
+        padding: 0.4em;
+        font-size: 16px;
+        margin: 5px;
+      }
+    </style>
+    <style include="demo-elements"></style>
+
+
+    <div class="vertical-section vertical-section-container centered">
+      <h1>&lt;iron-validator-behavior&gt;</h1>
+
+      <cats-only-validator></cats-only-validator>
+
+      <fieldset>
+        <legend>Only type <code>cats</code></legend>
+        <input on-input="inputHandler">
+        <span class="valid" hidden$="[[!valid]]">valid</span>
+        <span class="invalid" hidden$="[[valid]]">invalid</span>
+      </fieldset>
+
+      <fieldset>
+        <legend>Only type <code>cats</code> across both input fields</legend>
+
+        <span on-input="inputMultiHandler">
+          <input>
+          <input>
+        </span>
+
+        <span class="valid" hidden$="[[!validMulti]]">valid</span>
+        <span class="invalid" hidden$="[[validMulti]]">invalid</span>
+      </fieldset>
+
+      <section>
+      <form is="iron-form">
+        <fieldset>
+          <legend>Only type <code>cats</code> in the form</legend>
+          <label>
+            Type something: <input name="something">
+          </label>
+          <br>
+          <label>
+            Your favorite pet:
+            <select name="pet">
+              <option>iguanas</option>
+              <option>cats</option>
+              <option>pancakes</option>
+            </select>
+          </label>
+          <br>
+          <button on-click="submitHandler">submit!</button>
+          <span class="valid" hidden$="[[!validForm]]">valid</span>
+          <span class="invalid" hidden$="[[validForm]]">invalid</span>
+        </fieldset>
+      </form>
+      </section>
+
+    </div>
+
+  </template>
+</dom-module>
