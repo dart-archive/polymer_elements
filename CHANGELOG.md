@@ -1,4 +1,4 @@
-## 1.0.0-rc.10
+## 1.0.0-rc.11
 
  * Update Elements at 20161116
  * `app-elements` 0.10.0
@@ -6,6 +6,10 @@
  * Update elements at 20160726
  * added support for `platinum-elements`
  * fixed pubspec for dart 1.23.0
+
+## 1.0.0-rc.10
+
+* fix duplicate environment keys in pubspec
 
 ## 1.0.0-rc.9
 
