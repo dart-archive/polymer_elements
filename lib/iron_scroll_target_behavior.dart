@@ -8,6 +8,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
+import 'dart:js';
 
 /// `Polymer.IronScrollTargetBehavior` allows an element to respond to scroll events from a
 /// designated scroll target.
@@ -57,7 +58,7 @@ abstract class IronScrollTargetBehavior implements CustomElementProxyMixin {
         jsElement.callMethod('scroll', [left, top]);
   
   /// Set the scroll handler 
-  set scrollTargetHandler(Function handler) => jsElement['_scrollHandler']=handler;
+  set scrollTargetHandler(Function handler) => jsElement['_scrollHandler']=allowInterop(handler);
   /// Get the scroll handler 
   Function get scrollTargetHandler => jsElement['_scrollHandler'];
 

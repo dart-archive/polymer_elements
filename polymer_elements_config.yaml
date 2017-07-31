@@ -337,6 +337,8 @@ files_to_generate:
             type: any
   - iron-resizable-behavior/iron-resizable-behavior.html
   - iron-scroll-target-behavior/iron-scroll-target-behavior.html:
+     extra_imports:
+      - "dart:js"
      overrides:
       IronScrollTargetBehavior:
        scroll: 
@@ -347,7 +349,7 @@ files_to_generate:
         - "      jsElement.callMethod('scroll', [left, top]);"
         - ""
         - "/// Set the scroll handler "
-        - "set scrollTargetHandler(Function handler) => jsElement['_scrollHandler']=handler;"
+        - "set scrollTargetHandler(Function handler) => jsElement['_scrollHandler']=allowInterop(handler);"
         - "/// Get the scroll handler "
         - "Function get scrollTargetHandler => jsElement['_scrollHandler'];"
   - iron-scroll-threshold/iron-scroll-threshold.html
