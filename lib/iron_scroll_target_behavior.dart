@@ -53,8 +53,13 @@ abstract class IronScrollTargetBehavior implements CustomElementProxyMixin {
   /// Scrolls the content to a particular place.
   /// [left]: The left position
   /// [top]: The top position
-  scroll(num left, num top) =>
-      jsElement.callMethod('scroll', [left, top]);
+  targetScroll(num left, num top) =>
+        jsElement.callMethod('scroll', [left, top]);
+  
+  /// Set the scroll handler 
+  set scrollTargetHandler(Function handler) => jsElement['_scrollHandler']=handler;
+  /// Get the scroll handler 
+  Function get scrollTargetHandler => jsElement['_scrollHandler'];
 
   /// Enables or disables the scroll event listener.
   /// [yes]: True to add the event, False to remove it.

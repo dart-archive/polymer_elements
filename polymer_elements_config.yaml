@@ -336,7 +336,20 @@ files_to_generate:
           value:
             type: any
   - iron-resizable-behavior/iron-resizable-behavior.html
-  - iron-scroll-target-behavior/iron-scroll-target-behavior.html
+  - iron-scroll-target-behavior/iron-scroll-target-behavior.html:
+     overrides:
+      IronScrollTargetBehavior:
+       scroll: 
+        - "/// Scrolls the content to a particular place."
+        - "/// [left]: The left position"
+        - "/// [top]: The top position"
+        - "targetScroll(num left, num top) =>"
+        - "      jsElement.callMethod('scroll', [left, top]);"
+        - ""
+        - "/// Set the scroll handler "
+        - "set scrollTargetHandler(Function handler) => jsElement['_scrollHandler']=handler;"
+        - "/// Get the scroll handler "
+        - "Function get scrollTargetHandler => jsElement['_scrollHandler'];"
   - iron-scroll-threshold/iron-scroll-threshold.html
   - iron-selector/iron-multi-selectable.html
   - iron-selector/iron-selectable.html:
