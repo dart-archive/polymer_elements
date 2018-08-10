@@ -14,6 +14,7 @@ import 'iron_control_state.dart';
 import 'paper_ripple_behavior.dart';
 import 'iron_form_element_behavior.dart';
 import 'iron_validatable_behavior.dart';
+import 'iron_icon.dart';
 import 'paper_menu_button.dart';
 import 'default_theme.dart';
 import 'paper_dropdown_menu_icons.dart';
@@ -89,6 +90,13 @@ import 'paper_dropdown_menu_shared_styles.dart';
 class PaperDropdownMenuLight extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronButtonState, IronControlState, PaperRippleBehavior, IronFormElementBehavior, IronValidatableBehavior {
   PaperDropdownMenuLight.created() : super.created();
   factory PaperDropdownMenuLight() => new Element.tag('paper-dropdown-menu-light');
+
+  /// By default, the dropdown will constrain scrolling on the page
+  /// to itself when opened.
+  /// Set to true in order to prevent scroll from being constrained
+  /// to the dropdown when it opens.
+  bool get allowOutsideScroll => jsElement[r'allowOutsideScroll'];
+  set allowOutsideScroll(bool value) { jsElement[r'allowOutsideScroll'] = value; }
 
   /// Set to true to always float the label. Bind this to the
   /// `<paper-input-container>`'s `alwaysFloatLabel` property.

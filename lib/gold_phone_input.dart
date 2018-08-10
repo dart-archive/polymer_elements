@@ -62,6 +62,10 @@ class GoldPhoneInput extends HtmlElement with CustomElementProxyMixin, PolymerBa
   String get countryCode => jsElement[r'countryCode'];
   set countryCode(String value) { jsElement[r'countryCode'] = value; }
 
+  /// International format of the input value.
+  String get internationalValue => jsElement[r'internationalValue'];
+  set internationalValue(String value) { jsElement[r'internationalValue'] = value; }
+
   /// The label for this input.
   String get label => jsElement[r'label'];
   set label(String value) { jsElement[r'label'] = value; }

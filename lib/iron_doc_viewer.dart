@@ -14,6 +14,7 @@ import 'color.dart';
 import 'shadow.dart';
 import 'typography.dart';
 import 'prism_highlighter.dart';
+import 'prism_theme_default.dart';
 import 'iron_doc_property.dart';
 import 'iron_doc_viewer_styles.dart';
 

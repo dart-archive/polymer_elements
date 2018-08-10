@@ -20,18 +20,18 @@ import '../../iron_flex_layout.dart';
 /// ```html
 /// <app-header reveals>
 ///   <app-toolbar>
-///     <div title>App name</div>
+///     <div main-title>App name</div>
 ///   </app-toolbar>
 /// </app-header>
 /// ```
 ///
 /// app-header can also condense when scrolling down. To achieve this behavior, the header
-/// must have a larger height than the `primary` element in the light DOM. For example:
+/// must have a larger height than the `sticky` element in the light DOM. For example:
 ///
 /// ```html
 /// <app-header style="height: 96px;" condenses fixed>
 ///   <app-toolbar style="height: 64px;">
-///     <div title>App name</div>
+///     <div main-title>App name</div>
 ///   </app-toolbar>
 /// </app-header>
 /// ```
@@ -39,27 +39,27 @@ import '../../iron_flex_layout.dart';
 /// In this case the header is initially `96px` tall, and it shrinks to `64px` when scrolling down.
 /// That is what is meant by "condensing".
 ///
-/// ### Primary element
+/// ### Sticky element
 ///
-/// As the header condenses, the immediate children of app-header are stacked up.
-/// In this case, the primary element is the immediate child that would always stayed above
-/// the others as the header condenses. By default, the `primary` element is the first app-toolbar
-/// that is an immediate children of app-header.
+/// The element that is positioned fixed to top of the header's `scrollTarget` when a threshold
+/// is reached, similar to `position: sticky` in CSS. This element **must** be an immediate
+/// child of app-header. By default, the `sticky` element is the first `app-toolbar that
+/// is an immediate child of app-header.
 ///
 /// ```html
 /// <app-header condenses>
-///   <app-toolbar> Primary element </app-toolbar>
+///   <app-toolbar> Sticky element </app-toolbar>
 /// </app-header>
 /// ```
+///
+/// #### Customizing the sticky element
 ///
 /// ```html
 /// <app-header condenses>
 ///   <app-toolbar></app-toolbar>
-///   <app-toolbar primary> Primary element </app-toolbar>
+///   <app-toolbar sticky> Sticky element </app-toolbar>
 /// </app-header>
 /// ```
-///
-/// The primary element must be a direct child of app-header.
 ///
 /// ### Scroll target
 ///
@@ -151,7 +151,7 @@ import '../../iron_flex_layout.dart';
 /// between 0 and 1 inclusive. If `scalar=0`, the background doesn't move away from the header.
 ///
 /// **resize-title**
-/// Progressively interpolates the size of the title from the element with the `title` attribute
+/// Progressively interpolates the size of the title from the element with the `main-title` attribute
 /// to the element with the `condensed-title` attribute as the header condenses. For example:
 ///
 /// ```html
@@ -160,14 +160,14 @@ import '../../iron_flex_layout.dart';
 ///       <h4 condensed-title>App name</h4>
 ///   </app-toolbar>
 ///   <app-toolbar>
-///       <h1 title>App name</h1>
+///       <h1 main-title>App name</h1>
 ///   </app-toolbar>
 /// </app-header>
 /// ```
 ///
 /// **resize-snapped-title**
 /// Upon scrolling past a threshold, this effect fades in/out the titles using opacity transitions.
-/// Similarly to `resize-title`, the `title` and `condensed-title` elements must be placed in the
+/// Similarly to `resize-title`, the `main-title` and `condensed-title` elements must be placed in the
 /// light DOM.
 ///
 /// **waterfall**
@@ -186,7 +186,7 @@ import '../../iron_flex_layout.dart';
 /// ```html
 /// <app-header condenses reveals effects="waterfall">
 ///   <app-toolbar>
-///       <h1 title>App name</h1>
+///       <h1 main-title>App name</h1>
 ///   </app-toolbar>
 /// </app-header>
 /// ```
@@ -198,7 +198,7 @@ import '../../iron_flex_layout.dart';
 ///
 /// Attribute | Description         | Default
 /// ----------|---------------------|----------------------------------------
-/// `primary` | Element that remains at the top when the header condenses. | The first app-toolbar in the light DOM.
+/// `sticky` | Element that remains at the top when the header condenses. | The first app-toolbar in the light DOM.
 ///
 ///
 /// ## Styling
@@ -214,10 +214,10 @@ class AppHeader extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   factory AppHeader() => new Element.tag('app-header');
 
   /// If true, the header will automatically collapse when scrolling down.
-  /// That is, the `primary` element remains visible when the header is fully condensed
-  /// whereas the rest of the elements will collapse below `primary` element.
+  /// That is, the `sticky` element remains visible when the header is fully condensed
+  /// whereas the rest of the elements will collapse below `sticky` element.
   ///
-  /// By default, the `primary` element is the first toolbar in the light DOM:
+  /// By default, the `sticky` element is the first toolbar in the light DOM:
   ///
   /// ```html
   /// <app-header condenses>
@@ -228,18 +228,18 @@ class AppHeader extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   /// ```
   ///
   /// Additionally, you can specify which toolbar or element remains visible in condensed mode
-  /// by adding the `primary` attribute to that element. For example: if we want the last
-  /// toolbar to remain visible, we can add the `primary` attribute to it.
+  /// by adding the `sticky` attribute to that element. For example: if we want the last
+  /// toolbar to remain visible, we can add the `sticky` attribute to it.
   ///
   /// ```html
   /// <app-header condenses>
   ///   <app-toolbar></app-toolbar>
   ///   <app-toolbar></app-toolbar>
-  ///   <app-toolbar primary>This toolbar remains on top</app-toolbar>
+  ///   <app-toolbar sticky>This toolbar remains on top</app-toolbar>
   /// </app-header>
   /// ```
   ///
-  /// Note the `primary` element must be a child of `app-header`.
+  /// Note the `sticky` element must be a direct child of `app-header`.
   bool get condenses => jsElement[r'condenses'];
   set condenses(bool value) { jsElement[r'condenses'] = value; }
 

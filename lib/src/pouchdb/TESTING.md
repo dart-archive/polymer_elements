@@ -59,6 +59,7 @@ or
 #### Other test options
 
 * `SKIP_MIGRATION=1` should be used to skip the migration tests.
+* `NEXT=1` will test pouchdb-next (PouchDB with v2 IndexedDB adapter).
 * `POUCHDB_SRC=../../dist/pouchdb.js` can be used to treat another file as the PouchDB source file.
 * `npm run test-webpack` will build with Webpack and then test that in a browser.
 
@@ -157,6 +158,12 @@ There's a WebSQL storage quota test available in:
     http://127.0.0.1:8000/tests/stress/websql_storage_limit.html
 
 Run `npm run dev`, then open it in Safari or iOS.
+
+### Build tests
+
+To verify that the build was done correctly, there are some tests here:
+
+    npm run verify-build
 
 Adapter plugins and adapter order
 --------------------------------------

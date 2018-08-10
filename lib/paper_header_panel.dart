@@ -85,6 +85,13 @@ import 'iron_flex_layout.dart';
 ///       };
 ///     }
 ///
+/// To change the panel container:
+///
+///     paper-header-panel {
+///       --paper-header-panel-container: {
+///         border: 1px solid gray;
+///       };
+///
 /// To change the panel container in different modes:
 ///
 ///     paper-header-panel {
@@ -119,6 +126,7 @@ import 'iron_flex_layout.dart';
 /// ----------------|-------------|----------
 /// `--paper-header-panel` | Mixin applied to the element | `{}`
 /// `--paper-header-panel-body` | Mixin applied to the element's body (i.e. everything below the toolbar) | `{}`
+/// `--paper-header-panel-container` | Mixin applied to the container in any mode | `{}`
 /// `--paper-header-panel-scroll-container` | Mixin applied to the container when in scroll mode | `{}`
 /// `--paper-header-panel-cover-container` | Mixin applied to the container when in cover mode | `{}`
 /// `--paper-header-panel-standard-container` | Mixin applied to the container when in standard mode | `{}`

@@ -40,12 +40,6 @@ abstract class PaperInputBehavior implements CustomElementProxyMixin, IronContro
   bool get alwaysFloatLabel => jsElement[r'alwaysFloatLabel'];
   set alwaysFloatLabel(bool value) { jsElement[r'alwaysFloatLabel'] = value; }
 
-  /// Set to true to auto-validate the input value. If you're using PaperInputBehavior to
-  /// implement your own paper-input-like element, bind this to
-  /// the `<paper-input-container>`'s `autoValidate` property.
-  bool get autoValidate => jsElement[r'autoValidate'];
-  set autoValidate(bool value) { jsElement[r'autoValidate'] = value; }
-
   /// If you're using PaperInputBehavior to implement your own paper-input-like
   /// element, bind this to the `<input is="iron-input">`'s `autocapitalize` property.
   String get autocapitalize => jsElement[r'autocapitalize'];
@@ -71,6 +65,12 @@ abstract class PaperInputBehavior implements CustomElementProxyMixin, IronContro
   /// used with type=search.
   String get autosave => jsElement[r'autosave'];
   set autosave(String value) { jsElement[r'autosave'] = value; }
+
+  /// Set to true to auto-validate the input value. If you're using PaperInputBehavior to
+  /// implement your own paper-input-like element, bind this to
+  /// the `<paper-input-container>`'s `autoValidate` property.
+  bool get autoValidate => jsElement[r'autoValidate'];
+  set autoValidate(bool value) { jsElement[r'autoValidate'] = value; }
 
   /// Set to true to show a character counter.
   bool get charCounter => jsElement[r'charCounter'];
@@ -122,7 +122,7 @@ abstract class PaperInputBehavior implements CustomElementProxyMixin, IronContro
   set list(String value) { jsElement[r'list'] = value; }
 
   /// The maximum (numeric or date-time) input value.
-  /// Can be a String (e.g. `"2000-1-1"`) or a Number (e.g. `2`).
+  /// Can be a String (e.g. `"2000-01-01"`) or a Number (e.g. `2`).
   /// If you're using PaperInputBehavior to implement your own paper-input-like
   /// element, bind this to the `<input is="iron-input">`'s `max` property.
   String get max => jsElement[r'max'];

@@ -11,6 +11,7 @@ import 'package:polymer_interop/polymer_interop.dart';
 import 'package:web_components/web_components.dart';
 import 'package:test/test.dart';
 import 'common.dart';
+import 'dart:js';
 
 main() async {
   await initWebComponents();
@@ -149,6 +150,31 @@ main() async {
         expect(dropdownMenu.validate(null), isTrue);
         expect(dropdownMenu.invalid, isFalse);
         expect(dropdownMenu.value, 'Bar');
+      });
+
+      suite('selectedItemLabel', () {
+        test('label property', () {
+          PaperDropdownMenu dropdownMenu = fixture('LabelsDropdownMenu');
+          var menu = Polymer.dom(dropdownMenu).querySelector('.dropdown-content');
+          menu.selected = 0;
+          //Fake a label property since paper-item doesn't have one
+          new JsObject.fromBrowserObject(dropdownMenu.selectedItem)['label'] = dropdownMenu.selectedItem.getAttribute('label');
+          $expect(dropdownMenu.selectedItemLabel).to.be.equal('Foo label property');
+        });
+
+        test('label attribute', () {
+          PaperDropdownMenu dropdownMenu = fixture('LabelsDropdownMenu');
+          var menu = Polymer.dom(dropdownMenu).querySelector('.dropdown-content');
+          menu.selected = 1;
+          $expect(dropdownMenu.selectedItemLabel).to.be.equal('Foo label attribute');
+        });
+
+        test('textContent', () {
+          PaperDropdownMenu dropdownMenu = fixture('LabelsDropdownMenu');
+          var menu = Polymer.dom(dropdownMenu).querySelector('.dropdown-content');
+          menu.selected = 2;
+          $expect(dropdownMenu.selectedItemLabel).to.be.equal('Foo textContent');
+        });
       });
     });
   });

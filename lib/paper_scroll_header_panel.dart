@@ -47,6 +47,14 @@ import 'iron_resizable_behavior.dart';
 /// `paper-scroll-header-panel` works well with `paper-toolbar` but can use any element
 /// that represents a header by adding a `paper-header` class to it.
 ///
+/// Note: If the class `paper-header` is used, the header must be positioned relative or absolute. e.g.
+///
+/// ```css
+/// .paper-header {
+///   position: relative;
+/// }
+/// ```
+///
 /// ```html
 /// <paper-scroll-header-panel>
 ///   <div class="paper-header">Header</div>
@@ -63,7 +71,8 @@ import 'iron_resizable_behavior.dart';
 /// ----------------|-------------|----------
 /// --paper-scroll-header-panel-full-header | To change background for toolbar when it is at its full size | {}
 /// --paper-scroll-header-panel-condensed-header | To change the background for toolbar when it is condensed | {}
-/// --paper-scroll-header-container | To override or add container styles | {}
+/// --paper-scroll-header-panel-container | To override or add container styles | {}
+/// --paper-scroll-header-panel-header-container | To override or add header styles | {}
 @CustomElementProxy('paper-scroll-header-panel')
 class PaperScrollHeaderPanel extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronResizableBehavior {
   PaperScrollHeaderPanel.created() : super.created();

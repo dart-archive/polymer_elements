@@ -8,6 +8,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
+import 'iron_a11y_keys_behavior.dart';
 import 'iron_validatable_behavior.dart';
 import 'iron_input.dart';
 import 'iron_flex_layout.dart';
@@ -18,7 +19,7 @@ import 'date_validator.dart';
 
 
 @CustomElementProxy('date-input')
-class DateInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronValidatableBehavior {
+class DateInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronA11yKeysBehavior, IronValidatableBehavior {
   DateInput.created() : super.created();
   factory DateInput() => new Element.tag('date-input');
 
@@ -40,6 +41,9 @@ class DateInput extends HtmlElement with CustomElementProxyMixin, PolymerBase, I
   /// Bound to the month and year input elements' `inputmode` property.
   String get inputmode => jsElement[r'inputmode'];
   set inputmode(String value) { jsElement[r'inputmode'] = value; }
+
+  get keyBindings => jsElement[r'keyBindings'];
+  set keyBindings(value) { jsElement[r'keyBindings'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
 
   /// The month component of the date displayed.
   String get month => jsElement[r'month'];

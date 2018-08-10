@@ -41,6 +41,14 @@ import 'iron_resizable_behavior.dart';
 ///         <div>Content goes here...</div>
 ///       </div>
 ///     </iron-collapse>
+///
+/// ### Styling
+///
+/// The following custom properties and mixins are available for styling:
+///
+/// Custom property | Description | Default
+/// ----------------|-------------|----------
+/// `--iron-collapse-transition-duration` | Animation transition duration | `300ms`
 @CustomElementProxy('iron-collapse')
 class IronCollapse extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronResizableBehavior {
   IronCollapse.created() : super.created();
@@ -52,13 +60,18 @@ class IronCollapse extends HtmlElement with CustomElementProxyMixin, PolymerBase
   bool get horizontal => jsElement[r'horizontal'];
   set horizontal(bool value) { jsElement[r'horizontal'] = value; }
 
-  /// Set noAnimation to true to disable animations
+  /// Set noAnimation to true to disable animations.
   bool get noAnimation => jsElement[r'noAnimation'];
   set noAnimation(bool value) { jsElement[r'noAnimation'] = value; }
 
   /// Set opened to true to show the collapse element and to false to hide it.
   bool get opened => jsElement[r'opened'];
   set opened(bool value) { jsElement[r'opened'] = value; }
+
+  /// When true, the element is transitioning its opened state. When false,
+  /// the element has finished opening/closing.
+  bool get transitioning => jsElement[r'transitioning'];
+  set transitioning(bool value) { jsElement[r'transitioning'] = value; }
 
   /// enableTransition() is deprecated, but left over so it doesn't break existing code.
   /// Please use `noAnimation` property instead.
@@ -78,6 +91,6 @@ class IronCollapse extends HtmlElement with CustomElementProxyMixin, PolymerBase
   /// Updates the size of the element.
   /// [size]: The new value for `maxWidth`/`maxHeight` as css property value, usually `auto` or `0px`.
   /// [animated]: if `true` updates the size with an animation, otherwise without.
-  updateSize(size, animated) =>
+  updateSize(String size, animated) =>
       jsElement.callMethod('updateSize', [size, animated]);
 }

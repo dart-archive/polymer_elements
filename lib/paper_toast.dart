@@ -57,7 +57,7 @@ import 'iron_a11y_announcer.dart';
 /// This element applies the mixin `--paper-font-common-base` but does not import `paper-styles/typography.html`.
 /// In order to apply the `Roboto` font to this element, make sure you've imported `paper-styles/typography.html`.
 @CustomElementProxy('paper-toast')
-class PaperToast extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronFitBehavior, IronResizableBehavior, IronOverlayBehavior {
+class PaperToast extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronFitBehavior, IronResizableBehavior, IronOverlayBehaviorImpl, IronOverlayBehavior {
   PaperToast.created() : super.created();
   factory PaperToast() => new Element.tag('paper-toast');
 

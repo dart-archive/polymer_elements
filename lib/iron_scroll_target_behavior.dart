@@ -8,6 +8,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
+import 'dart:js';
 
 /// `Polymer.IronScrollTargetBehavior` allows an element to respond to scroll events from a
 /// designated scroll target.
@@ -47,12 +48,22 @@ abstract class IronScrollTargetBehavior implements CustomElementProxyMixin {
   /// ```js
   /// appHeader.scrollTarget = document.querySelector('#scrollable-element');
   /// ```
-  get scrollTarget => jsElement[r'scrollTarget'];
-  set scrollTarget(value) { jsElement[r'scrollTarget'] = (value is Map || (value is Iterable && value is! JsArray)) ? new JsObject.jsify(value) : value;}
+  Element get scrollTarget => jsElement[r'scrollTarget'];
+  set scrollTarget(Element value) { jsElement[r'scrollTarget'] = value; }
 
   /// Scrolls the content to a particular place.
   /// [left]: The left position
   /// [top]: The top position
-  scroll(num left, num top) =>
-      jsElement.callMethod('scroll', [left, top]);
+  targetScroll(num left, num top) =>
+        jsElement.callMethod('scroll', [left, top]);
+  
+  /// Set the scroll handler 
+  set scrollTargetHandler(Function handler) => jsElement['_scrollHandler']=allowInterop(handler);
+  /// Get the scroll handler 
+  Function get scrollTargetHandler => jsElement['_scrollHandler'];
+
+  /// Enables or disables the scroll event listener.
+  /// [yes]: True to add the event, False to remove it.
+  toggleScrollListener(bool yes) =>
+      jsElement.callMethod('toggleScrollListener', [yes]);
 }

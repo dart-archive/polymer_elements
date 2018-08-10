@@ -38,9 +38,9 @@ class GoogleCastableVideo extends VideoElement with CustomElementProxyMixin, Pol
 
   get bothPaused => jsElement[r'bothPaused'];
 
-  get castMedia => jsElement[r'castMedia'];
-
   get casting => jsElement[r'casting'];
+
+  get castMedia => jsElement[r'castMedia'];
 
   get receiverAvailable => jsElement[r'receiverAvailable'];
 

@@ -26,7 +26,7 @@ import 'app_network_status_behavior.dart';
 ///     data="{{data}}">
 /// </firebase-query>
 ///
-/// <template is="dom-repeat" items="{{data}}" as="{{note}}">
+/// <template is="dom-repeat" items="{{data}}" as="note">
 ///   <sticky-note note-data="{{note}}"></sticky-note>
 /// </template>
 ///
@@ -47,7 +47,7 @@ import 'app_network_status_behavior.dart';
 /// </script>
 /// ```
 @CustomElementProxy('firebase-query')
-class FirebaseQuery extends HtmlElement with CustomElementProxyMixin, PolymerBase, AppStorageBehavior, AppNetworkStatusBehavior, FirebaseCommonBehaviorImpl, FirebaseCommonBehavior, FirebaseDatabaseBehaviorImpl, FirebaseDatabaseBehavior {
+class FirebaseQuery extends HtmlElement with CustomElementProxyMixin, PolymerBase, AppStorageBehavior, AppNetworkStatusBehavior, FirebaseCommonBehavior, FirebaseDatabaseBehavior {
   FirebaseQuery.created() : super.created();
   factory FirebaseQuery() => new Element.tag('firebase-query');
 

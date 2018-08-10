@@ -8,7 +8,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/web_components.dart';
 import 'package:polymer_interop/polymer_interop.dart';
-import '../../app_layout/helpers/helpers.dart';
+import '../../iron_scroll_target_behavior.dart';
 
 /// app-scrollpos-control is a manager for saving and restoring the scroll position when multiple
 /// pages are sharing the same document scroller.
@@ -44,7 +44,7 @@ import '../../app_layout/helpers/helpers.dart';
 /// </app-drawer-layout>
 /// ```
 @CustomElementProxy('app-scrollpos-control')
-class AppScrollposControl extends HtmlElement with CustomElementProxyMixin, PolymerBase {
+class AppScrollposControl extends HtmlElement with CustomElementProxyMixin, PolymerBase, IronScrollTargetBehavior {
   AppScrollposControl.created() : super.created();
   factory AppScrollposControl() => new Element.tag('app-scrollpos-control');
 

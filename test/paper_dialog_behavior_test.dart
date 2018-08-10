@@ -298,15 +298,6 @@ main() async {
       $assert.equal(dialog.attributes['role'], 'dialog', 'has role="dialog"');
     });
 
-    test('dialog has aria-modal=false', () {
-      var dialog = fixture('basic');
-      $assert.equal(dialog.attributes['aria-modal'], 'false', 'has aria-modal="false"');
-    });
-
-    test('modal dialog has aria-modal=true', () {
-      var dialog = fixture('modal');
-      $assert.equal(dialog.attributes['aria-modal'], 'true', 'has aria-modal="true"');
-    });
   });
 }
 
