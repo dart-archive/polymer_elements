@@ -6,6 +6,7 @@
  * Update elements at 20160726
  * added support for `platinum-elements`
  * fixed pubspec for dart 1.23.0
+ * using roboto local instead of remote
 
 ## 1.0.0-rc.10
 
